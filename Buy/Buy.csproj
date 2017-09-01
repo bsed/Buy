@@ -296,6 +296,10 @@
     <Compile Include="Migrations\201709010842514_Init.Designer.cs">
       <DependentUpon>201709010842514_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709010920171_AddRegistrationCode.cs" />
+    <Compile Include="Migrations\201709010920171_AddRegistrationCode.Designer.cs">
+      <DependentUpon>201709010920171_AddRegistrationCode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActionCells.cs" />
@@ -307,6 +311,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageResizer.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RegistrationCode.cs" />
     <Compile Include="Models\RoleGroup.cs" />
     <Compile Include="Models\SystemMessage.cs" />
     <Compile Include="Models\SystemSetting.cs" />
@@ -409,6 +414,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201709010842514_Init.resx">
       <DependentUpon>201709010842514_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709010920171_AddRegistrationCode.resx">
+      <DependentUpon>201709010920171_AddRegistrationCode.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

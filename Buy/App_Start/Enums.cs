@@ -211,12 +211,12 @@ namespace Buy.Enums
 
     public enum UserType
     {
-        [Display(Name = "普通")]
+        [Display(Name = "普通用户")]
         Normal,
-        [Display(Name = "系统")]
+        [Display(Name = "管理员")]
         System,
-        [Display(Name = "子账号")]
-        Child
+        [Display(Name = "代理")]
+        Proxy
     }
 
     public enum ShareLogType

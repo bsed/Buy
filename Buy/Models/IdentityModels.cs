@@ -89,5 +89,7 @@ namespace Buy.Models
 
         public virtual DbSet<FoodCouponType> FoodCouponTypes { get; set; }
 
+        public virtual DbSet<RegistrationCode> RegistrationCodes { get; set; }
+
     }
 }
