@@ -34,7 +34,7 @@ namespace Buy.Models
         [Display(Name = "图片")]
         public virtual string Image { get; set; }
 
-        
+
 
         [Display(Name = "副标题")]
         public virtual string Subtitle { get; set; }
@@ -88,22 +88,14 @@ namespace Buy.Models
         [Display(Name = "总数")]
         public int Total { get; set; }
 
-        public virtual List<CouponUser> Users { get; set; }
-    }
-
-
-    public class CouponUser
-    {
-        public virtual int ID { get; set; }
-
-        public virtual int CouponID { get; set; }
-
-        public string Link { get; set; }
-
-        public virtual Coupon Coupon { get; set; }
-
+        [Display(Name = "用户ID")]
         public string UserID { get; set; }
+
+        [Display(Name = "连接")]
+        public string Link { get; set; }
     }
+
+
 
     public class CouponViewModel
     {
