@@ -26,7 +26,6 @@ namespace Buy.Models
             NickName = user.NickName;
             UserName = user.UserName;
             IsFrozen = user.LockoutEndDateUtc.HasValue ? (user.LockoutEndDateUtc.Value - DateTime.Now).TotalDays > 365 : false;
-          
         }
 
 
@@ -52,9 +51,7 @@ namespace Buy.Models
         public string QRCode { get; set; }
 
         public string Email { get; set; }
-
-      
-
+        
         public List<string> Roles { get; set; }
 
         public bool IsFrozen { get; set; }
@@ -66,9 +63,11 @@ namespace Buy.Models
         public int Follow { get; set; }
 
         public string ShareUrl { get; set; }
-        
-    }
 
+        public bool IsActivation { get; set; }
+
+
+    }
 
     public class ChildCreateViewModel
     {
@@ -121,4 +120,5 @@ namespace Buy.Models
 
         public string PhoneNumber { get; set; }
     }
+    
 }

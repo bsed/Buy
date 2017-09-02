@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Buy.Models.RegistrationCodeViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+    var paged = (PagedList.IPagedList)ViewBag.Paged;
+}
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseUser)
+            </th>
+        </tr>
+    </thead>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Create.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UseTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Use.UserName)
+        </td>
+    </tr>
+}
+
+</table>
+@Html.PageList(paged,Url.PageUrl())

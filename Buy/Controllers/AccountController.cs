@@ -17,12 +17,13 @@ namespace Buy.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +35,9 @@ namespace Buy.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -52,6 +53,33 @@ namespace Buy.Controllers
             }
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        [AllowCrossSiteJson]
+        public ActionResult GetUserInfo(string userId)
+        {
+            var user = db.Users.FirstOrDefault(s => s.Id==userId);
+            if(user==null)
+            {
+                return Json(Comm.ToMobileResult("Error", "没有这个用户"),JsonRequestBehavior.AllowGet);
+            }
+            var isActivation = true;
+                var registrationCodes = db.RegistrationCodes.Where(s => s.UseUser == user.Id);
+            if (registrationCodes.Count() <= 0)
+            {
+                isActivation = false;
+            }
+            var data = new
+            {
+                user.Id,
+                user.UserName,
+                user.NickName,
+                user.PhoneNumber,
+                IsActivation = isActivation
+            };
+            return Json(Comm.ToMobileResult("Success", "成功",new { Data= data }), JsonRequestBehavior.AllowGet);
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -65,29 +93,33 @@ namespace Buy.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        [AllowCrossSiteJson]
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            // 这不会计入到为执行帐户锁定而统计的登录失败次数中
-            // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, false, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName || s.PhoneNumber == model.UserName);
+                        return Json(Comm.ToMobileResult("Success", "登录成功", new { ID = user.Id }));
+                    }
                 case SignInStatus.LockedOut:
-                    return View("Lockout");
+                    {
+                        var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName || s.PhoneNumber == model.UserName);
+                        if (user.IsLocked())
+                        {
+                            return Json(Comm.ToMobileResult("LockedOut", "帐号已经被冻结"));
+                        }
+                        return Json(Comm.ToMobileResult("LockedOut", "因多次登录失败，帐号已经被冻结，请稍微再试"));
+                    }
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    {
+                        return Json(Comm.ToMobileResult("RequiresVerification", "用户或密码为空"));
+                    }
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "无效的登录尝试。");
-                    return View(model);
+                    return Json(Comm.ToMobileResult("Failure", "用户或密码有误"));
             }
         }
 
@@ -120,7 +152,7 @@ namespace Buy.Controllers
             // 如果用户输入错误代码的次数达到指定的次数，则会将
             // 该用户帐户锁定指定的时间。
             // 可以在 IdentityConfig 中配置帐户锁定设置
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -146,30 +178,63 @@ namespace Buy.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [AllowCrossSiteJson]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var verCode = Bll.Accounts.VerCode(model.PhoneNumber, model.Code);
+                //if (!verCode.IsSuccess)
+                //{
+                //    return Json(Comm.ToMobileResult("Error", verCode.Message));
+                //}
+                if (db.Users.Any(s => s.UserName == model.PhoneNumber))
+                {
+                    return Json(Comm.ToMobileResult("Error", "用户名已存在"));
+                }
+                var user = new ApplicationUser
+                {
+                    UserName = model.PhoneNumber,
+                    UserType = Enums.UserType.Normal,
+                    RegisterDateTime = DateTime.Now,
+                    LastLoginDateTime = DateTime.Now,
+                    PhoneNumber = model.PhoneNumber,
+                    NickName = model.PhoneNumber,
+                    PhoneNumberConfirmed = true,
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771
-                    // 发送包含此链接的电子邮件
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "确认你的帐户", "请通过单击 <a href=\"" + callbackUrl + "\">這裏</a>来确认你的帐户");
-
-                    return RedirectToAction("Index", "Home");
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
+                    return Json(Comm.ToMobileResult("Success", "成功", new { ID = user.Id }));
                 }
-                AddErrors(result);
+                return Json(Comm.ToMobileResult("Error", result.Errors.FirstOrDefault()));
             }
+            return Json(Comm.ToMobileResult("Error", ModelState.FirstErrorMessage()));
+        }
 
-            // 如果我们进行到这一步时某个地方出错，则重新显示表单
-            return View(model);
+        [HttpPost]
+        [AllowAnonymous]
+        [AllowCrossSiteJson]
+        public ActionResult Activation(string userId, string code)
+        {
+            var registrationCodes = db.RegistrationCodes.FirstOrDefault(s => s.Code == code);
+            if (registrationCodes == null)
+            {
+                return Json(Comm.ToMobileResult("Error", "没有这个注册码"));
+            }
+            else
+            {
+                if (registrationCodes.UseTime.HasValue)
+                {
+                    return Json(Comm.ToMobileResult("Error", "注册码已激活"));
+                }
+            }
+            registrationCodes.UseTime = DateTime.Now;
+            registrationCodes.UseUser = userId;
+            db.SaveChanges();
+            return Json(Comm.ToMobileResult("Success", "成功"));
         }
 
         //
@@ -197,28 +262,33 @@ namespace Buy.Controllers
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        [AllowCrossSiteJson]
+        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                var user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
+                if (user == null)
                 {
-                    // 请不要显示该用户不存在或者未经确认
-                    return View("ForgotPasswordConfirmation");
+                    return Json(Comm.ToMobileResult("NoFound", "用户不存在"));
                 }
-
-                // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771
-                // 发送包含此链接的电子邮件
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "重置密码", "请通过单击 <a href=\"" + callbackUrl + "\">此处</a>来重置你的密码");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                var verCode = Bll.Accounts.VerCode(user.PhoneNumber, model.Code);
+                //if (!verCode.IsSuccess)
+                //{
+                //    return Json(Comm.ToMobileResult("Error", verCode.Message));
+                //}
+                UserManager.RemovePassword(user.Id);
+                var r = UserManager.AddPassword(user.Id, model.Password);
+                if (r.Succeeded)
+                {
+                    return Json(Comm.ToMobileResult("Success", "设置成功"));
+                }
+                else
+                {
+                    return Json(Comm.ToMobileResult("Error", r.Errors.FirstOrDefault()));
+                }
             }
-
-            // 如果我们进行到这一步时某个地方出错，则重新显示表单
-            return View(model);
+            return Json(Comm.ToMobileResult("Error", ModelState.FirstErrorMessage()));
         }
 
         //

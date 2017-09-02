@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Buy.Models
 {
@@ -27,8 +28,7 @@ namespace Buy.Models
         public string WeChatID { get; set; }
 
         public string QRCode { get; set; }
-
-
+               
         public DateTime RegisterDateTime { get; set; }
 
         public DateTime LastLoginDateTime { get; set; }

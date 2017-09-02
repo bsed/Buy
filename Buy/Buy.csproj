@@ -289,6 +289,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RegistrationCodeController.cs" />
+    <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -321,6 +323,7 @@
     <Compile Include="Models\CouponType.cs" />
     <Compile Include="Models\CouponViewModels.cs" />
     <Compile Include="Models\UpdateLog.cs" />
+    <Compile Include="Models\UserManage.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\VerificationCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -336,6 +339,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -351,12 +357,34 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\less\layoutBackground.less" />
+    <Content Include="Content\less\base.less" />
+    <Content Include="Content\Site.less" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="phantomjs-license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Comm\accessLog.js" />
+    <Content Include="Scripts\Comm\canvas-to-blob.min.js" />
+    <Content Include="Scripts\Comm\check.js" />
+    <Content Include="Scripts\Comm\cloud.js" />
+    <Content Include="Scripts\Comm\comm.js" />
+    <Content Include="Scripts\Comm\getMessage.js" />
+    <Content Include="Scripts\Comm\imageModule.js" />
+    <Content Include="Scripts\Comm\imageResizeUpload.js" />
+    <Content Include="Scripts\Comm\jquery.dotdotdot.min.js" />
+    <Content Include="Scripts\Comm\jQueryEx.js" />
+    <Content Include="Scripts\Comm\jsEx.js" />
+    <Content Include="Scripts\Comm\map.js" />
+    <Content Include="Scripts\Comm\searchUser.js" />
+    <Content Include="Scripts\Comm\uploadfile.js" />
+    <Content Include="Scripts\Comm\urlMatch.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
@@ -368,6 +396,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -403,6 +432,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\RegistrationCode\Create.cshtml" />
+    <Content Include="Views\Shared\_LayoutBackground.cshtml" />
+    <Content Include="Views\UserManage\Create.cshtml" />
+    <Content Include="Views\UserManage\Index.cshtml" />
+    <Content Include="Views\RegistrationCode\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
