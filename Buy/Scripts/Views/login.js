@@ -1,5 +1,4 @@
 ﻿$("#submit").click(function (e) {
-    console.log("dsfdsf");
     var data = {
         UserName: $("#UserName").val(),
         Password: $("#Password").val(),

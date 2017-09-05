@@ -1,0 +1,58 @@
+﻿@model Buy.Models.CouponTypeViewModel
+
+@{
+    ViewBag.Title = "删除分类";
+    Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li>@Html.ActionLink("分类管理", "Index", new { pid = Model.ParentID })</li>
+    <li class="active">删除分类</li>
+</ol>
+
+<div>
+    @Html.ValidationSummary(null, new { @class = "text-danger" })
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Keyword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Keyword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sort)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sort)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src="@Comm.ResizeImage(Model.Image,w:150)" />
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="删除" class="btn btn-default" />
+        </div>
+    }
+</div>

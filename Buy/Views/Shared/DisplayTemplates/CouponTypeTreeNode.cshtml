@@ -1,0 +1,17 @@
+﻿@model Buy.Models.CouponTypeTreeNode
+
+@{
+    Layout = null;
+}
+<li data-id="@Model.ID">
+    <div>
+        <span class="glyphicon glyphicon-triangle-bottom @(Model.Childs.Count > 0?"":"vhidden")"></span>
+        <a data-id="@Model.ID">@Model.Name</a>
+    </div>
+    <ul>
+        @foreach (var item in Model.Childs)
+        {
+            @Html.DisplayFor(model => item)
+        }
+    </ul>
+</li>

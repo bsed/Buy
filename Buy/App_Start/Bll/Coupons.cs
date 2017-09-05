@@ -10,7 +10,7 @@ namespace Buy.Bll
     {
         public static int? CheckType(string keyword)
         {
-            return Bll.SystemSettings.ThirdPartyTicketType.FirstOrDefault(s =>
+            return Bll.SystemSettings.CouponType.FirstOrDefault(s =>
              {
                  var keys = s.Keyword.SplitToArray<string>();
                  return keys.Any(x => keyword.Contains(x));

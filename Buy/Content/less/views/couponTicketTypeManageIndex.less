@@ -1,0 +1,53 @@
+﻿@import "../base";
+
+.couponTicketTypeManageIndex{
+        .vhidden {
+        visibility: hidden;
+    }
+
+    .couponTicketTypeManageIndex-tree {
+        .couponTicketTypeManageIndex-tree-tool {
+            .clearfix();
+
+            span {
+                color: @gray-light;
+                margin: 0 2px;
+                font-size: 12px;
+                float: right;
+            }
+        }
+
+        ul {
+            .clean-ul();
+
+            li {
+                cursor: pointer;
+                padding-left: 20px;
+
+                div {
+                    position: relative;
+                    white-space: nowrap;
+                }
+            }
+
+            span {
+                color: @gray-light;
+                margin: 0 2px;
+                font-size: 12px;
+            }
+        }
+
+        &.move {
+
+            > ul ul {
+                min-height: 5px;
+                border: 1px dashed @text-danger;
+            }
+        }
+    }
+
+    .couponTicketTypeManageIndex-index, .couponTicketTypeManageIndex-tree {
+        vertical-align: top;
+        padding: 10px;
+    }
+}

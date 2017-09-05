@@ -32,11 +32,9 @@ namespace Buy.Bll
                         default:
                             break;
                     }
-                    var tptType = db.CouponTypes.ToList();
-                    _couponType = new ObservableCollection<Models.CouponType>(tptType);
-                    _couponType.CollectionChanged += _couponType_CollectionChanged;
-
                 }
+                _couponType = new ObservableCollection<Models.CouponType>(db.CouponTypes);
+                _couponType.CollectionChanged += _couponType_CollectionChanged;
             }
         }
 
@@ -122,7 +120,7 @@ namespace Buy.Bll
         //第三方优惠分類
         private static ObservableCollection<CouponType> _couponType;
 
-        public static ObservableCollection<CouponType> ThirdPartyTicketType
+        public static ObservableCollection<CouponType> CouponType
         {
             get
             {

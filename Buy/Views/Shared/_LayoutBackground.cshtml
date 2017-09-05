@@ -8,7 +8,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/bundles/datetimepicker/css")
-    <meta name="description" content="章鱼" />
+    <meta name="description" content="买了么" />
     @{
 
         Func<string, string> hidSidebar = s =>
@@ -41,6 +41,8 @@
                 <li>
                     <a href="@Url.Action("Index", "UserManage")" title="用户管理">用户管理</a>
                 </li>
+                <li><a href="@Url.Action("Index", "CouponTypeManage")" title="优惠券类型管理">优惠券类型管理</a></li>
+                <li><a href="@Url.Action("Index", "CouponManage")" title="优惠券管理">优惠券管理</a></li>
             </ul>
         </div>
 
