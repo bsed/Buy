@@ -447,10 +447,11 @@
     <Content Include="Views\CouponTypeManage\Details.cshtml" />
     <Content Include="Views\CouponTypeManage\Create.cshtml" />
     <Content Include="Views\CouponTypeManage\Edit.cshtml" />
+    <Content Include="Views\Coupon\Details.cshtml" />
+    <Content Include="Views\Coupon\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Coupon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

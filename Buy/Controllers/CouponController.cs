@@ -110,6 +110,9 @@ namespace Buy.Controllers
             return query;
         }
 
+
+
+
         // GET: Coupon
         [AllowCrossSiteJson]
         public ActionResult GetAll(string userId, string filter, int page = 1, string types = null, string platforms = null
@@ -317,5 +320,19 @@ namespace Buy.Controllers
             return Json(Comm.ToMobileResult("Success", "成功", new { Data = "" }), JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Index(Enums.CouponPlatform p = Enums.CouponPlatform.TaoBao, int? typeID = null)
+        {
+            return View();
+        }
+
+
+        public ActionResult Details(int? id)
+        {
+            if (!id.HasValue)
+            {
+                this.ToError("错误", "优惠券不存在");
+            }
+            return View();
+        }
     }
 }
