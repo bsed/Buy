@@ -1,56 +1,15 @@
 ﻿/*系统参数*/
 @font-family: "微软雅黑";
-@font-col-main: #673AB7;
+@font-col-main: #E02E24;
 @font-col-white: #fff;
-@font-col-black01: #212121;
-@font-col-grey01: #757575;
-@font-col-grey02: rgba(0,0,0,0.38);
-@font-col-grey03: #d2d2d2;
-@font-col-grey04: #bdbdbd;
-@font-col-grey05: rgba(0,0,0,0.54);
-@font-col-yellow: #FFC107;
-@font-col-yellow02: #F8B628;
-@font-col-yellow03: #917C01;
-@font-col-oranger:#FF5E26;
-@font-col-oranger02:#FF6700;
-@font-col-red: #FF2D55;
-@font-col-blue: #668CE6;
-@font-col-warming: #b8983a;
-@font-col-success: #50b73a;
-@font-color-error: #B83A3A;
+@font-col-black01:#212121;
+@font-col-grey01:rgba(0,0,0,0.54);
 
 @bg-color-transparent: rgba(0,0,0,0);
 @bg-color-white: #fff;
-@bg-color-main: #6739b7;
-@bg-color-purple: #6739b7;
-@bg-color-grey: #F2F2F2;
-@bg-color-grey02: #9aa2bc;
-@bg-color-yellow: #FFC107;
-@bg-color-yellow02: #F3A828;
-@bg-color-yellow03: #E7A330;
-@bg-color-yellow04:#FFD900;
-@bg-color-yellow03-hover: #f0c782;
-@bg-color-red01: #cf2d41;
-@bg-color-red02: #BF2A3B;
-@bg-color-button-disabled: #d2d2d2;
-@bg-color-button-hover: #8061b8;
-@bg-color-inputBox: #f5f5f5;
-
-@border-col-main: #673AB7;
-@border-col-grey01: rgba(0,0,0,0.12);
-@border-col-grey02: #d9d9d9;
-@border-col-black: #212121;
-@border-col-yellow: #F8B628;
-
-
-@font-color-1: #3c3c3c;
-@font-color-5: #fff;
-@font-color-grey01: #666;
-@font-color-grey02: #5E6D82;
-@font-color-grey03: #99A9BF;
-@font-color-orange01: #ff6441;
-@font-color-orange02: #FF7647;
-@font-color-error: #FF4343;
+@bg-color-grey01: #f2f2f2;
+@bg-color-yellow:#ffd500;
+@bg-color-main: #E02E24;
 
 @font-size-1: 12rem*@resize;
 @font-size-2: 14rem*@resize;
@@ -60,25 +19,8 @@
 @font-size-24: 24rem*@resize;
 @font-size-36: 36rem*@resize;
 
-@color-main: #d72227;
-@color-bg-main: #428bca;
-@color-bg-disabled: #EFF2F7;
-@color-bg-grey01: #ebeef1;
-@color-bg-grey02: #e0e0e0;
-@color-bg-orange01: #ae4d3b;
-@color-bg-orange02: #fef7f6;
-@color-bg-orange03: #FF6441;
-
-@user-color-main: #342a32;
-
 @border-color: #eeeeee;
-@border-color-bc: #ddd;
-@border-color-input: #C0CCDA;
-@border-color-inputFocus: #FF6441;
-@border-color-disabled: #D3DCE6;
-@border-color-error: #FF4949;
 @border: 1rem*@resize solid @border-color;
-@border-bc: 1px solid @border-color-bc;
 
 @screen-xs: 320px;
 @screen-sm: 750px;
@@ -205,68 +147,6 @@
     &:focus {
         outline: none;
     }
-}
-
-.buttonStyle(@w: 0,@h: 0,@bc: @bg-color-main,@c: @font-col-white,@border-c: @bg-color-main,@br: 0.077rem,@fs: @font-size-3,@hc: @bg-color-button-hover,@hcol: @font-col-white,@hbc,@ahc: @bg-color-button-hover,@abc,@ahcol: @font-col-white,@dc: @bg-color-button-disabled,@dbc: @bg-color-button-disabled,@dcol: @font-col-white) {
-    padding: @h @w;
-    background-color: @bc;
-    color: @c;
-    border: 1px solid @border-c;
-    border-radius: @br;
-    font-size: @fs;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    text-decoration: none;
-    -moz-transition: .2s all;
-    -o-transition: .2s all;
-    -webkit-transition: .2s all;
-    transition: .2s all;
-    .clean-input();
-
-    &:active {
-        box-shadow: inset 0 3px 10px rgba(0, 0, 0, .125);
-        background-color: @ahc;
-        border-color: @abc;
-        color: @ahcol;
-
-        &:hover {
-            background-color: @ahc;
-            border-color: @abc;
-            color: @ahcol;
-        }
-
-        &:focus {
-            outline: none;
-            background-color: @ahc;
-            border-color: @abc;
-            color: @ahcol;
-        }
-    }
-
-    &:hover, &.active, &:focus {
-        background-color: @hc;
-        border-color: @hbc;
-        color: @hcol;
-    }
-
-    &:disabled {
-        background-color: @dc;
-        color: @dcol;
-        border-color: @dbc;
-    }
-}
-
-.buttonStyle2(@w: auto,@h: 30rem*@resize,@bc: @bg-color-yellow,@fontSize: @font-size-2) {
-    width: @w;
-    height: @h;
-    line-height: @h;
-    text-align: center;
-    background-color: @bc;
-    border-radius: @h/2;
-    font-size: @fontSize;
-    color: #fff;
 }
 
 .img() {

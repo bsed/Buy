@@ -5,7 +5,7 @@
     .fluid {
         display: flex;
         @w: 200px;
-        @c: @color-bg-main;
+        @c: @bg-color-main;
 
         .sidebar {
             display: none;
@@ -46,11 +46,11 @@
 
                     &.active {
                         a {
-                            color: @font-color-5;
+                            color: @font-col-white;
                             background-color: @c;
 
                             &:hover, &:focus {
-                                color: @font-color-5;
+                                color: @font-col-white;
                                 background-color: @c;
                             }
                         }
@@ -115,7 +115,7 @@
         .clean-a();
 
         &:hover {
-            color: @color-main;
+            color: @font-col-main;
         }
     }
 
@@ -126,7 +126,7 @@
             line-height: 34px;
 
             &#loginLink {
-                color: @color-main;
+                color: @font-col-main;
             }
         }
     }
@@ -142,7 +142,7 @@
                 cursor: pointer;
 
                 &:hover {
-                    color: @color-main;
+                    color: @font-col-main;
                 }
 
                 &:last-child {

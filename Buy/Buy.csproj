@@ -350,14 +350,25 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\image\test\coupon-detail-pimg02.png" />
+    <Content Include="Content\image\view\ic_navbar_back_bgblack%402x.png" />
+    <Content Include="Content\image\view\ic_navbar_share_bgblack%402x.png" />
+    <Content Include="Content\image\view\img_mogoodsx%402x.png" />
+    <Content Include="Content\image\view\logo_jd_tag%402x.png" />
+    <Content Include="Content\image\view\logo_mogujie_tag%402x.png" />
+    <Content Include="Content\image\view\logo_taobao_tag%402x.png" />
+    <Content Include="Content\image\view\logo_tmall_tag%402x.png" />
+    <Content Include="Content\image\test\coupon-detail-pimg.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Site.css">
+      <DependentUpon>Site.less</DependentUpon>
+    </Content>
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -379,6 +390,7 @@
     <Content Include="Content\less\uploader.less" />
     <Content Include="Content\less\bootstrapEx.less" />
     <Content Include="Content\less\views\couponTicketTypeManageIndex.less" />
+    <Content Include="Content\less\views\couponDetail.less" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="phantomjs-license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -480,7 +492,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Coupon\" />
     <Folder Include="Views\Uploader\" />
   </ItemGroup>
   <ItemGroup>
