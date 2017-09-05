@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web;
 
 namespace Buy.Api
@@ -20,27 +21,22 @@ namespace Buy.Api
         }
 
 
-        public BaseApi(string url, string type, Dictionary<string, string> parameter)
+        public BaseApi(string url, string type, Object data)
         {
             Url = url;
             Type = type.ToUpper();
-            Parameter = parameter;
+            Data = data;
         }
 
-        public BaseApi(string url, string type, Object json)
-        {
-            Url = url;
-            Type = type.ToUpper();
-            Json = json;
-        }
+
 
         public string Url { get; set; }
 
         public string Type { get; set; }
 
-        public Dictionary<string, string> Parameter { get; set; } = new Dictionary<string, string>();
+        public object Data { get; set; }
 
-        public object Json { get; set; }
+        public Dictionary<string, System.IO.Stream> Files { get; set; } = new Dictionary<string, Stream>();
 
         /// <summary>
         /// 创建请求
@@ -49,53 +45,26 @@ namespace Buy.Api
         /// <param name="type">类别</param>
         /// <param name="p">参数</param>
         /// <returns></returns>
-        public virtual HttpWebResponse CreateRequest()
+        public virtual Stream CreateRequest()
         {
 
-            System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(Url);
-            request.Method = Type;
-            request.ContentType = "application/x-www-form-urlencoded";
-            System.Text.StringBuilder sbPostData = new System.Text.StringBuilder();
-            int i = 0;
+            using (var client = new HttpClient())
+            using (var formData = new MultipartFormDataContent())
+            {
+                formData.Add(new StringContent(JsonConvert.SerializeObject(Data)));
+                foreach (var item in Files)
+                {
+                    HttpContent content = new StreamContent(item.Value);
+                    formData.Add(content, item.Key, item.Key);
+                }
 
-            if (Parameter != null && Parameter.Keys.Count > 0)
-            {
-                foreach (var key in Parameter.Keys)
+                var response = client.PostAsync(Url, formData).Result;
+                if (!response.IsSuccessStatusCode)
                 {
-                    if (i == 0)
-                    {
-                        sbPostData.AppendFormat("{0}={1}", key, Parameter[key]);
-                    }
-                    else
-                    {
-                        sbPostData.AppendFormat("&{0}={1}", key, Parameter[key]);
-                    }
-                    i++;
+                    return null;
                 }
-                var data = System.Text.Encoding.UTF8.GetBytes(sbPostData.ToString());
-                using (var stream = request.GetRequestStream())
-                {
-                    stream.Write(data, 0, data.Length);
-                }
+                return response.Content.ReadAsStreamAsync().Result;
             }
-            else if (Json != null)
-            {
-                string temp;
-                if (Json.GetType() == typeof(string))
-                {
-                    temp = (string)Json;
-                }
-                else
-                {
-                    temp = JsonConvert.SerializeObject(Json);
-                }
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(temp);
-                using (var stream = request.GetRequestStream())
-                {
-                    stream.Write(data, 0, data.Length);
-                }
-            }
-            return (System.Net.HttpWebResponse)request.GetResponse();
         }
 
         /// <summary>
@@ -107,9 +76,13 @@ namespace Buy.Api
         /// <returns></returns>
         public virtual JObject CreateRequestReturnJson()
         {
-            var response = CreateRequest();
-            var steam = response.GetResponseStream();
+            var steam = CreateRequest();
             string txtData = "";
+            if (steam == null)
+            {
+                return null;
+
+            }
             using (var reader = new StreamReader(steam))
             {
                 txtData = reader.ReadToEnd();
@@ -120,8 +93,7 @@ namespace Buy.Api
 
         public virtual string CreateRequestReturnString()
         {
-            var response = CreateRequest();
-            var steam = response.GetResponseStream();
+            var steam = CreateRequest();
             string txtData = "";
             using (var reader = new StreamReader(steam))
             {

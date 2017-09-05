@@ -293,7 +293,7 @@ namespace Buy.Controllers
             }
             return Json(Comm.ToMobileResult("Success", "成功", new { Data = img }), JsonRequestBehavior.AllowGet);
         }
-        
+
         [AllowCrossSiteJson]
         public ActionResult GetPwd(int id)
         {
@@ -345,6 +345,19 @@ namespace Buy.Controllers
                 this.ToError("错误", "优惠券不存在");
             }
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult ImportTaobao(string userID)
+        {
+            if (string.IsNullOrWhiteSpace(userID))
+            {
+                return Json(Comm.ToMobileResult("Error", "失败"));
+            }
+            var fileUrl = this.UploadFile().ToList();
+            string path = Request.MapPath(fileUrl[0]);
+            Taobao.Import(userID, path);
+            return Json(Comm.ToMobileResult("Success", "成功"));
         }
     }
 }
