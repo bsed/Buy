@@ -1,0 +1,251 @@
+﻿@model IEnumerable<Buy.Models.Coupon>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+    var paged = (PagedList.IPagedList<Buy.Models.Coupon>)Model;
+    string strPlatform = "所有";
+    Buy.Enums.CouponPlatform? platform = null;
+    if (!string.IsNullOrWhiteSpace(Request["platform"]))
+    {
+        platform = (Buy.Enums.CouponPlatform)Enum.Parse(typeof(Buy.Enums.CouponPlatform), Request["platform"], false);
+        strPlatform = platform.GetDisplayName();
+    }
+    List<Buy.Models.CouponType> type = ViewBag.Type;
+    string strType = "所有";
+    if (!string.IsNullOrWhiteSpace(Request["typeid"]))
+    {
+        strType = type.FirstOrDefault(s => s.ID == int.Parse(Request["typeid"])).Name;
+    }
+    int noTypeCout = ViewBag.NoTypeCount;
+}
+@Styles.Render("~/bundles/datetimepicker/css")
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left" method="get">
+                @Html.Hidden("platform", Request["platform"])
+                @Html.Hidden("typeid", Request["typeid"])
+                <div class="form-group">
+                    <input type="text" name="filter" class="form-control" placeholder="商品名称/店铺名称/类别" value="@Request["filter"]">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="createTime" class="form-control" placeholder="优惠券创建时间" value="@Request["createTime"]">
+                </div>
+                <button type="button" id="search_btn" class="btn btn-default">查询</button>
+            </form>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        @strPlatform<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="platform" href="#">所有</a></li>
+                        @foreach (Buy.Enums.CouponPlatform item in Enum.GetValues(typeof(Buy.Enums.CouponPlatform)))
+                        {
+                        <li><a href="#" class="platform" data-type="@item">@item.GetDisplayName()</a></li>
+                        }
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        @strType<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <li><a class="typeid" href="#">所有</a></li>
+                        @foreach (var item in type)
+                        {
+                        <li>
+                            <a href="#" class="typeid" data-type="@item.ID">
+                                @item.Name
+                            </a>
+                        </li>
+                        }
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        分类配置 <span class="badge">@noTypeCout</span><span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("NoProductType")">未统合商品<span class="badge">@noTypeCout</span></a></li>
+                        <li><a href="#" id="btnSetType">统合</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="navbar-form navbar-left">
+                <button id="btnDelSetting" type="button" class="btn btn-danger">删除</button>
+                <button id="btnDelTicket" type="button" class="btn btn-danger">删除勾选优惠券</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th><input type="checkbox" id="chkAll" /></th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShopName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OriginalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commission)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CommissionRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Left)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Link)
+            </th>
+            @*<th></th>*@
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td><input name="chkItem" type="checkbox" value="@item.ID" /></td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type.Name)
+        </td>
+        <td>
+            <div style="width:100px" class="textOverflow" title="@item.ProductType">
+                @Html.DisplayFor(modelItem => item.ProductType)
+            </div>
+        </td>
+        <td>
+            <div style="width:100px" class="textOverflow" title="@item.ShopName">
+                @Html.DisplayFor(modelItem => item.ShopName)
+            </div>
+        </td>
+        <td>
+            <div style="width:100px" class="textOverflow" title="@item.Name">
+                @Html.DisplayFor(modelItem => item.Name)
+            </div>
+        </td>
+        <td>
+            @Html.TableImg(item.Image)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OriginalPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sales)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Commission)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CommissionRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Left)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+        <td>
+            <a href="@item.Link">链接</a>
+        </td>
+        @*<td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>*@
+    </tr>
+    }
+</table>
+
+@Html.PageList(paged, Url.PageUrl())
+
+@*批量删除优惠券*@
+<div id="modDel" class="panel panel-default panel-modal hidden">
+    <div class="panel-heading">
+        删除筛选
+        <span class="glyphicon glyphicon-remove"></span>
+    </div>
+    <div class="panel-body">
+        <div class="panel-body-alterlist"></div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-3 control-label">类型</label>
+                <div class="col-md-9">
+                    @foreach (Buy.Enums.CouponPlatform item in Enum.GetValues(typeof(Buy.Enums.CouponPlatform)))
+                    {
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="delPlatform" checked value="@((int)item)"> @item.GetDisplayName()
+                        </label>
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">结束时间</label>
+                <div class="col-md-9">
+                    <input id="delDate" type="text" value="@DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd")" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <input id="btnDel" class="btn btn-danger" type="button" value="删除" />
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/datetimepicker/js")
+    @Scripts.Render("~/bundles/couponManage")
+}

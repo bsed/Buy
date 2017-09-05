@@ -7,11 +7,6 @@
 }
 <ol class="breadcrumb">
     <li>@Html.ActionLink("分类管理", "Index")</li>
-    @if (Model.ParentID != 0)
-    {
-        parentCouponType = (Buy.Models.CouponType)ViewBag.ParentCouponType;
-        <li>@Html.ActionLink(parentCouponType.Name, "Details", new { parentID = Model.ParentID })</li>
-    }
     <li class="active">编辑分类</li>
 </ol>
 
@@ -19,11 +14,11 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
-
+        @Html.HiddenFor(model => model.ParentID)
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -63,3 +58,4 @@
         </div>
     </div>
 }
+

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Buy.Models.CouponNotType>
+
+@{
+    ViewBag.Title = "未统合商品";
+    Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+    var paged = (PagedList.IPagedList<Buy.Models.CouponNotType>)Model;
+}
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Index","CouponManage")">优惠券管理</a></li>
+    <li class="active">未统合商品</li>
+</ol>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Count)
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.PageList(paged, Url.PageUrl())

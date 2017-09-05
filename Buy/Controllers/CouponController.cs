@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-//using OpenQA.Selenium.PhantomJS;
+using OpenQA.Selenium.PhantomJS;
 using CsQuery;
 using Newtonsoft.Json;
 using Microsoft.AspNet.Identity;
@@ -115,7 +115,7 @@ namespace Buy.Controllers
 
         // GET: Coupon
         [AllowCrossSiteJson]
-        public ActionResult GetAll(string userId, string filter, int page = 1, string types = null, string platforms = null
+        public ActionResult GetAll(string filter, int page = 1, string types = null, string platforms = null
           , bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0)
         {
@@ -181,118 +181,130 @@ namespace Buy.Controllers
             }), JsonRequestBehavior.AllowGet);
         }
 
-        //[AllowCrossSiteJson]
-        //public ActionResult GetDetailImgs(int id)
-        //{
-        //    List<string> img = new List<string>();
-        //    using (ApplicationDbContext db = new ApplicationDbContext())
-        //    {
-        //        var tt = db.Coupons.FirstOrDefault(s => s.ID == id);
-        //        if (tt.UrlLisr == null)
-        //        {
-        //            switch (tt.Platform)
-        //            {
-        //                case Enums.CouponPlatform.TaoBao:
-        //                    {
-        //                        using (var driver = new PhantomJSDriver())
-        //                        {
-        //                            driver.Url = $"http://h5.m.taobao.com/awp/core/detail.htm?id={tt.ProductID}";
-        //                            driver.Navigate();
-        //                            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
-        //                            try
-        //                            {
-        //                                wait.Until(s => s.FindElement(OpenQA.Selenium.By.ClassName("detail-desc")));
-        //                            }
-        //                            catch (Exception)
-        //                            {
-        //                                driver.Quit();
-        //                                return Json(Comm.ToMobileResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
-        //                            }
-        //                            var source = driver.PageSource;
-        //                            var dom = CQ.CreateDocument(source);
-        //                            img = dom.Select(".detail-desc img").Select(s => s.Attributes["data-src"]).ToList();
-        //                            driver.Quit();
-        //                        }
-        //                    }
-        //                    break;
-        //                case Enums.CouponPlatform.TMall:
-        //                    {
-        //                        var dom = CQ.CreateFromUrl($"https://detail.m.tmall.com/item.htm?id={tt.ProductID}");
-        //                        img = dom.Select(".module-content img").Select(s => s.Attributes["data-ks-lazyload"]).ToList();
-        //                        if (img.Count == 0)
-        //                        {
-        //                            img = dom.Select(".itemPhotoDetail #s-desc").Select(s => s.Attributes["data-ks-lazyload"]).ToList();
-        //                        }
-        //                    }
-        //                    break;
-        //                case Enums.CouponPlatform.Jd:
-        //                    {
-        //                        using (var driver = new PhantomJSDriver())
-        //                        {
-        //                            driver.Url = $"https://item.m.jd.com/product/{tt.ProductID}.html";
-        //                            driver.Navigate();
-        //                            driver.FindElement(OpenQA.Selenium.By.Id("detailInfo")).Click();
-        //                            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
-        //                            try
-        //                            {
-        //                                wait.Until(s => s.FindElement(OpenQA.Selenium.By.ClassName("scale-box")));
-        //                            }
-        //                            catch (Exception)
-        //                            {
-        //                                driver.Quit();
-        //                                return Json(Comm.ToMobileResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
-        //                            }
-        //                            var source = driver.PageSource;
-        //                            var dom = CQ.CreateDocument(source);
-        //                            img = dom.Select(".scale-box img").Select(s => s.Attributes["src"]).ToList();
-        //                            driver.Quit();
-        //                        }
-        //                    }
-        //                    break;
-        //                case Enums.CouponPlatform.Vip:
-        //                    break;
-        //                case Enums.CouponPlatform.MoGuJie:
-        //                    {
-        //                        var options = new PhantomJSOptions();
-        //                        options.AddAdditionalCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1");
-        //                        using (var driver = new PhantomJSDriver(options))
-        //                        {
-        //                            driver.Url = $"http://h5.mogujie.com/detail-normal/index.html?itemId={tt.ProductID}";
-        //                            driver.Navigate();
-        //                            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
-        //                            try
-        //                            {
-        //                                wait.Until(s =>
-        //                                    s.FindElement(OpenQA.Selenium.By.ClassName("tabs-content")));
-        //                            }
-        //                            catch (Exception)
-        //                            {
-        //                                driver.Quit();
-        //                                return Json(Comm.ToMobileResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
-        //                            }
-        //                            var source = driver.PageSource;
-        //                            var dom = CQ.CreateDocument(source);
-        //                            img = dom.Select(".tabs-content [data-key=0] img").Select(s => s.Attributes["origin-src"]).ToList();
-        //                            driver.Quit();
-        //                        }
-        //                    }
-        //                    break;
-        //                default:
-        //                    break;
-        //            }
-        //            if (img.Count > 0)
-        //            {
-        //                tt.UrlLisr = img.Count > 0 ? string.Join(",", img) : "";
-        //                db.SaveChanges();
-        //            }
-        //        }
-        //        else
-        //        {
-        //            img = string.IsNullOrWhiteSpace(tt.UrlLisr) ? img : tt.UrlLisr.SplitToArray<string>();
-        //        }
-        //    }
-        //    return Json(Comm.ToMobileResult("Success", "成功", new { Data = img }), JsonRequestBehavior.AllowGet);
-        //}
+        [AllowCrossSiteJson]
+        public ActionResult GetDetailImgs(int id)
+        {
+            List<string> img = new List<string>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var tt = db.Coupons.FirstOrDefault(s => s.ID == id);
+                if (tt.UrlLisr == null)
+                {
+                    switch (tt.Platform)
+                    {
+                        case Enums.CouponPlatform.TaoBao:
+                            {
+                                using (var driver = new PhantomJSDriver())
+                                {
+                                    driver.Url = $"http://h5.m.taobao.com/awp/core/detail.htm?id={tt.ProductID}";
+                                    driver.Navigate();
+                                    var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                                    try
+                                    {
+                                        wait.Until(s => s.FindElement(OpenQA.Selenium.By.ClassName("detail-desc")));
+                                    }
+                                    catch (Exception)
+                                    {
+                                        driver.Quit();
+                                        return Json(Comm.ToMobileResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
+                                    }
+                                    var source = driver.PageSource;
+                                    var dom = CQ.CreateDocument(source);
+                                    img = dom.Select(".detail-desc img").Select(s => s.Attributes["data-src"]).ToList();
+                                    driver.Quit();
+                                }
+                            }
+                            break;
+                        case Enums.CouponPlatform.TMall:
+                            {
+                                var dom = CQ.CreateFromUrl($"https://detail.m.tmall.com/item.htm?id={tt.ProductID}");
+                                img = dom.Select(".module-content img").Select(s => s.Attributes["data-ks-lazyload"]).ToList();
+                                if (img.Count == 0)
+                                {
+                                    img = dom.Select(".itemPhotoDetail #s-desc").Select(s => s.Attributes["data-ks-lazyload"]).ToList();
+                                }
+                            }
+                            break;
+                        case Enums.CouponPlatform.Jd:
+                            {
+                                using (var driver = new PhantomJSDriver())
+                                {
+                                    driver.Url = $"https://item.m.jd.com/product/{tt.ProductID}.html";
+                                    driver.Navigate();
+                                    driver.FindElement(OpenQA.Selenium.By.Id("detailInfo")).Click();
+                                    var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                                    try
+                                    {
+                                        wait.Until(s => s.FindElement(OpenQA.Selenium.By.ClassName("scale-box")));
+                                    }
+                                    catch (Exception)
+                                    {
+                                        driver.Quit();
+                                        return Json(Comm.ToMobileResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
+                                    }
+                                    var source = driver.PageSource;
+                                    var dom = CQ.CreateDocument(source);
+                                    img = dom.Select(".scale-box img").Select(s => s.Attributes["src"]).ToList();
+                                    driver.Quit();
+                                }
+                            }
+                            break;
+                        case Enums.CouponPlatform.Vip:
+                            break;
+                        case Enums.CouponPlatform.MoGuJie:
+                            {
+                                var options = new PhantomJSOptions();
+                                options.AddAdditionalCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1");
+                                using (var driver = new PhantomJSDriver(options))
+                                {
+                                    driver.Url = $"http://h5.mogujie.com/detail-normal/index.html?itemId={tt.ProductID}";
+                                    driver.Navigate();
+                                    var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                                    try
+                                    {
+                                        wait.Until(s =>
+                                            s.FindElement(OpenQA.Selenium.By.ClassName("tabs-content")));
+                                    }
+                                    catch (Exception)
+                                    {
+                                        driver.Quit();
+                                        return Json(Comm.ToMobileResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
+                                    }
+                                    var source = driver.PageSource;
+                                    var dom = CQ.CreateDocument(source);
+                                    img = dom.Select(".tabs-content [data-key=0] img").Select(s => s.Attributes["origin-src"]).ToList();
+                                    driver.Quit();
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    if (img.Count > 0)
+                    {
+                        tt.UrlLisr = img.Count > 0 ? string.Join(",", img) : "";
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    img = string.IsNullOrWhiteSpace(tt.UrlLisr) ? img : tt.UrlLisr.SplitToArray<string>();
+                }
+            }
+            return Json(Comm.ToMobileResult("Success", "成功", new { Data = img }), JsonRequestBehavior.AllowGet);
+        }
+        
+        [AllowCrossSiteJson]
+        public ActionResult GetPwd(int id)
+        {
+            var tpt = db.Coupons.Find(id);
+            if (tpt == null)
+            {
+                return Json(Comm.ToMobileResult("NoFound", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+            }
+            var pwd = new Taobao().GetWirelessShareTpwd(tpt.Image, tpt.Link, tpt.Name, 0);
+            return Json(Comm.ToMobileResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult GetCouponTypes()
         {
@@ -317,7 +329,7 @@ namespace Buy.Controllers
                 }
             };
             setTree(data, 0);
-            return Json(Comm.ToMobileResult("Success", "成功", new { Data = "" }), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToMobileResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Index(Enums.CouponPlatform p = Enums.CouponPlatform.TaoBao, int? typeID = null)

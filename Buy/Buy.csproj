@@ -192,6 +192,10 @@
     <Reference Include="TopSdk">
       <HintPath>..\..\Octopus\Octopus\Octopus\bin\TopSdk.dll</HintPath>
     </Reference>
+    <Reference Include="WebDriver, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.3.5.2\lib\net40\WebDriver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -288,10 +292,12 @@
     <Compile Include="App_Start\yuntongxun\CCPRestSDK.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
+    <Compile Include="Controllers\CouponManageController.cs" />
     <Compile Include="Controllers\CouponTypeManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
+    <Compile Include="Controllers\UploaderController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -370,6 +376,9 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Content\less\uploader.less" />
+    <Content Include="Content\less\bootstrapEx.less" />
+    <Content Include="Content\less\views\couponTicketTypeManageIndex.less" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="phantomjs-license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -391,10 +400,21 @@
     <Content Include="Scripts\Comm\searchUser.js" />
     <Content Include="Scripts\Comm\uploadfile.js" />
     <Content Include="Scripts\Comm\urlMatch.js" />
+    <Content Include="Scripts\datetimepicker\css\bootstrap-datetimepicker.css" />
+    <Content Include="Scripts\datetimepicker\js\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\datetimepicker\js\locales\bootstrap-datetimepicker.zh-CN.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.custom\external\jquery\jquery.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.custom\index.html" />
+    <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.css" />
+    <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.min.css" />
+    <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.structure.css" />
+    <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.structure.min.css" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -402,6 +422,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Views\couponManage.js" />
+    <Content Include="Scripts\Views\couponTicketTypeManageIndex.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -449,9 +471,17 @@
     <Content Include="Views\CouponTypeManage\Edit.cshtml" />
     <Content Include="Views\Coupon\Details.cshtml" />
     <Content Include="Views\Coupon\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\FileUpload.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\FileUpload.cshtml" />
+    <Content Include="Views\CouponManage\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CouponTypeTreeNode.cshtml" />
+    <Content Include="Views\CouponTypeManage\Delete.cshtml" />
+    <Content Include="Views\CouponManage\NoProductType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Coupon\" />
+    <Folder Include="Views\Uploader\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

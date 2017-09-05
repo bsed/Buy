@@ -142,6 +142,295 @@
 .navtop .navtop-right ul li:last-child {
   padding-right: 0;
 }
+.uploader .btnModal {
+  margin-bottom: 5px;
+}
+.uploader ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.uploader ul:before,
+.uploader ul:after {
+  content: " ";
+  display: table;
+}
+.uploader ul:after {
+  clear: both;
+}
+.uploader ul:before,
+.uploader ul:after {
+  content: " ";
+  display: table;
+}
+.uploader ul:after {
+  clear: both;
+}
+.uploader ul li {
+  float: left;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  height: 70px;
+  max-width: 120px;
+  position: relative;
+}
+.uploader ul li img {
+  max-height: 100%;
+  max-width: 100%;
+  border: 1px solid #ddd;
+}
+.uploader ul li span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  background-color: #d9534f;
+  display: none;
+  font-size: 12px;
+  padding: 2px;
+}
+.uploader ul li:hover span {
+  display: inline-block;
+}
+.uploader .uploader_modal {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: 10001;
+  width: 500px;
+  top: 150px;
+}
+.uploader .uploader_modal .uploader_modal_close {
+  float: right;
+}
+.uploader .DragOver {
+  height: 150px;
+  text-align: center;
+  border: dashed 1px #ddd;
+  color: #ddd;
+  padding-top: 40px;
+  margin-bottom: 5px;
+}
+.uploader .filename {
+  max-width: 270px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 5px;
+}
+.uploader .preview {
+  max-width: 45px;
+  max-height: 45px;
+}
+.uploader .fileList {
+  max-height: 310px;
+  overflow-y: auto;
+}
+.uploader .fileList .table tr td {
+  height: 62px;
+}
+.uploader .fileList .table tr td:nth-child(1) {
+  width: 45px;
+  vertical-align: middle;
+}
+.uploader .fileList .table tr td:nth-child(3) {
+  width: 100px;
+  vertical-align: middle;
+}
+.uploader .progress {
+  margin-bottom: 0;
+}
+.table.table-edit tr input[type=text],
+.table.table-edit tr input[type=number],
+.table.table-edit tr input[type=email],
+.table.table-edit tr input[type=date],
+.table.table-edit tr input[type=datetime] {
+  border: 1px solid transparent;
+  background-color: transparent;
+  width: 100%;
+}
+.table.table-edit tr:hover input[type=text],
+.table.table-edit tr:hover input[type=number],
+.table.table-edit tr:hover input[type=email],
+.table.table-edit tr:hover input[type=date],
+.table.table-edit tr:hover input[type=datetime] {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  width: 100%;
+}
+.table tr input[type=text],
+.table tr input[type=number],
+.table tr input[type=email],
+.table tr input[type=date],
+.table tr input[type=datetime] {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  width: 100%;
+}
+.table.table-add tbody tr:nth-child(1) input[type=text],
+.table.table-add tbody tr:nth-child(1) input[type=number],
+.table.table-add tbody tr:nth-child(1) input[type=email],
+.table.table-add tbody tr:nth-child(1) input[type=date],
+.table.table-add tbody tr:nth-child(1) input[type=datetime] {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  width: 100%;
+}
+.table.table-add-last tbody tr:last-child input[type=text],
+.table.table-add-last tbody tr:last-child input[type=number],
+.table.table-add-last tbody tr:last-child input[type=email],
+.table.table-add-last tbody tr:last-child input[type=date],
+.table.table-add-last tbody tr:last-child input[type=datetime] {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  width: 100%;
+}
+.table.table-autowidth {
+  width: auto;
+}
+.table .table-img {
+  float: left;
+  height: 23px;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+.table .table-img:hover,
+.table .table-img:active,
+.table .table-img:focus {
+  color: inherit;
+}
+.table .table-img > img:nth-child(1) {
+  height: 23px;
+}
+.table .table-img > img:nth-child(1):hover + img {
+  display: block;
+}
+.table .table-img > img:nth-child(2) {
+  position: absolute;
+  top: 23px;
+  left: 0;
+  height: 120px;
+  display: none;
+  z-index: 100;
+}
+.container.body-content {
+  margin-top: 50px;
+}
+.panel.panel-modal {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: 10001;
+  width: 500px;
+  top: 50px;
+}
+.panel.panel-modal:before,
+.panel.panel-modal:after {
+  content: " ";
+  display: table;
+}
+.panel.panel-modal:after {
+  clear: both;
+}
+.panel.panel-modal:before,
+.panel.panel-modal:after {
+  content: " ";
+  display: table;
+}
+.panel.panel-modal:after {
+  clear: both;
+}
+.panel.panel-modal .panel-heading span {
+  float: right;
+}
+.panel.panel-modal .panel-body {
+  position: relative;
+}
+.panel .panel-footer:before,
+.panel .panel-footer:after {
+  content: " ";
+  display: table;
+}
+.panel .panel-footer:after {
+  clear: both;
+}
+.panel .panel-footer:before,
+.panel .panel-footer:after {
+  content: " ";
+  display: table;
+}
+.panel .panel-footer:after {
+  clear: both;
+}
+.pagenav .total {
+  vertical-align: top;
+  display: inline-block;
+  margin: 20px;
+  padding: 6px 0;
+}
+.form-horizontal .checkbox-inline {
+  margin-right: 10px;
+  margin-left: 0;
+}
+.couponTicketTypeManageIndex .vhidden {
+  visibility: hidden;
+}
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree .couponTicketTypeManageIndex-tree-tool:before,
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree .couponTicketTypeManageIndex-tree-tool:after {
+  content: " ";
+  display: table;
+}
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree .couponTicketTypeManageIndex-tree-tool:after {
+  clear: both;
+}
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree .couponTicketTypeManageIndex-tree-tool:before,
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree .couponTicketTypeManageIndex-tree-tool:after {
+  content: " ";
+  display: table;
+}
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree .couponTicketTypeManageIndex-tree-tool:after {
+  clear: both;
+}
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree .couponTicketTypeManageIndex-tree-tool span {
+  color: #777777;
+  margin: 0 2px;
+  font-size: 12px;
+  float: right;
+}
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree ul li {
+  cursor: pointer;
+  padding-left: 20px;
+}
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree ul li div {
+  position: relative;
+  white-space: nowrap;
+}
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree ul span {
+  color: #777777;
+  margin: 0 2px;
+  font-size: 12px;
+}
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree.move > ul ul {
+  min-height: 5px;
+  border: 1px dashed #A94442;
+}
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-index,
+.couponTicketTypeManageIndex .couponTicketTypeManageIndex-tree {
+  vertical-align: top;
+  padding: 10px;
+}
 body {
   color: #212121;
   min-height: 100vh;
