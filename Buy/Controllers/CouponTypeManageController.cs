@@ -82,12 +82,17 @@ namespace Buy.Controllers
         [HttpPost]
         public ActionResult Create(CouponTypeViewModel model)
         {
-            if (model.ParentID != 0)
+            if (model.FileUpload.Images.Count() <= 0)
             {
-                if (model.FileUpload.Images.Count() <= 0)
-                {
-                    ModelState.AddModelError("Image", "二级分类要上传图片");
-                }
+                ModelState.AddModelError("Image", "上传图片");
+            }
+            if (string.IsNullOrWhiteSpace(model.Name))
+            {
+                ModelState.AddModelError("Name", "填写名称");
+            }
+            if (string.IsNullOrWhiteSpace(model.Keyword))
+            {
+                ModelState.AddModelError("Keyword", "填写关键字");
             }
             if (ModelState.IsValid)
             {
@@ -135,12 +140,17 @@ namespace Buy.Controllers
         [HttpPost]
         public ActionResult Edit(CouponTypeViewModel model)
         {
-            if (model.ParentID != 0)
+            if (model.FileUpload.Images.Count() <= 0)
             {
-                if (model.FileUpload.Images.Count() <= 0)
-                {
-                    ModelState.AddModelError("Image", "二级分类要上传图片");
-                }
+                ModelState.AddModelError("Image", "上传图片");
+            }
+            if (string.IsNullOrWhiteSpace(model.Name))
+            {
+                ModelState.AddModelError("Name", "填写名称");
+            }
+            if (string.IsNullOrWhiteSpace(model.Keyword))
+            {
+                ModelState.AddModelError("Keyword", "填写关键字");
             }
             if (ModelState.IsValid)
             {
@@ -230,6 +240,16 @@ namespace Buy.Controllers
                 Sort = type.Sort,
             };
             return View(model);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+
+            }
+            base.Dispose(disposing);
         }
     }
 }
