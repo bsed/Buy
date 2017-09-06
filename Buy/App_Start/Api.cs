@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 
 namespace Buy.Api
@@ -36,7 +38,7 @@ namespace Buy.Api
 
         public object Data { get; set; }
 
-        public Dictionary<string, System.IO.Stream> Files { get; set; } = new Dictionary<string, Stream>();
+        public Dictionary<string, string> Files { get; set; } = new Dictionary<string, string>();
 
         /// <summary>
         /// 创建请求
@@ -51,18 +53,26 @@ namespace Buy.Api
             using (var client = new HttpClient())
             using (var formData = new MultipartFormDataContent())
             {
-                formData.Add(new StringContent(JsonConvert.SerializeObject(Data)));
-                foreach (var item in Files)
+                StringContent temp = null;
+                if (Data != null)
                 {
-                    HttpContent content = new StreamContent(item.Value);
-                    formData.Add(content, item.Key, item.Key);
+                    var content = new StringContent(JsonConvert.SerializeObject(Data), System.Text.Encoding.UTF8, "application/json");
+                    temp = content;
+                    formData.Add(content);
+
                 }
 
-                var response = client.PostAsync(Url, formData).Result;
-                if (!response.IsSuccessStatusCode)
+                foreach (var item in Files)
                 {
-                    return null;
+                    var stream = File.OpenRead(item.Value);
+                    HttpContent content = new StreamContent(stream);
+
+                    content.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Headers.Add("Content-Disposition", $"form-data; name=\"{item.Key}\"; filename=\"{new FileInfo(item.Value).Name}\"");
+                    formData.Add(content, item.Key);
                 }
+                //var response = client.PostAsync(Url, formData).Result;
+                var response = client.PostAsync(Url, temp).Result;
                 return response.Content.ReadAsStreamAsync().Result;
             }
         }
