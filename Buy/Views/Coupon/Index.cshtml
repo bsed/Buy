@@ -1,7 +1,221 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "优惠券";
 }
+@Styles.Render("~/bundles/swiper/css")
 
-<h2>Index</h2>
+<div class="couponIndex paddingT80 paddingB50 bg-color-grey minHight100vh">
+    <div class="navigationBar bgcolor-orange">淘宝优惠券</div>
+    <div class="navigationSwiper top44">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div name="type" class="swiper-slide active" data-type="-1">
+                    首页<i></i>
+                </div>
+                <div name="type" class="swiper-slide" data-type="1">
+                    美妆<i></i>
+                </div>
+                <div name="type" class="swiper-slide" data-type="2">
+                    电器<i></i>
+                </div>
+                <div name="type" class="swiper-slide" data-type="3">
+                    手机<i></i>
+                </div>
+                <div name="type" class="swiper-slide" data-type="4">
+                    家居<i></i>
+                </div>
+                <div name="type" class="swiper-slide" data-type="5">
+                    女装<i></i>
+                </div>
+                <div name="type" class="swiper-slide" data-type="6">
+                    美食<i></i>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div name="sortList" class="sortList hidden">
+        <ul>
+            <li>
+                <a>
+                    <img src="~/Content/image/test/sort.png"/><div>面膜</div>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <img src="~/Content/image/test/sort.png" /><div>面膜</div>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <img src="~/Content/image/test/sort.png" /><div>面膜</div>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <img src="~/Content/image/test/sort.png" /><div>面膜</div>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <img src="~/Content/image/test/sort.png" /><div>面膜</div>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <img src="~/Content/image/test/sort.png" /><div>面膜</div>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <img src="~/Content/image/test/sort.png" /><div>面膜</div>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <img src="~/Content/image/test/sort.png" /><div>面膜</div>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <img src="~/Content/image/test/sort.png" /><div>面膜</div>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <img src="~/Content/image/test/sort.png" /><div>面膜</div>
+                </a>
+            </li>
+            <li id="sortGetAll" class="all">
+                <a>
+                    <img src="~/Content/image/test/sort_all.png" /><div>查看全部</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="index" class="">
+        <div class="couponIndex-banner">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <a href="#" data-code="" title="">
+                            <img src="~/Content/image/test/banner_home@2x.png" />
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="#" data-code="" title="">
+                            <img src="~/Content/image/test/banner_home@2x.png" />
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="#" data-code="" title="">
+                            <img src="~/Content/image/test/banner_home@2x.png" />
+                        </a>
+                    </div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+        <div class="couponIndex-menu">
+            <img src="~/Content/image/test/img_ztihome_001@2x.png" />
+            <img src="~/Content/image/test/img_ztihome_002@2x.png" />
+            <img src="~/Content/image/test/img_ztihome_003@2x.png" />
+            <img src="~/Content/image/test/img_ztihome_004@2x.png" />
+            <img src="~/Content/image/test/img_ztihome_005@2x.png" />
+        </div>
+    </div>
+
+    <div class="couponIndex-nav">
+        <ul>
+            <li class="active">综合排序</li>
+            <li>人气热销</li>
+            <li>最新上架</li>
+        </ul>
+    </div>
+
+    <div class="coupon-list coupon-list-style02">
+        <ul>
+            <li>
+                <div class="couponList-head">
+                    <a href="#">
+                        <img src="~/Content/image/test/coupon-detail-pimg.png" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="couponList-details">
+                        <div class="couponList-title">
+                            <img src="~/Content/image/view/logo_taobao_tag@2x.png" />BettyChow BC自制 飘带褶皱真丝连衣裙吊带 蕾丝镂空 超重磅...
+                        </div>
+                        <div class="couponList-price">
+                            <div class="fl originalPrice">在售价 <span class="yuan">￥</span><span class="">189</span></div>
+                            <div class="fr"><span class="couponList-sales fs12">销量：4566</span></div>
+                        </div>
+                        <div class="couponList-afterPrice marginT10">
+                            <span class="yuan">￥</span>120.00
+                        </div>
+                        <div class="marginT15">
+                            <div class="coupon-tab">
+                                <div class="coupon-tab-type fl">券</div>
+                                <div class="coupon-tab-val fl">120元</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="couponList-ticket" data-href="">
+                        <div class="lingquan">抢购优惠</div>
+                    </div>
+                </a>
+                <div style="clear:both;"></div>
+            </li>
+            <li>
+                <div class="couponList-head">
+                    <a href="#">
+                        <img src="~/Content/image/test/coupon-detail-pimg.png" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="couponList-details">
+                        <div class="couponList-title">
+                            <img src="~/Content/image/view/logo_jd_tag@2x.png" />BettyChow BC自制 飘带褶皱真丝连衣裙吊带 蕾丝镂空 超重磅...
+                        </div>
+                        @*<div class="couponList-price">
+                            <div class="fl originalPrice">在售价 <span class="yuan">￥</span><span class="">189</span></div>
+                            <div class="fr"><span class="couponList-sales fs12">销量：4566</span></div>
+                        </div>*@
+                        <div class="couponList-afterPrice marginT10">
+                            <span class="yuan">￥</span>120.00
+                        </div>
+                        <div class="marginT15">
+                            <div class="coupon-tab">
+                                <div class="coupon-tab-type fl">券</div>
+                                <div class="coupon-tab-val fl">120元</div>
+                            </div>
+                            <div class="coupon-tab">
+                                <div class="coupon-tab-type fl">减</div>
+                                <div class="coupon-tab-val fl">满199减100</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="couponList-ticket" data-href="">
+                        <div class="lingquan">抢购优惠</div>
+                    </div>
+                </a>
+                <div style="clear:both;"></div>
+            </li>
+        </ul>
+    </div>
+
+    @Html.Partial("_navTabBottomPartial")
+</div>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/swiper/js")
+    @Scripts.Render("~/bundles/couponIndex")
+}

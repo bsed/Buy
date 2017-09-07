@@ -163,6 +163,11 @@
         }
     },
 
+    mask3: function () {
+        $(".mask.style02").toggleClass("hidden");
+        return $(".mask.style02");
+    },
+
     TextToHtml: function (text) {
         return text.replace(/\r\n|\n|\r/g, '<br />');
     },

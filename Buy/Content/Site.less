@@ -5,6 +5,7 @@
 
 @import "less/views/couponTicketTypeManageIndex";
 @import "less/views/couponDetail";
+@import "less/views/couponIndex";
 
 body {
     color: @font-col-black01;
@@ -92,6 +93,10 @@ textarea {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: @z-index-top+-1;
+
+    &.style02{
+        z-index:@z-index-bottom+100;
+    }
 }
 
 .alertList {
@@ -182,8 +187,12 @@ textarea {
     color: @font-col-white;
 }
 
-.color-grey{
-    color:@font-col-grey01;
+.color-grey {
+    color: @font-col-grey01;
+}
+
+.bg-color-grey {
+    background-color: @bg-color-grey01;
 }
 
 .overFlowText {
@@ -221,24 +230,8 @@ textarea {
     padding-top: 44rem*@resize;
 }
 
-.paddingT48 {
-    padding-top: 48rem*@resize;
-}
-
-.paddingT56 {
-    padding-top: 56rem*@resize;
-}
-
-.paddingT60 {
-    padding-top: 60rem*@resize;
-}
-
-.paddingT94 {
-    padding-top: 94rem*@resize;
-}
-
-.paddingT150 {
-    padding-top: 150rem*@resize;
+.paddingT80 {
+    padding-top: 80rem*@resize;
 }
 
 .paddingB58 {
@@ -299,4 +292,173 @@ textarea {
 
 .minHight100vh {
     min-height: 100vh;
+}
+
+.navigationBar {
+    background-color: @bg-color-white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: @z-index-mid;
+    text-align: center;
+    .one-line-vertical-mid(44rem*@resize);
+    font-size: @font-size-4;
+    color: @font-col-white;
+
+    &.bgcolor-orange {
+        background-color: @bg-color-main;
+    }
+}
+
+.navigationSwiper {
+    position: fixed;
+    width: 100%;
+    z-index: @z-index-mid;
+    background-color: @bg-color-white;
+    .one-line-vertical-mid(36rem*@resize);
+    font-size: @font-size-2;
+    border-bottom: 1rem*@resize solid rgba(0,0,0,0.12);
+
+    .swiper-container {
+        width: 100%;
+        height: 36rem*@resize;
+        margin: 0 auto;
+        padding: 0 16rem*@resize;
+
+        .swiper-slide {
+            width: auto;
+            text-align: center;
+            font-size: 14rem*@resize;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            margin-right: 24rem*@resize;
+            color: @font-col-black01;
+
+            &.active {
+                color: @font-col-main;
+
+                i {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 4rem*@resize;
+                    height: 3rem*@resize;
+                    background-color: @bg-color-main;
+                }
+            }
+        }
+    }
+
+    &.top44 {
+        top: 44rem*@resize;
+    }
+}
+
+.navTabBottom {
+    position: fixed;
+    width: 100%;
+    height: 50rem*@resize;
+    background-color: @bg-color-white;
+    border-top: 1rem*@resize solid @bg-color-grey01;
+    bottom: 0;
+    z-index: @z-index-bottom;
+
+    ul {
+        .clean-ul();
+        display: flex;
+
+        li {
+            font-size: @font-size-1;
+            flex:1;
+            text-align: center;
+            .rectangle(100%,50rem*@resize);
+
+            a {
+                .clean-a();
+                .rectangle(100%,50rem*@resize);
+                display: block;
+                background: none;
+            }
+
+            &.taobao {
+                a {
+                    background: url("../Content/image/view/tab_00_nor.png") no-repeat center;
+                    background-size: 40rem*@resize 44rem*@resize;
+                }
+
+                &.active {
+                    a {
+                        background: url("../Content/image/view/tab_00_pre.png") no-repeat center;
+                        background-size: 40rem*@resize 44rem*@resize;
+                    }
+                }
+            }
+
+            &.mogujie {
+                a {
+                    background: url("../Content/image/view/tab_01_nor.png") no-repeat center;
+                    background-size: 40rem*@resize 44rem*@resize;
+                }
+
+                &.active {
+                    a {
+                        background: url("../Content/image/view/tab_01_pre.png") no-repeat center;
+                        background-size: 40rem*@resize 44rem*@resize;
+                    }
+                }
+            }
+
+            &.jd {
+                a {
+                    background: url("../Content/image/view/tab_02_nor.png") no-repeat center;
+                    background-size: 40rem*@resize 44rem*@resize;
+                }
+
+                &.active {
+                    a {
+                        background: url("../Content/image/view/tab_02_pre.png") no-repeat center;
+                        background-size: 40rem*@resize 44rem*@resize;
+                    }
+                }
+            }
+
+            &.search {
+                a {
+                    background: url("../Content/image/view/tab_03_nor.png") no-repeat center;
+                    background-size: 40rem*@resize 44rem*@resize;
+                }
+
+                &.active {
+                    a {
+                        background: url("../Content/image/view/tab_03_pre.png") no-repeat center;
+                        background-size: 40rem*@resize 44rem*@resize;
+                    }
+                }
+            }
+
+            &.user {
+                a {
+                    background: url("../Content/image/view/tab_04_nor.png") no-repeat center;
+                    background-size: 40rem*@resize 44rem*@resize;
+                }
+
+                &.active {
+                    a {
+                        background: url("../Content/image/view/tab_04_pre.png") no-repeat center;
+                        background-size: 40rem*@resize 44rem*@resize;
+                    }
+                }
+            }
+        }
+    }
 }

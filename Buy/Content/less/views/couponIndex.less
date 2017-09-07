@@ -1,0 +1,238 @@
+﻿@import "../base";
+
+.couponIndex {
+    .couponIndex-banner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow-x: hidden;
+
+        .swiper-container {
+            .swiper-wrapper {
+                .swiper-slide {
+                    width: 100%;
+                    height: 100%;
+
+                    a {
+                        display: block;
+                    }
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+            }
+
+            .swiper-pagination {
+                width: auto;
+                left: auto;
+                right: 12rem*@resize;
+                bottom: 5rem*@resize;
+
+                .swiper-pagination-bullet {
+                    .rectangle(8rem*@resize,3rem*@resize);
+                    background: rgba(255,255,255,0.38);
+                    border-radius: 68rem*@resize;
+                    opacity: 1;
+                    margin: 0 2rem*@resize;
+
+                    &.swiper-pagination-bullet-active {
+                        background: @bg-color-main;
+                    }
+                }
+            }
+        }
+    }
+
+    .couponIndex-menu {
+        .clearfix();
+
+        img {
+            float: left;
+            width: 100%/3;
+        }
+    }
+
+    .couponIndex-nav {
+        .clearfix();
+        background-color: @bg-color-white;
+        margin-top: 8rem*@resize;
+
+        ul {
+            .clean-ul();
+            display: flex;
+
+            li {
+                float: left;
+                text-align: center;
+                flex: 1;
+                line-height: 40rem*@resize;
+                font-size: @font-size-2;
+
+                &.active {
+                    color: @font-col-main;
+                }
+            }
+        }
+    }
+}
+
+.coupon-list {
+    ul {
+        .clean-ul();
+
+        li {
+            position: relative;
+            background-color: @bg-color-white;
+            margin-top: 8rem*@resize;
+            display: flex;
+            display: -webkit-flex;
+
+            a {
+                .clean-a();
+            }
+
+            .couponList-head {
+                margin: 8rem*@resize;
+
+                img {
+                    .rectangle(136rem*@resize,136rem*@resize);
+                }
+            }
+
+            .couponList-details {
+                margin-top: 8rem*@resize;
+                margin-bottom: 8rem*@resize;
+                width: 100%;
+                flex: 1;
+                padding-right: 8rem*@resize;
+                position: relative;
+
+                .couponList-title {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    line-height: 20rem*@resize;
+                    font-size: @font-size-2;
+
+                    img {
+                        margin-right: 3rem*@resize;
+                        margin-bottom: 3rem*@resize;
+                        height: 16rem*@resize;
+                    }
+                }
+
+                .couponList-price {
+                    .clearfix();
+                    display: block;
+                    padding-top: 5rem*@resize;
+                    color: @font-col-grey01;
+                    font-size: 14rem*@resize;
+
+                    .originalPrice {
+                        text-decoration: line-through;
+                    }
+
+                    .thirdPartyTicketList-sales {
+                    }
+                }
+
+                .couponList-afterPrice {
+                    margin-bottom: 8rem*@resize;
+                    color: @font-col-main;
+                    font-size: @font-size-5;
+
+                    img {
+                        vertical-align: baseline;
+                        height: 17rem*@resize;
+                    }
+                }
+            }
+
+            .couponList-ticket {
+                text-align: center;
+                position: relative;
+                font-size: @font-size-24;
+                position: absolute;
+                right: 8rem*@resize;
+                bottom: 0;
+
+
+                .lingquan {
+                    margin: 8rem*@resize 0;
+                    background-color: @bg-color-main;
+                    color: @font-col-white;
+                    font-size: @font-size-3;
+                    padding: 5rem*@resize 9rem*@resize;
+                    font-family: 'Microsoft YaHei';
+                    border-radius: 2rem*@resize;
+                }
+            }
+        }
+    }
+
+    &.coupon-list-style02 {
+        ul {
+            li {
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+}
+
+.sortList{
+    .clearfix();
+    background-color:@bg-color-white;
+    position:relative;
+    height:160rem*@resize;
+    overflow:hidden;
+
+    ul{
+        .clean-ul();
+
+        li{
+            float:left;
+            width:100%/4;
+            text-align:center;
+            color:@font-col-grey01;
+            font-size:@font-size-1;
+            padding:10rem*@resize 0;
+            line-height:1;
+            background-color:@bg-color-white;
+
+            a{
+                .clean-a();
+                display:block;
+            }
+
+            img{
+                .square(44rem*@resize);
+                margin-bottom:2rem*@resize;
+            }
+
+            &.all{
+                position:absolute;
+                bottom:0;
+                right:0;
+                z-index:@z-index-bottom+-10;
+            }
+        }
+    }
+
+    &.getAll{
+        position:absolute;
+        width:100%;
+        height:auto;
+        top:80rem*@resize;
+        z-index:@z-index-mid;
+
+        .all{
+            display:none;
+        }
+    }
+}
