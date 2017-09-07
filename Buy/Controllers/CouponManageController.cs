@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace Buy.Controllers
 {
+    [Authorize]
     public class CouponManageController : Controller
     {
-
         private ApplicationDbContext db = new ApplicationDbContext();
 
         private void Sidebar()

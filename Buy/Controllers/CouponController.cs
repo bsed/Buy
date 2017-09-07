@@ -110,9 +110,6 @@ namespace Buy.Controllers
             return query;
         }
 
-
-
-
         // GET: Coupon
         [AllowCrossSiteJson]
         public ActionResult GetAll(string filter, int page = 1, string types = null, string platforms = null
@@ -293,7 +290,7 @@ namespace Buy.Controllers
             }
             return Json(Comm.ToMobileResult("Success", "成功", new { Data = img }), JsonRequestBehavior.AllowGet);
         }
-        
+
         [AllowCrossSiteJson]
         public ActionResult GetPwd(int id)
         {
@@ -306,6 +303,7 @@ namespace Buy.Controllers
             return Json(Comm.ToMobileResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
         }
 
+        [AllowCrossSiteJson]
         public ActionResult GetCouponTypes()
         {
             var list = db.CouponTypes.ToList();

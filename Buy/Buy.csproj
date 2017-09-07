@@ -504,7 +504,6 @@
     <Content Include="Views\UserManage\Index.cshtml" />
     <Content Include="Views\RegistrationCode\Index.cshtml" />
     <Content Include="Views\CouponTypeManage\Index.cshtml" />
-    <Content Include="Views\CouponTypeManage\Details.cshtml" />
     <Content Include="Views\CouponTypeManage\Create.cshtml" />
     <Content Include="Views\CouponTypeManage\Edit.cshtml" />
     <Content Include="Views\Coupon\Details.cshtml" />
