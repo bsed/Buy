@@ -1,11 +1,33 @@
 ﻿
 @{
-    ViewBag.Title = "Second";
+    ViewBag.Title = "分类";
 }
 
 
-@ViewBag.TypeName
+@*@ViewBag.TypeName
 
-@((Buy.Enums.CouponSort)ViewBag.Sort)
-<h2>Second</h2>
+@((Buy.Enums.CouponSort)ViewBag.Sort)*@
+
+
+<div class="minHight100vh bg-color-grey paddingT44">
+    <div class="navigationBar">
+        <div class="navigationBar-back" onclick="history.back(-1)"></div>
+        @ViewBag.TypeName
+        <a href="@Url.Action("Search","coupon")"><div class="navigationBar-searchIcon bgblack"></div></a>
+    </div>
+    <div class="coupon-nav fixTop44">
+        <ul>
+            <li class="active sort" data-sort="0">综合排序</li>
+            <li class="sort" data-sort="1">人气热销</li>
+            <li class="sort" data-sort="2">最新上架</li>
+        </ul>
+    </div>
+    <div id="coupon" class="coupon-list coupon-list-style02">
+        <ul>
+            <li class="loadModule loadModule-dataIng" data-page="0" data-next="true">
+                加载中
+            </li>
+        </ul>
+    </div>
+</div>
 
