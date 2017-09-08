@@ -366,13 +366,13 @@ namespace Buy.Controllers
             return View();
         }
 
-        public ActionResult SearchConfirm(string filter, int page = 1, string platforms = null,
+        public ActionResult SearchConfirm(string filter, int page = 1, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
             Enums.CouponSort sort = Enums.CouponSort.Default)
         {
             var model = new CouponSearchViewModel()
             {
                 Filter = filter,
-                Platform = platforms.SplitToArray<Enums.CouponPlatform>().FirstOrDefault(),
+                Platform = platform,
                 Sort = sort,
             };
             return View(model);
