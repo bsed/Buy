@@ -366,6 +366,7 @@
     <Content Include="Content\image\test\sort_all.png" />
     <Content Include="Content\image\view\ic_navbar_back_bgblack%402x.png" />
     <Content Include="Content\image\view\ic_navbar_back_black%402x.png" />
+    <Content Include="Content\image\view\ic_navbar_back_white%402x.png" />
     <Content Include="Content\image\view\ic_navbar_closed_black%402x.png" />
     <Content Include="Content\image\view\ic_navbar_search_black_m%402x.png" />
     <Content Include="Content\image\view\ic_navbar_search_white%402x.png" />
@@ -486,6 +487,7 @@
     <Content Include="Scripts\Views\find.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
+    <Content Include="Scripts\Views\search.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

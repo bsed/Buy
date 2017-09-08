@@ -242,6 +242,10 @@ textarea {
     padding-top: 80rem*@resize;
 }
 
+.paddingT124{
+    padding-top:124rem*@resize;
+}
+
 .paddingB58 {
     padding-bottom: 58rem*@resize;
 }
@@ -321,6 +325,11 @@ textarea {
         position: absolute;
         top: 0;
         left: 0;
+
+        &.bgwhite{
+            background: url("../Content/image/view/ic_navbar_back_white@2x.png") no-repeat center;
+            background-size:contain;
+        }
     }
 
     .navigationBar-search {
@@ -357,6 +366,15 @@ textarea {
             font-size: @font-size-2;
             float:left;
         }
+
+        &.bgwhite{
+
+            input{
+                background-color:@bg-color-white;
+                border-radius:4rem*@resize;
+                color:@font-col-black01;
+            }
+        }
     }
 
     .navigationBar-searchIcon{
@@ -374,8 +392,12 @@ textarea {
         top:0;
         font-size:@font-size-2;
         color:@font-col-grey01;
-        line-height:43rem*@resize;
+        line-height:44rem*@resize;
         padding:0 16rem*@resize;
+
+        &.colorwhite{
+            color:@font-col-white;
+        }
     }
 
     &.bgcolor-orange {

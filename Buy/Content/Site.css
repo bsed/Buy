@@ -642,42 +642,6 @@
   float: left;
   width: 33.33333333%;
 }
-.couponIndex .couponIndex-nav {
-  background-color: #fff;
-  margin-top: 0.30917874rem;
-}
-.couponIndex .couponIndex-nav:before,
-.couponIndex .couponIndex-nav:after {
-  content: " ";
-  display: table;
-}
-.couponIndex .couponIndex-nav:after {
-  clear: both;
-}
-.couponIndex .couponIndex-nav:before,
-.couponIndex .couponIndex-nav:after {
-  content: " ";
-  display: table;
-}
-.couponIndex .couponIndex-nav:after {
-  clear: both;
-}
-.couponIndex .couponIndex-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-}
-.couponIndex .couponIndex-nav ul li {
-  float: left;
-  text-align: center;
-  flex: 1;
-  line-height: 1.54589372rem;
-  font-size: 0.5410628rem;
-}
-.couponIndex .couponIndex-nav ul li.active {
-  color: #E02E24;
-}
 .coupon-list ul {
   list-style: none;
   padding: 0;
@@ -885,6 +849,63 @@
 }
 .banner .swiper-container .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
   background: #E02E24;
+}
+.coupon-nav {
+  background-color: #fff;
+  margin-top: 0.30917874rem;
+}
+.coupon-nav:before,
+.coupon-nav:after {
+  content: " ";
+  display: table;
+}
+.coupon-nav:after {
+  clear: both;
+}
+.coupon-nav:before,
+.coupon-nav:after {
+  content: " ";
+  display: table;
+}
+.coupon-nav:after {
+  clear: both;
+}
+.coupon-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+.coupon-nav ul li {
+  float: left;
+  text-align: center;
+  flex: 1;
+  line-height: 1.54589372rem;
+  font-size: 0.5410628rem;
+  position: relative;
+}
+.coupon-nav ul li.active {
+  color: #E02E24;
+}
+.coupon-nav ul li.active > div {
+  display: inline-block;
+  position: relative;
+}
+.coupon-nav ul li.active > div i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.15458937rem;
+  height: 0.15458937rem;
+  background-color: #E02E24;
+}
+.coupon-nav.fixTop44 {
+  position: fixed;
+  top: 1.70048309rem;
+  width: 100%;
+  z-index: 1000;
+  margin-top: 0;
+  border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.12);
 }
 .account .account-input {
   position: relative;
@@ -1302,6 +1323,9 @@ textarea {
 .paddingT80 {
   padding-top: 3.09178744rem;
 }
+.paddingT124 {
+  padding-top: 4.79227053rem;
+}
 .paddingB58 {
   padding-bottom: 2.24154589rem;
 }
@@ -1369,6 +1393,10 @@ textarea {
   top: 0;
   left: 0;
 }
+.navigationBar .navigationBar-back.bgwhite {
+  background: url("image/view/ic_navbar_back_white@2x.png") no-repeat center;
+  background-size: contain;
+}
 .navigationBar .navigationBar-search {
   width: 74%;
   height: 1.70048309rem;
@@ -1432,6 +1460,11 @@ textarea {
 .navigationBar .navigationBar-search input:focus {
   outline: none;
 }
+.navigationBar .navigationBar-search.bgwhite input {
+  background-color: #fff;
+  border-radius: 0.15458937rem;
+  color: rgba(0, 0, 0, 0.87);
+}
 .navigationBar .navigationBar-searchIcon {
   background: url("image/view/ic_navbar_search_white@2x.png") no-repeat center;
   width: 1.70048309rem;
@@ -1447,8 +1480,11 @@ textarea {
   top: 0;
   font-size: 0.5410628rem;
   color: rgba(0, 0, 0, 0.54);
-  line-height: 1.66183575rem;
+  line-height: 1.70048309rem;
   padding: 0 0.61835749rem;
+}
+.navigationBar .navigationBar-rightText.colorwhite {
+  color: #fff;
 }
 .navigationBar.bgcolor-orange {
   background-color: #E02E24;
