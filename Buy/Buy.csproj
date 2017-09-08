@@ -317,9 +317,14 @@
     <Compile Include="Migrations\201709040605126_CouponTypeAddImage.Designer.cs">
       <DependentUpon>201709040605126_CouponTypeAddImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709080835086_AddClientAccessLog.cs" />
+    <Compile Include="Migrations\201709080835086_AddClientAccessLog.Designer.cs">
+      <DependentUpon>201709080835086_AddClientAccessLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActionCells.cs" />
+    <Compile Include="Models\ClientAccessLog.cs" />
     <Compile Include="Models\CloudFile.cs" />
     <Compile Include="Models\CloudFileControl.cs" />
     <Compile Include="Models\CloudFileViewModel.cs" />
@@ -566,6 +571,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709040605126_CouponTypeAddImage.resx">
       <DependentUpon>201709040605126_CouponTypeAddImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709080835086_AddClientAccessLog.resx">
+      <DependentUpon>201709080835086_AddClientAccessLog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
