@@ -137,8 +137,8 @@
                 data: { page: page },
                 dataType: "json",
                 success: function (data) {
-                    if (data.CyState == "Success") {
-                        $.each(data.Data, function (i, n) {
+                    if (data.State == "Success") {
+                        $.each(data.Result.Data, function (i, n) {
                             new cloudItem(n);
                         });
                         max = data.Page.PageCount;
@@ -242,7 +242,7 @@
             },
             success: function (data) {
                 uploadItemCout.finsh++;
-                if (data.CyState == "Success") {
+                if (data.State == "Success") {
                     if (uploadItemCout.loading == uploadItemCout.finsh) {
                         _paged.go(1);
                         $file.val(null);
@@ -298,7 +298,7 @@
             data: { ids: _selecedItems.getIDs() },
             dataType: "json",
             success: function (data) {
-                if (data.CyState == "Success") {
+                if (data.State == "Success") {
                     _paged.go();
                     _selecedItems.clean();
                 }

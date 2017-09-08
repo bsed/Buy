@@ -51,7 +51,7 @@ var typeTree = function () {
                     data: data,
                     dataType: "json",
                     success: function (data) {
-                        console.log(data.CyState);
+                        console.log(data.State);
                     }
                 });
             });
