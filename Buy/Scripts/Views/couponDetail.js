@@ -1,0 +1,1 @@
+﻿$("#btnBack").goback(comm.action("Index", "Coupon"));

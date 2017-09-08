@@ -26,12 +26,13 @@
         }
     }
 }
-<div class="couponDetail">
-    @if (Model != null)
-    {
-        @Html.HiddenFor(modle => modle.ID)
+
+@if (Model != null)
+{
+    @Html.HiddenFor(modle => modle.ID)
+    <div class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
-            <div class="couponDetail-top-back fl"></div>
+            <div class="couponDetail-top-back fl" id="btnBack"></div>
             <div class="couponDetail-top-share fr"></div>
         </div>
         <div class="couponDetail-pImg">
@@ -52,7 +53,7 @@
                     @foreach (var item in Buy.Bll.ThirdPartyTickets.GetValues(Model))
                     {
                         <div class="coupon-tab-type fl">@item.Type</div>
-                        <div class="coupon-tab-val fl">@item.Value</div>
+                            <div class="coupon-tab-val fl">@item.Value</div>
                     }
                 </div>
             </div>
@@ -66,11 +67,22 @@
             </div>
         </div>
         <a class="couponDetail-useBtn">立即领取优惠</a>
-    }
-    else
-    {
-        <div>
-            <a href="@Url.Action("Index","Coupon")"><img style="width:100vw;" src="~/Content/image/view/img_coupon_nodata.png" /></a>
+    </div>
+}
+else
+{
+    <div class="couponDetail minHight100vh">
+        <div class="couponDetail-top">
+            <div class="couponDetail-top-back fl" id="btnBack"></div>
+            <div class="couponDetail-top-share fr"></div>
         </div>
-    }
-</div>
+        <div class="nodata nodata-style02">
+            <a href="@Url.Action("Index","Coupon")"><img src="~/Content/image/view/img_coupon_nodata.png" /></a>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/couponDetail")
+}
+

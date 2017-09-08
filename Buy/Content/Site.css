@@ -432,8 +432,6 @@
   padding: 10px;
 }
 .couponDetail {
-  min-height: 100vh;
-  background-color: #f2f2f2;
   padding-bottom: 1.85507246rem;
 }
 .couponDetail .couponDetail-top {
@@ -821,7 +819,6 @@
 .sortList {
   background-color: #fff;
   position: relative;
-  height: 6.18357488rem;
   overflow: hidden;
 }
 .sortList:before,
@@ -885,6 +882,9 @@
 }
 .sortList.getAll .all {
   display: none;
+}
+.sortList.style02 {
+  height: 6.18357488rem;
 }
 .account .account-input {
   position: relative;
@@ -1406,4 +1406,51 @@ textarea {
 }
 .promptBox .promptText {
   padding: 0.387rem 0.775rem;
+}
+.loadModule {
+  background-color: rgba(0, 0, 0, 0) !important;
+  padding: 0.61835749rem !important;
+  font-size: 0.46376812rem;
+  color: rgba(0, 0, 0, 0.38);
+  text-align: center;
+  box-shadow: none !important;
+  display: block !important;
+}
+.loadModule.loadModule-dataIng:before,
+.loadModule.loadModule-dataIng:after {
+  content: "";
+  width: 30%;
+  height: 1px;
+  background-color: #e6e6e6;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0.57971014rem;
+}
+.loadModule.loadModule-noData {
+  font-size: 0.5410628rem;
+  color: rgba(0, 0, 0, 0.38);
+  margin-top: 3.09178744rem;
+}
+.loadModule.loadModule-noData img {
+  width: 0.77294686rem;
+  height: 0.77294686rem;
+}
+.nodata {
+  text-align: center;
+}
+.nodata.nodata-1 {
+  text-align: center;
+}
+.nodata.nodata-1 img {
+  margin-top: 3.8647343rem;
+}
+.nodata img {
+  width: 3.82608696rem;
+  height: 4.28985507rem;
+  margin-top: 5.79710145rem;
+}
+.nodata.nodata-style02 img {
+  width: 8.03864734rem;
+  height: 7.30434783rem;
+  margin-top: 7.7294686rem;
 }

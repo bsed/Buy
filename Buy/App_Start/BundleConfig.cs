@@ -96,6 +96,7 @@ namespace Buy
             addViewScripts("couponManage", new string[] { "couponManage.js" });
             addViewScripts("couponTicketTypeManageIndex", new string[] { "couponTicketTypeManageIndex.js" });
             addViewScripts("couponIndex", new string[] { "couponIndex.js" });
+            addViewScripts("couponDetail", new string[] { "couponDetail.js" });
         }
     }
 }

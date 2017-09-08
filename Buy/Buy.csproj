@@ -468,6 +468,7 @@
     <Content Include="Scripts\Swiper\js\swiper.jquery.umd.min.js" />
     <Content Include="Scripts\Swiper\js\swiper.js" />
     <Content Include="Scripts\Swiper\js\swiper.min.js" />
+    <Content Include="Scripts\Views\couponDetail.js" />
     <Content Include="Scripts\Views\couponIndex.js" />
     <Content Include="Scripts\Views\couponManage.js" />
     <Content Include="Scripts\Views\couponTicketTypeManageIndex.js" />

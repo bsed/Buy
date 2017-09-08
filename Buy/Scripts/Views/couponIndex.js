@@ -21,14 +21,22 @@ var swiper = new Swiper('.couponIndex-banner .swiper-container', {
 
 //2级分类查看全部
 var sortGetAll = $("#sortGetAll");
+var sortList = $("[name='sortList']");
+
+//判断分类个数
+var sort_sum = sortList.find("li").length;
+if (sort_sum >= 9) {
+    sortList.addClass("style02");
+    sortGetAll.removeClass("active");
+}
 
 sortGetAll.click(function () {
-    $("[name='sortList']").addClass("getAll");
+    sortList.addClass("getAll");
     comm.mask3();
 });
 
 $(".mask.style02").click(function () {
-    $("[name='sortList']").removeClass("getAll");
+    sortList.removeClass("getAll");
     comm.mask3();
 });
 
@@ -45,10 +53,6 @@ $("[name=childType]").click(function (e) {
 
 //1级分类切换
 var couponType = $("[name='type']");
-//function clear() {
-//    $("#index").addClass("hidden");
-//    $("[name='sortList']").addClass("hidden");
-//}
 couponType.click(function () {
     var date_type = $(this).data("type");
     typeID = date_type;
@@ -58,15 +62,12 @@ couponType.click(function () {
             platform: platform,
             sort: sort
         });
-    //couponType.removeClass("active");
-    //$(this).addClass("active");
-    //clear();
 
-    //if (date_type == "0") {
-    //    $("#index").removeClass("hidden");
-    //} else {
-    //    $("[name='sortList']").removeClass("hidden");
-    //}
+    if (date_type == "0") {
+        $("#index").removeClass("hidden");
+    } else {
+        $("[name='sortList']").removeClass("hidden");
+    }
 });
 
 //加载列表

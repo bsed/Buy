@@ -500,3 +500,60 @@ textarea {
         padding: 0.387rem 0.775rem;
     }
 }
+
+.loadModule {
+    background-color: rgba(0,0,0,0) !important;
+    padding: 16rem*@resize !important;
+    font-size: @font-size-1;
+    color: @font-col-grey02;
+    text-align: center;
+    box-shadow: none !important;
+    display: block !important;
+
+    &.loadModule-dataIng {
+        &:before, &:after {
+            content: "";
+            width: 30%;
+            height: 1px;
+            background-color: #e6e6e6;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 15rem*@resize;
+        }
+    }
+
+    &.loadModule-noData {
+        font-size: @font-size-2;
+        color: @font-col-grey02;
+        margin-top: 80rem*@resize;
+
+        img {
+            .square(20rem*@resize);
+        }
+    }
+}
+
+.nodata {
+    text-align: center;
+
+
+    &.nodata-1 {
+        text-align: center;
+
+        img {
+            margin-top: 100rem*@resize;
+        }
+    }
+
+    img{
+        .rectangle(99rem*@resize,111rem*@resize);
+        margin-top:150rem*@resize;
+    }
+
+    &.nodata-style02{
+        img{
+             .rectangle(208rem*@resize,189rem*@resize);
+             margin-top:200rem*@resize;
+        }
+    }
+}
