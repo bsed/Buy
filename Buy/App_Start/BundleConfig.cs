@@ -98,6 +98,7 @@ namespace Buy
             addViewScripts("couponIndex", new string[] { "couponIndex.js" });
             addViewScripts("couponDetail", new string[] { "couponDetail.js" });
             addViewScripts("find", new string[] { "find.js" });
+            addViewScripts("search", new string[] { "search.js" });
         }
     }
 }

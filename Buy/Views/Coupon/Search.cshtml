@@ -4,14 +4,16 @@
 }
 
 <div class="search minHight100vh paddingT44">
-    <div class="navigationBar">
-        <div class="navigationBar-back" onclick="history.back(-1)"></div>
-        <div class="navigationBar-search">
-            <i></i>
-            <input id="search" type="search" name="filterText" class="" placeholder="搜索内部券" value="">
+    <form action="#" onsubmit="return false;">
+        <div class="navigationBar">
+            <div class="navigationBar-back" onclick="history.back(-1)"></div>
+            <div class="navigationBar-search">
+                <i></i>
+                <input id="search" type="search" name="filterText" class="" placeholder="搜索内部券" value="">
+            </div>
+            <div id="searchBtn" class="navigationBar-rightText">搜索</div>
         </div>
-        <div id="" class="navigationBar-rightText">搜索</div>
-    </div>
+    </form>
 
     <div class="hotSearch">
         <div class="hotSearch-tits">热门搜索</div>
@@ -27,14 +29,12 @@
                 <div class="fl">搜索历史</div>
                 <div id="clearHistory" class="fr color-red fs12">清除历史</div>
             </div>
-            <ul id="searchHistoryList" class="">
-                <li name="hotSearchList" data-filter="">小白鞋</li>
-                <li name="hotSearchList" data-filter="">电风扇</li>
-                <li name="hotSearchList" data-filter="">连衣裙</li>
-                <li name="hotSearchList" data-filter="">灭蚊片</li>
-            </ul>
+            <ul id="searchHistoryList" class=""></ul>
         </div>
     </div>
 
 </div>
 
+@section Scripts{
+    @Scripts.Render("~/bundles/search")
+}

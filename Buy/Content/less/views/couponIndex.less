@@ -10,29 +10,6 @@
             width: 100%/3;
         }
     }
-
-    .couponIndex-nav {
-        .clearfix();
-        background-color: @bg-color-white;
-        margin-top: 8rem*@resize;
-
-        ul {
-            .clean-ul();
-            display: flex;
-
-            li {
-                float: left;
-                text-align: center;
-                flex: 1;
-                line-height: 40rem*@resize;
-                font-size: @font-size-2;
-
-                &.active {
-                    color: @font-col-main;
-                }
-            }
-        }
-    }
 }
 
 .coupon-list {
@@ -238,5 +215,52 @@
                 }
             }
         }
+    }
+}
+
+.coupon-nav {
+    .clearfix();
+    background-color: @bg-color-white;
+    margin-top: 8rem*@resize;
+
+    ul {
+        .clean-ul();
+        display: flex;
+
+        li {
+            float: left;
+            text-align: center;
+            flex: 1;
+            line-height: 40rem*@resize;
+            font-size: @font-size-2;
+            position: relative;
+
+            &.active {
+                color: @font-col-main;
+
+                > div {
+                    display: inline-block;
+                    position:relative;
+
+                    i {
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: 4rem*@resize;
+                        height: 4rem*@resize;
+                        background-color: @bg-color-main;
+                    }
+                }
+            }
+        }
+    }
+
+    &.fixTop44 {
+        position: fixed;
+        top: 44rem*@resize;
+        width: 100%;
+        z-index: @z-index-mid;
+        margin-top: 0;
+        border-bottom: @border;
     }
 }

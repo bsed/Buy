@@ -371,6 +371,7 @@
     <Content Include="Content\image\test\sort_all.png" />
     <Content Include="Content\image\view\ic_navbar_back_bgblack%402x.png" />
     <Content Include="Content\image\view\ic_navbar_back_black%402x.png" />
+    <Content Include="Content\image\view\ic_navbar_back_white%402x.png" />
     <Content Include="Content\image\view\ic_navbar_closed_black%402x.png" />
     <Content Include="Content\image\view\ic_navbar_search_black_m%402x.png" />
     <Content Include="Content\image\view\ic_navbar_search_white%402x.png" />
@@ -469,6 +470,7 @@
     <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.structure.css" />
     <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.structure.min.css" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -491,6 +493,7 @@
     <Content Include="Scripts\Views\find.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
+    <Content Include="Scripts\Views\search.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
