@@ -7,31 +7,54 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="account paddingT44 minHight100vh">
+    <div id="register" class="account paddingT44 minHight100vh">
         <div class="navigationBar">
             <div class="navigationBar-back" onclick="history.back(-1)"></div>
             注册
         </div>
-        @Html.ValidationSummary("", new { @class = "text-danger hidden",@id="errorText" })
+        @Html.ValidationSummary("", new { @class = "text-danger hidden", @id = "errorText" })
         <div class="paddingLr16">
             <div class="account-input">
                 <div class="account-input-tits">手机号码</div>
-                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "", @placeholder="请填写手机号码" })
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "register-input", @placeholder = "请填写手机号码" })
                 <div class="account-input-getCode">获取验证码</div>
                 @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger hidden" })
             </div>
             <div class="account-input">
                 <div class="account-input-tits">验证码</div>
-                @Html.TextBoxFor(m => m.Code, new { @class = "", @placeholder = "请填写验证码" })
+                @Html.TextBoxFor(m => m.Code, new { @class = "register-input", @placeholder = "请填写验证码" })
                 @Html.ValidationMessageFor(m => m.Code, "", new { @class = "text-danger hidden" })
             </div>
             <div class="account-input">
                 <div class="account-input-tits">密码</div>
-                @Html.PasswordFor(m => m.Password, new { @class = "", @placeholder = "请填写密码" })
+                @Html.PasswordFor(m => m.Password, new { @class = "register-input", @placeholder = "请填写密码" })
                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger hidden" })
             </div>
             <div class="marginT35">
-                <input type="submit" disabled class="account-button" value="注册" />
+                <input id="registerBtn" type="submit" disabled class="account-button" value="注册" />
+            </div>
+        </div>
+    </div>
+
+    <div id="invite" class="account paddingT44 minHight100vh" style="display:none">
+        <div class="navigationBar">
+            <div class="navigationBar-back"></div>
+            输入邀请码
+        </div>
+        <div class="paddingLr16">
+            <div class="account-invite-name">欢迎您，Vantch</div>
+            <div class="account-invite-text fs12 textCenter color-grey marginT35 m">
+                <div>“买了么”目前采用会员邀请机制</div>
+                <div>请输入您的邀请码</div>
+            </div>
+            <div class="clearfix marginT20">
+                <div class="account-input">
+                    <div class="account-input-tits">邀请码</div>
+                    <input type="text" class="invite-input" placeholder="请填写邀请码" />
+                </div>
+                <div class="marginT35">
+                    <input id="inviteBtn" type="submit" disabled class="account-button" value="完成" />
+                </div>
             </div>
         </div>
     </div>

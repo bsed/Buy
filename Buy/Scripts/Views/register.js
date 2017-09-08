@@ -14,7 +14,7 @@ function error() {
     }
 }
 
-$(".account-input input").keyup(function () {
+$(".register-input").keyup(function () {
     var data = {
         UserName: $("#PhoneNumber").val(),
         Code: $("#Code").val(),
@@ -22,8 +22,20 @@ $(".account-input input").keyup(function () {
     };
 
     if (data.UserName != "" && data.Password != "" && data.Password != "") {
-        $("input[type='submit']").prop("disabled", false);
+        $("#registerBtn").prop("disabled", false);
     } else {
-        $("input[type='submit']").prop("disabled", true);
+        $("#registerBtn").prop("disabled", true);
+    }
+});
+
+$(".invite-input").keyup(function () {
+    var data = {
+        inviteCode:$(this).val()
+    };
+
+    if (data.inviteCode != "") {
+        $("#inviteBtn").prop("disabled", false);
+    } else {
+        $("#inviteBtn").prop("disabled", true);
     }
 });

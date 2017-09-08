@@ -994,6 +994,11 @@
   height: 1.85507246rem;
   margin-bottom: 0.30917874rem;
 }
+.account .account-invite-name {
+  font-size: 0.69565217rem;
+  text-align: center;
+  margin-top: 0.92753623rem;
+}
 body {
   color: rgba(0, 0, 0, 0.87);
   min-height: 100vh;
@@ -1239,7 +1244,7 @@ textarea {
   min-height: 100vh;
 }
 .navigationBar {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(249, 249, 249, 0.9);
   position: fixed;
   top: 0;
   width: 100%;
