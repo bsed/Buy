@@ -294,10 +294,12 @@
     <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\CouponManageController.cs" />
     <Compile Include="Controllers\CouponTypeManageController.cs" />
+    <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
     <Compile Include="Controllers\UploaderController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -533,6 +535,8 @@
     <Content Include="Views\Shared\_navTabBottomPartial.cshtml" />
     <Content Include="Views\Coupon\GetList.cshtml" />
     <Content Include="Views\Coupon\Search.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Find\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
