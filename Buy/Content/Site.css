@@ -22,7 +22,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     background-color: #f5f5f5;
-    border-right: 0.03864734rem solid #eeeeee;
+    border-right: 0.03864734rem solid rgba(0, 0, 0, 0.12);
   }
 }
 .layoutBackground .fluid .sidebar .nav-sidebar {
@@ -177,7 +177,7 @@
 .uploader ul li img {
   max-height: 100%;
   max-width: 100%;
-  border: 0.03864734rem solid #eeeeee;
+  border: 0.03864734rem solid rgba(0, 0, 0, 0.12);
 }
 .uploader ul li span {
   position: absolute;
@@ -257,7 +257,7 @@
 .table.table-edit tr:hover input[type=email],
 .table.table-edit tr:hover input[type=date],
 .table.table-edit tr:hover input[type=datetime] {
-  border: 1px solid #eeeeee;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   background-color: #fff;
   width: 100%;
 }
@@ -266,7 +266,7 @@
 .table tr input[type=email],
 .table tr input[type=date],
 .table tr input[type=datetime] {
-  border: 1px solid #eeeeee;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   background-color: #fff;
   width: 100%;
 }
@@ -275,7 +275,7 @@
 .table.table-add tbody tr:nth-child(1) input[type=email],
 .table.table-add tbody tr:nth-child(1) input[type=date],
 .table.table-add tbody tr:nth-child(1) input[type=datetime] {
-  border: 1px solid #eeeeee;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   background-color: #fff;
   width: 100%;
 }
@@ -284,7 +284,7 @@
 .table.table-add-last tbody tr:last-child input[type=email],
 .table.table-add-last tbody tr:last-child input[type=date],
 .table.table-add-last tbody tr:last-child input[type=datetime] {
-  border: 1px solid #eeeeee;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   background-color: #fff;
   width: 100%;
 }
@@ -548,7 +548,7 @@
 }
 .coupon-tab {
   font-size: 0.46376812rem;
-  color: #212121;
+  color: rgba(0, 0, 0, 0.87);
   line-height: 1;
   margin-top: 0.07729469rem;
 }
@@ -886,8 +886,116 @@
 .sortList.getAll .all {
   display: none;
 }
+.account .account-input {
+  position: relative;
+  margin-top: 0.77294686rem;
+}
+.account .account-input .account-input-tits {
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 1.352657rem;
+  font-size: 0.5410628rem;
+}
+.account .account-input .account-input-getCode {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 1.352657rem;
+  font-size: 0.5410628rem;
+  color: #668CE6;
+}
+.account .account-input input {
+  border: none;
+  border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: none;
+  height: 1.352657rem;
+  padding-left: 3.09178744rem;
+  padding-right: 3.8647343rem;
+  font-size: 0.5410628rem;
+}
+.account .account-input input:focus {
+  outline: none;
+}
+.account .account-input input::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.38);
+}
+.account .account-button {
+  background-color: #E02E24;
+  color: #fff;
+  font-size: 0.5410628rem;
+  text-align: center;
+  height: 1.85507246rem;
+  line-height: 1.85507246rem;
+  max-width: none;
+  border: none;
+  width: 100%;
+  border-radius: 0.15458937rem;
+}
+.account .account-button:focus {
+  outline: none;
+}
+.account .account-button:disabled {
+  background-color: rgba(0, 0, 0, 0.12);
+  color: #fff;
+}
+.account .account-link:before,
+.account .account-link:after {
+  content: " ";
+  display: table;
+}
+.account .account-link:after {
+  clear: both;
+}
+.account .account-link:before,
+.account .account-link:after {
+  content: " ";
+  display: table;
+}
+.account .account-link:after {
+  clear: both;
+}
+.account .account-link a {
+  color: #668CE6;
+}
+.account .account-logo {
+  text-align: center;
+  padding: 1.93236715rem 0 0.57971014rem 0;
+}
+.account .account-logo img {
+  width: 2.62801932rem;
+  height: 2.62801932rem;
+}
+.account .account-otherLoginWay {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+}
+.account .account-otherLoginWay .account-otherLoginWay-tits {
+  color: rgba(0, 0, 0, 0.38);
+}
+.account .account-otherLoginWay .account-otherLoginWay-tits:before,
+.account .account-otherLoginWay .account-otherLoginWay-tits:after {
+  content: "";
+  width: 30%;
+  height: 1px;
+  background-color: #e6e6e6;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0.57971014rem;
+}
+.account .account-otherLoginWay .account-otherLoginWay-list {
+  padding: 0.77294686rem 0;
+}
+.account .account-otherLoginWay img {
+  width: 1.85507246rem;
+  height: 1.85507246rem;
+  margin-bottom: 0.30917874rem;
+}
 body {
-  color: #212121;
+  color: rgba(0, 0, 0, 0.87);
   min-height: 100vh;
 }
 html {
@@ -1071,6 +1179,10 @@ textarea {
   padding-left: 0.92753623rem;
   padding-right: 0.92753623rem;
 }
+.paddingLr16 {
+  padding-left: 0.61835749rem;
+  padding-right: 0.61835749rem;
+}
 .paddingTb16 {
   padding-top: 0.61835749rem;
   padding-bottom: 0.61835749rem;
@@ -1127,7 +1239,7 @@ textarea {
   min-height: 100vh;
 }
 .navigationBar {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.9);
   position: fixed;
   top: 0;
   width: 100%;
@@ -1136,10 +1248,21 @@ textarea {
   height: 1.70048309rem;
   line-height: 1.70048309rem;
   font-size: 0.69565217rem;
-  color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.12);
+}
+.navigationBar .navigationBar-back {
+  background: url("image/view/ic_navbar_back_black@2x.png") no-repeat center;
+  width: 1.70048309rem;
+  height: 1.70048309rem;
+  background-size: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .navigationBar.bgcolor-orange {
   background-color: #E02E24;
+  color: #fff;
 }
 .navigationSwiper {
   position: fixed;
@@ -1174,7 +1297,7 @@ textarea {
   -webkit-align-items: center;
   align-items: center;
   margin-right: 0.92753623rem;
-  color: #212121;
+  color: rgba(0, 0, 0, 0.87);
 }
 .navigationSwiper .swiper-container .swiper-slide.active {
   color: #E02E24;
@@ -1264,4 +1387,23 @@ textarea {
 .navTabBottom ul li.user.active a {
   background: url("image/view/tab_04_pre.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
+}
+.promptBox {
+  border-radius: 0.193rem;
+  color: #fff;
+  font-size: 0.61835749rem;
+  text-align: center;
+  position: fixed;
+  z-index: 999999;
+  background: rgba(0, 0, 0, 0.6);
+  left: 50%;
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  bottom: 2.714rem;
+}
+.promptBox .promptText {
+  padding: 0.387rem 0.775rem;
 }

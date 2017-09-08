@@ -92,6 +92,7 @@ namespace Buy
             };
             
             addViewScripts("login", new string[] { "login.js" });
+            addViewScripts("register", new string[] { "register.js" });
             addViewScripts("couponManage", new string[] { "couponManage.js" });
             addViewScripts("couponTicketTypeManageIndex", new string[] { "couponTicketTypeManageIndex.js" });
             addViewScripts("couponIndex", new string[] { "couponIndex.js" });
