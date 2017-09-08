@@ -54,7 +54,7 @@ namespace Buy.Controllers
             }
             if (type != null && type.Count > 0)
             {
-                query = query.Where(s => s.TypeID.HasValue && type.Contains(s.TypeID.Value));
+                query = query.Where(s => s.TypeID.HasValue && (type.Contains(s.TypeID.Value) || type.Contains(s.Type.ParentID)));
             }
 
             if (!string.IsNullOrWhiteSpace(filter))
@@ -330,12 +330,20 @@ namespace Buy.Controllers
             Enums.CouponSort sort = Enums.CouponSort.Default, int? typeID = null)
         {
             var couponTypes = new List<CouponTypeTreeNode>();
-            couponTypes.Add(new CouponTypeTreeNode() { ID = 0, Name = "首页", ParentID = -1,Childs=new List<CouponTypeTreeNode>() });
+            couponTypes.Add(new CouponTypeTreeNode() { ID = 0, Name = "首页", ParentID = -1, Childs = new List<CouponTypeTreeNode>() });
             couponTypes.AddRange(CouponTypes());
             ViewBag.CouponTypes = couponTypes;
             return View();
         }
-        
+
+        public ActionResult Second(int typeID, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
+             Enums.CouponSort sort = Enums.CouponSort.Default)
+        {
+            ViewBag.TypeName = Bll.SystemSettings.CouponType.First(s => s.ID == typeID).Name;
+            ViewBag.Sort = sort;
+            return View();
+        }
+
         public ActionResult GetList(string filter, int page = 1, string types = null, string platforms = null
           , bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0)
@@ -345,7 +353,7 @@ namespace Buy.Controllers
                .ToPagedList(page, 20);
             return View(paged);
         }
-        
+
         public ActionResult Details(int? id)
         {
             var coupon = db.Coupons.FirstOrDefault(s => s.ID == id.Value);
@@ -356,6 +364,18 @@ namespace Buy.Controllers
         public ActionResult Search()
         {
             return View();
+        }
+
+        public ActionResult SearchConfirm(string filter, int page = 1, string platforms = null,
+            Enums.CouponSort sort = Enums.CouponSort.Default)
+        {
+            var model = new CouponSearchViewModel()
+            {
+                Filter = filter,
+                Platform = platforms.SplitToArray<Enums.CouponPlatform>().FirstOrDefault(),
+                Sort = sort,
+            };
+            return View(model);
         }
 
         [HttpPost]

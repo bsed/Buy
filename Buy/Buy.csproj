@@ -545,6 +545,8 @@
     <Content Include="Views\Coupon\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Find\Index.cshtml" />
+    <Content Include="Views\Coupon\SearchConfirm.cshtml" />
+    <Content Include="Views\Coupon\Second.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
