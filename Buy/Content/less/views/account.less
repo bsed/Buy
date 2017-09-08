@@ -1,0 +1,106 @@
+﻿@import "../base";
+
+.account {
+    .account-input {
+        position: relative;
+        margin-top: 20rem*@resize;
+
+        .account-input-tits {
+            position: absolute;
+            left: 0;
+            top: 0;
+            line-height: 35rem*@resize;
+            font-size: @font-size-2;
+        }
+
+        .account-input-getCode {
+            position: absolute;
+            top: 0;
+            right: 0;
+            line-height: 35rem*@resize;
+            font-size: @font-size-2;
+            color: @font-col-blue;
+        }
+
+        input {
+            .clean-input();
+            border: none;
+            border-bottom: @border;
+            width: 100%;
+            max-width: none;
+            height: 35rem*@resize;
+            padding-left: 80rem*@resize;
+            padding-right: 100rem*@resize;
+            font-size: @font-size-2;
+
+            &::-webkit-input-placeholder {
+                color: @font-col-grey02;
+            }
+        }
+    }
+
+    .account-button {
+        .clean-input();
+        background-color: @bg-color-main;
+        color: @font-col-white;
+        font-size: @font-size-2;
+        text-align: center;
+        .one-line-vertical-mid(48rem*@resize);
+        max-width: none;
+        border: none;
+        width: 100%;
+        border-radius: 4rem*@resize;
+
+        &:disabled {
+            background-color: @bg-color-grey02;
+            color: @font-col-white;
+        }
+    }
+
+    .account-link {
+        .clearfix();
+
+        a {
+            color: @font-col-blue;
+        }
+    }
+
+    .account-logo{
+        text-align:center;
+        padding:50rem*@resize 0 15rem*@resize 0;
+
+        img{
+            .square(68rem*@resize);
+        }
+    }
+
+    .account-otherLoginWay {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        text-align: center;
+
+        .account-otherLoginWay-tits {
+            color:@font-col-grey02;
+
+            &:before, &:after {
+                content: "";
+                width: 30%;
+                height: 1px;
+                background-color: #e6e6e6;
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 15rem*@resize;
+            }
+        }
+
+        .account-otherLoginWay-list {
+            padding: 20rem*@resize 0;
+        }
+
+        img {
+            .square(48rem*@resize);
+            margin-bottom: 8rem*@resize;
+        }
+    }
+}

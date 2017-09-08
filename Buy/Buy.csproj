@@ -352,6 +352,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\image\test\banner_home%402x.png" />
     <Content Include="Content\image\test\coupon-detail-pimg02.png" />
+    <Content Include="Content\image\test\img_logo_login%402x.png" />
     <Content Include="Content\image\test\img_ztihome_001%402x.png" />
     <Content Include="Content\image\test\img_ztihome_002%402x.png" />
     <Content Include="Content\image\test\img_ztihome_003%402x.png" />
@@ -360,8 +361,11 @@
     <Content Include="Content\image\test\sort.png" />
     <Content Include="Content\image\test\sort_all.png" />
     <Content Include="Content\image\view\ic_navbar_back_bgblack%402x.png" />
+    <Content Include="Content\image\view\ic_navbar_back_black%402x.png" />
+    <Content Include="Content\image\view\ic_navbar_closed_black%402x.png" />
     <Content Include="Content\image\view\ic_navbar_share_bgblack%402x.png" />
     <Content Include="Content\image\view\img_mogoodsx%402x.png" />
+    <Content Include="Content\image\view\img_wechat_login_grey%402x.png" />
     <Content Include="Content\image\view\logo_jd_tag%402x.png" />
     <Content Include="Content\image\view\logo_mogujie_tag%402x.png" />
     <Content Include="Content\image\view\logo_taobao_tag%402x.png" />
@@ -408,6 +412,7 @@
     <Content Include="Content\less\views\couponTicketTypeManageIndex.less" />
     <Content Include="Content\less\views\couponDetail.less" />
     <Content Include="Content\less\views\couponIndex.less" />
+    <Content Include="Content\less\views\account.less" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="phantomjs-license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -463,6 +468,7 @@
     <Content Include="Scripts\Views\couponManage.js" />
     <Content Include="Scripts\Views\couponTicketTypeManageIndex.js" />
     <Content Include="Scripts\Views\login.js" />
+    <Content Include="Scripts\Views\register.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

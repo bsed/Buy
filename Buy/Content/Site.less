@@ -6,6 +6,7 @@
 @import "less/views/couponTicketTypeManageIndex";
 @import "less/views/couponDetail";
 @import "less/views/couponIndex";
+@import "less/views/account";
 
 body {
     color: @font-col-black01;
@@ -221,6 +222,11 @@ textarea {
     padding-right: 24rem*@resize;
 }
 
+.paddingLr16{
+    padding-left:16rem*@resize;
+    padding-right:16rem*@resize;
+}
+
 .paddingTb16 {
     padding-top: 16rem*@resize;
     padding-bottom: 16rem*@resize;
@@ -295,7 +301,7 @@ textarea {
 }
 
 .navigationBar {
-    background-color: @bg-color-white;
+    background-color: rgba(255,255,255,0.9);
     position: fixed;
     top: 0;
     width: 100%;
@@ -303,10 +309,21 @@ textarea {
     text-align: center;
     .one-line-vertical-mid(44rem*@resize);
     font-size: @font-size-4;
-    color: @font-col-white;
+    color: @font-col-black01;
+    border-bottom:@border;
+
+    .navigationBar-back{
+        background:url("../Content/image/view/ic_navbar_back_black@2x.png") no-repeat center;
+        .square(44rem*@resize);
+        background-size:contain;
+        position:absolute;
+        top:0;
+        left:0;
+    }
 
     &.bgcolor-orange {
         background-color: @bg-color-main;
+        color: @font-col-white;
     }
 }
 
@@ -460,5 +477,26 @@ textarea {
                 }
             }
         }
+    }
+}
+
+.promptBox {
+    border-radius: 0.193rem;
+    color: #fff;
+    font-size: @font-size-3;
+    text-align: center;
+    position: fixed;
+    z-index: 999999;
+    background: rgba(0,0,0,0.6);
+    left: 50%;
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    bottom: 2.714rem;
+
+    .promptText {
+        padding: 0.387rem 0.775rem;
     }
 }

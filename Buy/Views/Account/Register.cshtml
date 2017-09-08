@@ -3,49 +3,41 @@
     ViewBag.Title = "注册";
 }
 
-<h2>@ViewBag.Title。</h2>
-
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>创建新帐户。</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+
+    <div class="account paddingT44 minHight100vh">
+        <div class="navigationBar">
+            <div class="navigationBar-back" onclick="history.back(-1)"></div>
+            注册
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Code, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="注册" />
+        @Html.ValidationSummary("", new { @class = "text-danger hidden",@id="errorText" })
+        <div class="paddingLr16">
+            <div class="account-input">
+                <div class="account-input-tits">手机号码</div>
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "", @placeholder="请填写手机号码" })
+                <div class="account-input-getCode">获取验证码</div>
+                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger hidden" })
+            </div>
+            <div class="account-input">
+                <div class="account-input-tits">验证码</div>
+                @Html.TextBoxFor(m => m.Code, new { @class = "", @placeholder = "请填写验证码" })
+                @Html.ValidationMessageFor(m => m.Code, "", new { @class = "text-danger hidden" })
+            </div>
+            <div class="account-input">
+                <div class="account-input-tits">密码</div>
+                @Html.PasswordFor(m => m.Password, new { @class = "", @placeholder = "请填写密码" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger hidden" })
+            </div>
+            <div class="marginT35">
+                <input type="submit" disabled class="account-button" value="注册" />
+            </div>
         </div>
     </div>
 }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/register")
 }
