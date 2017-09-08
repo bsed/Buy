@@ -1,49 +1,6 @@
 ﻿@import "../base";
 
 .couponIndex {
-    .couponIndex-banner {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        overflow-x: hidden;
-
-        .swiper-container {
-            .swiper-wrapper {
-                .swiper-slide {
-                    width: 100%;
-                    height: 100%;
-
-                    a {
-                        display: block;
-                    }
-
-                    img {
-                        width: 100%;
-                        height: auto;
-                    }
-                }
-            }
-
-            .swiper-pagination {
-                width: auto;
-                left: auto;
-                right: 12rem*@resize;
-                bottom: 5rem*@resize;
-
-                .swiper-pagination-bullet {
-                    .rectangle(8rem*@resize,3rem*@resize);
-                    background: rgba(255,255,255,0.38);
-                    border-radius: 68rem*@resize;
-                    opacity: 1;
-                    margin: 0 2rem*@resize;
-
-                    &.swiper-pagination-bullet-active {
-                        background: @bg-color-main;
-                    }
-                }
-            }
-        }
-    }
 
     .couponIndex-menu {
         .clearfix();
@@ -185,57 +142,101 @@
     }
 }
 
-.sortList{
+.sortList {
     .clearfix();
-    background-color:@bg-color-white;
-    position:relative;
-    overflow:hidden;
+    background-color: @bg-color-white;
+    position: relative;
+    overflow: hidden;
 
-    ul{
+    ul {
         .clean-ul();
 
-        li{
-            float:left;
-            width:100%/4;
-            text-align:center;
-            color:@font-col-grey01;
-            font-size:@font-size-1;
-            padding:10rem*@resize 0;
-            line-height:1;
-            background-color:@bg-color-white;
+        li {
+            float: left;
+            width: 100%/4;
+            text-align: center;
+            color: @font-col-grey01;
+            font-size: @font-size-1;
+            padding: 10rem*@resize 0;
+            line-height: 1;
+            background-color: @bg-color-white;
 
-            a{
+            a {
                 .clean-a();
-                display:block;
+                display: block;
             }
 
-            img{
+            img {
                 .square(44rem*@resize);
-                margin-bottom:2rem*@resize;
+                margin-bottom: 2rem*@resize;
             }
 
-            &.all{
-                position:absolute;
-                bottom:0;
-                right:0;
-                z-index:@z-index-bottom+-10;
+            &.all {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                z-index: @z-index-bottom+-10;
             }
         }
     }
 
-    &.getAll{
-        position:absolute;
-        width:100%;
-        height:auto;
-        top:80rem*@resize;
-        z-index:@z-index-mid;
+    &.getAll {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        top: 80rem*@resize;
+        z-index: @z-index-mid;
 
-        .all{
-            display:none;
+        .all {
+            display: none;
         }
     }
 
-    &.style02{
-        height:160rem*@resize;
+    &.style02 {
+        height: 160rem*@resize;
+    }
+}
+
+.banner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+
+    .swiper-container {
+        .swiper-wrapper {
+            .swiper-slide {
+                width: 100%;
+                height: 100%;
+
+                a {
+                    display: block;
+                }
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+
+        .swiper-pagination {
+            width: auto;
+            left: auto;
+            right: 12rem*@resize;
+            bottom: 5rem*@resize;
+
+            .swiper-pagination-bullet {
+                .rectangle(8rem*@resize,3rem*@resize);
+                background: rgba(255,255,255,0.38);
+                border-radius: 68rem*@resize;
+                opacity: 1;
+                margin: 0 2rem*@resize;
+
+                &.swiper-pagination-bullet-active {
+                    background: @bg-color-main;
+                }
+            }
+        }
     }
 }

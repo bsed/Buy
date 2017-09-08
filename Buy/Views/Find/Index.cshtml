@@ -1,7 +1,121 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "发现";
 }
 
-<h2>Index</h2>
+@Styles.Render("~/bundles/swiper/css")
+
+<div class="find minHight100vh paddingT44 bg-color-grey">
+    <div class="navigationBar bgcolor-orange">发现</div>
+
+    <div class="banner find-banner">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a href="#" data-code="" title="">
+                        <img src="~/Content/image/test/banner_home@2x.png" />
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#" data-code="" title="">
+                        <img src="~/Content/image/test/banner_home@2x.png" />
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#" data-code="" title="">
+                        <img src="~/Content/image/test/banner_home@2x.png" />
+                    </a>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <div class="find-foodTicketList">
+        <ul>
+            <li>
+                <a href="#">
+                    <img src="~/Content/image/view/img_kfc_b@2x.png" />
+                    <div>肯德基</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="~/Content/image/view/img_mcdonalds_b@2x.png" />
+                    <div>麦当劳</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="~/Content/image/view/img_burgerking_b@2x.png" />
+                    <div>汉堡王</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="~/Content/image/view/img_bsk_b@2x.png" />
+                    <div>必胜客</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="~/Content/image/view/img_zgongfu_b@2x.png" />
+                    <div>真功夫</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="find-wayText">第三放服务</div>
+
+    <div class="thirdWayList">
+        <ul>
+            <li>
+                <a href="#">
+                    <img src="~/Content/image/view/img_burgerking_b@2x.png" />
+                    <div>话费</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="~/Content/image/view/img_burgerking_b@2x.png" />
+                    <div>话费</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="~/Content/image/view/img_burgerking_b@2x.png" />
+                    <div>话费</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="~/Content/image/view/img_burgerking_b@2x.png" />
+                    <div>话费</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="~/Content/image/view/img_burgerking_b@2x.png" />
+                    <div>话费</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="~/Content/image/view/img_burgerking_b@2x.png" />
+                    <div>话费</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    @Html.Partial("_navTabBottomPartial")
+</div>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/swiper/js")
+    @Scripts.Render("~/bundles/find")
+}
 

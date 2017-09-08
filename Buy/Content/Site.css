@@ -622,40 +622,6 @@
   background-size: contain;
   display: inline-block;
 }
-.couponIndex .couponIndex-banner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow-x: hidden;
-}
-.couponIndex .couponIndex-banner .swiper-container .swiper-wrapper .swiper-slide {
-  width: 100%;
-  height: 100%;
-}
-.couponIndex .couponIndex-banner .swiper-container .swiper-wrapper .swiper-slide a {
-  display: block;
-}
-.couponIndex .couponIndex-banner .swiper-container .swiper-wrapper .swiper-slide img {
-  width: 100%;
-  height: auto;
-}
-.couponIndex .couponIndex-banner .swiper-container .swiper-pagination {
-  width: auto;
-  left: auto;
-  right: 0.46376812rem;
-  bottom: 0.19323671rem;
-}
-.couponIndex .couponIndex-banner .swiper-container .swiper-pagination .swiper-pagination-bullet {
-  width: 0.30917874rem;
-  height: 0.11594203rem;
-  background: rgba(255, 255, 255, 0.38);
-  border-radius: 2.62801932rem;
-  opacity: 1;
-  margin: 0 0.07729469rem;
-}
-.couponIndex .couponIndex-banner .swiper-container .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
-  background: #E02E24;
-}
 .couponIndex .couponIndex-menu:before,
 .couponIndex .couponIndex-menu:after {
   content: " ";
@@ -886,6 +852,40 @@
 .sortList.style02 {
   height: 6.18357488rem;
 }
+.banner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+.banner .swiper-container .swiper-wrapper .swiper-slide {
+  width: 100%;
+  height: 100%;
+}
+.banner .swiper-container .swiper-wrapper .swiper-slide a {
+  display: block;
+}
+.banner .swiper-container .swiper-wrapper .swiper-slide img {
+  width: 100%;
+  height: auto;
+}
+.banner .swiper-container .swiper-pagination {
+  width: auto;
+  left: auto;
+  right: 0.46376812rem;
+  bottom: 0.19323671rem;
+}
+.banner .swiper-container .swiper-pagination .swiper-pagination-bullet {
+  width: 0.30917874rem;
+  height: 0.11594203rem;
+  background: rgba(255, 255, 255, 0.38);
+  border-radius: 2.62801932rem;
+  opacity: 1;
+  margin: 0 0.07729469rem;
+}
+.banner .swiper-container .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: #E02E24;
+}
 .account .account-input {
   position: relative;
   margin-top: 0.77294686rem;
@@ -1053,6 +1053,107 @@
   margin-right: 0.30917874rem;
   margin-bottom: 0.30917874rem;
   line-height: 1;
+}
+.find .find-foodTicketList {
+  background-color: #fff;
+}
+.find .find-foodTicketList:before,
+.find .find-foodTicketList:after {
+  content: " ";
+  display: table;
+}
+.find .find-foodTicketList:after {
+  clear: both;
+}
+.find .find-foodTicketList:before,
+.find .find-foodTicketList:after {
+  content: " ";
+  display: table;
+}
+.find .find-foodTicketList:after {
+  clear: both;
+}
+.find .find-foodTicketList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.find .find-foodTicketList ul li {
+  float: left;
+  text-align: center;
+  font-size: 0.5410628rem;
+  color: rgba(0, 0, 0, 0.87);
+  width: 20%;
+  padding: 0.61835749rem 0;
+}
+.find .find-foodTicketList ul li a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.find .find-foodTicketList ul li a:hover,
+.find .find-foodTicketList ul li a:active,
+.find .find-foodTicketList ul li a:focus {
+  color: inherit;
+}
+.find .find-foodTicketList ul li img {
+  width: 1.70048309rem;
+  height: 1.70048309rem;
+  margin-bottom: 0.15458937rem;
+}
+.find .find-wayText {
+  font-size: 0.5410628rem;
+  color: rgba(0, 0, 0, 0.54);
+  padding: 0.61835749rem 0.61835749rem 0.30917874rem 0.61835749rem;
+}
+.find .thirdWayList:before,
+.find .thirdWayList:after {
+  content: " ";
+  display: table;
+}
+.find .thirdWayList:after {
+  clear: both;
+}
+.find .thirdWayList:before,
+.find .thirdWayList:after {
+  content: " ";
+  display: table;
+}
+.find .thirdWayList:after {
+  clear: both;
+}
+.find .thirdWayList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.find .thirdWayList ul li {
+  float: left;
+  width: 33.33333333%;
+  text-align: center;
+  background-color: #fff;
+  font-size: 0.5410628rem;
+  padding: 0.92753623rem;
+  border-right: 0.03864734rem solid rgba(0, 0, 0, 0.12);
+  border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.12);
+}
+.find .thirdWayList ul li:nth-child(3n) {
+  border-right: none;
+}
+.find .thirdWayList ul li a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.find .thirdWayList ul li a:hover,
+.find .thirdWayList ul li a:active,
+.find .thirdWayList ul li a:focus {
+  color: inherit;
+}
+.find .thirdWayList ul li img {
+  width: 1.46859903rem;
+  height: 1.46859903rem;
+  margin-bottom: 0.15458937rem;
 }
 body {
   color: rgba(0, 0, 0, 0.87);
