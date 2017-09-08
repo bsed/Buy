@@ -1481,43 +1481,43 @@ textarea {
   color: inherit;
 }
 .navTabBottom ul li.taobao a {
-  background: url("image/view/tab_00_nor.png") no-repeat center;
+  background: url("image/view/tab_00_nor@2x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.taobao.active a {
-  background: url("image/view/tab_00_pre.png") no-repeat center;
+  background: url("image/view/tab_00_pre@2x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.mogujie a {
-  background: url("image/view/tab_01_nor.png") no-repeat center;
+  background: url("image/view/tab_01_nor@2x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.mogujie.active a {
-  background: url("image/view/tab_01_pre.png") no-repeat center;
+  background: url("image/view/tab_01_pre@2x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.jd a {
-  background: url("image/view/tab_02_nor.png") no-repeat center;
+  background: url("image/view/tab_02_nor@2x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.jd.active a {
-  background: url("image/view/tab_02_pre.png") no-repeat center;
+  background: url("image/view/tab_02_pre@2x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
-.navTabBottom ul li.search a {
-  background: url("image/view/tab_03_nor.png") no-repeat center;
+.navTabBottom ul li.find a {
+  background: url("image/view/tab_03_nor@2x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
-.navTabBottom ul li.search.active a {
-  background: url("image/view/tab_03_pre.png") no-repeat center;
+.navTabBottom ul li.find.active a {
+  background: url("image/view/tab_03_pre@2x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.user a {
-  background: url("image/view/tab_04_nor.png") no-repeat center;
+  background: url("image/view/tab_04_nor@2x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.user.active a {
-  background: url("image/view/tab_04_pre.png") no-repeat center;
+  background: url("image/view/tab_04_pre@2x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .promptBox {

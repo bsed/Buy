@@ -373,16 +373,16 @@
     <Content Include="Content\image\view\logo_taobao_tag%402x.png" />
     <Content Include="Content\image\view\logo_tmall_tag%402x.png" />
     <Content Include="Content\image\test\coupon-detail-pimg.png" />
-    <Content Include="Content\image\view\tab_00_nor.png" />
-    <Content Include="Content\image\view\tab_00_pre.png" />
-    <Content Include="Content\image\view\tab_01_nor.png" />
-    <Content Include="Content\image\view\tab_01_pre.png" />
-    <Content Include="Content\image\view\tab_02_nor.png" />
-    <Content Include="Content\image\view\tab_02_pre.png" />
-    <Content Include="Content\image\view\tab_03_nor.png" />
-    <Content Include="Content\image\view\tab_03_pre.png" />
-    <Content Include="Content\image\view\tab_04_nor.png" />
-    <Content Include="Content\image\view\tab_04_pre.png" />
+    <Content Include="Content\image\view\tab_00_nor%402x.png" />
+    <Content Include="Content\image\view\tab_00_pre%402x.png" />
+    <Content Include="Content\image\view\tab_01_nor%402x.png" />
+    <Content Include="Content\image\view\tab_01_pre%402x.png" />
+    <Content Include="Content\image\view\tab_02_nor%402x.png" />
+    <Content Include="Content\image\view\tab_02_pre%402x.png" />
+    <Content Include="Content\image\view\tab_03_nor%402x.png" />
+    <Content Include="Content\image\view\tab_03_pre%402x.png" />
+    <Content Include="Content\image\view\tab_04_nor%402x.png" />
+    <Content Include="Content\image\view\tab_04_pre%402x.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css">
       <DependentUpon>Site.less</DependentUpon>
