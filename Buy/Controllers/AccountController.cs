@@ -123,7 +123,7 @@ namespace Buy.Controllers
             }
         }
 
-      
+
 
         //
         // GET: /Account/VerifyCode
@@ -473,6 +473,48 @@ namespace Buy.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> LoginClient(string username, string password)
+        {
+            var result = await SignInManager.PasswordSignInAsync(username, password, false, shouldLockout: true);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    {
+                        var user = db.Users.FirstOrDefault(s => s.UserName == username || s.PhoneNumber == username);
+                        if (user.UserType != Enums.UserType.Proxy)
+                        {
+                            return Json(Comm.ToJsonResult("PermissionDenied", "该帐号没有代理权限"));
+                        }
+                        var code = Comm.Random.Next(10000, 99999).ToString("x");
+                        db.ClientAccessLogs.Add(new ClientAccessLog
+                        {
+                            Code = code,
+                            IP = this.GetIPAddress(),
+                            LoginDateTime = DateTime.Now,
+                            UserID = user.Id
+                        });
+                        return Json(Comm.ToJsonResult("Success", "登录成功", new { ID = user.Id, NickName = user.NickName, Code = code }));
+                    }
+                case SignInStatus.LockedOut:
+                    {
+                        var user = db.Users.FirstOrDefault(s => s.UserName == username || s.PhoneNumber == username);
+                        if (user.IsLocked())
+                        {
+                            return Json(Comm.ToJsonResult("LockedOut", "帐号已经被冻结"));
+                        }
+                        return Json(Comm.ToJsonResult("LockedOut", "因多次登录失败，帐号已经被临时冻结，请稍微再试"));
+                    }
+                case SignInStatus.RequiresVerification:
+                    {
+                        return Json(Comm.ToJsonResult("RequiresVerification", "用户或密码为空"));
+                    }
+                case SignInStatus.Failure:
+                default:
+                    return Json(Comm.ToJsonResult("Failure", "用户或密码有误"));
+            }
         }
 
         protected override void Dispose(bool disposing)
