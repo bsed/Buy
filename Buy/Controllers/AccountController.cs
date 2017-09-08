@@ -61,7 +61,7 @@ namespace Buy.Controllers
             var user = db.Users.FirstOrDefault(s => s.Id==userId);
             if(user==null)
             {
-                return Json(Comm.ToMobileResult("Error", "没有这个用户"),JsonRequestBehavior.AllowGet);
+                return Json(Comm.ToJsonResult("Error", "没有这个用户"),JsonRequestBehavior.AllowGet);
             }
             var isActivation = true;
                 var registrationCodes = db.RegistrationCodes.Where(s => s.UseUser == user.Id);
@@ -77,7 +77,7 @@ namespace Buy.Controllers
                 user.PhoneNumber,
                 IsActivation = isActivation
             };
-            return Json(Comm.ToMobileResult("Success", "成功",new { Data= data }), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功",new { Data= data }), JsonRequestBehavior.AllowGet);
         }
 
         //
@@ -102,24 +102,24 @@ namespace Buy.Controllers
                 case SignInStatus.Success:
                     {
                         var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName || s.PhoneNumber == model.UserName);
-                        return Json(Comm.ToMobileResult("Success", "登录成功", new { ID = user.Id }));
+                        return Json(Comm.ToJsonResult("Success", "登录成功", new { ID = user.Id }));
                     }
                 case SignInStatus.LockedOut:
                     {
                         var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName || s.PhoneNumber == model.UserName);
                         if (user.IsLocked())
                         {
-                            return Json(Comm.ToMobileResult("LockedOut", "帐号已经被冻结"));
+                            return Json(Comm.ToJsonResult("LockedOut", "帐号已经被冻结"));
                         }
-                        return Json(Comm.ToMobileResult("LockedOut", "因多次登录失败，帐号已经被冻结，请稍微再试"));
+                        return Json(Comm.ToJsonResult("LockedOut", "因多次登录失败，帐号已经被冻结，请稍微再试"));
                     }
                 case SignInStatus.RequiresVerification:
                     {
-                        return Json(Comm.ToMobileResult("RequiresVerification", "用户或密码为空"));
+                        return Json(Comm.ToJsonResult("RequiresVerification", "用户或密码为空"));
                     }
                 case SignInStatus.Failure:
                 default:
-                    return Json(Comm.ToMobileResult("Failure", "用户或密码有误"));
+                    return Json(Comm.ToJsonResult("Failure", "用户或密码有误"));
             }
         }
 
@@ -190,7 +190,7 @@ namespace Buy.Controllers
                 //}
                 if (db.Users.Any(s => s.UserName == model.PhoneNumber))
                 {
-                    return Json(Comm.ToMobileResult("Error", "用户名已存在"));
+                    return Json(Comm.ToJsonResult("Error", "用户名已存在"));
                 }
                 var user = new ApplicationUser
                 {
@@ -207,11 +207,11 @@ namespace Buy.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
-                    return Json(Comm.ToMobileResult("Success", "成功", new { ID = user.Id }));
+                    return Json(Comm.ToJsonResult("Success", "成功", new { ID = user.Id }));
                 }
-                return Json(Comm.ToMobileResult("Error", result.Errors.FirstOrDefault()));
+                return Json(Comm.ToJsonResult("Error", result.Errors.FirstOrDefault()));
             }
-            return Json(Comm.ToMobileResult("Error", ModelState.FirstErrorMessage()));
+            return Json(Comm.ToJsonResult("Error", ModelState.FirstErrorMessage()));
         }
 
         [HttpPost]
@@ -222,19 +222,19 @@ namespace Buy.Controllers
             var registrationCodes = db.RegistrationCodes.FirstOrDefault(s => s.Code == code);
             if (registrationCodes == null)
             {
-                return Json(Comm.ToMobileResult("Error", "没有这个注册码"));
+                return Json(Comm.ToJsonResult("Error", "没有这个注册码"));
             }
             else
             {
                 if (registrationCodes.UseTime.HasValue)
                 {
-                    return Json(Comm.ToMobileResult("Error", "注册码已激活"));
+                    return Json(Comm.ToJsonResult("Error", "注册码已激活"));
                 }
             }
             registrationCodes.UseTime = DateTime.Now;
             registrationCodes.UseUser = userId;
             db.SaveChanges();
-            return Json(Comm.ToMobileResult("Success", "成功"));
+            return Json(Comm.ToJsonResult("Success", "成功"));
         }
 
         //
@@ -270,7 +270,7 @@ namespace Buy.Controllers
                 var user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
                 if (user == null)
                 {
-                    return Json(Comm.ToMobileResult("NoFound", "用户不存在"));
+                    return Json(Comm.ToJsonResult("NoFound", "用户不存在"));
                 }
                 var verCode = Bll.Accounts.VerCode(user.PhoneNumber, model.Code);
                 //if (!verCode.IsSuccess)
@@ -281,14 +281,14 @@ namespace Buy.Controllers
                 var r = UserManager.AddPassword(user.Id, model.Password);
                 if (r.Succeeded)
                 {
-                    return Json(Comm.ToMobileResult("Success", "设置成功"));
+                    return Json(Comm.ToJsonResult("Success", "设置成功"));
                 }
                 else
                 {
-                    return Json(Comm.ToMobileResult("Error", r.Errors.FirstOrDefault()));
+                    return Json(Comm.ToJsonResult("Error", r.Errors.FirstOrDefault()));
                 }
             }
-            return Json(Comm.ToMobileResult("Error", ModelState.FirstErrorMessage()));
+            return Json(Comm.ToJsonResult("Error", ModelState.FirstErrorMessage()));
         }
 
         //

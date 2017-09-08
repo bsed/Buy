@@ -26,9 +26,9 @@ namespace Buy.Controllers
             }
             if (filename == null || filename.Count <= 0)
             {
-                return Json(Comm.ToMobileResult("Error", "上传失败"));
+                return Json(Comm.ToJsonResult("Error", "上传失败"));
             }
-            return Json(Comm.ToMobileResult("Success", "成功", new
+            return Json(Comm.ToJsonResult("Success", "成功", new
             {
                 FileUrls = filename,
                 FileFullUrls = filename.Select(s => Url.ContentFull(s))
@@ -40,11 +40,11 @@ namespace Buy.Controllers
             try
             {
                 DeleteSeverFile(file);
-                return Json(Comm.ToMobileResult("Success", "删除成功"));
+                return Json(Comm.ToJsonResult("Success", "删除成功"));
             }
             catch (Exception ex)
             {
-                return Json(Comm.ToMobileResult("Error", "删除失败"));
+                return Json(Comm.ToJsonResult("Error", "删除失败"));
             }
         }
 
