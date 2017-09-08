@@ -173,7 +173,7 @@ namespace Buy.Controllers
                 var tt = db.Coupons.FirstOrDefault(s => s.ID == id);
                 if (tt == null)
                 {
-                    return Json(Comm.ToMobileResult("NoFound", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+                    return Json(Comm.ToJsonResult("NoFound", "优惠券不存在"), JsonRequestBehavior.AllowGet);
                 }
                 if (tt.UrlLisr == null)
                 {
@@ -297,7 +297,7 @@ namespace Buy.Controllers
         public ActionResult GetCouponTypes()
         {
             var data = CouponTypes();
-            return Json(Comm.ToMobileResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
         }
 
         public List<CouponTypeTreeNode> CouponTypes()
