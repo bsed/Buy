@@ -1,0 +1,71 @@
+﻿@import "../base";
+
+.find{
+    .find-foodTicketList{
+        .clearfix();
+        background-color:@bg-color-white;
+
+        ul{
+            .clean-ul();
+
+            li{
+                float:left;
+                text-align:center;
+                font-size:@font-size-2;
+                color:@font-col-black01;
+                width:100%/5;
+                padding:16rem*@resize 0;
+
+                a{
+                    .clean-a();
+                    display:block;
+                }
+
+                img{
+                    .square(44rem*@resize);
+                    margin-bottom:4rem*@resize;
+                    //box-shadow: 0 2px 8px 0 rgba(0,0,0,0.24);
+                }
+            }
+        }
+    }
+
+    .find-wayText{
+        font-size:@font-size-2;
+        color:@font-col-grey01;
+        padding:16rem*@resize 16rem*@resize 8rem*@resize 16rem*@resize;
+    }
+
+    .thirdWayList{
+        .clearfix();
+
+        ul{
+            .clean-ul();
+
+            li{
+                float:left;
+                width:100%/3;
+                text-align:center;
+                background-color:@bg-color-white;
+                font-size:@font-size-2;
+                padding:24rem*@resize;
+                border-right:@border;
+                border-bottom:@border;
+
+                &:nth-child(3n){
+                    border-right:none;
+                }
+
+                a{
+                    .clean-a();
+                    display:block;
+                }
+
+                img{
+                    .square(38rem*@resize);
+                    margin-bottom:4rem*@resize;
+                }
+            }
+        }
+    }
+}

@@ -367,9 +367,14 @@
     <Content Include="Content\image\view\ic_navbar_closed_black%402x.png" />
     <Content Include="Content\image\view\ic_navbar_search_black_m%402x.png" />
     <Content Include="Content\image\view\ic_navbar_share_bgblack%402x.png" />
+    <Content Include="Content\image\view\img_bsk_b%402x.png" />
+    <Content Include="Content\image\view\img_burgerking_b%402x.png" />
     <Content Include="Content\image\view\img_coupon_nodata.png" />
+    <Content Include="Content\image\view\img_kfc_b%402x.png" />
+    <Content Include="Content\image\view\img_mcdonalds_b%402x.png" />
     <Content Include="Content\image\view\img_mogoodsx%402x.png" />
     <Content Include="Content\image\view\img_wechat_login_grey%402x.png" />
+    <Content Include="Content\image\view\img_zgongfu_b%402x.png" />
     <Content Include="Content\image\view\logo_jd_tag%402x.png" />
     <Content Include="Content\image\view\logo_mogujie_tag%402x.png" />
     <Content Include="Content\image\view\logo_taobao_tag%402x.png" />
@@ -420,6 +425,7 @@
     <Content Include="Content\less\views\couponIndex.less" />
     <Content Include="Content\less\views\account.less" />
     <Content Include="Content\less\views\search.less" />
+    <Content Include="Content\less\views\find.less" />
     <None Include="Properties\PublishProfiles\BuyPublish.pubxml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="phantomjs-license.txt">
@@ -476,6 +482,7 @@
     <Content Include="Scripts\Views\couponIndex.js" />
     <Content Include="Scripts\Views\couponManage.js" />
     <Content Include="Scripts\Views\couponTicketTypeManageIndex.js" />
+    <Content Include="Scripts\Views\find.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
     <Content Include="Scripts\_references.js" />
