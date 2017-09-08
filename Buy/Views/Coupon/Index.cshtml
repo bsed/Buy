@@ -44,7 +44,10 @@
     @Html.Hidden("typeID", Request["typeID"])
     @Html.Hidden("platform", Request["platform"])
     @Html.Hidden("sort", Request["sort"])
-    <div class="navigationBar bgcolor-orange">@p.GetDisplayName()优惠券</div>
+    <div class="navigationBar bgcolor-orange">
+        @p.GetDisplayName()优惠券
+        <a href="@Url.Action("Search","coupon")"><div class="navigationBar-searchIcon"></div></a>
+    </div>
     <div class="navigationSwiper top44">
         <div class="swiper-container">
             <div class="swiper-wrapper">
