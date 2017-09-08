@@ -210,7 +210,7 @@ namespace Buy
                     page.PageCount,
                     page.HasNextPage
                 },
-                Result = data
+                Data = data
             });
 
         }
