@@ -294,11 +294,13 @@
     <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\CouponManageController.cs" />
     <Compile Include="Controllers\CouponTypeManageController.cs" />
+    <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UploaderController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -364,6 +366,7 @@
     <Content Include="Content\image\view\ic_navbar_back_bgblack%402x.png" />
     <Content Include="Content\image\view\ic_navbar_back_black%402x.png" />
     <Content Include="Content\image\view\ic_navbar_closed_black%402x.png" />
+    <Content Include="Content\image\view\ic_navbar_search_black_m%402x.png" />
     <Content Include="Content\image\view\ic_navbar_share_bgblack%402x.png" />
     <Content Include="Content\image\view\img_coupon_nodata.png" />
     <Content Include="Content\image\view\img_mogoodsx%402x.png" />
@@ -373,16 +376,16 @@
     <Content Include="Content\image\view\logo_taobao_tag%402x.png" />
     <Content Include="Content\image\view\logo_tmall_tag%402x.png" />
     <Content Include="Content\image\test\coupon-detail-pimg.png" />
-    <Content Include="Content\image\view\tab_00_nor.png" />
-    <Content Include="Content\image\view\tab_00_pre.png" />
-    <Content Include="Content\image\view\tab_01_nor.png" />
-    <Content Include="Content\image\view\tab_01_pre.png" />
-    <Content Include="Content\image\view\tab_02_nor.png" />
-    <Content Include="Content\image\view\tab_02_pre.png" />
-    <Content Include="Content\image\view\tab_03_nor.png" />
-    <Content Include="Content\image\view\tab_03_pre.png" />
-    <Content Include="Content\image\view\tab_04_nor.png" />
-    <Content Include="Content\image\view\tab_04_pre.png" />
+    <Content Include="Content\image\view\tab_00_nor%402x.png" />
+    <Content Include="Content\image\view\tab_00_pre%402x.png" />
+    <Content Include="Content\image\view\tab_01_nor%402x.png" />
+    <Content Include="Content\image\view\tab_01_pre%402x.png" />
+    <Content Include="Content\image\view\tab_02_nor%402x.png" />
+    <Content Include="Content\image\view\tab_02_pre%402x.png" />
+    <Content Include="Content\image\view\tab_03_nor%402x.png" />
+    <Content Include="Content\image\view\tab_03_pre%402x.png" />
+    <Content Include="Content\image\view\tab_04_nor%402x.png" />
+    <Content Include="Content\image\view\tab_04_pre%402x.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css">
       <DependentUpon>Site.less</DependentUpon>
@@ -417,6 +420,7 @@
     <Content Include="Content\less\views\couponDetail.less" />
     <Content Include="Content\less\views\couponIndex.less" />
     <Content Include="Content\less\views\account.less" />
+    <Content Include="Content\less\views\search.less" />
     <None Include="Properties\PublishProfiles\BuyPublish.pubxml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="phantomjs-license.txt">
@@ -532,6 +536,8 @@
     <Content Include="Views\Coupon\Search.cshtml" />
     <Content Include="Views\Coupon\Details.cshtml" />
     <Content Include="Views\Coupon\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Find\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

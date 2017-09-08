@@ -7,6 +7,7 @@
 @import "less/views/couponDetail";
 @import "less/views/couponIndex";
 @import "less/views/account";
+@import "less/views/search";
 
 body {
     color: @font-col-black01;
@@ -95,8 +96,8 @@ textarea {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: @z-index-top+-1;
 
-    &.style02{
-        z-index:@z-index-bottom+100;
+    &.style02 {
+        z-index: @z-index-bottom+100;
     }
 }
 
@@ -222,9 +223,9 @@ textarea {
     padding-right: 24rem*@resize;
 }
 
-.paddingLr16{
-    padding-left:16rem*@resize;
-    padding-right:16rem*@resize;
+.paddingLr16 {
+    padding-left: 16rem*@resize;
+    padding-right: 16rem*@resize;
 }
 
 .paddingTb16 {
@@ -310,15 +311,61 @@ textarea {
     .one-line-vertical-mid(44rem*@resize);
     font-size: @font-size-4;
     color: @font-col-black01;
-    border-bottom:@border;
+    border-bottom: @border;
 
-    .navigationBar-back{
-        background:url("../Content/image/view/ic_navbar_back_black@2x.png") no-repeat center;
+    .navigationBar-back {
+        background: url("../Content/image/view/ic_navbar_back_black@2x.png") no-repeat center;
         .square(44rem*@resize);
-        background-size:contain;
+        background-size: contain;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .navigationBar-search {
+        .clearfix();
+        width: 74%;
+        height: 44rem*@resize;
+        margin-left: 44rem*@resize;
+        position: relative;
+
+        i {
+            .square(16rem*@resize);
+            background: url("../Content/image/view/ic_navbar_search_black_m@2x.png") no-repeat center;
+            background-size: contain;
+            .block-vertical-mid(50%);
+            left: 12rem*@resize;
+            display: block;
+            z-index:50;
+        }
+
+        input {
+            .block-vertical-mid(50%);
+            left:0;
+            z-index:10;
+            .clean-input();
+            max-width: none;
+            border: none;
+            width: 100%;
+            height: 30rem*@resize;
+            line-height: 1;
+            border-radius: 100rem*@resize;
+            background: #E5E5E5;
+            padding-left: 35rem*@resize;
+            padding-right: 10rem*@resize;
+            font-size: @font-size-2;
+            float:left;
+        }
+    }
+
+    .navigationBar-rightText{
         position:absolute;
+        right:0;
         top:0;
-        left:0;
+        font-size:@font-size-2;
+        color:@font-col-grey01;
+        line-height:43rem*@resize;
+        padding:0 16rem*@resize;
     }
 
     &.bgcolor-orange {
@@ -396,7 +443,7 @@ textarea {
 
         li {
             font-size: @font-size-1;
-            flex:1;
+            flex: 1;
             text-align: center;
             .rectangle(100%,50rem*@resize);
 
@@ -409,13 +456,13 @@ textarea {
 
             &.taobao {
                 a {
-                    background: url("../Content/image/view/tab_00_nor.png") no-repeat center;
+                    background: url("../Content/image/view/tab_00_nor@2x.png") no-repeat center;
                     background-size: 40rem*@resize 44rem*@resize;
                 }
 
                 &.active {
                     a {
-                        background: url("../Content/image/view/tab_00_pre.png") no-repeat center;
+                        background: url("../Content/image/view/tab_00_pre@2x.png") no-repeat center;
                         background-size: 40rem*@resize 44rem*@resize;
                     }
                 }
@@ -423,13 +470,13 @@ textarea {
 
             &.mogujie {
                 a {
-                    background: url("../Content/image/view/tab_01_nor.png") no-repeat center;
+                    background: url("../Content/image/view/tab_01_nor@2x.png") no-repeat center;
                     background-size: 40rem*@resize 44rem*@resize;
                 }
 
                 &.active {
                     a {
-                        background: url("../Content/image/view/tab_01_pre.png") no-repeat center;
+                        background: url("../Content/image/view/tab_01_pre@2x.png") no-repeat center;
                         background-size: 40rem*@resize 44rem*@resize;
                     }
                 }
@@ -437,27 +484,27 @@ textarea {
 
             &.jd {
                 a {
-                    background: url("../Content/image/view/tab_02_nor.png") no-repeat center;
+                    background: url("../Content/image/view/tab_02_nor@2x.png") no-repeat center;
                     background-size: 40rem*@resize 44rem*@resize;
                 }
 
                 &.active {
                     a {
-                        background: url("../Content/image/view/tab_02_pre.png") no-repeat center;
+                        background: url("../Content/image/view/tab_02_pre@2x.png") no-repeat center;
                         background-size: 40rem*@resize 44rem*@resize;
                     }
                 }
             }
 
-            &.search {
+            &.find {
                 a {
-                    background: url("../Content/image/view/tab_03_nor.png") no-repeat center;
+                    background: url("../Content/image/view/tab_03_nor@2x.png") no-repeat center;
                     background-size: 40rem*@resize 44rem*@resize;
                 }
 
                 &.active {
                     a {
-                        background: url("../Content/image/view/tab_03_pre.png") no-repeat center;
+                        background: url("../Content/image/view/tab_03_pre@2x.png") no-repeat center;
                         background-size: 40rem*@resize 44rem*@resize;
                     }
                 }
@@ -465,13 +512,13 @@ textarea {
 
             &.user {
                 a {
-                    background: url("../Content/image/view/tab_04_nor.png") no-repeat center;
+                    background: url("../Content/image/view/tab_04_nor@2x.png") no-repeat center;
                     background-size: 40rem*@resize 44rem*@resize;
                 }
 
                 &.active {
                     a {
-                        background: url("../Content/image/view/tab_04_pre.png") no-repeat center;
+                        background: url("../Content/image/view/tab_04_pre@2x.png") no-repeat center;
                         background-size: 40rem*@resize 44rem*@resize;
                     }
                 }
@@ -545,15 +592,15 @@ textarea {
         }
     }
 
-    img{
+    img {
         .rectangle(99rem*@resize,111rem*@resize);
-        margin-top:150rem*@resize;
+        margin-top: 150rem*@resize;
     }
 
-    &.nodata-style02{
-        img{
-             .rectangle(208rem*@resize,189rem*@resize);
-             margin-top:200rem*@resize;
+    &.nodata-style02 {
+        img {
+            .rectangle(208rem*@resize,189rem*@resize);
+            margin-top: 200rem*@resize;
         }
     }
 }
