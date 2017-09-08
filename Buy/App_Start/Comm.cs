@@ -182,26 +182,27 @@ namespace Buy
             }
         }
 
-        public static Dictionary<string, object> ToMobileResult(string state, string message, object data = null)
+        public static Dictionary<string, object> ToJsonResult(string state, string message, object data = null)
         {
             Dictionary<string, object> result = new Dictionary<string, object>();
-            result.Add("CyState", state);
-            result.Add("CyMessage", message);
-            if (data != null)
-            {
-                foreach (var item in data.GetType().GetProperties())
-                {
-                    result.Add(item.Name, item.GetValue(data));
-                }
-            }
+            result.Add("State", state);
+            result.Add("Message", message);
+            result.Add("Result", data);
+            //if (data != null)
+            //{
+            //    foreach (var item in data.GetType().GetProperties())
+            //    {
+            //        result.Add(item.Name, item.GetValue(data));
+            //    }
+            //}
 
             return result;
         }
 
-        public static Dictionary<string, object> ToMobileResultForPagedList(PagedList.IPagedList page, object data = null)
+        public static Dictionary<string, object> ToJsonResultForPagedList(PagedList.IPagedList page, object data = null)
         {
 
-            return ToMobileResult("Success", "成功", new
+            return ToJsonResult("Success", "成功", new
             {
                 Page = new
                 {
@@ -209,7 +210,7 @@ namespace Buy
                     page.PageCount,
                     page.HasNextPage
                 },
-                Data = data
+                Result = data
             });
 
         }

@@ -177,7 +177,7 @@ namespace Buy.Controllers
                 item.Sort = ids.IndexOf(id) * 10;
                 couponType[index] = item;
             }
-            return Json(Comm.ToMobileResult("Success", "成功"));
+            return Json(Comm.ToJsonResult("Success", "成功"));
         }
 
         // GET: CouponTypeManage/Edit/5

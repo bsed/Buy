@@ -4,7 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 
 namespace Buy.Api
@@ -20,27 +23,22 @@ namespace Buy.Api
         }
 
 
-        public BaseApi(string url, string type, Dictionary<string, string> parameter)
+        public BaseApi(string url, string type, Object data)
         {
             Url = url;
             Type = type.ToUpper();
-            Parameter = parameter;
+            Data = data;
         }
 
-        public BaseApi(string url, string type, Object json)
-        {
-            Url = url;
-            Type = type.ToUpper();
-            Json = json;
-        }
+
 
         public string Url { get; set; }
 
         public string Type { get; set; }
 
-        public Dictionary<string, string> Parameter { get; set; } = new Dictionary<string, string>();
+        public object Data { get; set; }
 
-        public object Json { get; set; }
+        public Dictionary<string, string> Files { get; set; } = new Dictionary<string, string>();
 
         /// <summary>
         /// 创建请求
@@ -49,53 +47,58 @@ namespace Buy.Api
         /// <param name="type">类别</param>
         /// <param name="p">参数</param>
         /// <returns></returns>
-        public virtual HttpWebResponse CreateRequest()
+        public virtual Stream CreateRequest()
         {
-
-            System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(Url);
-            request.Method = Type;
-            request.ContentType = "application/x-www-form-urlencoded";
-            System.Text.StringBuilder sbPostData = new System.Text.StringBuilder();
-            int i = 0;
-
-            if (Parameter != null && Parameter.Keys.Count > 0)
+            
+            using (var client = new HttpClient())
             {
-                foreach (var key in Parameter.Keys)
+                HttpContent httpContent;
+                HttpResponseMessage result;
+                if (Type.ToLower() == "post")
                 {
-                    if (i == 0)
+                   
+                    using (var formData = new MultipartFormDataContent())
                     {
-                        sbPostData.AppendFormat("{0}={1}", key, Parameter[key]);
+                        if (Files.Count > 0)
+                        {
+                            foreach (var item in Files)
+                            {
+                                var stream = File.OpenRead(item.Value);
+                                HttpContent content = new StreamContent(stream);
+
+                                content.Headers.Add("Content-Type", "application/octet-stream");
+                                content.Headers.Add("Content-Disposition", $"form-data; name=\"{item.Key}\"; filename=\"{new FileInfo(item.Value).Name}\"");
+                                formData.Add(content, item.Key);
+                            }
+
+                            if (Data != null)
+                            {
+                                var items = (JObject)JToken.FromObject(Data);
+                                foreach (var item in items)
+                                {
+                                    formData.Add(new StringContent(item.Value.ToString()), item.Key);
+                                }
+                            }
+                            httpContent = formData;
+                        }
+                        else if (Data != null)
+                        {
+                            httpContent = new StringContent(JsonConvert.SerializeObject(Data), System.Text.Encoding.UTF8, "application/json");
+                        }
+                        else
+                        {
+                            httpContent = new MultipartFormDataContent();
+                        }
                     }
-                    else
-                    {
-                        sbPostData.AppendFormat("&{0}={1}", key, Parameter[key]);
-                    }
-                    i++;
-                }
-                var data = System.Text.Encoding.UTF8.GetBytes(sbPostData.ToString());
-                using (var stream = request.GetRequestStream())
-                {
-                    stream.Write(data, 0, data.Length);
-                }
-            }
-            else if (Json != null)
-            {
-                string temp;
-                if (Json.GetType() == typeof(string))
-                {
-                    temp = (string)Json;
+                    result = client.PostAsync(Url, httpContent).Result;
                 }
                 else
                 {
-                    temp = JsonConvert.SerializeObject(Json);
+                    result = client.GetAsync(Url).Result;
+                   
                 }
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(temp);
-                using (var stream = request.GetRequestStream())
-                {
-                    stream.Write(data, 0, data.Length);
-                }
+                return result.Content.ReadAsStreamAsync().Result;
             }
-            return (System.Net.HttpWebResponse)request.GetResponse();
         }
 
         /// <summary>
@@ -107,9 +110,13 @@ namespace Buy.Api
         /// <returns></returns>
         public virtual JObject CreateRequestReturnJson()
         {
-            var response = CreateRequest();
-            var steam = response.GetResponseStream();
+            var steam = CreateRequest();
             string txtData = "";
+            if (steam == null)
+            {
+                return null;
+
+            }
             using (var reader = new StreamReader(steam))
             {
                 txtData = reader.ReadToEnd();
@@ -120,8 +127,7 @@ namespace Buy.Api
 
         public virtual string CreateRequestReturnString()
         {
-            var response = CreateRequest();
-            var steam = response.GetResponseStream();
+            var steam = CreateRequest();
             string txtData = "";
             using (var reader = new StreamReader(steam))
             {

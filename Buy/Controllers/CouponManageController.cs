@@ -59,7 +59,7 @@ namespace Buy.Controllers
                 .ToList();
             db.Coupons.RemoveRange(delOld);
             db.SaveChanges();
-            return Json(Comm.ToMobileResult("Success", "成功"));
+            return Json(Comm.ToJsonResult("Success", "成功"));
         }
 
         [HttpPost]
@@ -68,12 +68,12 @@ namespace Buy.Controllers
             var idList = ids.SplitToIntArray();
             if (ids.Count() <= 0)
             {
-                return Json(Comm.ToMobileResult("Error", "没有勾选商品"));
+                return Json(Comm.ToJsonResult("Error", "没有勾选商品"));
             }
             var tickets = db.Coupons.Where(s => idList.Contains(s.ID)).ToList();
             db.Coupons.RemoveRange(tickets);
             db.SaveChanges();
-            return Json(Comm.ToMobileResult("Success", "删除成功"));
+            return Json(Comm.ToJsonResult("Success", "删除成功"));
         }
 
         public ActionResult NoProductType(int page = 1)
@@ -108,7 +108,7 @@ namespace Buy.Controllers
                 }
                 changeCount += db.SaveChanges();
             }
-            return Json(Comm.ToMobileResult("Success", "成功", new { Count = changeCount }));
+            return Json(Comm.ToJsonResult("Success", "成功", new { Count = changeCount }));
         }
     }
 }

@@ -105,7 +105,7 @@ namespace Buy.Controllers
                 , platforms.SplitToArray<Enums.CouponPlatform>(), orderByTime, sort, minPrice, maxPrice)
                 .ToPagedList(page, 20);
             var models = paged.Select(s => new Models.ActionCell.CouponCell(s)).ToList();
-            return Json(Comm.ToMobileResultForPagedList(paged, models), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResultForPagedList(paged, models), JsonRequestBehavior.AllowGet);
         }
 
         [AllowCrossSiteJson]
@@ -114,7 +114,7 @@ namespace Buy.Controllers
             var tpt = db.Coupons.FirstOrDefault(s => s.ID == id);
             if (tpt == null)
             {
-                return Json(Comm.ToMobileResult("NoFound", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+                return Json(Comm.ToJsonResult("NoFound", "优惠券不存在"), JsonRequestBehavior.AllowGet);
             }
             string productUrl = null;
             switch (tpt.Platform)
@@ -158,7 +158,7 @@ namespace Buy.Controllers
                 ShareUrl = Url.ContentFull($"~/Coupon/Details?id={tpt.ID}"),
                 ProductUrl = productUrl,
             };
-            return Json(Comm.ToMobileResult("Success", "成功", new
+            return Json(Comm.ToJsonResult("Success", "成功", new
             {
                 Data = data
             }), JsonRequestBehavior.AllowGet);
@@ -193,7 +193,7 @@ namespace Buy.Controllers
                                     catch (Exception)
                                     {
                                         driver.Quit();
-                                        return Json(Comm.ToMobileResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
+                                        return Json(Comm.ToJsonResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
                                     }
                                     var source = driver.PageSource;
                                     var dom = CQ.CreateDocument(source);
@@ -227,7 +227,7 @@ namespace Buy.Controllers
                                     catch (Exception)
                                     {
                                         driver.Quit();
-                                        return Json(Comm.ToMobileResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
+                                        return Json(Comm.ToJsonResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
                                     }
                                     var source = driver.PageSource;
                                     var dom = CQ.CreateDocument(source);
@@ -255,7 +255,7 @@ namespace Buy.Controllers
                                     catch (Exception)
                                     {
                                         driver.Quit();
-                                        return Json(Comm.ToMobileResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
+                                        return Json(Comm.ToJsonResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
                                     }
                                     var source = driver.PageSource;
                                     var dom = CQ.CreateDocument(source);
@@ -278,7 +278,7 @@ namespace Buy.Controllers
                     img = string.IsNullOrWhiteSpace(tt.UrlLisr) ? img : tt.UrlLisr.SplitToArray<string>();
                 }
             }
-            return Json(Comm.ToMobileResult("Success", "成功", new { Data = img }), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功", new { Data = img }), JsonRequestBehavior.AllowGet);
         }
 
         [AllowCrossSiteJson]
@@ -287,10 +287,10 @@ namespace Buy.Controllers
             var tpt = db.Coupons.Find(id);
             if (tpt == null)
             {
-                return Json(Comm.ToMobileResult("NoFound", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+                return Json(Comm.ToJsonResult("NoFound", "优惠券不存在"), JsonRequestBehavior.AllowGet);
             }
             var pwd = new Taobao().GetWirelessShareTpwd(tpt.Image, tpt.Link, tpt.Name, 0);
-            return Json(Comm.ToMobileResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
         }
 
         [AllowCrossSiteJson]
@@ -358,5 +358,17 @@ namespace Buy.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult ImportTaobao(string userID)
+        {
+            if (string.IsNullOrWhiteSpace(userID))
+            {
+                return Json(Comm.ToJsonResult("Error", "失败"));
+            }
+            var fileUrl = this.UploadFile().ToList();
+            string path = Request.MapPath(fileUrl[0]);
+            Taobao.Import(userID, path);
+            return Json(Comm.ToJsonResult("Success", "成功"));
+        }
     }
 }
