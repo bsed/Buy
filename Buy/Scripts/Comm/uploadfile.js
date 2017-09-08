@@ -227,8 +227,8 @@ var uploader = function (target, option) {
                 }
             },
             success: function (data) {
-                if (data.CyState == "Success") {
-                    var url = data.FileUrls[0];
+                if (data.State == "Success") {
+                    var url = data.Result.FileUrls[0];
                     var a = createFileListItem(url, objUrl);
                     //重新注册点击事件
                     $btnDel.text("删除");
@@ -244,7 +244,7 @@ var uploader = function (target, option) {
                     onprogress(100, "上传成功", 1);
                     option.uploaded(url);
                 } else {
-                    comm.alter(0, data.CyMessage, null, $alter);
+                    comm.alter(0, data.Message, null, $alter);
                 }
             },
             error: function () {

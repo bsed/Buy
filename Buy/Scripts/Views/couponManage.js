@@ -50,14 +50,14 @@ $("#btnDelTicket").click(function (e) {
         data: { ids: ids },
         dataType: "json",
         success: function (data) {
-            if (data.CyState == "Success") {
-                comm.alter(1, data.CyMessage);
+            if (data.State == "Success") {
+                comm.alter(1, data.Message);
                 setTimeout(function () {
                     location = location;
                 }, 1000);
             }
             else {
-                comm.alter(0, data.CyMessage);
+                comm.alter(0, data.Message);
             }
         }
     });
@@ -105,14 +105,14 @@ var modDel = function () {
             },
             dataType: "json",
             success: function (data) {
-                if (data.CyState == "Success") {
+                if (data.State == "Success") {
                     _alter(1, "删除成功");
                     setTimeout(function () {
                         location = location;
                     }, 1000);
 
                 } else {
-                    _alter(0, data.CyMessage);
+                    _alter(0, data.Message);
                 }
             }
         });

@@ -439,14 +439,12 @@
     <Content Include="Scripts\Comm\check.js" />
     <Content Include="Scripts\Comm\cloud.js" />
     <Content Include="Scripts\Comm\comm.js" />
-    <Content Include="Scripts\Comm\getMessage.js" />
     <Content Include="Scripts\Comm\imageModule.js" />
     <Content Include="Scripts\Comm\imageResizeUpload.js" />
     <Content Include="Scripts\Comm\jquery.dotdotdot.min.js" />
     <Content Include="Scripts\Comm\jQueryEx.js" />
     <Content Include="Scripts\Comm\jsEx.js" />
     <Content Include="Scripts\Comm\map.js" />
-    <Content Include="Scripts\Comm\searchUser.js" />
     <Content Include="Scripts\Comm\uploadfile.js" />
     <Content Include="Scripts\Comm\urlMatch.js" />
     <Content Include="Scripts\datetimepicker\css\bootstrap-datetimepicker.css" />

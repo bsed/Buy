@@ -18,7 +18,7 @@
         data: data,
         dataType: "json",
         success: function (data) {
-            if (data.CyState == "Success") {
+            if (data.State == "Success") {
                 if ($("#returnUrl").val() != "") {
                     location = $("#returnUrl").val();
                 }
@@ -28,7 +28,7 @@
             }
             else {
                 //comm.alter(0, data.CyMessage);
-                comm.promptBox(data.CyMessage)
+                comm.promptBox(data.Message)
             }
         }
     });

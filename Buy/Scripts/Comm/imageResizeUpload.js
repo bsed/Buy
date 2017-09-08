@@ -244,10 +244,10 @@ var imageResizeUpload = function (selector, option) {
             processData: false,
             contentType: false,
             success: function (data) {
-                if (data.CyState == "Success") {
+                if (data.State == "Success") {
                     hide();
                     var result = {
-                        url: data.FileUrls[0],
+                        url: data.Result.FileUrls[0],
                         blob: resizedImage,
                         dataUrl: comm.getImageFromBlob(resizedImage)
                     };
