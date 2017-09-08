@@ -5,14 +5,16 @@
 }
 
 <div class="minHight100vh paddingT124 bg-color-grey">
-    <div class="navigationBar bgcolor-orange">
-        <div class="navigationBar-back bgwhite" onclick="history.back(-1)"></div>
-        <div class="navigationBar-search bgwhite">
-            <i></i>
-            <input id="search" type="search" name="filterText" class="" placeholder="搜索内部券" value="">
+    <form action="#" onsubmit="return false;">
+        <div class="navigationBar bgcolor-orange">
+            <div class="navigationBar-back bgwhite" onclick="history.back(-1)"></div>
+            <div class="navigationBar-search bgwhite">
+                <i></i>
+                <input id="searchConfirm" type="search" name="filterText" class="" placeholder="搜索内部券" value="">
+            </div>
+            <div id="searchConfirmBtn" class="navigationBar-rightText colorwhite">搜索</div>
         </div>
-        <div id="" class="navigationBar-rightText colorwhite">搜索</div>
-    </div>
+    </form>
     <div class="coupon-nav fixTop44">
         <ul>
             <li class="active platform" data-platform="TaoBao"><div>淘宝<i></i></div></li>
