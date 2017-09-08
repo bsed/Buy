@@ -26,7 +26,7 @@ namespace Buy.Controllers
                 var api = new Api.BaseApi("http://localhost:62209/test/test", "POST", data);
                 //api.Files.Add("file", @"E:\project\Buy\Buy\123123.xls");
                 var result = api.CreateRequestReturnJson();
-                return Json(Comm.ToMobileResult("Success", "OK", result), JsonRequestBehavior.AllowGet);
+                return Json(Comm.ToJsonResult("Success", "OK", result), JsonRequestBehavior.AllowGet);
             }
 
 
@@ -35,7 +35,7 @@ namespace Buy.Controllers
         public ActionResult Test(TestModel model)
         {
             this.UploadFile();
-            return Json(Comm.ToMobileResult("Success", "成功"), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功"), JsonRequestBehavior.AllowGet);
         }
 
 
