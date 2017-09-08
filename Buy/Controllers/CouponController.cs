@@ -114,7 +114,7 @@ namespace Buy.Controllers
             var tpt = db.Coupons.FirstOrDefault(s => s.ID == id);
             if (tpt == null)
             {
-                return Json(Comm.ToJsonResult("NoFound", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+                return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
             }
             string productUrl = null;
             switch (tpt.Platform)
@@ -173,7 +173,7 @@ namespace Buy.Controllers
                 var tt = db.Coupons.FirstOrDefault(s => s.ID == id);
                 if (tt == null)
                 {
-                    return Json(Comm.ToJsonResult("NoFound", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+                    return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
                 }
                 if (tt.UrlLisr == null)
                 {
@@ -193,7 +193,7 @@ namespace Buy.Controllers
                                     catch (Exception)
                                     {
                                         driver.Quit();
-                                        return Json(Comm.ToJsonResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
+                                        return Json(Comm.ToJsonResult("Error", "超时"), JsonRequestBehavior.AllowGet);
                                     }
                                     var source = driver.PageSource;
                                     var dom = CQ.CreateDocument(source);
@@ -227,7 +227,7 @@ namespace Buy.Controllers
                                     catch (Exception)
                                     {
                                         driver.Quit();
-                                        return Json(Comm.ToJsonResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
+                                        return Json(Comm.ToJsonResult("Error", "超时"), JsonRequestBehavior.AllowGet);
                                     }
                                     var source = driver.PageSource;
                                     var dom = CQ.CreateDocument(source);
@@ -255,7 +255,7 @@ namespace Buy.Controllers
                                     catch (Exception)
                                     {
                                         driver.Quit();
-                                        return Json(Comm.ToJsonResult("TimeOut", "超时"), JsonRequestBehavior.AllowGet);
+                                        return Json(Comm.ToJsonResult("Error", "超时"), JsonRequestBehavior.AllowGet);
                                     }
                                     var source = driver.PageSource;
                                     var dom = CQ.CreateDocument(source);
@@ -287,7 +287,7 @@ namespace Buy.Controllers
             var tpt = db.Coupons.Find(id);
             if (tpt == null)
             {
-                return Json(Comm.ToJsonResult("NoFound", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+                return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
             }
             var pwd = new Taobao().GetWirelessShareTpwd(tpt.Image, tpt.Link, tpt.Name, 0);
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);

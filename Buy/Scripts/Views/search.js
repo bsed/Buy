@@ -1,6 +1,6 @@
 ﻿var platform = "",
-    sort = "",
-    filter="";
+    sort ="" ,
+    filter = $("#searchConfirm").val();
 var canLoadPage = true;
 
 function clear(target) {

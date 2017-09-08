@@ -1,6 +1,6 @@
 ﻿var typeID = $("#typeID").val(),
     platform = $("#platform").val(),
-    sort = $("#sort").val();
+    sort = null;
 var canLoadPage = true;
 
 //swiper
@@ -43,11 +43,10 @@ $(".mask.style02").click(function () {
 $("[name=childType]").click(function (e) {
     var date_type = $(this).data("type");
     typeID = date_type;
-    location = comm.action("Index", "Coupon",
+    location = comm.action("Second", "Coupon",
         {
             typeID: typeID,
-            platform: platform,
-            sort: sort
+            platform: platform
         });
 });
 
@@ -97,6 +96,7 @@ function loadCoupon() {
             $page.remove();
             var $data = $(data);
             $coupon.find("ul").append($data);
+            sort = null;
             //comm.lazyloadALL();
         },
         complete: function () {
@@ -108,12 +108,13 @@ function loadCoupon() {
 //排序切换
 $(".sort").click(function (e) {
     sort = $(this).data("sort");
-    location = comm.action("Index", "Coupon",
-        {
-            typeID: typeID,
-            platform: platform,
-            sort: sort
-        });
+    var $page = $("#coupon").find("ul li[data-page]");
+    $page.data("next", "true");
+    $page.data("page", "0");
+    $("#coupon").find("li").not("[data-page]").remove();
+    loadCoupon();
+    $(".sort").removeClass("active");
+    $(this).addClass("active");
 });
 
 //tabActive
