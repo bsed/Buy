@@ -413,6 +413,7 @@
     <Content Include="Content\less\views\couponDetail.less" />
     <Content Include="Content\less\views\couponIndex.less" />
     <Content Include="Content\less\views\account.less" />
+    <None Include="Properties\PublishProfiles\BuyPublish.pubxml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="phantomjs-license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
