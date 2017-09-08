@@ -9,6 +9,7 @@
 @import "less/views/account";
 @import "less/views/search";
 @import "less/views/find";
+@import "less/views/userIndex";
 
 body {
     color: @font-col-black01;
@@ -384,6 +385,11 @@ textarea {
         position:absolute;
         top:0;
         right:8rem*@resize;
+
+        &.bgblack{
+            background:url("../Content/image/view/ic_navbar_search_black@2x.png");
+            background-size:contain;
+        }
     }
 
     .navigationBar-rightText{

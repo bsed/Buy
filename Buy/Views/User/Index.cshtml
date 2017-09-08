@@ -1,11 +1,25 @@
 ﻿@model Buy.Models.ApplicationUser
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "我的";
 }
 
-<h2>Index</h2>
-<div>
-    用户名:@Model.UserName
-    手机号：@Model.PhoneNumber
+
+<div class="userIndex minHight100vh bg-color-grey">
+    <div class="userIndex-info">
+        <div class="fs24 marginB5">@Model.UserName</div>
+        <div class="fs14">手机号：@Model.PhoneNumber</div>
+    </div>
+    <div class="moduleOptions">
+        <div class="fl">我的消息</div>
+    </div>
+    <div class="moduleOptions">
+        <div class="fl">退出登录</div>
+    </div>
+
+    @Html.Partial("_navTabBottomPartial")
 </div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/userIndex")
+}
