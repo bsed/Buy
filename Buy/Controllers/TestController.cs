@@ -32,7 +32,7 @@ namespace Buy.Controllers
 
         }
 
-        public ActionResult Test(List<Models.Coupon> coupons)
+        public ActionResult Test(TestModel model)
         {
             this.UploadFile();
             return Json(Comm.ToMobileResult("Success", "成功"), JsonRequestBehavior.AllowGet);

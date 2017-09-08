@@ -49,31 +49,55 @@ namespace Buy.Api
         /// <returns></returns>
         public virtual Stream CreateRequest()
         {
-
+            
             using (var client = new HttpClient())
-            using (var formData = new MultipartFormDataContent())
             {
-                StringContent temp = null;
-                if (Data != null)
+                HttpContent httpContent;
+                HttpResponseMessage result;
+                if (Type.ToLower() == "post")
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(Data), System.Text.Encoding.UTF8, "application/json");
-                    temp = content;
-                    formData.Add(content);
+                   
+                    using (var formData = new MultipartFormDataContent())
+                    {
+                        if (Files.Count > 0)
+                        {
+                            foreach (var item in Files)
+                            {
+                                var stream = File.OpenRead(item.Value);
+                                HttpContent content = new StreamContent(stream);
 
+                                content.Headers.Add("Content-Type", "application/octet-stream");
+                                content.Headers.Add("Content-Disposition", $"form-data; name=\"{item.Key}\"; filename=\"{new FileInfo(item.Value).Name}\"");
+                                formData.Add(content, item.Key);
+                            }
+
+                            if (Data != null)
+                            {
+                                var items = (JObject)JToken.FromObject(Data);
+                                foreach (var item in items)
+                                {
+                                    formData.Add(new StringContent(item.Value.ToString()), item.Key);
+                                }
+                            }
+                            httpContent = formData;
+                        }
+                        else if (Data != null)
+                        {
+                            httpContent = new StringContent(JsonConvert.SerializeObject(Data), System.Text.Encoding.UTF8, "application/json");
+                        }
+                        else
+                        {
+                            httpContent = new MultipartFormDataContent();
+                        }
+                    }
+                    result = client.PostAsync(Url, httpContent).Result;
                 }
-
-                foreach (var item in Files)
+                else
                 {
-                    var stream = File.OpenRead(item.Value);
-                    HttpContent content = new StreamContent(stream);
-
-                    content.Headers.Add("Content-Type", "application/octet-stream");
-                    content.Headers.Add("Content-Disposition", $"form-data; name=\"{item.Key}\"; filename=\"{new FileInfo(item.Value).Name}\"");
-                    formData.Add(content, item.Key);
+                    result = client.GetAsync(Url).Result;
+                   
                 }
-                //var response = client.PostAsync(Url, formData).Result;
-                var response = client.PostAsync(Url, temp).Result;
-                return response.Content.ReadAsStreamAsync().Result;
+                return result.Content.ReadAsStreamAsync().Result;
             }
         }
 
