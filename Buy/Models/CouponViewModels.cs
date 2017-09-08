@@ -61,6 +61,8 @@ namespace Buy.Models
 
         public int ParentID { get; set; }
 
+        public string Image { get; set; }
+
         public List<CouponTypeTreeNode> Childs { get; set; }
     }
 }

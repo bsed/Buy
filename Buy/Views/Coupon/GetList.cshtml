@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Buy.Models.Coupon>
+@{
+    Layout = null;
+    var paged = (PagedList.IPagedList<Buy.Models.Coupon>)Model;
+}
+@if (Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        string platformLogo = null;
+        switch (item.Platform)
+        {
+            case Buy.Enums.CouponPlatform.TaoBao:
+                platformLogo = "~/Content/image/view/logo_taobao_tag@2x.png";
+                break;
+            case Buy.Enums.CouponPlatform.TMall:
+                platformLogo = "~/Content/image/view/logo_tmall_tag@2x.png";
+                break;
+            case Buy.Enums.CouponPlatform.Jd:
+                platformLogo = "~/Content/image/view/logo_jd_tag@2x.png";
+                break;
+            case Buy.Enums.CouponPlatform.Vip:
+                platformLogo = "~/Content/image/view/logo_taobao_tag@2x.png";
+                break;
+            case Buy.Enums.CouponPlatform.MoGuJie:
+                platformLogo = "~/Content/image/view/logo_mogujie_tag@2x.png";
+                break;
+            default:
+                break;
+        }
+        <li>
+            <div class="couponList-head">
+                <a href="#">
+                    <img src="@Comm.ResizeImage(item.Image)" />
+                </a>
+            </div>
+            <a href="#">
+                <div class="couponList-details">
+                    <div class="couponList-title">
+                        <img src="@platformLogo" />@item.Name
+                    </div>
+                    <div class="couponList-price">
+                        <div class="fl originalPrice">在售价 <span class="yuan">￥</span><span class="">@item.OriginalPrice</span></div>
+                        <div class="fr"><span class="couponList-sales fs12">销量：@item.Sales</span></div>
+                    </div>
+                    <div class="couponList-afterPrice marginT10">
+                        <span class="yuan">￥</span>@item.Price
+                    </div>
+                    <div class="marginT15">
+                        <div class="coupon-tab">
+                            @foreach (var value in Buy.Bll.ThirdPartyTickets.GetValues(item))
+                            {
+                                <div class="coupon-tab-type fl">@value.Type</div>
+                                <div class="coupon-tab-val fl">@value.Value</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="#">
+                <div class="couponList-ticket" data-href="">
+                    <div class="lingquan">抢购优惠</div>
+                </div>
+            </a>
+            <div style="clear:both;"></div>
+        </li>
+    }
+    if (paged.HasNextPage)
+    {
+        <li class="loadModule loadModule-dataIng" data-next="true" data-page="@paged.PageNumber">
+            加载中
+        </li>
+    }
+    else
+    {
+        <li class="loadModule loadModule-dataIng" data-next="false">
+            已经到底了
+        </li>
+    }
+}
+else
+{
+    <li class="loadModule loadModule-dataIng" data-next="false">
+        已经到底了
+    </li>
+}

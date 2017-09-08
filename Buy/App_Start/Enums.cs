@@ -465,18 +465,12 @@ namespace Buy.Enums
 
     public enum CouponSort
     {
-        [Display(Name = "默认")]
+        [Display(Name = "综合排序")]
         Default,
-        [Display(Name = "销量")]
+        [Display(Name = "人气热销")]
         Sales,
-        [Display(Name = "价格升序")]
-        PriceAsc,
-        [Display(Name = "价格降序")]
-        PriceDesc,
-        [Display(Name = "优惠券金额")]
-        Discount,
-        [Display(Name = "优惠比例")]
-        DiscountRate
+        [Display(Name = "最新上架")]
+        CreateTime,
     }
 
 

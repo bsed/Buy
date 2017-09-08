@@ -361,6 +361,7 @@
     <Content Include="Content\image\test\sort_all.png" />
     <Content Include="Content\image\view\ic_navbar_back_bgblack%402x.png" />
     <Content Include="Content\image\view\ic_navbar_share_bgblack%402x.png" />
+    <Content Include="Content\image\view\img_coupon_nodata.png" />
     <Content Include="Content\image\view\img_mogoodsx%402x.png" />
     <Content Include="Content\image\view\logo_jd_tag%402x.png" />
     <Content Include="Content\image\view\logo_mogujie_tag%402x.png" />
@@ -370,7 +371,9 @@
     <Content Include="Content\image\view\tab_00_nor.png" />
     <Content Include="Content\image\view\tab_00_pre.png" />
     <Content Include="Content\image\view\tab_01_nor.png" />
+    <Content Include="Content\image\view\tab_01_pre.png" />
     <Content Include="Content\image\view\tab_02_nor.png" />
+    <Content Include="Content\image\view\tab_02_pre.png" />
     <Content Include="Content\image\view\tab_03_nor.png" />
     <Content Include="Content\image\view\tab_03_pre.png" />
     <Content Include="Content\image\view\tab_04_nor.png" />
@@ -518,6 +521,7 @@
     <Content Include="Scripts\Swiper\js\maps\swiper.jquery.umd.min.js.map" />
     <Content Include="Scripts\Swiper\js\maps\swiper.min.js.map" />
     <Content Include="Views\Shared\_navTabBottomPartial.cshtml" />
+    <Content Include="Views\Coupon\GetList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -80,30 +80,15 @@ namespace Buy.Controllers
                         query = query.OrderByDescending(s => s.Sales);
                     }
                     break;
-                case Enums.CouponSort.PriceAsc:
+                case Enums.CouponSort.CreateTime:
                     {
-                        query = query.OrderBy(s => s.Price);
-                    }
-                    break;
-                case Enums.CouponSort.PriceDesc:
-                    {
-                        query = query.OrderByDescending(s => s.Price);
-                    }
-                    break;
-                case Enums.CouponSort.Discount:
-                    {
-                        query = query.OrderByDescending(s => s.Discount);
-                    }
-                    break;
-                case Enums.CouponSort.DiscountRate:
-                    {
-                        query = query.OrderByDescending(s => s.DiscountRate);
+                        query = query.OrderByDescending(s => s.CreateDateTime);
                     }
                     break;
                 case Enums.CouponSort.Default:
                 default:
                     {
-                        query = query.OrderByDescending(s => s.CreateDateTime);
+                        query = query.OrderByDescending(s => s.ID);
                     }
                     break;
             }
@@ -169,7 +154,8 @@ namespace Buy.Controllers
                 tpt.Subtitle,
                 Values = Bll.ThirdPartyTickets.GetValues(tpt),
                 tpt.Sales,
-                //ShareUrl = Url.ContentFull($"~/Coupon/Details?id={tpt.ID}"),
+
+                ShareUrl = Url.ContentFull($"~/Coupon/Details?id={tpt.ID}"),
                 ProductUrl = productUrl,
             };
             return Json(Comm.ToMobileResult("Success", "成功", new
@@ -306,18 +292,44 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult GetCouponTypes()
         {
-            var list = db.CouponTypes.ToList();
+            var data = CouponTypes();
+            return Json(Comm.ToMobileResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Index(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
+            Enums.CouponSort sort = Enums.CouponSort.Default, int? typeID = null)
+        {
+            var couponTypes = new List<CouponTypeTreeNode>();
+            couponTypes.Add(new CouponTypeTreeNode() { ID = 0, Name = "首页", ParentID = -1,Childs=new List<CouponTypeTreeNode>() });
+            couponTypes.AddRange(CouponTypes());
+            ViewBag.CouponTypes = couponTypes;
+            return View();
+        }
+
+        public ActionResult GetList(string filter, int page = 1, string types = null, string platforms = null
+          , bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
+            decimal minPrice = 0, decimal maxPrice = 0)
+        {
+            var paged = QueryCoupon(filter, types.SplitToArray<int>()
+               , platforms.SplitToArray<Enums.CouponPlatform>(), orderByTime, sort, minPrice, maxPrice)
+               .ToPagedList(page, 20);
+            return View(paged);
+        }
+
+        public List<CouponTypeTreeNode> CouponTypes()
+        {
             var data = new List<CouponTypeTreeNode>();
             Action<List<CouponTypeTreeNode>, int> setTree = null;
             setTree = (childs, pid) =>
             {
-                childs.AddRange(list.Where(s => s.ParentID == pid)
+                childs.AddRange(Bll.SystemSettings.CouponType.Where(s => s.ParentID == pid)
                      .OrderBy(s => s.Sort)
                      .Select(s => new CouponTypeTreeNode
                      {
                          Childs = new List<CouponTypeTreeNode>(),
                          Name = s.Name,
                          ID = s.ID,
+                         Image=s.Image,
                          ParentID = s.ParentID,
                      })
                      .ToList());
@@ -327,22 +339,13 @@ namespace Buy.Controllers
                 }
             };
             setTree(data, 0);
-            return Json(Comm.ToMobileResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
+            return data;
         }
-
-        public ActionResult Index(Enums.CouponPlatform p = Enums.CouponPlatform.TaoBao, int? typeID = null)
-        {
-            return View();
-        }
-
 
         public ActionResult Details(int? id)
         {
-            if (!id.HasValue)
-            {
-                this.ToError("错误", "优惠券不存在");
-            }
-            return View();
+            var coupon = db.Coupons.FirstOrDefault(s => s.ID == id.Value);
+            return View(coupon);
         }
     }
 }
