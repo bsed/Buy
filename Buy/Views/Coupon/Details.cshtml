@@ -30,6 +30,7 @@
 @if (Model != null)
 {
     @Html.HiddenFor(modle => modle.ID)
+    <img id="lazyloadimg" hidden src="~/Content/Images/404/placeholder_image.png?w=150&h=150" />
     <div class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
             <div class="couponDetail-top-back fl" id="btnBack"></div>
@@ -63,7 +64,10 @@
                 <div class="columnModule-title"><span>商品详情</span></div>
             </div>
             <div name="poductDetail" class="couponDetail-detailImg">
-                <
+                @foreach (var item in Model.UrlLisr.SplitToArray<string>())
+                {
+                    <img src="@item" />
+                }
             </div>
         </div>
         <a class="couponDetail-useBtn">立即领取优惠</a>

@@ -63,33 +63,9 @@ namespace Buy.Models.ActionCell
                     {
                         
                     }
-                    else if (url.Contains("/t?") || url.Contains("/tickets/details"))
-                    {
-                        type = Enums.ActionType.UserTicket;
-                    }
-                    else if (url.Contains("/t/tdetails?") || url.Contains("/tickets/tdetails"))
-                    {
-                        type = Enums.ActionType.Ticket;
-                    }
-                    else if (url.Contains("/tickets/index"))
-                    {
-                        type = Enums.ActionType.TicketIndex;
-                    }
-                    else if (url.Contains("/post/details"))
-                    {
-                        type = Enums.ActionType.PostDetails;
-                    }
-                    else if (url.Contains("/posttheme/details"))
-                    {
-                        type = ActionType.PostThemeDetail;
-                    }
-                    else if (url.Contains("/thirdpartyticket/details"))
+                    else if (url.Contains("/coupon/details"))
                     {
                         type = ActionType.ThirdPartyTicketDetail;
-                    }
-                    else if (url.Contains("/thirdpartyfoodticket/details"))
-                    {
-                        type = ActionType.ThirdPartyFootTicketDetail;
                     }
                     else
                     {
@@ -189,9 +165,9 @@ namespace Buy.Models.ActionCell
 
 
 
-    public class ThirdPartyTicketCell : Cell
+    public class CouponCell : Cell
     {
-        public ThirdPartyTicketCell(Coupon tp)
+        public CouponCell(Coupon tp)
         {
             Title = tp.Name;
             Image = Comm.ResizeImage(tp.Image, image: null);

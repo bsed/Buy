@@ -104,7 +104,7 @@ namespace Buy.Controllers
             var paged = QueryCoupon(filter, types.SplitToArray<int>()
                 , platforms.SplitToArray<Enums.CouponPlatform>(), orderByTime, sort, minPrice, maxPrice)
                 .ToPagedList(page, 20);
-            var models = paged.Select(s => new Models.ActionCell.ThirdPartyTicketCell(s)).ToList();
+            var models = paged.Select(s => new Models.ActionCell.CouponCell(s)).ToList();
             return Json(Comm.ToMobileResultForPagedList(paged, models), JsonRequestBehavior.AllowGet);
         }
 
@@ -171,6 +171,10 @@ namespace Buy.Controllers
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 var tt = db.Coupons.FirstOrDefault(s => s.ID == id);
+                if (tt == null)
+                {
+                    return Json(Comm.ToMobileResult("NoFound", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+                }
                 if (tt.UrlLisr == null)
                 {
                     switch (tt.Platform)
@@ -296,26 +300,6 @@ namespace Buy.Controllers
             return Json(Comm.ToMobileResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Index(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
-            Enums.CouponSort sort = Enums.CouponSort.Default, int? typeID = null)
-        {
-            var couponTypes = new List<CouponTypeTreeNode>();
-            couponTypes.Add(new CouponTypeTreeNode() { ID = 0, Name = "首页", ParentID = -1,Childs=new List<CouponTypeTreeNode>() });
-            couponTypes.AddRange(CouponTypes());
-            ViewBag.CouponTypes = couponTypes;
-            return View();
-        }
-
-        public ActionResult GetList(string filter, int page = 1, string types = null, string platforms = null
-          , bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
-            decimal minPrice = 0, decimal maxPrice = 0)
-        {
-            var paged = QueryCoupon(filter, types.SplitToArray<int>()
-               , platforms.SplitToArray<Enums.CouponPlatform>(), orderByTime, sort, minPrice, maxPrice)
-               .ToPagedList(page, 20);
-            return View(paged);
-        }
-
         public List<CouponTypeTreeNode> CouponTypes()
         {
             var data = new List<CouponTypeTreeNode>();
@@ -329,7 +313,7 @@ namespace Buy.Controllers
                          Childs = new List<CouponTypeTreeNode>(),
                          Name = s.Name,
                          ID = s.ID,
-                         Image=s.Image,
+                         Image = s.Image,
                          ParentID = s.ParentID,
                      })
                      .ToList());
@@ -342,10 +326,37 @@ namespace Buy.Controllers
             return data;
         }
 
+        public ActionResult Index(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
+            Enums.CouponSort sort = Enums.CouponSort.Default, int? typeID = null)
+        {
+            var couponTypes = new List<CouponTypeTreeNode>();
+            couponTypes.Add(new CouponTypeTreeNode() { ID = 0, Name = "首页", ParentID = -1,Childs=new List<CouponTypeTreeNode>() });
+            couponTypes.AddRange(CouponTypes());
+            ViewBag.CouponTypes = couponTypes;
+            return View();
+        }
+        
+        public ActionResult GetList(string filter, int page = 1, string types = null, string platforms = null
+          , bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
+            decimal minPrice = 0, decimal maxPrice = 0)
+        {
+            var paged = QueryCoupon(filter, types.SplitToArray<int>()
+               , platforms.SplitToArray<Enums.CouponPlatform>(), orderByTime, sort, minPrice, maxPrice)
+               .ToPagedList(page, 20);
+            return View(paged);
+        }
+        
         public ActionResult Details(int? id)
         {
             var coupon = db.Coupons.FirstOrDefault(s => s.ID == id.Value);
             return View(coupon);
         }
+
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
     }
 }

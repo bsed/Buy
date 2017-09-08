@@ -18,7 +18,7 @@
         <li class="jd" data-platform="@Buy.Enums.CouponPlatform.Jd" title="京东">
             <a onclick="" href="@Url.Action("Index","Coupon",new { platform=Buy.Enums.CouponPlatform.Jd})"></a></a>
         </li>
-        <li class="search" title="搜索"><a onclick="" href="#"></a></li>
+        <li class="search" title="搜索"><a onclick="" href="@Url.Action("Search","Coupon")"></a></li>
         <li class="user" title="我的"><a onclick="" href="@Url.Action("Index","u",new {id=User.Identity.GetUserId() })"></a></li>
     </ul>
 </div>

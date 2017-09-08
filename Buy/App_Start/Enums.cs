@@ -184,15 +184,6 @@ namespace Buy.Enums
     {
         None,
         Browser,
-        UserHomePage,
-        UserTicket,
-        Ticket,
-        TicketIndex,
-        PostDetails,
-        CompanyHomePage,
-        Map,
-        PostTheme,
-        PostThemeDetail,
         ThirdPartyTicketDetail,
         ThirdPartyFootTicketDetail
     }
@@ -288,18 +279,6 @@ namespace Buy.Enums
     public enum CellStyle
     {
         AvatarCell,
-        UserTicketCell,
-        TicketCell,
-        MessageCell,
-        PostCell,
-        CompanyHomePageTicketCell,
-        CommentCell,
-        AddressCell,
-        ProductCell,
-        CompanyRankCell,
-        TicketWithAvatar,
-        SystemMessageCell,
-        PostThemeCell,
         BaseCell,
         ThirdPartyTicket,
         ThirdPartyFootTicketCell

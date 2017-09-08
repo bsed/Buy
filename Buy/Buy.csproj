@@ -530,6 +530,7 @@
     <Content Include="Scripts\Swiper\js\maps\swiper.min.js.map" />
     <Content Include="Views\Shared\_navTabBottomPartial.cshtml" />
     <Content Include="Views\Coupon\GetList.cshtml" />
+    <Content Include="Views\Coupon\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
