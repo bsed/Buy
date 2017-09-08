@@ -355,6 +355,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\image\test\banner_home%402x.png" />
     <Content Include="Content\image\test\coupon-detail-pimg02.png" />
+    <Content Include="Content\image\test\find_banner.png" />
     <Content Include="Content\image\test\img_logo_login%402x.png" />
     <Content Include="Content\image\test\img_ztihome_001%402x.png" />
     <Content Include="Content\image\test\img_ztihome_002%402x.png" />
@@ -367,6 +368,7 @@
     <Content Include="Content\image\view\ic_navbar_back_black%402x.png" />
     <Content Include="Content\image\view\ic_navbar_closed_black%402x.png" />
     <Content Include="Content\image\view\ic_navbar_search_black_m%402x.png" />
+    <Content Include="Content\image\view\ic_navbar_search_white%402x.png" />
     <Content Include="Content\image\view\ic_navbar_share_bgblack%402x.png" />
     <Content Include="Content\image\view\img_bsk_b%402x.png" />
     <Content Include="Content\image\view\img_burgerking_b%402x.png" />

@@ -1054,58 +1054,6 @@
   margin-bottom: 0.30917874rem;
   line-height: 1;
 }
-.find .find-foodTicketList {
-  background-color: #fff;
-}
-.find .find-foodTicketList:before,
-.find .find-foodTicketList:after {
-  content: " ";
-  display: table;
-}
-.find .find-foodTicketList:after {
-  clear: both;
-}
-.find .find-foodTicketList:before,
-.find .find-foodTicketList:after {
-  content: " ";
-  display: table;
-}
-.find .find-foodTicketList:after {
-  clear: both;
-}
-.find .find-foodTicketList ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.find .find-foodTicketList ul li {
-  float: left;
-  text-align: center;
-  font-size: 0.5410628rem;
-  color: rgba(0, 0, 0, 0.87);
-  width: 20%;
-  padding: 0.61835749rem 0;
-}
-.find .find-foodTicketList ul li a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-.find .find-foodTicketList ul li a:hover,
-.find .find-foodTicketList ul li a:active,
-.find .find-foodTicketList ul li a:focus {
-  color: inherit;
-}
-.find .find-foodTicketList ul li img {
-  width: 1.70048309rem;
-  height: 1.70048309rem;
-  margin-bottom: 0.15458937rem;
-}
-.find .find-wayText {
-  font-size: 0.5410628rem;
-  color: rgba(0, 0, 0, 0.54);
-  padding: 0.61835749rem 0.61835749rem 0.30917874rem 0.61835749rem;
-}
 .find .thirdWayList:before,
 .find .thirdWayList:after {
   content: " ";
@@ -1483,6 +1431,15 @@ textarea {
 }
 .navigationBar .navigationBar-search input:focus {
   outline: none;
+}
+.navigationBar .navigationBar-searchIcon {
+  background: url("image/view/ic_navbar_search_white@2x.png") no-repeat center;
+  width: 1.70048309rem;
+  height: 1.70048309rem;
+  background-size: contain;
+  position: absolute;
+  top: 0;
+  right: 0.30917874rem;
 }
 .navigationBar .navigationBar-rightText {
   position: absolute;
