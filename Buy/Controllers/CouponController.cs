@@ -379,14 +379,13 @@ namespace Buy.Controllers
         }
 
         [HttpPost]
-        public ActionResult ImportTaobao(string userID)
+        public ActionResult ImportTaobao(string userID, string url)
         {
             if (string.IsNullOrWhiteSpace(userID))
             {
                 return Json(Comm.ToJsonResult("Error", "失败"));
             }
-            var fileUrl = this.UploadFile().ToList();
-            string path = Request.MapPath(fileUrl[0]);
+            string path = Request.MapPath(url);
             Taobao.Import(userID, path);
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
