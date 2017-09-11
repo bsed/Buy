@@ -50,6 +50,11 @@ namespace Buy.Controllers
             }
             if (platform != null && platform.Count > 0)
             {
+                if (platform.Contains(Enums.CouponPlatform.TaoBao) || platform.Contains(Enums.CouponPlatform.TMall))
+                {
+                    platform.Add(Enums.CouponPlatform.TaoBao);
+                    platform.Add(Enums.CouponPlatform.TMall);
+                }
                 query = query.Where(s => platform.Contains(s.Platform));
             }
             if (type != null && type.Count > 0 && type.Contains(0))

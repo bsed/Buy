@@ -1,5 +1,5 @@
-﻿var platform = "",
-    sort ="" ,
+﻿var platform = $("#platform").val(),
+    sort = $("#sort").val(),
     filter = $("#searchConfirm").val();
 var canLoadPage = true;
 
@@ -142,8 +142,6 @@ $("[name='hotSearchList']").click(function () {
     search(filterText);
 });
 
-
-
 //列表-搜索
 function searchConfirm() {
     var state = true;
@@ -203,6 +201,11 @@ $(".platform").click(function (e) {
     clear($('#coupon ul'));
 
     loadcoupon();
+    //comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
+    //    filter:filter,
+    //    sort: sort,
+    //    platform: platform,
+    //}));
 });
 
 //排序切换
@@ -212,6 +215,11 @@ $(".sort").click(function (e) {
     sort = $(this).data("sort");
 
     clear($('#coupon ul'));
-
     loadcoupon();
+    //comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
+    //    filter: filter,
+    //    sort: sort,
+    //    platform: platform,
+    //}));
 });
+

@@ -7,19 +7,19 @@
         switch (Model.Platform)
         {
             case Buy.Enums.CouponPlatform.TaoBao:
-                platformLogo = "~/Content/image/view/logo_taobao_tag@2x.png";
+                platformLogo = "/Content/image/view/logo_taobao_tag@2x.png";
                 break;
             case Buy.Enums.CouponPlatform.TMall:
-                platformLogo = "~/Content/image/view/logo_tmall_tag@2x.png";
+                platformLogo = "/Content/image/view/logo_tmall_tag@2x.png";
                 break;
             case Buy.Enums.CouponPlatform.Jd:
-                platformLogo = "~/Content/image/view/logo_jd_tag@2x.png";
+                platformLogo = "/Content/image/view/logo_jd_tag@2x.png";
                 break;
             case Buy.Enums.CouponPlatform.Vip:
-                platformLogo = "~/Content/image/view/logo_taobao_tag@2x.png";
+                platformLogo = "/Content/image/view/logo_taobao_tag@2x.png";
                 break;
             case Buy.Enums.CouponPlatform.MoGuJie:
-                platformLogo = "~/Content/image/view/logo_mogujie_tag@2x.png";
+                platformLogo = "/Content/image/view/logo_mogujie_tag@2x.png";
                 break;
             default:
                 break;
@@ -54,7 +54,7 @@
                     @foreach (var item in Buy.Bll.ThirdPartyTickets.GetValues(Model))
                     {
                         <div class="coupon-tab-type fl">@item.Type</div>
-                            <div class="coupon-tab-val fl">@item.Value</div>
+                        <div class="coupon-tab-val fl">@item.Value</div>
                     }
                 </div>
             </div>
@@ -64,9 +64,12 @@
                 <div class="columnModule-title"><span>商品详情</span></div>
             </div>
             <div name="poductDetail" class="couponDetail-detailImg">
-                @foreach (var item in Model.UrlLisr.SplitToArray<string>())
+                @if (!string.IsNullOrWhiteSpace(Model.UrlLisr))
                 {
-                    <img src="@item" />
+                    foreach (var item in Model.UrlLisr.SplitToArray<string>())
+                    {
+                        <img src="@item" />
+                    }
                 }
             </div>
         </div>

@@ -30,11 +30,11 @@
         }
         <li>
             <div class="couponList-head">
-                <a href="#">
+                <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
                     <img src="@Comm.ResizeImage(item.Image)" />
                 </a>
             </div>
-            <a href="#">
+            <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
                 <div class="couponList-details">
                     <div class="couponList-title">
                         <img src="@platformLogo" />@item.Name

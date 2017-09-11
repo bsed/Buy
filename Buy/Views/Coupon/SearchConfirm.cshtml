@@ -29,14 +29,14 @@
         @Html.Hidden("platform", Request["platform"])
         @Html.Hidden("sort", Request["sort"])
         <ul>
-            <li class="platform active" data-platform="TaoBao"><div>淘宝<i></i></div></li>
-            <li class="platform" data-platform="MoGuJie"><div>蘑菇街<i></i></div></li>
-            <li class="platform" dat data-platform="Jd"><div>京东<i></i></div></li>
+            <li class="platform @((Request["platform"]=="TaoBao" || string.IsNullOrWhiteSpace(Request["platform"]))?"active":"")" data-platform="TaoBao"><div>淘宝<i></i></div></li>
+            <li class="platform @(Request["platform"]=="MoGuJie" ?"active":"")" data-platform="MoGuJie"><div>蘑菇街<i></i></div></li>
+            <li class="platform @(Request["platform"]=="Jd" ?"active":"")" dat data-platform="Jd"><div>京东<i></i></div></li>
         </ul>
         <ul>
-            <li class="sort active" data-sort="0">综合排序</li>
-            <li class="sort" data-sort="1">人气热销</li>
-            <li class="sort" data-sort="2">最新上架</li>
+            <li class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序</li>
+            <li class="sort @(Request["sort"]=="1" ?"active":"")" data-sort="1">人气热销</li>
+            <li class="sort @(Request["sort"]=="2"?"active":"")" data-sort="2">最新上架</li>
         </ul>
     </div>
 
