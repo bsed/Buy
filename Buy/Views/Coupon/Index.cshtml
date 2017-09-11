@@ -32,11 +32,6 @@
     {
         Enum.TryParse(Request["platform"], out p);
     }
-    var sort = Buy.Enums.CouponSort.Default;
-    if (!string.IsNullOrWhiteSpace(Request["sort"]))
-    {
-        Enum.TryParse(Request["sort"], out sort);
-    }
 }
 @Styles.Render("~/bundles/swiper/css")
 
@@ -119,9 +114,9 @@
     }
     <div class="coupon-nav">
         <ul>
-            <li class="@(sort.GetHashCode()==0?"active":"") sort" data-sort="0">综合排序</li>
-            <li class="@(sort.GetHashCode()==1?"active":"") sort" data-sort="1">人气热销</li>
-            <li class="@(sort.GetHashCode()==2?"active":"") sort" data-sort="2">最新上架</li>
+            <li class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序</li>
+            <li class="sort @(Request["sort"]=="1" ?"active":"")" data-sort="1">人气热销</li>
+            <li class="sort @(Request["sort"]=="2"?"active":"")" data-sort="2">最新上架</li>
         </ul>
     </div>
 

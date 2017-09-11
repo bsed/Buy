@@ -1,6 +1,6 @@
-﻿var platform = "",
-    sort = "",
-    filter="";
+﻿var platform = $("#platform").val(),
+    sort = $("#sort").val(),
+    filter = $("#searchConfirm").val();
 var canLoadPage = true;
 
 function clear(target) {
@@ -49,6 +49,12 @@ function loadcoupon() {
 }
 
 loadcoupon();
+
+$(window).scroll(function () {
+    if (canLoadPage && comm.isWindowBottom()) {
+        loadcoupon();
+    }
+});
 
 //cookie
 var cookie = $.cookie("searchHistory");
@@ -118,6 +124,7 @@ function search(val) {
 
         window.location.href = comm.webPath + "/coupon/SearchConfirm?filter=" + filter;
     }
+
 }
 
 $("#search").bind('search', function () {
@@ -134,8 +141,6 @@ $("[name='hotSearchList']").click(function () {
     var filterText = $(this).data("filter");
     search(filterText);
 });
-
-
 
 //列表-搜索
 function searchConfirm() {
@@ -191,11 +196,16 @@ $("#searchConfirmBtn").click(function () {
 $(".platform").click(function (e) {
     $(".platform").removeClass("active");
     $(this).addClass("active");
-    sort = $(this).data("platform");
+    platform = $(this).data("platform");
 
     clear($('#coupon ul'));
 
     loadcoupon();
+    //comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
+    //    filter:filter,
+    //    sort: sort,
+    //    platform: platform,
+    //}));
 });
 
 //排序切换
@@ -205,6 +215,11 @@ $(".sort").click(function (e) {
     sort = $(this).data("sort");
 
     clear($('#coupon ul'));
-
     loadcoupon();
+    //comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
+    //    filter: filter,
+    //    sort: sort,
+    //    platform: platform,
+    //}));
 });
+

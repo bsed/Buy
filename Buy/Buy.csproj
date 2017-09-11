@@ -501,6 +501,7 @@
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
     <Content Include="Scripts\Views\search.js" />
+    <Content Include="Scripts\Views\searchConfirm.js" />
     <Content Include="Scripts\Views\userIndex.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />

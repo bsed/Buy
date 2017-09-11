@@ -58,13 +58,13 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult GetUserInfo(string userId)
         {
-            var user = db.Users.FirstOrDefault(s => s.Id == userId);
-            if (user == null)
+            var user = db.Users.FirstOrDefault(s => s.Id==userId);
+            if(user==null)
             {
-                return Json(Comm.ToJsonResult("Error", "没有这个用户"), JsonRequestBehavior.AllowGet);
+                return Json(Comm.ToJsonResult("Error", "没有这个用户"),JsonRequestBehavior.AllowGet);
             }
             var isActivation = true;
-            var registrationCodes = db.RegistrationCodes.Where(s => s.UseUser == user.Id);
+                var registrationCodes = db.RegistrationCodes.Where(s => s.UseUser == user.Id);
             if (registrationCodes.Count() <= 0)
             {
                 isActivation = false;
@@ -77,7 +77,7 @@ namespace Buy.Controllers
                 user.PhoneNumber,
                 IsActivation = isActivation
             };
-            return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功",new { Data= data }), JsonRequestBehavior.AllowGet);
         }
 
         //
@@ -109,21 +109,19 @@ namespace Buy.Controllers
                         var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName || s.PhoneNumber == model.UserName);
                         if (user.IsLocked())
                         {
-                            return Json(Comm.ToJsonResult("LockedOut", "帐号已经被冻结"));
+                            return Json(Comm.ToJsonResult("Error", "帐号已经被冻结"));
                         }
-                        return Json(Comm.ToJsonResult("LockedOut", "因多次登录失败，帐号已经被冻结，请稍微再试"));
+                        return Json(Comm.ToJsonResult("Error", "因多次登录失败，帐号已经被冻结，请稍微再试"));
                     }
                 case SignInStatus.RequiresVerification:
                     {
-                        return Json(Comm.ToJsonResult("RequiresVerification", "用户或密码为空"));
+                        return Json(Comm.ToJsonResult("Error", "用户或密码为空"));
                     }
                 case SignInStatus.Failure:
                 default:
-                    return Json(Comm.ToJsonResult("Failure", "用户或密码有误"));
+                    return Json(Comm.ToJsonResult("Error", "用户或密码有误"));
             }
         }
-
-
 
         //
         // GET: /Account/VerifyCode
@@ -272,7 +270,7 @@ namespace Buy.Controllers
                 var user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
                 if (user == null)
                 {
-                    return Json(Comm.ToJsonResult("NoFound", "用户不存在"));
+                    return Json(Comm.ToJsonResult("Error", "用户不存在"));
                 }
                 var verCode = Bll.Accounts.VerCode(user.PhoneNumber, model.Code);
                 //if (!verCode.IsSuccess)
