@@ -1,22 +1,32 @@
 ﻿var typeID = $("#typeID").val(),
     platform = $("#platform").val(),
-    sort = $("#sort").val();
+    sort = null;
 var canLoadPage = true;
 
 //swiper
-var slideIndexHead = $("[name='type'].active").index();
-var swiper = new Swiper('.navigationSwiper .swiper-container', {
-    slidesPerView: "auto",
-    initialSlide: slideIndexHead
-});
+if ($(".navigationSwiper").length > 0) {
+    var slideIndexHead = $("[name='type'].active").index();
+    var swiper = new Swiper('.navigationSwiper .swiper-container', {
+        slidesPerView: "auto",
+        initialSlide: slideIndexHead
+    });
+}
 
 //主导航
-var swiper = new Swiper('.couponIndex-banner .swiper-container', {
-    slidesPerView: "auto",
-    pagination: '.swiper-pagination',
-    paginationClickable: true,
-    autoplay: 2500,
-    autoplayDisableOnInteraction: false
+if ($("swiper-container").length > 0) {
+    var swiper = new Swiper('.couponIndex-banner .swiper-container', {
+        slidesPerView: "auto",
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+}
+
+$(window).scroll(function () {
+    if (canLoadPage && comm.isWindowBottom()) {
+        loadCoupon();
+    }
 });
 
 //2级分类查看全部
@@ -43,11 +53,10 @@ $(".mask.style02").click(function () {
 $("[name=childType]").click(function (e) {
     var date_type = $(this).data("type");
     typeID = date_type;
-    location = comm.action("Index", "Coupon",
+    location = comm.action("Second", "Coupon",
         {
             typeID: typeID,
-            platform: platform,
-            sort: sort
+            platform: platform
         });
 });
 
@@ -89,14 +98,16 @@ function loadCoupon() {
         data: {
             page: page,
             sort: sort,
-            typeID: typeID,
-            platform: platform
+            types: typeID,
+            platforms: platform,
+            orderByTime:true
         },
         dataType: "html",
         success: function (data) {
             $page.remove();
             var $data = $(data);
             $coupon.find("ul").append($data);
+            sort = null;
             //comm.lazyloadALL();
         },
         complete: function () {
@@ -108,12 +119,13 @@ function loadCoupon() {
 //排序切换
 $(".sort").click(function (e) {
     sort = $(this).data("sort");
-    location = comm.action("Index", "Coupon",
-        {
-            typeID: typeID,
-            platform: platform,
-            sort: sort
-        });
+    var $page = $("#coupon").find("ul li[data-page]");
+    $page.data("next", "true");
+    $page.data("page", "0");
+    $("#coupon").find("li").not("[data-page]").remove();
+    loadCoupon();
+    $(".sort").removeClass("active");
+    $(this).addClass("active");
 });
 
 //tabActive

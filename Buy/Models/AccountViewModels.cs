@@ -17,10 +17,10 @@ namespace Buy.Models
 
     public class SendCodeViewModel
     {
-        public string SelectedProvider { get; set; }
-        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
-        public string ReturnUrl { get; set; }
-        public bool RememberMe { get; set; }
+        [Display(Name = "手机号")]
+        [Required]
+        [RegularExpression(Reg.MOBILE, ErrorMessage = "{0} 格式有误")]
+        public string Phone { get; set; }
     }
 
     public class VerifyCodeViewModel

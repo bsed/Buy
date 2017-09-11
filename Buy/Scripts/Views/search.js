@@ -1,6 +1,6 @@
 ﻿var platform = "",
-    sort = "",
-    filter="";
+    sort ="" ,
+    filter = $("#searchConfirm").val();
 var canLoadPage = true;
 
 function clear(target) {
@@ -49,6 +49,12 @@ function loadcoupon() {
 }
 
 loadcoupon();
+
+$(window).scroll(function () {
+    if (canLoadPage && comm.isWindowBottom()) {
+        loadcoupon();
+    }
+});
 
 //cookie
 var cookie = $.cookie("searchHistory");
@@ -118,6 +124,7 @@ function search(val) {
 
         window.location.href = comm.webPath + "/coupon/SearchConfirm?filter=" + filter;
     }
+
 }
 
 $("#search").bind('search', function () {
@@ -191,7 +198,7 @@ $("#searchConfirmBtn").click(function () {
 $(".platform").click(function (e) {
     $(".platform").removeClass("active");
     $(this).addClass("active");
-    sort = $(this).data("platform");
+    platform = $(this).data("platform");
 
     clear($('#coupon ul'));
 

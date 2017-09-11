@@ -27,7 +27,6 @@
                 }
             }
             else {
-                //comm.alter(0, data.CyMessage);
                 comm.promptBox(data.Message)
             }
         }

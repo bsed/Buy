@@ -58,13 +58,13 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult GetUserInfo(string userId)
         {
-            var user = db.Users.FirstOrDefault(s => s.Id == userId);
-            if (user == null)
+            var user = db.Users.FirstOrDefault(s => s.Id==userId);
+            if(user==null)
             {
-                return Json(Comm.ToJsonResult("Error", "没有这个用户"), JsonRequestBehavior.AllowGet);
+                return Json(Comm.ToJsonResult("Error", "没有这个用户"),JsonRequestBehavior.AllowGet);
             }
             var isActivation = true;
-            var registrationCodes = db.RegistrationCodes.Where(s => s.UseUser == user.Id);
+                var registrationCodes = db.RegistrationCodes.Where(s => s.UseUser == user.Id);
             if (registrationCodes.Count() <= 0)
             {
                 isActivation = false;
@@ -77,7 +77,7 @@ namespace Buy.Controllers
                 user.PhoneNumber,
                 IsActivation = isActivation
             };
-            return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功",new { Data= data }), JsonRequestBehavior.AllowGet);
         }
 
         //
@@ -109,21 +109,19 @@ namespace Buy.Controllers
                         var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName || s.PhoneNumber == model.UserName);
                         if (user.IsLocked())
                         {
-                            return Json(Comm.ToJsonResult("LockedOut", "帐号已经被冻结"));
+                            return Json(Comm.ToJsonResult("Error", "帐号已经被冻结"));
                         }
-                        return Json(Comm.ToJsonResult("LockedOut", "因多次登录失败，帐号已经被冻结，请稍微再试"));
+                        return Json(Comm.ToJsonResult("Error", "因多次登录失败，帐号已经被冻结，请稍微再试"));
                     }
                 case SignInStatus.RequiresVerification:
                     {
-                        return Json(Comm.ToJsonResult("RequiresVerification", "用户或密码为空"));
+                        return Json(Comm.ToJsonResult("Error", "用户或密码为空"));
                     }
                 case SignInStatus.Failure:
                 default:
-                    return Json(Comm.ToJsonResult("Failure", "用户或密码有误"));
+                    return Json(Comm.ToJsonResult("Error", "用户或密码有误"));
             }
         }
-
-
 
         //
         // GET: /Account/VerifyCode
@@ -272,7 +270,7 @@ namespace Buy.Controllers
                 var user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
                 if (user == null)
                 {
-                    return Json(Comm.ToJsonResult("NoFound", "用户不存在"));
+                    return Json(Comm.ToJsonResult("Error", "用户不存在"));
                 }
                 var verCode = Bll.Accounts.VerCode(user.PhoneNumber, model.Code);
                 //if (!verCode.IsSuccess)
@@ -354,39 +352,50 @@ namespace Buy.Controllers
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        //
-        // GET: /Account/SendCode
-        [AllowAnonymous]
-        public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
-        {
-            var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if (userId == null)
-            {
-                return View("Error");
-            }
-            var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        }
-
-        //
-        // POST: /Account/SendCode
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode(SendCodeViewModel model)
+        [AllowCrossSiteJson]
+        public ActionResult SendCode(SendCodeViewModel model)
         {
+            string code = new Random().Next(10000, 99999).ToString();
+            string ip = Request.UserHostAddress;
+
             if (!ModelState.IsValid)
             {
-                return View();
+                return Json(Comm.ToJsonResult("Error", ModelState.FirstErrorMessage()));
             }
-
-            // 生成令牌并发送该令牌
-            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            model.Phone = model.Phone.Trim();
+            var verificationCodes = db.VerificationCodes.Where(s => s.To == model.Phone).ToList();
+            int max = 5;
+            if (verificationCodes.Where(s => s.CreateDate.Date == DateTime.Now.Date).Count() >= max)
             {
-                return View("Error");
+                return Json(Comm.ToJsonResult("Error", $"一天只能发送{max}次"));
             }
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+            try
+            {
+                ISms sms = new RLSms();
+                var verCode = sms.Send(model.Phone, code);
+                if (verCode.IsSuccess)
+                {
+                    db.VerificationCodes.Add(new VerificationCode
+                    {
+                        To = model.Phone,
+                        CreateDate = DateTime.Now,
+                        Code = code,
+                        IP = ip
+                    });
+                    db.SaveChanges();
+                    return Json(Comm.ToJsonResult("Success", verCode.Message));
+                }
+                else
+                {
+                    return Json(Comm.ToJsonResult("Error", verCode.Message));
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(Comm.ToJsonResult("Error", ex.Message));
+            }
         }
 
         //
@@ -473,48 +482,6 @@ namespace Buy.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> LoginClient(string username, string password)
-        {
-            var result = await SignInManager.PasswordSignInAsync(username, password, false, shouldLockout: true);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    {
-                        var user = db.Users.FirstOrDefault(s => s.UserName == username || s.PhoneNumber == username);
-                        if (user.UserType != Enums.UserType.Proxy)
-                        {
-                            return Json(Comm.ToJsonResult("PermissionDenied", "该帐号没有代理权限"));
-                        }
-                        var code = Comm.Random.Next(10000, 99999).ToString("x");
-                        db.ClientAccessLogs.Add(new ClientAccessLog
-                        {
-                            Code = code,
-                            IP = this.GetIPAddress(),
-                            LoginDateTime = DateTime.Now,
-                            UserID = user.Id
-                        });
-                        return Json(Comm.ToJsonResult("Success", "登录成功", new { ID = user.Id, NickName = user.NickName, Code = code }));
-                    }
-                case SignInStatus.LockedOut:
-                    {
-                        var user = db.Users.FirstOrDefault(s => s.UserName == username || s.PhoneNumber == username);
-                        if (user.IsLocked())
-                        {
-                            return Json(Comm.ToJsonResult("LockedOut", "帐号已经被冻结"));
-                        }
-                        return Json(Comm.ToJsonResult("LockedOut", "因多次登录失败，帐号已经被临时冻结，请稍微再试"));
-                    }
-                case SignInStatus.RequiresVerification:
-                    {
-                        return Json(Comm.ToJsonResult("RequiresVerification", "用户或密码为空"));
-                    }
-                case SignInStatus.Failure:
-                default:
-                    return Json(Comm.ToJsonResult("Failure", "用户或密码有误"));
-            }
         }
 
         protected override void Dispose(bool disposing)
