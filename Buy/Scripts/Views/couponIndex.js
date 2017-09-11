@@ -90,7 +90,7 @@ function loadCoupon() {
     if (!$page.data("next")) {
         return;
     }
-    var page = $page.data("page") + 1;
+    var page = parseInt($page.data("page")) + 1;
     canLoadPage = false;
     $.ajax({
         type: "GET",

@@ -1,6 +1,6 @@
-﻿var platform = "TaoBao",
+﻿var platform = $("#platform").val(),
     sort = $("[data-sort].active").data("sort"),
-    types = "2";
+    types = $("#typeID").val();
 var canLoadPage = true;
 
 function clear(target) {
@@ -11,7 +11,7 @@ function clear(target) {
 }
 
 //load优惠券
-function loadcoupon() {
+function loadCoupon() {
     if (!canLoadPage) {
         return;
     }
@@ -48,4 +48,16 @@ function loadcoupon() {
 
 }
 
-loadcoupon();
+loadCoupon();
+
+//排序切换
+$(".sort").click(function (e) {
+    sort = $(this).data("sort");
+    var $page = $("#coupon").find("ul li[data-page]");
+    $page.data("next", "true");
+    $page.data("page", "0");
+    $("#coupon").find("li").not("[data-page]").remove();
+    loadCoupon();
+    $(".sort").removeClass("active");
+    $(this).addClass("active");
+});
