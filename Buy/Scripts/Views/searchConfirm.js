@@ -49,7 +49,7 @@ function loadCoupon() {
             var $data = $(data);
 
             $coupon.find(">ul").append($data);
-            //comm.lazyloadALL();
+            comm.lazyloadALL();
         },
         complete: function () {
             canLoadPage = true;

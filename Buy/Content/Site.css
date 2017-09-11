@@ -965,13 +965,17 @@
   line-height: 1.352657rem;
   font-size: 0.5410628rem;
 }
-.account .account-input .account-input-getCode {
+.account .account-input .identifyCode {
   position: absolute;
   top: 0;
   right: 0;
   line-height: 1.352657rem;
   font-size: 0.5410628rem;
   color: #668CE6;
+  width: auto;
+  padding: 0;
+  background: none;
+  border: none;
 }
 .account .account-input .account-input-del {
   background: url("image/view/ic_search_clear@2x.png") no-repeat center;
@@ -987,6 +991,9 @@
   transform: translateY(-50%);
   right: 0.61835749rem;
   z-index: 100;
+}
+.account .account-input .account-input-del.style02 {
+  right: 3.24637681rem;
 }
 .account .account-input input {
   border: none;
