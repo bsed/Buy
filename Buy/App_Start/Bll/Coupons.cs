@@ -79,13 +79,13 @@ namespace Buy.Bll
                     var addTemp = models.Skip(pageIndex).Take(pageSize).ToList();
 
                     //判断是否有重复添加
-                    //var links = addTemp.Select(s => s.Link).ToList();
-                    //var dbLinks = db.Coupons.Where(s => links.Contains(s.Link)).Select(s => s.Link).ToList();
+                    var links = addTemp.Select(s => s.Link).ToList();
+                    var dbLinks = db.Coupons.Where(s => links.Contains(s.Link)).Select(s => s.Link).ToList();
 
-                    //if (dbLinks.Count > 0)
-                    //{
-                    //    addTemp = addTemp.Where(s => !dbLinks.Contains(s.Link)).ToList();
-                    //}
+                    if (dbLinks.Count > 0)
+                    {
+                        addTemp = addTemp.Where(s => !dbLinks.Contains(s.Link)).ToList();
+                    }
                     afterFilter.AddRange(addTemp);
                     //db.ThirdPartyTickets.AddRange(addTemp);
                     //db.SaveChanges();
