@@ -504,7 +504,9 @@
     <Content Include="Scripts\Views\searchConfirm.js" />
     <Content Include="Scripts\Views\userIndex.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
