@@ -1226,6 +1226,16 @@
 .moduleOptions:after {
   clear: both;
 }
+.moduleOptions a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.moduleOptions a:hover,
+.moduleOptions a:active,
+.moduleOptions a:focus {
+  color: inherit;
+}
 body {
   color: rgba(0, 0, 0, 0.87);
   min-height: 100vh;

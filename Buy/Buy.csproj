@@ -501,6 +501,7 @@
     <Content Include="Scripts\Views\couponManage.js" />
     <Content Include="Scripts\Views\couponTicketTypeManageIndex.js" />
     <Content Include="Scripts\Views\find.js" />
+    <Content Include="Scripts\Views\forgotPassword.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
     <Content Include="Scripts\Views\search.js" />

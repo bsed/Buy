@@ -101,6 +101,7 @@ namespace Buy
             addViewScripts("search", new string[] { "search.js" });
             addViewScripts("searchConfirm", new string[] { "searchConfirm.js" });
             addViewScripts("userIndex", new string[] { "userIndex.js" });
+            addViewScripts("forgotPassword", new string[] { "forgotPassword.js" });
         }
     }
 }
