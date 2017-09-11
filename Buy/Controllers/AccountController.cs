@@ -345,6 +345,7 @@ namespace Buy.Controllers
 
         [HttpPost]
         [AllowCrossSiteJson]
+        [AllowAnonymous]
         public async Task<ActionResult> LoginClient(string username, string password)
         {
             var result = await SignInManager.PasswordSignInAsync(username, password, false, shouldLockout: true);
@@ -388,6 +389,7 @@ namespace Buy.Controllers
 
         [HttpPost]
         [AllowCrossSiteJson]
+        [AllowAnonymous]
         public ActionResult CheckClientCode(string id, string code)
         {
             var ispass = db.ClientAccessLogs
