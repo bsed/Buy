@@ -1,4 +1,21 @@
-﻿$("#submit").click(function (e) {
+﻿setTimeout(function () {
+    var UserName = $("#UserName").val()
+    if (UserName != "") {
+        $("#submit").prop("disabled", false);
+        $("[name='clearVal']").removeClass("hidden");
+    }
+}, 500);
+
+//清除val
+$("[name='clearVal']").click(function () {
+    $(this).addClass("hidden");
+    $(this).parent().find("input").val(null);
+
+    $("#submit").prop("disabled", true);
+});
+
+
+$("#submit").click(function (e) {
     var data = {
         UserName: $("#UserName").val(),
         Password: $("#Password").val(),
@@ -38,6 +55,12 @@ $(".account-input input").keyup(function () {
         UserName: $("#UserName").val(),
         Password: $("#Password").val(),
     };
+
+    if ($(this).val() == "") {
+        $(this).parent().find("[name='clearVal']").addClass("hidden");
+    } else {
+        $(this).parent().find("[name='clearVal']").removeClass("hidden");
+    }
 
     if (data.UserName != "" && data.Password != "") {
         $("#submit").prop("disabled", false);
