@@ -62,20 +62,6 @@ function codeCountDown(timespan) {
     }
 }
 
-$(".register-input").keyup(function () {
-    var data = {
-        UserName: $("#PhoneNumber").val(),
-        Code: $("#Code").val(),
-        Password: $("#Password").val(),
-    };
-
-    if (data.UserName != "" && data.Password != "" && data.Password != "") {
-        $("#registerBtn").prop("disabled", false);
-    } else {
-        $("#registerBtn").prop("disabled", true);
-    }
-});
-
 //邀请码按钮
 $("#inviteBtn").click(function (e) {
     var data = {
@@ -97,10 +83,59 @@ $("#inviteBtn").click(function (e) {
     });
 });
 
-$(".invite-input").keyup(function () {
+setTimeout(function () {
+    var PhoneNumber = $("#PhoneNumber");
+    var Code = $("#Code");
+    var Password = $("#Password");
+    if (Code.val() != "") {
+        Code.parent().find("[name='clearVal']").removeClass("hidden");
+        Password.parent().find("[name='clearVal']").removeClass("hidden");
+    }
+    if (PhoneNumber.val() != "") {
+        $("#registerBtn").prop("disabled", false);
+        PhoneNumber.parent().find("[name='clearVal']").removeClass("hidden");
+    }
+}, 500);
+
+//注册页清除val
+$("[name='clearVal']").click(function () {
+    $(this).addClass("hidden");
+    $(this).parent().find(".register-input").val(null);
+
+    $("#registerBtn").prop("disabled", true);
+});
+//注册页input
+$(".register-input").keyup(function () {
+    var data = {
+        PhoneNumber: $("#PhoneNumber").val(),
+        Code: $("#Code").val(),
+        Password: $("#Password").val()
+    };
+
+    if ($(this).val() == "") {
+        $(this).parent().find("[name='clearVal']").addClass("hidden");
+    } else {
+        $(this).parent().find("[name='clearVal']").removeClass("hidden");
+    }
+
+    if (data.PhoneNumber != "" && data.Code != "" && data.Password != "") {
+        $("#registerBtn").prop("disabled", false);
+    } else {
+        $("#registerBtn").prop("disabled", true);
+    }
+});
+
+//邀请码页input
+$("#inviteCode").keyup(function () {
     var data = {
         inviteCode: $("#inviteCode").val()
     };
+
+    if ($(this).val() == "") {
+        $(this).parent().find("[name='clearVal']").addClass("hidden");
+    } else {
+        $(this).parent().find("[name='clearVal']").removeClass("hidden");
+    }
 
     if (data.inviteCode != "") {
         $("#inviteBtn").prop("disabled", false);
@@ -108,3 +143,13 @@ $(".invite-input").keyup(function () {
         $("#inviteBtn").prop("disabled", true);
     }
 });
+
+//邀请码页清除val
+$("[name='clearVal']").click(function () {
+    $(this).addClass("hidden");
+    $(this).parent().find("#inviteCode").val(null);
+
+    $("#inviteBtn").prop("disabled", true);
+});
+
+$("#btnBack").goback(comm.action("Index", "Coupon"));

@@ -2,6 +2,7 @@
     platform = $("#platform").val(),
     sort = $("[data-sort].active").data("sort");
 var canLoadPage = true;
+var top = 0;
 
 //swiper
 if ($(".navigationSwiper").length > 0) {
@@ -23,10 +24,20 @@ if ($("swiper-container").length > 0) {
     });
 }
 
-$(window).scroll(function () {
+$(window).scroll(function (e) {
+    if ($(window).scrollTop() > 0) {
+        $(".setScrollTop").fadeIn();
+    } else {
+        $(".setScrollTop").fadeOut();
+    }
+
     if (canLoadPage && comm.isWindowBottom()) {
         loadCoupon();
     }
+});
+
+$(".setScrollTop").click(function () {
+    $('body').animate({ scrollTop: '0' }, 500);
 });
 
 //2级分类查看全部
@@ -108,7 +119,7 @@ function loadCoupon() {
             var $data = $(data);
             $coupon.find("ul").append($data);
             sort = null;
-            //comm.lazyloadALL();
+            comm.lazyloadALL();
         },
         complete: function () {
             canLoadPage = true;

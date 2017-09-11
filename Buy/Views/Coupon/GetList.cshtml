@@ -31,7 +31,7 @@
         <li>
             <div class="couponList-head">
                 <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
-                    <img src="@Comm.ResizeImage(item.Image)" />
+                    <img src="~/Content/image/404/placeholder_image.png?w=150&h=150" data-original="@Comm.ResizeImage(item.Image)" />
                 </a>
             </div>
             <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">

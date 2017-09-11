@@ -965,13 +965,17 @@
   line-height: 1.352657rem;
   font-size: 0.5410628rem;
 }
-.account .account-input .account-input-getCode {
+.account .account-input .identifyCode {
   position: absolute;
   top: 0;
   right: 0;
   line-height: 1.352657rem;
   font-size: 0.5410628rem;
   color: #668CE6;
+  width: auto;
+  padding: 0;
+  background: none;
+  border: none;
 }
 .account .account-input .account-input-del {
   background: url("image/view/ic_search_clear@2x.png") no-repeat center;
@@ -987,6 +991,9 @@
   transform: translateY(-50%);
   right: 0.61835749rem;
   z-index: 100;
+}
+.account .account-input .account-input-del.style02 {
+  right: 3.24637681rem;
 }
 .account .account-input input {
   border: none;
@@ -1218,6 +1225,16 @@
 }
 .moduleOptions:after {
   clear: both;
+}
+.moduleOptions a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.moduleOptions a:hover,
+.moduleOptions a:active,
+.moduleOptions a:focus {
+  color: inherit;
 }
 body {
   color: rgba(0, 0, 0, 0.87);
@@ -1791,4 +1808,16 @@ textarea {
   width: 8.03864734rem;
   height: 7.30434783rem;
   margin-top: 5.02415459rem;
+}
+.setScrollTop {
+  position: fixed;
+  bottom: 2.62801932rem;
+  right: 0.30917874rem;
+  width: 1.93236715rem;
+  height: 1.93236715rem;
+  z-index: 100;
+}
+.setScrollTop img {
+  width: 100%;
+  height: auto;
 }
