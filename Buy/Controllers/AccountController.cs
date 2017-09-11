@@ -345,6 +345,7 @@ namespace Buy.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         [AllowCrossSiteJson]
         public async Task<ActionResult> LoginClient(string username, string password)
         {
@@ -388,6 +389,7 @@ namespace Buy.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [AllowCrossSiteJson]
         public ActionResult CheckClientCode(string id, string code)
         {
