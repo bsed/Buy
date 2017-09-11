@@ -108,7 +108,7 @@ function loadCoupon() {
             var $data = $(data);
             $coupon.find("ul").append($data);
             sort = null;
-            //comm.lazyloadALL();
+            comm.lazyloadALL();
         },
         complete: function () {
             canLoadPage = true;

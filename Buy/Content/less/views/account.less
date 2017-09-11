@@ -13,13 +13,30 @@
             font-size: @font-size-2;
         }
 
-        .account-input-getCode {
+        .identifyCode {
             position: absolute;
             top: 0;
             right: 0;
             line-height: 35rem*@resize;
             font-size: @font-size-2;
             color: @font-col-blue;
+            width:auto;
+            padding:0;
+            background:none;
+            border:none;
+        }
+
+        .account-input-del{
+            background:url("../../image/view/ic_search_clear@2x.png") no-repeat center;
+            .square(16rem*@resize);
+            background-size:contain;
+            .block-vertical-mid(50%);
+            right:16rem*@resize;
+            z-index:@z-index-bottom;
+
+            &.style02{
+                right:84rem*@resize;
+            }
         }
 
         input {
@@ -35,6 +52,10 @@
 
             &::-webkit-input-placeholder {
                 color: @font-col-grey02;
+            }
+
+            &.style02{
+                padding-right:16rem*@resize;
             }
         }
     }

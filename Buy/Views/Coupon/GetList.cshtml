@@ -31,7 +31,7 @@
         <li>
             <div class="couponList-head">
                 <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
-                    <img src="@Comm.ResizeImage(item.Image)" />
+                    <img src="~/Content/image/404/placeholder_image.png?w=150&h=150" data-original="@Comm.ResizeImage(item.Image)" />
                 </a>
             </div>
             <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
@@ -39,10 +39,18 @@
                     <div class="couponList-title">
                         <img src="@platformLogo" />@item.Name
                     </div>
-                    <div class="couponList-price">
-                        <div class="fl originalPrice">在售价 <span class="yuan">￥</span><span class="">@item.OriginalPrice</span></div>
-                        <div class="fr"><span class="couponList-sales fs12">销量：@item.Sales</span></div>
-                    </div>
+                    @if (item.Platform == Buy.Enums.CouponPlatform.Jd)
+                    {
+
+                    }
+                    else
+                    {
+                        <div class="couponList-price">
+                            <div class="fl originalPrice">在售价 <span class="yuan">￥</span><span class="">@item.OriginalPrice</span></div>
+                            <div class="fr"><span class="couponList-sales fs12">销量：@item.Sales</span></div>
+                        </div>
+                    }
+                    
                     <div class="couponList-afterPrice marginT10">
                         <span class="yuan">￥</span>@item.Price
                     </div>
@@ -57,7 +65,7 @@
                     </div>
                 </div>
             </a>
-            <a href="#">
+            <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
                 <div class="couponList-ticket" data-href="">
                     <div class="lingquan">抢购优惠</div>
                 </div>
@@ -77,10 +85,4 @@
             已经到底了
         </li>
     }
-}
-else
-{
-    <li class="loadModule loadModule-dataIng" data-next="false" data-page="0">
-        已经到底了
-    </li>
 }

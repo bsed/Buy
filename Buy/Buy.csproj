@@ -382,12 +382,14 @@
     <Content Include="Content\image\view\ic_navbar_search_black_m%402x.png" />
     <Content Include="Content\image\view\ic_navbar_search_white%402x.png" />
     <Content Include="Content\image\view\ic_navbar_share_bgblack%402x.png" />
+    <Content Include="Content\image\view\ic_search_clear%402x.png" />
     <Content Include="Content\image\view\img_bsk_b%402x.png" />
     <Content Include="Content\image\view\img_burgerking_b%402x.png" />
     <Content Include="Content\image\view\img_coupon_nodata.png" />
     <Content Include="Content\image\view\img_kfc_b%402x.png" />
     <Content Include="Content\image\view\img_mcdonalds_b%402x.png" />
     <Content Include="Content\image\view\img_mogoodsx%402x.png" />
+    <Content Include="Content\image\view\img_search_nodata%402x.png" />
     <Content Include="Content\image\view\img_wechat_login_grey%402x.png" />
     <Content Include="Content\image\view\img_zgongfu_b%402x.png" />
     <Content Include="Content\image\view\logo_jd_tag%402x.png" />
@@ -478,6 +480,7 @@
     <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.structure.css" />
     <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.structure.min.css" />
     <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.lazyload.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -504,7 +507,9 @@
     <Content Include="Scripts\Views\searchConfirm.js" />
     <Content Include="Scripts\Views\userIndex.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -565,6 +570,7 @@
     <Content Include="Views\Coupon\SearchConfirm.cshtml" />
     <Content Include="Views\Coupon\Second.cshtml" />
     <Content Include="Views\Account\Activation.cshtml" />
+    <Content Include="Views\Shared\_TaobaoPassPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
