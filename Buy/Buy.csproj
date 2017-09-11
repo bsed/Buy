@@ -283,6 +283,7 @@
     <Compile Include="App_Start\QrCode.cs" />
     <Compile Include="App_Start\Reg.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Security.cs" />
     <Compile Include="App_Start\SettingCookie.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SysRole.cs" />
@@ -298,6 +299,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UploaderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -358,6 +360,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\image\404\avatar.png" />
+    <Content Include="Content\image\404\default.jpg" />
+    <Content Include="Content\image\404\placeholder_image.png" />
     <Content Include="Content\image\test\banner_home%402x.png" />
     <Content Include="Content\image\test\coupon-detail-pimg02.png" />
     <Content Include="Content\image\test\find_banner.png" />
@@ -501,7 +506,9 @@
     <Content Include="Scripts\Views\searchConfirm.js" />
     <Content Include="Scripts\Views\userIndex.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -561,10 +568,12 @@
     <Content Include="Views\Find\Index.cshtml" />
     <Content Include="Views\Coupon\SearchConfirm.cshtml" />
     <Content Include="Views\Coupon\Second.cshtml" />
+    <Content Include="Views\Account\Activation.cshtml" />
     <Content Include="Views\Shared\_TaobaoPassPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Security\" />
     <Folder Include="Views\Test\" />
     <Folder Include="Views\Uploader\" />
   </ItemGroup>

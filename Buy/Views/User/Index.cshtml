@@ -14,7 +14,11 @@
         <div class="fl">我的消息</div>
     </div>
     <div class="moduleOptions">
-        <div class="fl">退出登录</div>
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+        }
+        <div class="fl"><a href="javascript:document.getElementById('logoutForm').submit()">退出登录</a></div>
     </div>
 
     @Html.Partial("_navTabBottomPartial")

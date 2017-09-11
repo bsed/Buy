@@ -1,0 +1,32 @@
+﻿@model Buy.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Activation";
+}
+
+<div id="invite" class="account paddingT44 minHight100vh">
+    <div class="navigationBar">
+        <div class="navigationBar-back" onclick="history.back(-1)"></div>
+        输入邀请码
+    </div>
+    <div class="paddingLr16">
+        <div class="account-invite-name">欢迎您，@Model.UserName</div>
+        <div class="account-invite-text fs12 textCenter color-grey marginT35 m">
+            <div>“买了么”目前采用会员邀请机制</div>
+            <div>请输入您的邀请码</div>
+        </div>
+        <div class="clearfix marginT20">
+            @Html.HiddenFor(model=>model.Id)
+            <div class="account-input">
+                <div class="account-input-tits">邀请码</div>
+                <input type="text" class="invite-input" id="inviteCode" placeholder="请填写邀请码" />
+            </div>
+            <div class="marginT35">
+                <input id="inviteBtn" type="button" disabled class="account-button" value="完成" />
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/register")
+}
