@@ -144,3 +144,22 @@ $("#btnDelSetting").click(function () {
     $modDel.show();
 });
 
+//统合
+$("#btnSetType").click(function (e) {
+    var a = comm.alter(3, "统合中");
+    $.ajax({
+        type: "POST",
+        url: comm.action("CheckTypes", "CouponManage"),
+        dataType: "json",
+        success: function (data) {
+            a.remove();
+            if (data.State == "Success") {
+                comm.alter(1, "统合完成,已统合" + data.Result.Count + "个商品");
+                setTimeout(function () {
+                    location = location;
+                }, 1000);
+            }
+        }
+    });
+    return false;
+});

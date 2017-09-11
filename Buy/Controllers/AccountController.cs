@@ -456,7 +456,7 @@ namespace Buy.Controllers
                         Code = code,
                         IP = ip
                     });
-                    //db.SaveChanges();
+                    db.SaveChanges();
                     return Json(Comm.ToJsonResult("Success", verCode.Message));
                 }
                 else
