@@ -1,6 +1,6 @@
 ﻿var typeID = $("#typeID").val(),
     platform = $("#platform").val(),
-    sort = null;
+    sort = $("[data-sort].active").data("sort");
 var canLoadPage = true;
 
 //swiper
@@ -126,6 +126,11 @@ $(".sort").click(function (e) {
     loadCoupon();
     $(".sort").removeClass("active");
     $(this).addClass("active");
+    comm.addHistory("url", comm.action("Index", "Coupon", {
+        sort: sort,
+        platform: platform,
+        typeID: typeID,
+    }));
 });
 
 //tabActive
