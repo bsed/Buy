@@ -63,9 +63,19 @@ function loadCoupon() {
 loadCoupon();
 
 $(window).scroll(function () {
+    if ($(window).scrollTop() > 0) {
+        $(".setScrollTop").fadeIn();
+    } else {
+        $(".setScrollTop").fadeOut();
+    }
+
     if (canLoadPage && comm.isWindowBottom()) {
         loadCoupon();
     }
+});
+
+$(".setScrollTop").click(function () {
+    $('body').animate({ scrollTop: '0' }, 500);
 });
 
 //排序切换

@@ -16,17 +16,10 @@ $("[name='clearVal']").click(function () {
 
 
 $("#submit").click(function (e) {
+
     var data = {
         UserName: $("#UserName").val(),
-        Password: $("#Password").val(),
-    };
-
-    if (data.UserName == "") {
-        comm.promptBox("请填写手机号码");
-        return false
-    } else if (data.Password == "") {
-        comm.promptBox("请填写登录密码");
-        return false
+        Password: $("#Password").val()
     }
 
     $.ajax({
