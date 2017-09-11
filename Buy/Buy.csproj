@@ -566,6 +566,7 @@
     <Content Include="Views\Find\Index.cshtml" />
     <Content Include="Views\Coupon\SearchConfirm.cshtml" />
     <Content Include="Views\Coupon\Second.cshtml" />
+    <Content Include="Views\Account\Activation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
