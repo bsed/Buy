@@ -6,6 +6,22 @@
     var paged = (PagedList.IPagedList)ViewBag.Paged;
 }
 
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("生成注册码", "Create")</li>
+            </ul>
+            @*<form class="navbar-form navbar-left" method="get">
+                <div class="form-group">
+                    <input type="text" name="createTime" class="form-control" placeholder="优惠券创建时间" value="@Request["createTime"]">
+                </div>
+                <button type="button" id="search_btn" class="btn btn-default">查询</button>
+            </form>*@
+        </div>
+    </div>
+</nav>
+
 <table class="table table-hover table-striped">
     <thead>
         <tr>
@@ -47,4 +63,5 @@
 }
 
 </table>
+
 @Html.PageList(paged,Url.PageUrl())

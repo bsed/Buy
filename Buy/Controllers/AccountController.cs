@@ -271,7 +271,7 @@ namespace Buy.Controllers
         [HttpPost]
         [AllowAnonymous]
         [AllowCrossSiteJson]
-        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -289,6 +289,7 @@ namespace Buy.Controllers
                 var r = UserManager.AddPassword(user.Id, model.Password);
                 if (r.Succeeded)
                 {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     return Json(Comm.ToJsonResult("Success", "设置成功"));
                 }
                 else

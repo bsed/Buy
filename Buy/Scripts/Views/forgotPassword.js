@@ -81,3 +81,44 @@ function codeCountDown(timespan) {
         }, 1000);
     }
 }
+
+//忘记密码按钮
+$("#forgotBtn").click(function (e) {
+    var data = {
+        PhoneNumber: $("#PhoneNumber").val(),
+        Code: $("#Code").val(),
+        Password: $("#Password").val(),
+    };
+    $.ajax({
+        type: "POST",
+        url: comm.action("ForgotPassword", "Account"),
+        data: data,
+        dataType: "json",
+        success: function (data) {
+            if (data.State == "Success") {
+                $.ajax({
+                    type: "GET",
+                    url: comm.action("GetUserInfo", "Account"),
+                    data: { userId: data.Result.ID },
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.State == "Success") {
+                            if (result.Result.Data.UserType == 1) {
+                                location = comm.action("Index", "UserManage");
+                            } else {
+                                if (result.Result.Data.IsActivation) {
+                                    location = comm.action("Index", "Coupon");
+                                } else {
+                                    location = comm.action("Activation", "Account");
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            else {
+                comm.promptBox(data.Message)
+            }
+        }
+    });
+});

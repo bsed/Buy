@@ -37,6 +37,8 @@ namespace Buy.Models
         [Display(Name = "拥有用户")]
         public string OwnUser { get; set; }
 
+        public ApplicationUser Own { get; set; }
+
         [Display(Name = "数量")]
         public int Count { get; set; }
     }

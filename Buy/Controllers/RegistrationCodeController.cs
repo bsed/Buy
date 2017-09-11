@@ -23,18 +23,32 @@ namespace Buy.Controllers
 
         private void Sidebar()
         {
-            ViewBag.Sidebar = "用户管理";
+            ViewBag.Sidebar = "注册码管理";
         }
 
         // GET: RegistrationCode
         public ActionResult Index(string userId, int page = 1)
         {
-            var list = db.RegistrationCodes.Where(s => s.OwnUser == userId).OrderBy(s => s.CreateTime).ToPagedList(page);
+            var userlist = db.Users.Where(s => s.UserType == Enums.UserType.Proxy)
+                   .Select(s => new SelectListItem()
+                   {
+                       Text = s.UserName,
+                       Value = s.Id
+                   }).ToList();
+            ViewBag.UserList = userlist;
+            var registrationCodes = db.RegistrationCodes.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(userId))
+            {
+                registrationCodes = registrationCodes.Where(s => s.OwnUser == userId);
+            }
+            var list = registrationCodes.OrderBy(s => s.CreateTime).ToPagedList(page);
+
             var userids = list.Select(s => s.OwnUser).ToList();
             userids.AddRange(list.Select(s => s.CreateUser).ToList());
             userids.AddRange(list.Select(s => s.UseUser).ToList());
             userids.Distinct();
             var users = db.Users.Where(s => userids.Contains(s.Id)).ToList();
+
             var model = list.Select(s =>
             {
                 var create = users.FirstOrDefault(u => u.Id == s.CreateUser);
@@ -59,17 +73,29 @@ namespace Buy.Controllers
             return View(model);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(string userId)
         {
             Sidebar();
-            var userlist = db.Users.Where(s => s.UserType == Enums.UserType.Proxy)
-                .Select(s => new SelectListItem()
-                {
-                    Text = s.UserName,
-                    Value = s.Id
-                }).ToList();
-            ViewBag.UserList = userlist;
-            return View();
+            var model = new RegistrationCodeCreate()
+            {
+                OwnUser = userId,
+            };
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                var userlist = db.Users.Where(s => s.UserType == Enums.UserType.Proxy)
+                    .Select(s => new SelectListItem()
+                    {
+                        Text = s.UserName,
+                        Value = s.Id
+                    }).ToList();
+                ViewBag.UserList = userlist;
+            }
+            else
+            {
+                var user = db.Users.FirstOrDefault(s => s.Id == userId);
+                model.Own = user;
+            }
+            return View(model);
         }
 
         [HttpPost]

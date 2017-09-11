@@ -24,6 +24,12 @@ namespace Buy.Controllers
                 var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userId);
                 userId = code == null ? null : code.OwnUser;
             }
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                userId = db.Coupons.GroupBy(s => s.UserID)
+                    .Select(s => new { UserID=s.Key, count = s.Count() })
+                    .OrderByDescending(s => s.count).FirstOrDefault().UserID;
+            }
             var query = db.Coupons.Where(s => s.UserID == userId).Select(s => new CouponQuery
             {
                 CreateDateTime = s.CreateDateTime,
