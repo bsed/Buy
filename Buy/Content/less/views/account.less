@@ -22,6 +22,15 @@
             color: @font-col-blue;
         }
 
+        .account-input-del{
+            background:url("../../image/view/ic_search_clear@2x.png") no-repeat center;
+            .square(16rem*@resize);
+            background-size:contain;
+            .block-vertical-mid(50%);
+            right:16rem*@resize;
+            z-index:@z-index-bottom;
+        }
+
         input {
             .clean-input();
             border: none;
@@ -35,6 +44,10 @@
 
             &::-webkit-input-placeholder {
                 color: @font-col-grey02;
+            }
+
+            &.style02{
+                padding-right:16rem*@resize;
             }
         }
     }

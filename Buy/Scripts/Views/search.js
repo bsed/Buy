@@ -10,6 +10,16 @@ function clear(target) {
     target.append(html);
 }
 
+function nodataCheck(target) {
+    if ($(target).children().length == "0") {
+        $(".nodata").addClass("hidden");
+
+        if ($(".nodata").hasClass("hidden")) {
+            $(".nodata").removeClass("hidden");
+        }
+    }
+}
+
 //load优惠券
 function loadcoupon() {
     if (!canLoadPage) {
@@ -31,7 +41,7 @@ function loadcoupon() {
             sort: sort,
             platforms: platform,
             filter: filter,
-            orderByTime: false
+            orderByTime: true
         },
         dataType: "html",
         success: function (data) {
@@ -43,6 +53,7 @@ function loadcoupon() {
         },
         complete: function () {
             canLoadPage = true;
+            nodataCheck("#coupon ul");
         }
     });
 
@@ -66,6 +77,9 @@ function getCookie() {
     if (cookie != undefined && cookie != "") {
         array = cookie.split(",")
     }
+    if (cookie == "null") {
+        array.length = 0;
+    }
 }
 
 getCookie();
@@ -82,7 +96,9 @@ if (cookie != "null" && cookie != undefined) {
 }
 //清空历史
 clearHistory.click(function () {
-    $.cookie('searchHistory', null);
+    $.cookie('searchHistory', null, {
+        path: "/", expires: 1
+    });
     $("#searchHistoryList").children().remove();
     $("#searchHistory").addClass("hidden");
 });
@@ -186,10 +202,22 @@ function searchConfirm() {
 
 $("#searchConfirm").bind('search', function () {
     searchConfirm();
+
+    comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
+        filter: filter,
+        sort: sort,
+        platform: platform,
+    }));
 });
 
 $("#searchConfirmBtn").click(function () {
     searchConfirm();
+
+    comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
+        filter: filter,
+        sort: sort,
+        platform: platform,
+    }));
 });
 
 //平台切换
@@ -201,11 +229,11 @@ $(".platform").click(function (e) {
     clear($('#coupon ul'));
 
     loadcoupon();
-    //comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
-    //    filter:filter,
-    //    sort: sort,
-    //    platform: platform,
-    //}));
+    comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
+        filter:filter,
+        sort: sort,
+        platform: platform,
+    }));
 });
 
 //排序切换
@@ -216,10 +244,10 @@ $(".sort").click(function (e) {
 
     clear($('#coupon ul'));
     loadcoupon();
-    //comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
-    //    filter: filter,
-    //    sort: sort,
-    //    platform: platform,
-    //}));
+    comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
+        filter: filter,
+        sort: sort,
+        platform: platform,
+    }));
 });
 

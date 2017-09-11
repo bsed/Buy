@@ -26,3 +26,16 @@ if ($("#ID").length > 0) {
         GetDetailImgs();
     }
 }
+
+//淘口令
+$(".mask").click(function (e) {
+    $(".pwdMask").addClass("hidden");
+    $("body").css("overflow", "auto");
+    comm.mask2.hide();
+});
+
+$("[name='clipboard']").click(function (e) {
+    $(".pwdMask").removeClass("hidden");
+    $("body").css("overflow", "hidden");
+    comm.mask2.show();
+});

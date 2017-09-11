@@ -4,10 +4,20 @@
 var canLoadPage = true;
 
 function clear(target) {
-    target.children().remove();
+    $(target).children().remove();
     var html = "";
     html += '<li class="loadModule loadModule-dataIng" data-page="0" data-next="true">加载中</li>';
-    target.append(html);
+    $(target).append(html);
+}
+
+function nodataCheck(target) {
+    if ($(target).children().length == "0") {
+        $(".nodata").addClass("hidden");
+
+        if ($(".nodata").hasClass("hidden")) {
+            $(".nodata").removeClass("hidden");
+        }
+    }
 }
 
 //load优惠券
@@ -30,7 +40,7 @@ function loadCoupon() {
             page: page,
             sort: sort,
             platforms: platform,
-            types:types,
+            types: types,
             orderByTime: true
         },
         dataType: "html",
@@ -43,6 +53,8 @@ function loadCoupon() {
         },
         complete: function () {
             canLoadPage = true;
+
+            nodataCheck("#coupon ul");
         }
     });
 
@@ -50,14 +62,17 @@ function loadCoupon() {
 
 loadCoupon();
 
+$(window).scroll(function () {
+    if (canLoadPage && comm.isWindowBottom()) {
+        loadCoupon();
+    }
+});
+
 //排序切换
 $(".sort").click(function (e) {
     sort = $(this).data("sort");
-    var $page = $("#coupon").find("ul li[data-page]");
-    $page.data("next", "true");
-    $page.data("page", "0");
-    $("#coupon").find("li").not("[data-page]").remove();
-    loadCoupon();
     $(".sort").removeClass("active");
     $(this).addClass("active");
+    clear("#coupon ul");
+    loadCoupon();
 });

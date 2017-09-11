@@ -247,8 +247,8 @@ textarea {
     padding-top: 84rem*@resize;
 }
 
-.paddingT124{
-    padding-top:124rem*@resize;
+.paddingT124 {
+    padding-top: 124rem*@resize;
 }
 
 .paddingB58 {
@@ -331,9 +331,9 @@ textarea {
         top: 0;
         left: 0;
 
-        &.bgwhite{
+        &.bgwhite {
             background: url("../Content/image/view/ic_navbar_back_white@2x.png") no-repeat center;
-            background-size:contain;
+            background-size: contain;
         }
     }
 
@@ -351,13 +351,13 @@ textarea {
             .block-vertical-mid(50%);
             left: 12rem*@resize;
             display: block;
-            z-index:50;
+            z-index: 50;
         }
 
         input {
             .block-vertical-mid(50%);
-            left:0;
-            z-index:10;
+            left: 0;
+            z-index: 10;
             .clean-input();
             max-width: none;
             border: none;
@@ -369,44 +369,44 @@ textarea {
             padding-left: 35rem*@resize;
             padding-right: 10rem*@resize;
             font-size: @font-size-2;
-            float:left;
+            float: left;
         }
 
-        &.bgwhite{
+        &.bgwhite {
 
-            input{
-                background-color:@bg-color-white;
-                border-radius:4rem*@resize;
-                color:@font-col-black01;
+            input {
+                background-color: @bg-color-white;
+                border-radius: 4rem*@resize;
+                color: @font-col-black01;
             }
         }
     }
 
-    .navigationBar-searchIcon{
-        background:url("../Content/image/view/ic_navbar_search_white@2x.png") no-repeat center;
+    .navigationBar-searchIcon {
+        background: url("../Content/image/view/ic_navbar_search_white@2x.png") no-repeat center;
         .square(44rem*@resize);
-        background-size:contain;
-        position:absolute;
-        top:0;
-        right:8rem*@resize;
+        background-size: contain;
+        position: absolute;
+        top: 0;
+        right: 8rem*@resize;
 
-        &.bgblack{
-            background:url("../Content/image/view/ic_navbar_search_black@2x.png");
-            background-size:contain;
+        &.bgblack {
+            background: url("../Content/image/view/ic_navbar_search_black@2x.png");
+            background-size: contain;
         }
     }
 
-    .navigationBar-rightText{
-        position:absolute;
-        right:0;
-        top:0;
-        font-size:@font-size-2;
-        color:@font-col-grey01;
-        line-height:44rem*@resize;
-        padding:0 16rem*@resize;
+    .navigationBar-rightText {
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: @font-size-2;
+        color: @font-col-grey01;
+        line-height: 44rem*@resize;
+        padding: 0 16rem*@resize;
 
-        &.colorwhite{
-            color:@font-col-white;
+        &.colorwhite {
+            color: @font-col-white;
         }
     }
 
@@ -614,10 +614,18 @@ textarea {
     &.loadModule-noData {
         font-size: @font-size-2;
         color: @font-col-grey02;
-        margin-top: 80rem*@resize;
 
         img {
-            .square(20rem*@resize);
+            .rectangle(208rem*@resize,189rem*@resize);
+            margin-top: 120rem*@resize;
+        }
+    }
+
+    &.loadModule-noDataSearch {
+
+        img {
+            .rectangle(96rem*@resize,148rem*@resize);
+            margin-top: 120rem*@resize;
         }
     }
 }
@@ -635,14 +643,22 @@ textarea {
     }
 
     img {
-        .rectangle(99rem*@resize,111rem*@resize);
-        margin-top: 150rem*@resize;
+        width:96rem*@resize;
+        height:auto;
+        margin-top: 120rem*@resize;
     }
 
     &.nodata-style02 {
         img {
             .rectangle(208rem*@resize,189rem*@resize);
             margin-top: 200rem*@resize;
+        }
+    }
+
+    &.nodata-style03 {
+        img {
+            .rectangle(208rem*@resize,189rem*@resize);
+            margin-top: 130rem*@resize;
         }
     }
 }

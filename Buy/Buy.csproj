@@ -382,12 +382,14 @@
     <Content Include="Content\image\view\ic_navbar_search_black_m%402x.png" />
     <Content Include="Content\image\view\ic_navbar_search_white%402x.png" />
     <Content Include="Content\image\view\ic_navbar_share_bgblack%402x.png" />
+    <Content Include="Content\image\view\ic_search_clear%402x.png" />
     <Content Include="Content\image\view\img_bsk_b%402x.png" />
     <Content Include="Content\image\view\img_burgerking_b%402x.png" />
     <Content Include="Content\image\view\img_coupon_nodata.png" />
     <Content Include="Content\image\view\img_kfc_b%402x.png" />
     <Content Include="Content\image\view\img_mcdonalds_b%402x.png" />
     <Content Include="Content\image\view\img_mogoodsx%402x.png" />
+    <Content Include="Content\image\view\img_search_nodata%402x.png" />
     <Content Include="Content\image\view\img_wechat_login_grey%402x.png" />
     <Content Include="Content\image\view\img_zgongfu_b%402x.png" />
     <Content Include="Content\image\view\logo_jd_tag%402x.png" />
@@ -567,6 +569,7 @@
     <Content Include="Views\Coupon\SearchConfirm.cshtml" />
     <Content Include="Views\Coupon\Second.cshtml" />
     <Content Include="Views\Account\Activation.cshtml" />
+    <Content Include="Views\Shared\_TaobaoPassPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
