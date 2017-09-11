@@ -476,6 +476,7 @@ namespace Buy.Controllers
         }
 
         [HttpPost]
+        [AllowCrossSiteJson]
         public async Task<ActionResult> LoginClient(string username, string password)
         {
             var result = await SignInManager.PasswordSignInAsync(username, password, false, shouldLockout: true);
@@ -515,6 +516,25 @@ namespace Buy.Controllers
                 default:
                     return Json(Comm.ToJsonResult("Failure", "用户或密码有误"));
             }
+        }
+
+        [HttpPost]
+        [AllowCrossSiteJson]
+        public ActionResult CheckClientCode(string id, string code)
+        {
+            var ispass = db.ClientAccessLogs
+                .OrderByDescending(s => s.LoginDateTime)
+                .FirstOrDefault(s => s.UserID == id)
+                ?.Code == code;
+            if (ispass)
+            {
+                return Json(Comm.ToJsonResult("Success", "成功"));
+            }
+            else
+            {
+                return Json(Comm.ToJsonResult("Error", "验证失败"));
+            }
+
         }
 
         protected override void Dispose(bool disposing)
