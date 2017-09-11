@@ -1,6 +1,6 @@
 ﻿var typeID = $("#typeID").val(),
     platform = $("#platform").val(),
-    sort = null;
+    sort = $("[data-sort].active").data("sort");
 var canLoadPage = true;
 
 //swiper
