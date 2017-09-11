@@ -58,13 +58,13 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult GetUserInfo(string userId)
         {
-            var user = db.Users.FirstOrDefault(s => s.Id==userId);
-            if(user==null)
+            var user = db.Users.FirstOrDefault(s => s.Id == userId);
+            if (user == null)
             {
-                return Json(Comm.ToJsonResult("Error", "没有这个用户"),JsonRequestBehavior.AllowGet);
+                return Json(Comm.ToJsonResult("Error", "没有这个用户"), JsonRequestBehavior.AllowGet);
             }
             var isActivation = true;
-                var registrationCodes = db.RegistrationCodes.Where(s => s.UseUser == user.Id);
+            var registrationCodes = db.RegistrationCodes.Where(s => s.UseUser == user.Id);
             if (registrationCodes.Count() <= 0)
             {
                 isActivation = false;
@@ -75,9 +75,10 @@ namespace Buy.Controllers
                 user.UserName,
                 user.NickName,
                 user.PhoneNumber,
-                IsActivation = isActivation
+                IsActivation = isActivation,
+                user.UserType,
             };
-            return Json(Comm.ToJsonResult("Success", "成功",new { Data= data }), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
         }
 
         //
@@ -212,6 +213,13 @@ namespace Buy.Controllers
                 return Json(Comm.ToJsonResult("Error", result.Errors.FirstOrDefault()));
             }
             return Json(Comm.ToJsonResult("Error", ModelState.FirstErrorMessage()));
+        }
+
+        public ActionResult Activation()
+        {
+            var id = User.Identity.GetUserId();
+            var u = db.Users.FirstOrDefault(s => s.Id == id);
+            return View(u);
         }
 
         [HttpPost]
@@ -384,7 +392,7 @@ namespace Buy.Controllers
                         Code = code,
                         IP = ip
                     });
-                    db.SaveChanges();
+                    //db.SaveChanges();
                     return Json(Comm.ToJsonResult("Success", verCode.Message));
                 }
                 else
@@ -473,7 +481,7 @@ namespace Buy.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
