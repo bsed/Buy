@@ -52,6 +52,10 @@ namespace Buy.Controllers
             {
                 query = query.Where(s => platform.Contains(s.Platform));
             }
+            if (type != null && type.Count > 0 && type.Contains(0))
+            {
+                type.Remove(0);
+            }
             if (type != null && type.Count > 0)
             {
                 query = query.Where(s => s.TypeID.HasValue && (type.Contains(s.TypeID.Value) || type.Contains(s.Type.ParentID)));
@@ -336,11 +340,9 @@ namespace Buy.Controllers
             return View();
         }
 
-        public ActionResult Second(int typeID, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
-             Enums.CouponSort sort = Enums.CouponSort.Default)
+        public ActionResult Second(int typeID, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao)
         {
-            ViewBag.TypeName = Bll.SystemSettings.CouponType.First(s => s.ID == typeID).Name;
-            ViewBag.Sort = sort;
+            ViewBag.TypeName = Bll.SystemSettings.CouponType.First(s => s.ID == typeID);
             return View();
         }
 

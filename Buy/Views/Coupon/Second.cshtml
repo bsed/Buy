@@ -1,21 +1,18 @@
 ﻿
 @{
     ViewBag.Title = "分类";
+    Buy.Models.CouponType type = ViewBag.TypeName;
 }
-
-
-@*@ViewBag.TypeName
-
-@((Buy.Enums.CouponSort)ViewBag.Sort)*@
-
 
 <div class="minHight100vh bg-color-grey paddingT44">
     <div class="navigationBar">
         <div class="navigationBar-back" onclick="history.back(-1)"></div>
-        @ViewBag.TypeName
+        @type.Name
         <a href="@Url.Action("Search","coupon")"><div class="navigationBar-searchIcon bgblack"></div></a>
     </div>
     <div class="coupon-nav fixTop44">
+        @Html.Hidden("typeID",type.ID)
+        @Html.Hidden("platform", Request["platform"])
         <ul>
             <li class="active sort" data-sort="0">综合排序</li>
             <li class="sort" data-sort="1">人气热销</li>
@@ -31,3 +28,7 @@
     </div>
 </div>
 
+
+@section Scripts{
+    @Scripts.Render("~/bundles/couponIndex")
+}

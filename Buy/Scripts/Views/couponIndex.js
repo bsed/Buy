@@ -4,19 +4,29 @@
 var canLoadPage = true;
 
 //swiper
-var slideIndexHead = $("[name='type'].active").index();
-var swiper = new Swiper('.navigationSwiper .swiper-container', {
-    slidesPerView: "auto",
-    initialSlide: slideIndexHead
-});
+if ($(".navigationSwiper").length > 0) {
+    var slideIndexHead = $("[name='type'].active").index();
+    var swiper = new Swiper('.navigationSwiper .swiper-container', {
+        slidesPerView: "auto",
+        initialSlide: slideIndexHead
+    });
+}
 
 //主导航
-var swiper = new Swiper('.couponIndex-banner .swiper-container', {
-    slidesPerView: "auto",
-    pagination: '.swiper-pagination',
-    paginationClickable: true,
-    autoplay: 2500,
-    autoplayDisableOnInteraction: false
+if ($("swiper-container").length > 0) {
+    var swiper = new Swiper('.couponIndex-banner .swiper-container', {
+        slidesPerView: "auto",
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+}
+
+$(window).scroll(function () {
+    if (canLoadPage && comm.isWindowBottom()) {
+        loadCoupon();
+    }
 });
 
 //2级分类查看全部
@@ -88,8 +98,9 @@ function loadCoupon() {
         data: {
             page: page,
             sort: sort,
-            typeID: typeID,
-            platform: platform
+            types: typeID,
+            platforms: platform,
+            orderByTime:true
         },
         dataType: "html",
         success: function (data) {

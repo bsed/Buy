@@ -2,6 +2,16 @@
 
 @{
     ViewBag.Title = "搜索列表";
+    var p = Buy.Enums.CouponPlatform.TaoBao;
+    if (!string.IsNullOrWhiteSpace(Request["platform"]))
+    {
+        Enum.TryParse(Request["platform"], out p);
+    }
+    var sort = Buy.Enums.CouponSort.Default;
+    if (!string.IsNullOrWhiteSpace(Request["sort"]))
+    {
+        Enum.TryParse(Request["sort"], out sort);
+    }
 }
 
 <div class="minHight100vh paddingT124 bg-color-grey">
@@ -16,13 +26,15 @@
         </div>
     </form>
     <div class="coupon-nav fixTop44">
+        @Html.Hidden("platform", Request["platform"])
+        @Html.Hidden("sort", Request["sort"])
         <ul>
-            <li class="active platform" data-platform="TaoBao"><div>淘宝<i></i></div></li>
+            <li class="platform active" data-platform="TaoBao"><div>淘宝<i></i></div></li>
             <li class="platform" data-platform="MoGuJie"><div>蘑菇街<i></i></div></li>
-            <li class="platform" data-platform="Jd"><div>京东<i></i></div></li>
+            <li class="platform" dat data-platform="Jd"><div>京东<i></i></div></li>
         </ul>
         <ul>
-            <li class="active sort" data-sort="0">综合排序</li>
+            <li class="sort active" data-sort="0">综合排序</li>
             <li class="sort" data-sort="1">人气热销</li>
             <li class="sort" data-sort="2">最新上架</li>
         </ul>
