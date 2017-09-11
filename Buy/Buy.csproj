@@ -383,6 +383,7 @@
     <Content Include="Content\image\view\ic_navbar_search_white%402x.png" />
     <Content Include="Content\image\view\ic_navbar_share_bgblack%402x.png" />
     <Content Include="Content\image\view\ic_search_clear%402x.png" />
+    <Content Include="Content\image\view\img_backtop%402x.png" />
     <Content Include="Content\image\view\img_bsk_b%402x.png" />
     <Content Include="Content\image\view\img_burgerking_b%402x.png" />
     <Content Include="Content\image\view\img_coupon_nodata.png" />
