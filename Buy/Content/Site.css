@@ -1124,6 +1124,36 @@
   height: 1.46859903rem;
   margin-bottom: 0.15458937rem;
 }
+.userIndex .userIndex-info {
+  height: 4.83091787rem;
+  background-color: #E02E24;
+  color: #fff;
+  padding: 0.92753623rem 0.61835749rem 0.61835749rem 0.61835749rem;
+}
+.moduleOptions {
+  height: 1.70048309rem;
+  line-height: 1.70048309rem;
+  background-color: #fff;
+  border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.12);
+  padding: 0 0.61835749rem;
+  font-size: 0.5410628rem;
+}
+.moduleOptions:before,
+.moduleOptions:after {
+  content: " ";
+  display: table;
+}
+.moduleOptions:after {
+  clear: both;
+}
+.moduleOptions:before,
+.moduleOptions:after {
+  content: " ";
+  display: table;
+}
+.moduleOptions:after {
+  clear: both;
+}
 body {
   color: rgba(0, 0, 0, 0.87);
   min-height: 100vh;
@@ -1473,6 +1503,10 @@ textarea {
   position: absolute;
   top: 0;
   right: 0.30917874rem;
+}
+.navigationBar .navigationBar-searchIcon.bgblack {
+  background: url("image/view/ic_navbar_search_black@2x.png");
+  background-size: contain;
 }
 .navigationBar .navigationBar-rightText {
   position: absolute;
