@@ -850,6 +850,9 @@
   right: 0;
   z-index: 90;
 }
+.sortList.style02 {
+  height: 6.18357488rem;
+}
 .sortList.getAll {
   position: absolute;
   width: 100%;
@@ -859,9 +862,6 @@
 }
 .sortList.getAll .all {
   display: none;
-}
-.sortList.style02 {
-  height: 6.18357488rem;
 }
 .banner {
   width: 100%;
