@@ -91,6 +91,15 @@ namespace Buy.Controllers
         }
 
         //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult LoginSystem(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -545,8 +554,17 @@ namespace Buy.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            var userId = User.Identity.GetUserId();
+            var userType = db.Users.FirstOrDefault(s => s.Id == userId).UserType;
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Login", "Account");
+            if (userType == Enums.UserType.System)
+            {
+                return RedirectToAction("LoginSystem", "Account");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         //

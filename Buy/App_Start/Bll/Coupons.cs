@@ -13,7 +13,7 @@ namespace Buy.Bll
             return Bll.SystemSettings.CouponType.FirstOrDefault(s =>
              {
                  var keys = s.Keyword.SplitToArray<string>();
-                 return keys.Any(x => keyword.Contains(x));
+                 return keys.Any(x => x == keyword);
              })?.ID;
         }
 
