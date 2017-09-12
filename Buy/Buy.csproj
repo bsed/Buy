@@ -573,6 +573,7 @@
     <Content Include="Views\Coupon\Second.cshtml" />
     <Content Include="Views\Account\Activation.cshtml" />
     <Content Include="Views\Shared\_TaobaoPassPartial.cshtml" />
+    <Content Include="Views\Account\LoginSystem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

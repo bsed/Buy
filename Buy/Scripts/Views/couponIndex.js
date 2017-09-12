@@ -44,18 +44,20 @@ var sortList = $("[name='sortList']");
 
 //判断分类个数
 var sort_sum = sortList.find("li").length;
-if (sort_sum >= 9) {
+if (sort_sum >= 10) {
     sortList.addClass("style02");
-    sortGetAll.removeClass("active");
+    sortGetAll.removeClass("hidden");
 }
 
 sortGetAll.click(function () {
     sortList.addClass("getAll");
+    $("body").css("overflow", "hidden");
     comm.mask3();
 });
 
 $(".mask.style02").click(function () {
     sortList.removeClass("getAll");
+    $("body").css("overflow", "auto");
     comm.mask3();
 });
 

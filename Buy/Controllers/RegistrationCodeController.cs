@@ -29,12 +29,8 @@ namespace Buy.Controllers
         // GET: RegistrationCode
         public ActionResult Index(string userId, int page = 1)
         {
-            var userlist = db.Users.Where(s => s.UserType == Enums.UserType.Proxy)
-                   .Select(s => new SelectListItem()
-                   {
-                       Text = s.UserName,
-                       Value = s.Id
-                   }).ToList();
+            Sidebar();
+            var userlist = db.Users.Where(s => s.UserType == Enums.UserType.Proxy).ToList();
             ViewBag.UserList = userlist;
             var registrationCodes = db.RegistrationCodes.AsQueryable();
             if (!string.IsNullOrWhiteSpace(userId))
@@ -150,6 +146,22 @@ namespace Buy.Controllers
                 result += s;
             }
             return result;
+        }
+
+        public ActionResult ChangeOwn(int id, string userId)
+        {
+            var code = db.RegistrationCodes.FirstOrDefault(s => s.ID == id);
+            if (code == null)
+            {
+                return Json(Comm.ToJsonResult("Error", "没有这个注册码"));
+            }
+            if (code.UseTime.HasValue)
+            {
+                return Json(Comm.ToJsonResult("Success", "注册码已使用"));
+            }
+            code.OwnUser = userId;
+            db.SaveChanges();
+            return Json(Comm.ToJsonResult("Success", "成功"));
         }
     }
 }

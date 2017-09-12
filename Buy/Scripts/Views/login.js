@@ -14,9 +14,7 @@ $("[name='clearVal']").click(function () {
     $("#submit").prop("disabled", true);
 });
 
-
 $("#submit").click(function (e) {
-
     var data = {
         UserName: $("#UserName").val(),
         Password: $("#Password").val()
@@ -36,7 +34,7 @@ $("#submit").click(function (e) {
                     dataType: "json",
                     success: function (result) {
                         if (result.State == "Success") {
-                            if (result.Result.Data.UserType==1) {
+                            if (result.Result.Data.UserType == 1) {
                                 if ($("#returnUrl").val() != "") {
                                     location = $("#returnUrl").val();
                                 }
@@ -83,4 +81,31 @@ $(".account-input input").keyup(function () {
     } else {
         $("#submit").prop("disabled", true);
     }
+});
+
+
+$("#btnlogin").click(function (e) {
+    var data = {
+        UserName: $("#UserName").val(),
+        Password: $("#Password").val()
+    }
+    $.ajax({
+        type: "POST",
+        url: comm.action("Login", "Account"),
+        data: data,
+        dataType: "json",
+        success: function (data) {
+            if (data.State == "Success") {
+                if ($("#returnUrl").val() != "") {
+                    location = $("#returnUrl").val();
+                }
+                else {
+                    location = comm.action("Index", "UserManage");
+                }
+            }
+            else {
+                comm.alter(0, data.Message)
+            }
+        }
+    });
 });
