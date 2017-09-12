@@ -867,7 +867,7 @@
   width: 100%;
   height: 100%;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 .banner .swiper-container .swiper-wrapper .swiper-slide {
   width: 100%;
@@ -896,6 +896,21 @@
 }
 .banner .swiper-container .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
   background: #E02E24;
+}
+.banner .couponIndex-shade {
+  background-color: #fff;
+  width: 29.17874396rem;
+  height: 4.79227053rem;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  bottom: -4.25120773rem;
+  z-index: 100;
 }
 .coupon-nav {
   background-color: #fff;
@@ -1499,6 +1514,22 @@ textarea {
   color: rgba(0, 0, 0, 0.87);
   border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.12);
 }
+.navigationBar:before,
+.navigationBar:after {
+  content: " ";
+  display: table;
+}
+.navigationBar:after {
+  clear: both;
+}
+.navigationBar:before,
+.navigationBar:after {
+  content: " ";
+  display: table;
+}
+.navigationBar:after {
+  clear: both;
+}
 .navigationBar .navigationBar-back {
   background: url("image/view/ic_navbar_back_black@2x.png") no-repeat center;
   width: 1.70048309rem;
@@ -1513,7 +1544,7 @@ textarea {
   background-size: contain;
 }
 .navigationBar .navigationBar-search {
-  width: 74%;
+  width: 70%;
   height: 1.70048309rem;
   margin-left: 1.70048309rem;
   position: relative;
@@ -1565,20 +1596,38 @@ textarea {
   width: 100%;
   height: 1.15942029rem;
   line-height: 1;
-  border-radius: 3.8647343rem;
-  background: #E5E5E5;
+  border-top-left-radius: 0.15458937rem;
+  border-bottom-left-radius: 0.15458937rem;
+  background-color: #fff;
   padding-left: 1.352657rem;
   padding-right: 0.38647343rem;
   font-size: 0.5410628rem;
   float: left;
+  color: rgba(0, 0, 0, 0.87);
 }
 .navigationBar .navigationBar-search input:focus {
   outline: none;
 }
-.navigationBar .navigationBar-search.bgwhite input {
-  background-color: #fff;
-  border-radius: 0.15458937rem;
-  color: rgba(0, 0, 0, 0.87);
+.navigationBar .navigationBar-search input::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.38);
+}
+.navigationBar .navigationBar-search.style02 {
+  width: 77.3%;
+  margin-left: 0.61835749rem;
+}
+.navigationBar .navigationBar-search.style02 i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  margin-left: -1.54589372rem;
+}
+.navigationBar .navigationBar-search.style02 input {
+  text-align: center;
 }
 .navigationBar .navigationBar-searchIcon {
   background: url("image/view/ic_navbar_search_white@2x.png") no-repeat center;
@@ -1594,13 +1643,16 @@ textarea {
   background-size: contain;
 }
 .navigationBar .navigationBar-rightText {
-  position: absolute;
-  right: 0;
-  top: 0;
+  width: 2.51207729rem;
+  height: 1.15942029rem;
+  background-color: rgba(0, 0, 0, 0.87);
   font-size: 0.5410628rem;
-  color: rgba(0, 0, 0, 0.54);
-  line-height: 1.70048309rem;
-  padding: 0 0.61835749rem;
+  color: #fff;
+  line-height: 1.15942029rem;
+  text-align: center;
+  border-top-right-radius: 0.15458937rem;
+  border-bottom-right-radius: 0.15458937rem;
+  margin-top: 0.28985507rem;
 }
 .navigationBar .navigationBar-rightText.colorwhite {
   color: #fff;

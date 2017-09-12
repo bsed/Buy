@@ -39,9 +39,12 @@
     @Html.Hidden("typeID", Request["typeID"])
     @Html.Hidden("platform", Request["platform"])
     @Html.Hidden("sort", Request["sort"])
-    <div class="navigationBar bgcolor-orange">
-        @p.GetDisplayName()优惠券
-        <a href="@Url.Action("Search","coupon")"><div class="navigationBar-searchIcon"></div></a>
+    <div class="navigationBar bgcolor-orange" onclick="location.href='@Url.Action("Search","coupon")'">
+        <div class="navigationBar-search style02 fl">
+            <i></i>
+            <input id="search" type="search" name="filterText" class="" placeholder="搜索内部券" value="">
+        </div>
+        <div id="searchBtn" class="navigationBar-rightText fl">搜优惠</div>
     </div>
     <div class="navigationSwiper top44">
         <div class="swiper-container">
@@ -101,6 +104,7 @@
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
                 </div>
+                <div class="couponIndex-shade"></div>
             </div>
 
             <div class="couponIndex-menu">

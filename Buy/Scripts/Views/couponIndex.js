@@ -14,15 +14,13 @@ if ($(".navigationSwiper").length > 0) {
 }
 
 //主导航
-if ($("swiper-container").length > 0) {
-    var swiper = new Swiper('.couponIndex-banner .swiper-container', {
-        slidesPerView: "auto",
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        autoplay: 2500,
-        autoplayDisableOnInteraction: false
-    });
-}
+var swiper = new Swiper('.couponIndex-banner .swiper-container', {
+    slidesPerView: "auto",
+    pagination: '.swiper-pagination',
+    paginationClickable: true,
+    autoplay: 2500,
+    autoplayDisableOnInteraction: false
+});
 
 $(window).scroll(function (e) {
     if ($(window).scrollTop() > 0) {
