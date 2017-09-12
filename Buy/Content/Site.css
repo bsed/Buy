@@ -854,7 +854,7 @@
   height: 6.18357488rem;
 }
 .sortList.getAll {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: auto;
   top: 3.09178744rem;

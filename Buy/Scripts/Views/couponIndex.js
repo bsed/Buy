@@ -51,11 +51,13 @@ if (sort_sum >= 10) {
 
 sortGetAll.click(function () {
     sortList.addClass("getAll");
+    $("body").css("overflow", "hidden");
     comm.mask3();
 });
 
 $(".mask.style02").click(function () {
     sortList.removeClass("getAll");
+    $("body").css("overflow", "auto");
     comm.mask3();
 });
 
