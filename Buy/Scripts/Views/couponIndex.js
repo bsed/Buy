@@ -44,9 +44,9 @@ var sortList = $("[name='sortList']");
 
 //判断分类个数
 var sort_sum = sortList.find("li").length;
-if (sort_sum >= 9) {
+if (sort_sum >= 10) {
     sortList.addClass("style02");
-    sortGetAll.removeClass("active");
+    sortGetAll.removeClass("hidden");
 }
 
 sortGetAll.click(function () {
