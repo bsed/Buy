@@ -14,15 +14,13 @@ if ($(".navigationSwiper").length > 0) {
 }
 
 //主导航
-if ($("swiper-container").length > 0) {
-    var swiper = new Swiper('.couponIndex-banner .swiper-container', {
-        slidesPerView: "auto",
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        autoplay: 2500,
-        autoplayDisableOnInteraction: false
-    });
-}
+var swiper = new Swiper('.couponIndex-banner .swiper-container', {
+    slidesPerView: "auto",
+    pagination: '.swiper-pagination',
+    paginationClickable: true,
+    autoplay: 2500,
+    autoplayDisableOnInteraction: false
+});
 
 $(window).scroll(function (e) {
     if ($(window).scrollTop() > 0) {
@@ -46,9 +44,9 @@ var sortList = $("[name='sortList']");
 
 //判断分类个数
 var sort_sum = sortList.find("li").length;
-if (sort_sum >= 9) {
+if (sort_sum >= 10) {
     sortList.addClass("style02");
-    sortGetAll.removeClass("active");
+    sortGetAll.removeClass("hidden");
 }
 
 sortGetAll.click(function () {

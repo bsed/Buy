@@ -82,18 +82,18 @@ namespace Buy.Controllers
         [HttpPost]
         public ActionResult Create(CouponTypeViewModel model)
         {
-            if (model.FileUpload.Images.Count() <= 0)
-            {
-                ModelState.AddModelError("Image", "上传图片");
-            }
+            //if (model.FileUpload.Images.Count() <= 0)
+            //{
+            //    ModelState.AddModelError("Image", "上传图片");
+            //}
             if (string.IsNullOrWhiteSpace(model.Name))
             {
                 ModelState.AddModelError("Name", "填写名称");
             }
-            if (string.IsNullOrWhiteSpace(model.Keyword))
-            {
-                ModelState.AddModelError("Keyword", "填写关键字");
-            }
+            //if (string.IsNullOrWhiteSpace(model.Keyword))
+            //{
+            //    ModelState.AddModelError("Keyword", "填写关键字");
+            //}
             if (ModelState.IsValid)
             {
                 var type = new CouponType()
@@ -140,18 +140,18 @@ namespace Buy.Controllers
         [HttpPost]
         public ActionResult Edit(CouponTypeViewModel model)
         {
-            if (model.FileUpload.Images.Count() <= 0)
-            {
-                ModelState.AddModelError("Image", "上传图片");
-            }
+            //if (model.FileUpload.Images.Count() <= 0)
+            //{
+            //    ModelState.AddModelError("Image", "上传图片");
+            //}
             if (string.IsNullOrWhiteSpace(model.Name))
             {
                 ModelState.AddModelError("Name", "填写名称");
             }
-            if (string.IsNullOrWhiteSpace(model.Keyword))
-            {
-                ModelState.AddModelError("Keyword", "填写关键字");
-            }
+            //if (string.IsNullOrWhiteSpace(model.Keyword))
+            //{
+            //    ModelState.AddModelError("Keyword", "填写关键字");
+            //}
             if (ModelState.IsValid)
             {
                 var type = couponType.FirstOrDefault(s => s.ID == model.ID);
