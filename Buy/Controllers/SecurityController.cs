@@ -14,7 +14,7 @@ namespace Buy.Controllers
         public ActionResult Encrypt(string content)
         {
            
-            var x = Buy.Security.Encrypt("12312", key);
+            var x = Buy.Security.Encrypt(content, key);
             return Json(Comm.ToJsonResult("Success", "成功", x));
         }
 
