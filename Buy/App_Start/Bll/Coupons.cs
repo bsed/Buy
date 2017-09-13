@@ -10,11 +10,15 @@ namespace Buy.Bll
     {
         public static int? CheckType(string keyword)
         {
-            return Bll.SystemSettings.CouponType.FirstOrDefault(s =>
-             {
-                 var keys = s.Keyword.SplitToArray<string>();
-                 return keys.Any(x => x == keyword);
-             })?.ID;
+            var keywords = keyword.SplitToArray<string>('/');
+            return Bll.SystemSettings.CouponType
+                .Where(s => !string.IsNullOrWhiteSpace(s.Keyword))
+                .FirstOrDefault(s =>
+                {
+
+                    var keys = s.Keyword.SplitToArray<string>();
+                    return keys.Union(keywords).Any();
+                })?.ID;
         }
 
         public static List<ThirdPartyTicketValue> GetValues(Coupon t)
