@@ -105,7 +105,6 @@ namespace Buy.Controllers
                     ParentID = model.ParentID,
                 };
                 couponType.Add(type);
-                db.SaveChanges();
                 return RedirectToAction("Index", new { pid = model.ParentID });
             }
             Sidebar();
@@ -155,11 +154,14 @@ namespace Buy.Controllers
             if (ModelState.IsValid)
             {
                 var type = couponType.FirstOrDefault(s => s.ID == model.ID);
+                var index = couponType.IndexOf(type);
+
                 type.Image = model.FileUpload.Images.FirstOrDefault();
                 type.Keyword = model.Keyword;
                 type.Name = model.Name;
                 type.Sort = model.Sort;
-                db.SaveChanges();
+
+                couponType[index] = type;
                 return RedirectToAction("Index", new { pid = model.ParentID });
             }
             return View(model);
@@ -240,6 +242,12 @@ namespace Buy.Controllers
                 Sort = type.Sort,
             };
             return View(model);
+        }
+
+        public ActionResult Clean()
+        {
+            Bll.SystemSettings.Clean();
+            return View();
         }
 
         protected override void Dispose(bool disposing)

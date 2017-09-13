@@ -110,5 +110,26 @@ namespace Buy.Controllers
             }
             return Json(Comm.ToJsonResult("Success", "成功", new { Count = changeCount }));
         }
+
+        [AllowCrossSiteJson]
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult CleanType()
+        {
+            int count = db.Coupons.Where(s => s.TypeID.HasValue && s.ProductType != null).Count();
+            int totalPage = count / 50 + (count % 50 > 0 ? 1 : 0);
+            int changeCount = 0;
+            for (int i = 1; i <= totalPage; i++)
+            {
+                var data = db.Coupons.Where(s => s.TypeID.HasValue && s.ProductType != null)
+                    .OrderBy(s => s.ID).ToPagedList(i, 50);
+                foreach (var item in data)
+                {
+                    item.TypeID = null;
+                }
+                changeCount += db.SaveChanges();
+            }
+            return Json(Comm.ToJsonResult("Success", "成功"));
+        }
     }
 }
