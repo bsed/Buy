@@ -20,6 +20,61 @@ $("#registerBtn").click(function () {
     });
 })
 
+//图片验证组件
+function vercode(option) {
+    if (option == undefined) {
+        option = {};
+    }
+    if (option.success == undefined) {
+        option.success = function () { }
+    }
+    if (option.fail == undefined) {
+        option.fail = function () { }
+    }
+    var $target = $("#vercode");
+    var $txt = $target.find("#txtVercode");
+    var $img = $target.find("#imgVerCode");
+    function _show() {
+        $target.removeClass("hidden");
+    }
+    this.show = function () {
+        _show();
+    };
+
+    function _hide() {
+        $target.addClass("hidden");
+    }
+
+    this.hide = function () {
+        _hide();
+    }
+
+
+
+    $txt.focusout(function () {
+        $.ajax({
+            type: "POST",
+            url: comm.action("CheckCode", "Account"),
+            data: { code: $txt.val() },
+            dataType: "json",
+            success: function (data) {
+                if (data.State == "Success") {
+                    option.success();
+                    alert("验证成功");
+                } else {
+                    option.fail();
+                    alert("验证失败");
+                }
+            }
+        });
+    });
+
+    $img.click(function () {
+        $img.attr("src", comm.action("VerCode", "Account", { ts: new Date().getTime() }))
+    });
+
+}
+
 //获取验证码
 $("#btnGetCode").click(function () {
     var phone = $("#PhoneNumber").val();
@@ -31,20 +86,31 @@ $("#btnGetCode").click(function () {
         comm.promptBox("请输入正确的手机号");
         return false;
     }
-    $.ajax({
-        type: "POST",
-        url: comm.action("SendCode", "Account"),
-        data: { Phone: $("#PhoneNumber").val() },
-        dataType: "json",
-        success: function (data) {
-            if (data.State == "Success") {
-                codeCountDown(60);
-            } else {
-                comm.promptBox(data.Message);
-            }
+    var _vercode = new vercode({
+        success: function () {
+            _vercode.hide();
+            $.ajax({
+                type: "POST",
+                url: comm.action("SendCode", "Account"),
+                data: { Phone: $("#PhoneNumber").val() },
+                dataType: "json",
+                success: function (data) {
+                    if (data.State == "Success") {
+                        codeCountDown(60);
+                    } else {
+                        comm.promptBox(data.Message);
+                    }
+                }
+            });
+        },
+        fail: function () {
         }
     });
+    _vercode.show();
+
+
 })
+
 
 //验证码倒计时
 function codeCountDown(timespan) {
