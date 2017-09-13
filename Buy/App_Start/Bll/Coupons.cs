@@ -97,19 +97,28 @@ namespace Buy.Bll
                 var perSec = (60 * 60 * 24) / Convert.ToDouble(afterFilter.Count);
                 var ii = 0;
                 totalPage = afterFilter.Count / pageSize + (afterFilter.Count % pageSize > 0 ? 1 : 0);
+                var addDbCount = 0;
                 for (int i = 0; i < totalPage; i++)
                 {
-                    int pageIndex = i * pageSize;
-                    var addTemp = afterFilter.Skip(pageIndex).Take(pageSize).ToList();
-                    foreach (var item in addTemp)
+                    try
                     {
-                        item.CreateDateTime = dtStart.AddSeconds(ii * perSec);
-                        ii++;
+                        int pageIndex = i * pageSize;
+                        var addTemp = afterFilter.Skip(pageIndex).Take(pageSize).ToList();
+                        foreach (var item in addTemp)
+                        {
+                            item.CreateDateTime = dtStart.AddSeconds(ii * perSec);
+                            ii++;
+                        }
+                        db.Coupons.AddRange(addTemp);
+                        addDbCount += db.SaveChanges();
                     }
-                    db.Coupons.AddRange(addTemp);
-                    db.SaveChanges();
+                    catch (Exception ex)
+                    {
+                        Comm.WriteLog("ImportLog", ex.Message, Enums.DebugLogLevel.Error);
+                    }
+
                 }
-                Comm.WriteLog("testTime", $"重复时间：{(DateTime.Now - dtTS).TotalSeconds}，添加用时：{(DateTime.Now - dtTS2).TotalSeconds}，导入数量{models.Count}，添加数量{afterFilter.Count}，重复数{models.Count - afterFilter.Count}", Enums.DebugLogLevel.Normal);
+                Comm.WriteLog("testTime", $"重复时间：{(DateTime.Now - dtTS).TotalSeconds}，添加用时：{(DateTime.Now - dtTS2).TotalSeconds}，导入数量{models.Count}，添加数量{addDbCount}，重复数{models.Count - afterFilter.Count},添加失败数{afterFilter.Count - addDbCount}", Enums.DebugLogLevel.Normal);
 
             }
 
