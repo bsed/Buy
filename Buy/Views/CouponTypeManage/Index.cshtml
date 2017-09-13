@@ -51,6 +51,9 @@
                             <ul class="nav navbar-nav">
                                 <li>@Html.ActionLink($"添加到[{selNode.Name}]", "Create", new { pid = selNode.ID })</li>
                             </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><input type="button" value="删除勾选" id="btnAll" class="btn btn-default navbar-btn" /></li>
+                            </ul>
                         </div>
                     </div>
                 </nav>

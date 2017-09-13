@@ -72,3 +72,21 @@ var typeTree = function () {
 
 }
 var tree = new typeTree();
+
+$("#btnAll").click(function (e) {
+    var data = {ids:checked.selectedValuesString}
+    $.ajax({
+        type: "POST",
+        url: comm.action("DeleteAll", "CouponTypeManage"),
+        data: data,
+        dataType: "json",
+        success: function (data) {
+            if (data.State == "Success") {
+                location = location;
+            }
+            else {
+                comm.alter(0, data.Message);
+            }
+        }
+    });
+});
