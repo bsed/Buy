@@ -243,6 +243,27 @@ namespace Buy.Controllers
             };
             return View(model);
         }
+        
+
+        [HttpPost]
+        public ActionResult DeleteAll(string ids)
+        {
+            var idList = ids.SplitToIntArray();
+            if (idList != null && idList.Count > 0)
+            {
+                var type = couponType.Where(s => idList.Contains(s.ID));
+                if (couponType.Any(s => idList.Contains(s.ParentID)))
+                {
+                    return Json(Comm.ToJsonResult("Error", "删除二级分类"));
+                }
+                foreach (var item in type.ToList())
+                {
+                    couponType.Remove(item);
+                }
+                return Json(Comm.ToJsonResult("Success", "成功"));
+            }
+            return Json(Comm.ToJsonResult("Error", "没有选择类型"));
+        }
 
         public ActionResult Clean()
         {

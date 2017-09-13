@@ -3,9 +3,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 
 namespace Buy.Controllers
 {
@@ -123,6 +125,52 @@ namespace Buy.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        [AllowCrossSiteJson]
+        [AllowAnonymous]
+        public ActionResult AddUsers()
+        {
+            var users = new List<ApplicationUser>();
+            FileInfo fileInfo = new FileInfo("C:/Users/Administrator/Desktop/daochu.xml");
+            if (fileInfo.Exists)
+            {
+                XDocument doc = XDocument.Load("C:/Users/Administrator/Desktop/daochu.xml");
+                if (doc != null)
+                {
+                    IEnumerable<XElement> elementlist = doc.Root.Elements("user");
+                    foreach (var item in elementlist)
+                    {
+                        var time = DateTime.Now;
+                        DateTime.TryParse(item.Attribute("RegisterDateTime").Value, out time);
+                        ApplicationUser user = new ApplicationUser()
+                        {
+                            UserName = item.Attribute("UserName").Value,
+                            PhoneNumber = item.Attribute("UserName").Value,
+                            NickName = item.Attribute("NickName").Value,
+                            UserType = Enums.UserType.Proxy,
+                            LastLoginDateTime = time,
+                            RegisterDateTime = time,
+                        };
+                        users.Add(user);
+                        //var result = UserManager.CreateAsync(user,"123456");
+                        //if (!result.Result.Succeeded)
+                        //{
+                        //    return Json(Comm.ToJsonResult("Error", "失败"));
+                        //}
+                    }
+
+                }
+            }
+            return Json(Comm.ToJsonResult("Success", "成功", new { data = users }));
+        }
+
+        [HttpPost]
+        [AllowCrossSiteJson]
+        [AllowAnonymous]
+        public ActionResult AddCode() {
+            return Json(Comm.ToJsonResult("Success", "成功"));
+        } 
 
     }
 }
