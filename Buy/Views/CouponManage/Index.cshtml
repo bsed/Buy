@@ -210,7 +210,7 @@
     }
 </table>
 
-@Html.PageList(paged, Url.PageUrl())
+@Html.PageList(paged, Url.PageUrl(),10, PageStyle.ShowTotal)
 
 @*批量删除优惠券*@
 <div id="modDel" class="panel panel-default panel-modal hidden">
