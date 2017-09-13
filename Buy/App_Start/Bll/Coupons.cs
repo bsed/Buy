@@ -10,14 +10,13 @@ namespace Buy.Bll
     {
         public static int? CheckType(string keyword)
         {
-            var keywords = keyword.SplitToArray<string>('/');
             return Bll.SystemSettings.CouponType
                 .Where(s => !string.IsNullOrWhiteSpace(s.Keyword))
                 .FirstOrDefault(s =>
                 {
 
                     var keys = s.Keyword.SplitToArray<string>();
-                    return keys.Union(keywords).Any();
+                    return keys.Contains(keyword);
                 })?.ID;
         }
 
