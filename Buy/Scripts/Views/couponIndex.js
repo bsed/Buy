@@ -2,7 +2,7 @@
     platform = $("#platform").val(),
     sort = $("[data-sort].active").data("sort");
 var canLoadPage = true;
-var top = 0;
+var navTop = $("#couponNav").offset().top;
 
 //swiper
 if ($(".navigationSwiper").length > 0) {
@@ -27,6 +27,14 @@ $(window).scroll(function (e) {
         $(".setScrollTop").fadeIn();
     } else {
         $(".setScrollTop").fadeOut();
+    }
+
+    if ($(window).scrollTop() + 80 >= navTop) {
+        $("#couponBox").addClass("paddingT112");
+        $("#couponNav").addClass("fixTop80");
+    } else {
+        $("#couponBox").removeClass("paddingT112");
+        $("#couponNav").removeClass("fixTop80");
     }
 
     if (canLoadPage && comm.isWindowBottom()) {
@@ -111,7 +119,7 @@ function loadCoupon() {
             sort: sort,
             types: typeID,
             platforms: platform,
-            orderByTime:true
+            orderByTime: true
         },
         dataType: "html",
         success: function (data) {

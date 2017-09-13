@@ -232,6 +232,7 @@
     .clearfix();
     background-color: @bg-color-white;
     margin-top: 8rem*@resize;
+    border-bottom: @border;
 
     ul {
         .clean-ul();
@@ -271,6 +272,13 @@
         width: 100%;
         z-index: @z-index-mid;
         margin-top: 0;
-        border-bottom: @border;
+    }
+
+    &.fixTop80{
+        position: fixed;
+        top: 80rem*@resize;
+        width: 100%;
+        z-index: @z-index-mid;
+        margin-top: 0;
     }
 }

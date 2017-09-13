@@ -915,6 +915,7 @@
 .coupon-nav {
   background-color: #fff;
   margin-top: 0.30917874rem;
+  border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.12);
 }
 .coupon-nav:before,
 .coupon-nav:after {
@@ -967,7 +968,13 @@
   width: 100%;
   z-index: 1000;
   margin-top: 0;
-  border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.12);
+}
+.coupon-nav.fixTop80 {
+  position: fixed;
+  top: 3.09178744rem;
+  width: 100%;
+  z-index: 1000;
+  margin-top: 0;
 }
 .account .account-input {
   position: relative;
@@ -1455,6 +1462,9 @@ textarea {
 }
 .paddingT124 {
   padding-top: 4.79227053rem;
+}
+.paddingT112 {
+  padding-top: 4.32850242rem;
 }
 .paddingB58 {
   padding-bottom: 2.24154589rem;
