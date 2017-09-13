@@ -35,7 +35,7 @@
 }
 @Styles.Render("~/bundles/swiper/css")
 
-<div class="couponIndex paddingT80 paddingB50 bg-color-grey minHight100vh">
+<div id="couponBox" class="couponIndex paddingT80 paddingB50 bg-color-grey minHight100vh">
     @Html.Hidden("typeID", Request["typeID"])
     @Html.Hidden("platform", Request["platform"])
     @Html.Hidden("sort", Request["sort"])
@@ -116,7 +116,7 @@
             </div>
         </div>
     }
-    <div class="coupon-nav">
+    <div id="couponNav" class="coupon-nav">
         <ul>
             <li class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序</li>
             <li class="sort @(Request["sort"]=="1" ?"active":"")" data-sort="1">人气热销</li>
