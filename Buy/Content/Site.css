@@ -725,6 +725,9 @@
   padding-right: 0.30917874rem;
   position: relative;
 }
+.coupon-list ul li .couponList-details a {
+  display: block;
+}
 .coupon-list ul li .couponList-details .couponList-title {
   overflow: hidden;
   text-overflow: ellipsis;
