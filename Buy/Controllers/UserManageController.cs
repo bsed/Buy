@@ -65,12 +65,6 @@ namespace Buy.Controllers
             return View(userlist);
         }
 
-        // GET: UserManage/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: UserManage/Create
         public ActionResult Create()
         {

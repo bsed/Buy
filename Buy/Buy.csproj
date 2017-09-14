@@ -300,9 +300,12 @@
     <Compile Include="Controllers\CouponTypeManageController.cs" />
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocalCouponController.cs" />
+    <Compile Include="Controllers\LocalCouponManageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\ShopManageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UploaderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -585,9 +588,18 @@
     <Content Include="Views\Shared\_TaobaoPassPartial.cshtml" />
     <Content Include="Views\Account\LoginSystem.cshtml" />
     <Content Include="Views\CouponTypeManage\Clean.cshtml" />
+    <Content Include="Views\ShopManage\Index.cshtml" />
+    <Content Include="Views\ShopManage\Create.cshtml" />
+    <Content Include="Views\ShopManage\Edit.cshtml" />
+    <Content Include="Views\ShopManage\Delete.cshtml" />
+    <Content Include="Views\LocalCouponManage\Index.cshtml" />
+    <Content Include="Views\LocalCouponManage\Create.cshtml" />
+    <Content Include="Views\LocalCouponManage\Edit.cshtml" />
+    <Content Include="Views\LocalCouponManage\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\LocalCoupon\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Test\" />
     <Folder Include="Views\Uploader\" />
