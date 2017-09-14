@@ -301,6 +301,7 @@
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MoGuJieController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\TestController.cs" />
