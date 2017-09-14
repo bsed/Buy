@@ -1,4 +1,5 @@
-﻿//注册按钮
+﻿
+//注册按钮
 $("#registerBtn").click(function () {
     var data = {
         UserName: $("#PhoneNumber").val(),
@@ -12,6 +13,9 @@ $("#registerBtn").click(function () {
         dataType: "json",
         success: function (data) {
             if (data.State == "Success") {
+                $.cookie('getCodeSum', null, {
+                    path: "/", expires: 1
+                });
                 location = comm.action("Activation", "Account");
             } else {
                 comm.promptBox(data.Message)
@@ -77,6 +81,33 @@ function vercode(option) {
 
 }
 
+var num = 0;
+var cookie = $.cookie("getCodeSum");
+
+var _vercode = new vercode({
+    success: function () {
+        _vercode.hide();
+        $.ajax({
+            type: "POST",
+            url: comm.action("SendCode", "Account"),
+            data: { Phone: $("#PhoneNumber").val() },
+            dataType: "json",
+            success: function (data) {
+                if (data.State == "Success") {
+                    codeCountDown(60);
+                } else {
+                    //var e = JSON.parse(data.Message);
+                    //comm.promptBox(e.msg);
+
+                    alert(data.Message);
+                }
+            }
+        });
+    },
+    fail: function () {
+    }
+});
+
 //获取验证码
 $("#btnGetCode").click(function () {
     var phone = $("#PhoneNumber").val();
@@ -88,28 +119,40 @@ $("#btnGetCode").click(function () {
         comm.promptBox("请输入正确的手机号");
         return false;
     }
-    var _vercode = new vercode({
-        success: function () {
-            _vercode.hide();
-            $.ajax({
-                type: "POST",
-                url: comm.action("SendCode", "Account"),
-                data: { Phone: $("#PhoneNumber").val() },
-                dataType: "json",
-                success: function (data) {
-                    if (data.State == "Success") {
-                        codeCountDown(60);
-                    } else {
-                        comm.promptBox(data.Message);
-                    }
-                }
-            });
-        },
-        fail: function () {
-        }
-    });
-    _vercode.show();
 
+    if (cookie == undefined) {
+        num = parseInt(num) + 1;
+    } else {
+        num = parseInt(cookie) + 1;
+    }
+    
+    $.cookie('getCodeSum', num, {
+        path: "/", expires: 1
+    });
+
+    if (num >= 2) {
+        $("#vercode").removeClass("hidden");
+        $("#txtVercode").val(null);
+        $("#vercode [name='clearVal']").addClass("hidden");
+        $("#imgVerCode").attr("src", comm.action("VerCode", "Account", { ts: new Date().getTime() }))
+    } else {
+        $.ajax({
+            type: "POST",
+            url: comm.action("SendCode", "Account"),
+            data: { Phone: $("#PhoneNumber").val() },
+            dataType: "json",
+            success: function (data) {
+                if (data.State == "Success") {
+                    codeCountDown(60);
+                } else {
+                    //var e = JSON.parse(data.Message);
+                    //comm.promptBox(e.msg);
+
+                    alert(data.Message);
+                }
+            }
+        });
+    }
 
 })
 

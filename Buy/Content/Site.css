@@ -698,8 +698,15 @@
   position: relative;
   background-color: #fff;
   margin-top: 0.30917874rem;
-  display: flex;
+  display: -webkit-box;
+  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+  display: -moz-box;
+  /* 老版本语法: Firefox (buggy) */
+  display: -ms-flexbox;
+  /* 混合版本语法: IE 10 */
   display: -webkit-flex;
+  /* 新版本语法: Chrome 21+ */
+  display: flex;
 }
 .coupon-list ul li a {
   text-decoration: none;
@@ -721,6 +728,10 @@
   margin-top: 0.30917874rem;
   margin-bottom: 0.30917874rem;
   width: 100%;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
   flex: 1;
   padding-right: 0.30917874rem;
   position: relative;
@@ -1002,6 +1013,9 @@
   background: none;
   border: none;
 }
+.account .account-input .identifyCode:disabled {
+  color: rgba(0, 0, 0, 0.54);
+}
 .account .account-input .account-input-del {
   background: url("image/view/ic_search_clear@2x.png") no-repeat center;
   width: 0.61835749rem;
@@ -1019,6 +1033,9 @@
 }
 .account .account-input .account-input-del.style02 {
   right: 3.24637681rem;
+}
+.account .account-input .account-input-del.style03 {
+  right: 4.25120773rem;
 }
 .account .account-input input {
   border: none;

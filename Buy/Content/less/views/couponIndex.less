@@ -20,8 +20,11 @@
             position: relative;
             background-color: @bg-color-white;
             margin-top: 8rem*@resize;
+            display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+            display: -moz-box; /* 老版本语法: Firefox (buggy) */
+            display: -ms-flexbox; /* 混合版本语法: IE 10 */
+            display: -webkit-flex; /* 新版本语法: Chrome 21+ */
             display: flex;
-            display: -webkit-flex;
 
             a {
                 .clean-a();
@@ -39,12 +42,16 @@
                 margin-top: 8rem*@resize;
                 margin-bottom: 8rem*@resize;
                 width: 100%;
+                -webkit-box-flex: 1;
+                -moz-box-flex: 1;
+                -webkit-flex:1;
+                -ms-flex:1;
                 flex: 1;
                 padding-right: 8rem*@resize;
                 position: relative;
 
-                a{
-                    display:block;
+                a {
+                    display: block;
                 }
 
                 .couponList-title {
@@ -278,7 +285,7 @@
         margin-top: 0;
     }
 
-    &.fixTop80{
+    &.fixTop80 {
         position: fixed;
         top: 80rem*@resize;
         width: 100%;
