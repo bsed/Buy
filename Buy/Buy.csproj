@@ -326,6 +326,10 @@
     <Compile Include="Migrations\201709080835086_AddClientAccessLog.Designer.cs">
       <DependentUpon>201709080835086_AddClientAccessLog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709140400320_AddLocalCoupon.cs" />
+    <Compile Include="Migrations\201709140400320_AddLocalCoupon.Designer.cs">
+      <DependentUpon>201709140400320_AddLocalCoupon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActionCells.cs" />
@@ -337,9 +341,12 @@
     <Compile Include="Models\Help.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageResizer.cs" />
+    <Compile Include="Models\LocalCoupon.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RegistrationCode.cs" />
     <Compile Include="Models\RoleGroup.cs" />
+    <Compile Include="Models\Shop.cs" />
+    <Compile Include="Models\ShopMember.cs" />
     <Compile Include="Models\SystemMessage.cs" />
     <Compile Include="Models\SystemSetting.cs" />
     <Compile Include="Models\FoodCoupon.cs" />
@@ -601,6 +608,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709080835086_AddClientAccessLog.resx">
       <DependentUpon>201709080835086_AddClientAccessLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709140400320_AddLocalCoupon.resx">
+      <DependentUpon>201709140400320_AddLocalCoupon.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
