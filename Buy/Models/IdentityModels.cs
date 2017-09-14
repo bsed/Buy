@@ -92,5 +92,12 @@ namespace Buy.Models
         public virtual DbSet<RegistrationCode> RegistrationCodes { get; set; }
 
         public virtual DbSet<ClientAccessLog> ClientAccessLogs { get; set; }
+
+        public virtual DbSet<Shop> Shops { get; set; }
+
+
+        public virtual DbSet<LocalCoupon> LocalCoupons { get; set; }
+
+        public virtual DbSet<ShopMember> ShopMembers { get; set; }
     }
 }
