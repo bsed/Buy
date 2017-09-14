@@ -185,7 +185,8 @@ namespace Buy.Enums
         None,
         Browser,
         ThirdPartyTicketDetail,
-        ThirdPartyFootTicketDetail
+        ThirdPartyFootTicketDetail,
+        LocalCouponDetail,
     }
 
     public enum SiteMessageType

@@ -58,7 +58,15 @@ namespace Buy.Controllers
             //不显示创建时间是未来的和过期的
             if (orderByTime)
             {
-                query = query.Where(s => s.CreateDateTime < DateTime.Now && s.EndDateTime > DateTime.Now);
+                query = query.Where(s => s.CreateDateTime <= DateTime.Now && s.EndDateTime > DateTime.Now);
+            }
+            if (type != null && type.Count > 0 && type.Contains(0))
+            {
+                type.Remove(0);
+            }
+            if (type != null && type.Count > 0)
+            {
+                query = query.Where(s => s.TypeID.HasValue && (type.Contains(s.Type.ID) || type.Contains(s.Type.ParentID)));
             }
             if (platform != null && platform.Count > 0)
             {
@@ -68,14 +76,6 @@ namespace Buy.Controllers
                     platform.Add(Enums.CouponPlatform.TMall);
                 }
                 query = query.Where(s => platform.Contains(s.Platform));
-            }
-            if (type != null && type.Count > 0 && type.Contains(0))
-            {
-                type.Remove(0);
-            }
-            if (type != null && type.Count > 0)
-            {
-                query = query.Where(s => s.TypeID.HasValue && (type.Contains(s.TypeID.Value) || type.Contains(s.Type.ParentID)));
             }
 
             if (!string.IsNullOrWhiteSpace(filter))

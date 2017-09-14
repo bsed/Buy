@@ -30,7 +30,7 @@
 @if (Model != null)
 {
     @Html.HiddenFor(modle => modle.ID)
-    <img id="lazyloadimg" hidden src="~/Content/Images/404/placeholder_image.png?w=150&h=150" />
+    <img id="lazyloadimg" hidden src="~/Content/image/404/placeholder_image.png?w=150&h=150" />
     <div class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
             <div class="couponDetail-top-back fl" id="btnBack"></div>
@@ -63,17 +63,18 @@
             </div>
         </div>
         <div class="marginT10">
-            <div class="columnModule">
+            <div id="detailTit" class="columnModule">
                 <div class="columnModule-title"><span>商品详情</span></div>
             </div>
+            <div id="pullUpLoad" class="couponDetail-scroll">查看商品详情</div>
             <div name="poductDetail" class="couponDetail-detailImg">
-                @if (!string.IsNullOrWhiteSpace(Model.UrlLisr))
+                @*@if (!string.IsNullOrWhiteSpace(Model.UrlLisr))
                 {
                     foreach (var item in Model.UrlLisr.SplitToArray<string>())
                     {
                         <img src="@item" />
                     }
-                }
+                }*@
             </div>
         </div>
 

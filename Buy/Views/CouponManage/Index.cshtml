@@ -4,7 +4,7 @@
     ViewBag.Title = "优惠券管理";
     Layout = "~/Views/Shared/_LayoutBackground.cshtml";
     var paged = (PagedList.IPagedList<Buy.Models.Coupon>)Model;
-    string strPlatform = "所有";
+    string strPlatform = "所有平台";
     Buy.Enums.CouponPlatform? platform = null;
     if (!string.IsNullOrWhiteSpace(Request["platform"]))
     {
@@ -12,7 +12,7 @@
         strPlatform = platform.GetDisplayName();
     }
     List<Buy.Models.CouponType> type = ViewBag.Type;
-    string strType = "所有";
+    string strType = "所有类型";
     if (!string.IsNullOrWhiteSpace(Request["typeid"]))
     {
         strType = type.FirstOrDefault(s => s.ID == int.Parse(Request["typeid"])).Name;
@@ -41,7 +41,7 @@
                         @strPlatform<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="platform" href="#">所有</a></li>
+                        <li><a class="platform" href="#">所有平台</a></li>
                         @foreach (Buy.Enums.CouponPlatform item in Enum.GetValues(typeof(Buy.Enums.CouponPlatform)))
                         {
                         <li><a href="#" class="platform" data-type="@item">@item.GetDisplayName()</a></li>
@@ -53,7 +53,7 @@
                         @strType<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <li><a class="typeid" href="#">所有</a></li>
+                        <li><a class="typeid" href="#">所有类型</a></li>
                         @foreach (var item in type)
                         {
                         <li>

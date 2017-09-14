@@ -36,7 +36,7 @@ namespace Buy.Controllers
             }
             if (typeid.HasValue)
             {
-                query = query.Where(s => s.TypeID == typeid);
+                query = query.Where(s => s.Type.ParentID == typeid.Value || s.TypeID == typeid.Value);
             }
             if (createTime.HasValue)
             {

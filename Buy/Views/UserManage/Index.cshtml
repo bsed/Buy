@@ -24,6 +24,9 @@
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.NickName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.RegisterDateTime)
             </th>
             <th>
@@ -42,7 +45,11 @@
     {
         <tr>
             <td>
+                @Html.HiddenFor(modelItem => item.Id)
                 @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NickName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RegisterDateTime)
@@ -57,8 +64,9 @@
                 @Html.DisplayFor(modelItem => item.UnUseCount)
             </td>
             <td>
-                @Html.ActionLink("添加注册码", "Create", "RegistrationCode", new { userId = item.Id }, null)
-                @Html.ActionLink("查看注册码", "Index", "RegistrationCode", new { userId = item.Id }, null)
+                @Html.ActionLink("添加注册码", "Create", "RegistrationCode", new { userId = item.Id }, null)|
+                @Html.ActionLink("查看注册码", "Index", "RegistrationCode", new { userId = item.Id }, null)|
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id })
                 @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
                      @Html.ActionLink("Details", "Details", new { id=item.Id }) |
                      @Html.ActionLink("Delete", "Delete", new { id=item.Id })
