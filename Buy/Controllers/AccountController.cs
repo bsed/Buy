@@ -460,7 +460,7 @@ namespace Buy.Controllers
             }
             try
             {
-                ISms sms = new RLSms();
+                ISms sms = new YunPianSms();
                 var verCode = sms.Send(model.Phone, code);
                 if (verCode.IsSuccess)
                 {
