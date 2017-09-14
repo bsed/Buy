@@ -24,7 +24,10 @@ namespace Buy.Models
         public int UseCount { get; set; }
 
         [Display(Name = "注册时间")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime RegisterDateTime { get; set; }
+
+        [Display(Name = "昵称")]
+        public string NickName { get; set; }
     }
 }

@@ -51,7 +51,9 @@ function vercode(option) {
 
 
 
-    $txt.focusout(function () {
+    $txt.keyup(function () {
+        if ($txt.val().length == 4)
+
         $.ajax({
             type: "POST",
             url: comm.action("CheckCode", "Account"),
@@ -60,10 +62,10 @@ function vercode(option) {
             success: function (data) {
                 if (data.State == "Success") {
                     option.success();
-                    alert("验证成功");
+                   // alert("验证成功");
                 } else {
                     option.fail();
-                    alert("验证失败");
+                    //alert("验证失败");
                 }
             }
         });

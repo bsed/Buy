@@ -41,7 +41,7 @@ function loadCoupon() {
             sort: sort,
             platforms: platform,
             types: types,
-            orderByTime: true
+            orderByTime: false
         },
         dataType: "html",
         success: function (data) {

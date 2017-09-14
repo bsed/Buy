@@ -32,7 +32,7 @@ $(".typeid").click(function (e) {
     if ($(this).data("type") != undefined) {
         data.typeid = $(this).data("type");
     } else {
-        data.platform = null;
+        data.typeid = null;
     }
     location = comm.action("Index", "CouponManage", data);
 });
