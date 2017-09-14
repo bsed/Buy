@@ -1117,6 +1117,13 @@
   text-align: center;
   margin-top: 0.92753623rem;
 }
+.account .account-vercode {
+  height: 1.15942029rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: white;
+}
 .hotSearch {
   padding: 0.61835749rem;
 }

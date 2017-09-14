@@ -1,6 +1,8 @@
 ﻿@import "../base";
 
 .account {
+
+
     .account-input {
         position: relative;
         margin-top: 20rem*@resize;
@@ -20,22 +22,22 @@
             line-height: 35rem*@resize;
             font-size: @font-size-2;
             color: @font-col-blue;
-            width:auto;
-            padding:0;
-            background:none;
-            border:none;
+            width: auto;
+            padding: 0;
+            background: none;
+            border: none;
         }
 
-        .account-input-del{
-            background:url("../../image/view/ic_search_clear@2x.png") no-repeat center;
+        .account-input-del {
+            background: url("../../image/view/ic_search_clear@2x.png") no-repeat center;
             .square(16rem*@resize);
-            background-size:contain;
+            background-size: contain;
             .block-vertical-mid(50%);
-            right:16rem*@resize;
-            z-index:@z-index-bottom;
+            right: 16rem*@resize;
+            z-index: @z-index-bottom;
 
-            &.style02{
-                right:84rem*@resize;
+            &.style02 {
+                right: 84rem*@resize;
             }
         }
 
@@ -54,8 +56,8 @@
                 color: @font-col-grey02;
             }
 
-            &.style02{
-                padding-right:16rem*@resize;
+            &.style02 {
+                padding-right: 16rem*@resize;
             }
         }
     }
@@ -86,11 +88,11 @@
         }
     }
 
-    .account-logo{
-        text-align:center;
-        padding:50rem*@resize 0 15rem*@resize 0;
+    .account-logo {
+        text-align: center;
+        padding: 50rem*@resize 0 15rem*@resize 0;
 
-        img{
+        img {
             .square(68rem*@resize);
         }
     }
@@ -102,7 +104,7 @@
         text-align: center;
 
         .account-otherLoginWay-tits {
-            color:@font-col-grey02;
+            color: @font-col-grey02;
 
             &:before, &:after {
                 content: "";
@@ -125,9 +127,17 @@
         }
     }
 
-    .account-invite-name{
-        font-size:@font-size-4;
-        text-align:center;
-        margin-top:24rem*@resize;
+    .account-invite-name {
+        font-size: @font-size-4;
+        text-align: center;
+        margin-top: 24rem*@resize;
+    }
+
+    .account-vercode {
+        height: 30rem*@resize;
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: white;
     }
 }

@@ -9,11 +9,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Buy.Models;
+using System.Drawing;
+using System.Text;
+using System.IO;
 
 namespace Buy.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : Controller, System.Web.SessionState.IRequiresSessionState
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -457,7 +460,7 @@ namespace Buy.Controllers
             }
             try
             {
-                ISms sms = new RLSms();
+                ISms sms = new YunPianSms();
                 var verCode = sms.Send(model.Phone, code);
                 if (verCode.IsSuccess)
                 {
@@ -568,6 +571,65 @@ namespace Buy.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
+        [AllowAnonymous]
+        public ActionResult VerCode()
+        {
+
+            Session["CreateTime"] = DateTime.Now;
+
+            //Create Bitmap object and to draw 
+            Bitmap basemap = new Bitmap(200, 60);
+            Graphics graph = Graphics.FromImage(basemap);
+            graph.FillRectangle(new SolidBrush(Color.White), 0, 0, 200, 60);
+            Font font = new Font(FontFamily.GenericSerif, 48, FontStyle.Bold, GraphicsUnit.Pixel);
+            Random r = new Random();
+            string letters = "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijklmnpqrstuvwxyz0123456789";
+            string letter;
+            StringBuilder s = new StringBuilder();
+
+
+            // Add a random five-letter 
+            for (int x = 0; x < 4; x++)
+            {
+                letter = letters.Substring(r.Next(0, letters.Length - 1), 1);
+                s.Append(letter);
+                // Draw the String 
+                graph.DrawString(letter, font, new SolidBrush(Color.Black), x * 38, r.Next(0, 15));
+            }
+
+
+            // Confusion background 
+            Pen linePen = new Pen(new SolidBrush(Color.Black), 2);
+            for (int x = 0; x < 10; x++)
+            {
+                graph.DrawLine(linePen, new Point(r.Next(0, 199), r.Next(0, 59)), new Point(r.Next(0, 199), r.Next(0, 59)));
+            }
+
+            var steam = new MemoryStream();
+
+            // Save the picture to the output stream      
+            basemap.Save(steam, System.Drawing.Imaging.ImageFormat.Gif);
+
+            // If you do not realize the IRequiresSessionState,it will be wrong here,and it can not generate a picture also. 
+            Session["ValidateCode"] = s.ToString();
+            return File(steam.ToArray(), "image/gif", "code.gif");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult CheckCode(string code)
+        {
+            if (code.ToLower() == Session["ValidateCode"].ToString().ToLower())
+            {
+                return Json(Comm.ToJsonResult("Success", "验证成功"));
+            }
+            else
+            {
+                return Json(Comm.ToJsonResult("Error", "验证失败"));
+            }
+        }
+
 
         //
         // GET: /Account/ExternalLoginFailure

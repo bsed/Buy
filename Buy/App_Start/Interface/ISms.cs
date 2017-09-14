@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -77,6 +78,23 @@ namespace Buy
             return result;
         }
 
+    }
+
+    public class YunPianSms : ISms
+    {
+        public SmsResult Send(string phone, string code)
+        {
+            var min = "10分钟";
+            var config = new Yunpian.conf.Config("678ddeba83329ade7d65a2b2ed5fe5e9");
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            Yunpian.model.Result result = null;
+            Yunpian.lib.SmsOperator sms = new Yunpian.lib.SmsOperator(config);
+            data.Clear();
+            data.Add("mobile", phone);
+            data.Add("text", $"【买了么】你的验证码是{code}，有效期为{min}，如果非本人操作请忽视。");
+            result = sms.singleSend(data);
+            return new SmsResult { IsSuccess = result.success, Message = result.responseText };
+        }
     }
 
     public class SmsResult

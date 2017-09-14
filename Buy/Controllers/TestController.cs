@@ -9,13 +9,11 @@ namespace Buy.Controllers
     public class TestController : Controller
     {
         // GET: Test
-        public ActionResult Index()
+        public ActionResult Index(string phone)
         {
-            string key = "yw123456";
-            var x = Buy.Security.Encrypt("12312", key);
-            var y = Buy.Security.Decrypt(x, key);
-            return Json("1", JsonRequestBehavior.AllowGet);
-
+            ISms sms = new YunPianSms();
+            sms.Send(phone, Comm.Random.Next(1000, 9999).ToString());
+            return Json("1");
         }
 
 
