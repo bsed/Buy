@@ -545,6 +545,22 @@
 .couponDetail .couponDetail-useBtn:focus {
   color: inherit;
 }
+.couponDetail .couponDetail-scroll {
+  background-color: #fff;
+  font-size: 0.5410628rem;
+  text-align: center;
+  height: 2.51207729rem;
+  line-height: 2.51207729rem;
+}
+.couponDetail .couponDetail-scroll.style02 {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(249, 249, 249, 0.9);
+  height: 1.73913043rem;
+  line-height: 1.73913043rem;
+}
 .coupon-tab {
   font-size: 0.46376812rem;
   color: rgba(0, 0, 0, 0.87);
