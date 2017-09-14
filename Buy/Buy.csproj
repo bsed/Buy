@@ -303,6 +303,7 @@
     <Compile Include="Controllers\LocalCouponController.cs" />
     <Compile Include="Controllers\LocalCouponManageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MoGuJieController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\ShopManageController.cs" />

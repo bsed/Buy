@@ -19,7 +19,8 @@ var swiper = new Swiper('.couponIndex-banner .swiper-container', {
     pagination: '.swiper-pagination',
     paginationClickable: true,
     autoplay: 2500,
-    autoplayDisableOnInteraction: false
+    autoplayDisableOnInteraction: false,
+    loop: true
 });
 
 $(window).scroll(function (e) {
