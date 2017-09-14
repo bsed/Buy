@@ -19,17 +19,28 @@ namespace Buy.Controllers
             var redirect_uri = Url.ContentFull(Url.Action("Login"));
             if (!string.IsNullOrWhiteSpace(code))
             {
-                if (string.IsNullOrWhiteSpace(state))
+                if (state.ToLower() == "token")
                 {
-
+                    var mgj = new Buy.MoGuJie.Method();
+                    mgj.GetAccessToken(code, redirect_uri, state);
+                    return Json(Comm.ToJsonResult("Success", "成功", mgj.Token));
                 }
-                var mgj = new Buy.MoGuJie.Method();
-                mgj.GetAccessToken(code, redirect_uri, state);
-                return Redirect(state);
+                else
+                {
+                    var mgj = new Buy.MoGuJie.Method();
+                    mgj.GetAccessToken(code, redirect_uri, state);
+                    return Redirect(state);
+                }
+
             }
 
             string urlAuthorize = $"https://oauth.mogujie.com/authorize?response_type=code&app_key={MoGuJie.Config.AppKey}&redirect_uri={redirect_uri}&state={state}";
             return Redirect(urlAuthorize);
+        }
+
+        public ActionResult LoginSuccess()
+        {
+            return View();
         }
 
 
@@ -86,7 +97,7 @@ namespace Buy.Controllers
                             set(result2.Items);
                             models.AddRange(result2.Items);
                         }
-                       
+
                     }
 
                 }

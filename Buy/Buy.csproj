@@ -586,6 +586,7 @@
     <Content Include="Views\Shared\_TaobaoPassPartial.cshtml" />
     <Content Include="Views\Account\LoginSystem.cshtml" />
     <Content Include="Views\CouponTypeManage\Clean.cshtml" />
+    <Content Include="Views\MoGuJie\LoginSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
