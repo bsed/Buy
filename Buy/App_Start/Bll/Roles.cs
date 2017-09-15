@@ -45,7 +45,7 @@ namespace Buy.Bll
 
         public void InitNormalUserRole(string userID)
         {
-            EditUserRole(userID, new string[] { SysRole.TicketCreate, SysRole.TicketSend, SysRole.TicketUse });
+            EditUserRole(userID, new string[] { });
         }
 
         public bool IsInRole(string userID, string role)
