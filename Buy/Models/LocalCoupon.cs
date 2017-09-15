@@ -38,6 +38,8 @@ namespace Buy.Models
 
         public virtual Shop Shop { get; set; }
 
+        public virtual decimal Commission { get; set; }
+
     }
 
     [NotMapped]
