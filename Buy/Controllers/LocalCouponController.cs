@@ -22,9 +22,15 @@ namespace Buy.Controllers
         }
 
         // GET: LocalCoupon
-        public ActionResult Index(string typeId = null, int page = 1)
+        public ActionResult Index(int shopId)
         {
-            var paged = QueryShops(typeId?.SplitToIntArray())
+            var shops = db.Shops.FirstOrDefault(s => s.ID == shopId);
+            return View(shops);
+        }
+
+        public ActionResult GetList(string shopId = null, int page = 1)
+        {
+            var paged = QueryShops(shopId?.SplitToIntArray())
                 .OrderByDescending(s => s.CreateDateTime)
                 .ToPagedList(page);
             return View(paged);

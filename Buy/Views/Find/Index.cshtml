@@ -1,10 +1,9 @@
-﻿
+﻿@model IEnumerable<Buy.Models.Shop>
+
 @{
     ViewBag.Title = "本地券";
 }
-
 @Styles.Render("~/bundles/swiper/css")
-
 <div class="find minHight100vh paddingT44">
     <div class="navigationBar bgcolor-orange">本地券</div>
 
@@ -34,45 +33,22 @@
 
     <div class="thirdWayList">
         <ul>
-            <li>
-                <a href="#">
-                    <img src="~/Content/image/view/img_kfc_b@2x.png" />
-                    <div>肯德基</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="~/Content/image/view/img_mcdonalds_b@2x.png" />
-                    <div>麦当劳</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="~/Content/image/view/img_burgerking_b@2x.png" />
-                    <div>汉堡王</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="~/Content/image/view/img_bsk_b@2x.png" />
-                    <div>必胜客</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="~/Content/image/view/img_zgongfu_b@2x.png" />
-                    <div>真功夫</div>
-                </a>
-            </li>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a href="@Url.Action("Index","LocalCoupon",new { shopId =item.ID},null)">
+                        <img src="@Comm.ResizeImage(item.Logo)" />
+                        <div>@Html.DisplayFor(modelItem => item.Name)</div>
+                    </a>
+                </li>
+            }
         </ul>
     </div>
 
     @Html.Partial("_navTabBottomPartial")
 </div>
 
-
 @section Scripts{
     @Scripts.Render("~/bundles/swiper/js")
     @Scripts.Render("~/bundles/find")
 }
-

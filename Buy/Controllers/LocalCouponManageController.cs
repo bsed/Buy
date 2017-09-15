@@ -18,6 +18,7 @@ namespace Buy.Controllers
         }
 
         // GET: LocalCouponManage
+        [Authorize(Roles = SysRole.LocalCouponManageRead)]
         public ActionResult Index(int? shopId, int page = 1)
         {
             Sidebar();
@@ -32,6 +33,7 @@ namespace Buy.Controllers
         }
 
         // GET: LocalCouponManage/Create
+        [Authorize(Roles = SysRole.LocalCouponManageCreate)]
         public ActionResult Create()
         {
             Sidebar();
@@ -52,6 +54,7 @@ namespace Buy.Controllers
 
         // POST: LocalCouponManage/Create
         [HttpPost]
+        [Authorize(Roles = SysRole.LocalCouponManageCreate)]
         public ActionResult Create(LocalCouponViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model.Name))
@@ -87,6 +90,7 @@ namespace Buy.Controllers
         }
 
         // GET: LocalCouponManage/Edit/5
+        [Authorize(Roles = SysRole.LocalCouponManageEdit)]
         public ActionResult Edit(int id)
         {
             Sidebar();
@@ -117,6 +121,7 @@ namespace Buy.Controllers
 
         // POST: LocalCouponManage/Edit/5
         [HttpPost]
+        [Authorize(Roles = SysRole.LocalCouponManageEdit)]
         public ActionResult Edit(LocalCouponViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model.Name))
@@ -151,6 +156,7 @@ namespace Buy.Controllers
         }
 
         // GET: LocalCouponManage/Delete/5
+        [Authorize(Roles = SysRole.LocalCouponManageDelete)]
         public ActionResult Delete(int id)
         {
             Sidebar();
@@ -160,6 +166,7 @@ namespace Buy.Controllers
 
         // POST: LocalCouponManage/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = SysRole.LocalCouponManageDelete)]
         public ActionResult DeleteConfirm(int id)
         {
             var lc = db.LocalCoupons.FirstOrDefault(s => s.ID == id);

@@ -1,0 +1,69 @@
+﻿@model Buy.Models.LocalCoupon
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDateTime)
+        </dt>
+
+        <dd>
+            @Model.CreateDateTime.ToString("yyyy-MM-dd")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src="@Comm.ResizeImage(Model.Image)" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDateTime)
+        </dt>
+
+        <dd>
+            @Model.EndDateTime.ToString("yyyy-MM-dd")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Shop.Logo)
+        </dt>
+
+        <dd>
+            <img src="@Comm.ResizeImage(Model.Shop.Logo)" />
+        </dd>
+
+    </dl>
+</div>

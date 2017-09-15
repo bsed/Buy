@@ -19,6 +19,7 @@ namespace Buy.Controllers
         }
 
         // GET: ShopManage
+        [Authorize(Roles = SysRole.ShopManageRead)]
         public ActionResult Index(int page = 1)
         {
             Sidebar();
@@ -27,6 +28,7 @@ namespace Buy.Controllers
         }
 
         // GET: ShopManage/Create
+        [Authorize(Roles = SysRole.ShopManageCreate)]
         public ActionResult Create()
         {
             Sidebar();
@@ -44,6 +46,7 @@ namespace Buy.Controllers
 
         // POST: ShopManage/Create
         [HttpPost]
+        [Authorize(Roles = SysRole.ShopManageCreate)]
         public ActionResult Create(ShopManageViewModel model)
         {
             if (model.FileUpload.Images.Length != 1)
@@ -71,6 +74,7 @@ namespace Buy.Controllers
         }
 
         // GET: ShopManage/Edit/5
+        [Authorize(Roles = SysRole.ShopManageEdit)]
         public ActionResult Edit(int id)
         {
             Sidebar();
@@ -94,6 +98,7 @@ namespace Buy.Controllers
 
         // POST: ShopManage/Edit/5
         [HttpPost]
+        [Authorize(Roles = SysRole.ShopManageEdit)]
         public ActionResult Edit(ShopManageViewModel model)
         {
             if (model.FileUpload.Images.Length != 1)
@@ -118,6 +123,7 @@ namespace Buy.Controllers
         }
 
         // GET: ShopManage/Delete/5
+        [Authorize(Roles = SysRole.ShopManageDelete)]
         public ActionResult Delete(int id)
         {
             Sidebar();
@@ -140,6 +146,7 @@ namespace Buy.Controllers
         }
 
         // POST: ShopManage/Delete/5
+        [Authorize(Roles = SysRole.ShopManageDelete)]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirm(int id)
         {

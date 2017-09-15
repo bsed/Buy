@@ -528,6 +528,7 @@
     <Content Include="Scripts\Views\couponTicketTypeManageIndex.js" />
     <Content Include="Scripts\Views\find.js" />
     <Content Include="Scripts\Views\forgotPassword.js" />
+    <Content Include="Scripts\Views\localCoupon.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
     <Content Include="Scripts\Views\roleGroup.js" />
@@ -617,10 +618,12 @@
     <Content Include="Views\RoleManage\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SelectRoleListViewModel.cshtml" />
     <Content Include="Views\UserManage\Edit.cshtml" />
+    <Content Include="Views\LocalCoupon\Index.cshtml" />
+    <Content Include="Views\LocalCoupon\GetList.cshtml" />
+    <Content Include="Views\LocalCoupon\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\LocalCoupon\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Test\" />
     <Folder Include="Views\Uploader\" />
