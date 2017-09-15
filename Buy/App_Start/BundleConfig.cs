@@ -72,6 +72,10 @@ namespace Buy
             bundles.Add(new ScriptBundle("~/bundles/swiper/js").Include(
                 "~/Scripts/Swiper/js/swiper.jquery.min.js",
                 "~/Scripts/Swiper/js/swiper.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/touchSwipe").Include(
+                "~/Scripts/touchSwipe.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/clipboard")
                 .Include("~/Scripts/clipboard.min.js"));
             bundles.Add(new ScriptBundle($"~/bundles/mapapi").Include(
