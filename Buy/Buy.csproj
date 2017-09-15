@@ -335,7 +335,16 @@
     <Compile Include="Migrations\201709140400320_AddLocalCoupon.Designer.cs">
       <DependentUpon>201709140400320_AddLocalCoupon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709150138256_AddAccessLog.cs" />
+    <Compile Include="Migrations\201709150138256_AddAccessLog.Designer.cs">
+      <DependentUpon>201709150138256_AddAccessLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709150145234_LocalCouponAddCommission.cs" />
+    <Compile Include="Migrations\201709150145234_LocalCouponAddCommission.Designer.cs">
+      <DependentUpon>201709150145234_LocalCouponAddCommission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActionCells.cs" />
     <Compile Include="Models\ClientAccessLog.cs" />
@@ -512,6 +521,7 @@
     <Content Include="Scripts\Swiper\js\swiper.jquery.umd.min.js" />
     <Content Include="Scripts\Swiper\js\swiper.js" />
     <Content Include="Scripts\Swiper\js\swiper.min.js" />
+    <Content Include="Scripts\touchSwipe.js" />
     <Content Include="Scripts\Views\couponDetail.js" />
     <Content Include="Scripts\Views\couponIndex.js" />
     <Content Include="Scripts\Views\couponManage.js" />
@@ -524,6 +534,7 @@
     <Content Include="Scripts\Views\search.js" />
     <Content Include="Scripts\Views\searchConfirm.js" />
     <Content Include="Scripts\Views\userIndex.js" />
+    <Content Include="Scripts\zepto.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -631,6 +642,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709140400320_AddLocalCoupon.resx">
       <DependentUpon>201709140400320_AddLocalCoupon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709150138256_AddAccessLog.resx">
+      <DependentUpon>201709150138256_AddAccessLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709150145234_LocalCouponAddCommission.resx">
+      <DependentUpon>201709150145234_LocalCouponAddCommission.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

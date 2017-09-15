@@ -29,16 +29,17 @@ if ($("#ID").length > 0) {
 
 var poffSetTop = $("#detailTit").offset().top;
 var pHeight = $("#detailTit").height();
+var bodyHeight=$("body").height();
 var pState = true;
 
-$("#pullUpLoad").click(function () {
-    if (!$(this).hasClass("style02")) {
-        $('body').animate({ scrollTop: Math.floor(poffSetTop + pHeight) }, 600);
-        GetDetailImgs();
-    } else {
-        $('body').animate({ scrollTop: 0 }, 600);
-    }
-});
+//$("#pullUpLoad").click(function () {
+//    if (!$(this).hasClass("style02")) {
+//        $('body').animate({ scrollTop: Math.floor(poffSetTop + pHeight) }, 600);
+//        GetDetailImgs();
+//    } else {
+//        $('body').animate({ scrollTop: 0 }, 600);
+//    }
+//});
 
 $(window).scroll(function (e) {
 
@@ -54,6 +55,19 @@ $(window).scroll(function (e) {
             pState = true;
         }
     }
+});
+
+$(".couponDetail").rhuiSwipe('swipeUp', function (event) {
+    if (!pState) {
+        $('body').animate({ scrollTop: Math.floor(poffSetTop + pHeight) }, 600);
+        $("#pullUpLoad").addClass("style02").text("收回商品详情");
+        GetDetailImgs();
+    }
+}, {
+    // 可选参数
+    isStopPropagation: true,
+    isPreventDefault: true,
+    triggerOnMove: true
 });
 
 //淘口令

@@ -101,5 +101,7 @@ namespace Buy.Models
         public virtual DbSet<LocalCoupon> LocalCoupons { get; set; }
 
         public virtual DbSet<ShopMember> ShopMembers { get; set; }
+
+        public virtual DbSet<AccessLog> AccessLogs { get; set; }
     }
 }
