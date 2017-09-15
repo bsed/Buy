@@ -18,6 +18,7 @@ namespace Buy.Controllers
         }
 
         // GET: CouponManage
+        [Authorize(Roles = SysRole.CouponManageRead)]
         public ActionResult Index(string filter, Enums.CouponPlatform? platform, int? typeid, DateTime? createTime, int page = 1)
         {
             Sidebar();
@@ -51,6 +52,7 @@ namespace Buy.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = SysRole.CouponManageDelete)]
         public ActionResult Delete(DateTime date, List<Enums.CouponPlatform> types)
         {
             var delOld = db.Coupons
@@ -63,6 +65,7 @@ namespace Buy.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = SysRole.CouponManageDelete)]
         public ActionResult DeleteTicket(string ids)
         {
             var idList = ids.SplitToIntArray();

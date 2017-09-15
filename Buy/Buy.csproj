@@ -305,6 +305,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoGuJieController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
+    <Compile Include="Controllers\RoleManageController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\ShopManageController.cs" />
     <Compile Include="Controllers\TaobaoController.cs" />
@@ -417,6 +418,7 @@
     <Content Include="Content\image\view\img_search_nodata%402x.png" />
     <Content Include="Content\image\view\img_wechat_login_grey%402x.png" />
     <Content Include="Content\image\view\img_zgongfu_b%402x.png" />
+    <Content Include="Content\image\view\loadingGif.gif" />
     <Content Include="Content\image\view\logo_jd_tag%402x.png" />
     <Content Include="Content\image\view\logo_mogujie_tag%402x.png" />
     <Content Include="Content\image\view\logo_taobao_tag%402x.png" />
@@ -522,17 +524,21 @@
     <Content Include="Scripts\Swiper\js\swiper.jquery.umd.min.js" />
     <Content Include="Scripts\Swiper\js\swiper.js" />
     <Content Include="Scripts\Swiper\js\swiper.min.js" />
+    <Content Include="Scripts\touchSwipe.js" />
     <Content Include="Scripts\Views\couponDetail.js" />
     <Content Include="Scripts\Views\couponIndex.js" />
     <Content Include="Scripts\Views\couponManage.js" />
     <Content Include="Scripts\Views\couponTicketTypeManageIndex.js" />
     <Content Include="Scripts\Views\find.js" />
     <Content Include="Scripts\Views\forgotPassword.js" />
+    <Content Include="Scripts\Views\localCoupon.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
+    <Content Include="Scripts\Views\roleGroup.js" />
     <Content Include="Scripts\Views\search.js" />
     <Content Include="Scripts\Views\searchConfirm.js" />
     <Content Include="Scripts\Views\userIndex.js" />
+    <Content Include="Scripts\zepto.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -609,9 +615,19 @@
     <Content Include="Views\LocalCouponManage\Create.cshtml" />
     <Content Include="Views\LocalCouponManage\Edit.cshtml" />
     <Content Include="Views\LocalCouponManage\Delete.cshtml" />
+    <Content Include="Views\RoleManage\Create.cshtml" />
+    <Content Include="Views\RoleManage\Delete.cshtml" />
+    <Content Include="Views\RoleManage\Edit.cshtml" />
+    <Content Include="Views\RoleManage\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SelectRoleListViewModel.cshtml" />
+    <Content Include="Views\UserManage\Edit.cshtml" />
+    <Content Include="Views\LocalCoupon\Index.cshtml" />
+    <Content Include="Views\LocalCoupon\GetList.cshtml" />
+    <Content Include="Views\LocalCoupon\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\LocalCoupon\" />
+    <Folder Include="App_Data\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Taobao\" />
     <Folder Include="Views\Test\" />

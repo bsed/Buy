@@ -85,6 +85,34 @@
         font-size: @font-size-2;
         text-align: center;
         .one-line-vertical-mid(65rem*@resize);
+        position: relative;
+
+        span {
+            .block-horizontal-mid(50%);
+            margin-left: -75rem*@resize;
+            transition: 0.3s all;
+            transform: rotate(0);
+            -ms-transform: rotate(0); /* IE 9 */
+            -webkit-transform: rotate(0); /* Safari and Chrome */
+            -o-transform: rotate(0); /* Opera */
+            -moz-transform: rotate(0);
+
+            &.active {
+                transform: rotate(180deg);
+                -ms-transform: rotate(180deg); /* IE 9 */
+                -webkit-transform: rotate(180deg); /* Safari and Chrome */
+                -o-transform: rotate(180deg); /* Opera */
+                -moz-transform: rotate(180deg);
+            }
+        }
+
+        .loading{
+            background:url("../../image/view/loadingGif.gif") no-repeat center;
+            .square(16rem*@resize);
+            background-size:contain;
+            .block-mid(50%);
+            margin-left: -70rem*@resize;
+        }
 
         &.style02 {
             position: fixed;

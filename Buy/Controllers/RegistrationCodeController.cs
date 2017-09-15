@@ -27,6 +27,7 @@ namespace Buy.Controllers
         }
 
         // GET: RegistrationCode
+        [Authorize(Roles = SysRole.RegistrationCodeManageRead)]
         public ActionResult Index(string userId, int page = 1)
         {
             Sidebar();
@@ -69,6 +70,7 @@ namespace Buy.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = SysRole.RegistrationCodeManageCreate)]
         public ActionResult Create(string userId)
         {
             Sidebar();
@@ -95,6 +97,7 @@ namespace Buy.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = SysRole.RegistrationCodeManageCreate)]
         public ActionResult Create(RegistrationCodeCreate model, int length = 10)
         {
             if (model.Count < 1)

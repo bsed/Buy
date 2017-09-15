@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Buy.Models.LocalCoupon>
+
+@{
+    ViewBag.Title = "GetList";
+    Layout = null;
+    var paged = (PagedList.IPagedList<Buy.Models.LocalCoupon>)Model;
+}
+
+@if (Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <li>
+            <a href="@Url.Action("Details", "LocalCoupon", new { id = item.ID })">
+                图片： <img src="@Comm.ResizeImage(item.Image, w: 150, h: 150)" />
+                名称： @item.Name
+                有效期：@item.CreateDateTime.ToString("yyyy-MM-dd") - @item.EndDateTime.ToString("yyyy-MM-dd")
+                价格：@item.Price
+                商家图片：<img src="@Comm.ResizeImage(item.Shop.Logo, w: 50, h: 50)" />
+            </a>
+        </li>
+    }
+    if (paged.HasNextPage)
+    {
+        <li class="loadModule loadModule-dataIng" data-next="true" data-page="@paged.PageNumber">
+            加载中
+        </li>
+    }
+    else
+    {
+        <li class="loadModule loadModule-dataIng" data-next="false">
+            已经到底了
+        </li>
+    }
+}
+else
+{
+    <li class="loadModule loadModule-dataIng" data-next="false">
+        已经到底了
+    </li>
+}

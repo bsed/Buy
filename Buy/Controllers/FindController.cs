@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Buy.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,13 @@ namespace Buy.Controllers
 {
     public class FindController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         // GET: Find
         public ActionResult Index()
         {
-            return View();
+            var shops = db.Shops.OrderBy(s => s.Sort).ToList();
+            return View(shops);
         }
     }
 }

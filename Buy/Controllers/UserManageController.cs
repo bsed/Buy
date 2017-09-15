@@ -11,8 +11,11 @@ using System.Xml.Linq;
 
 namespace Buy.Controllers
 {
+    [Authorize]
     public class UserManageController : Controller
     {
+        private Bll.Roles _roles = new Bll.Roles();
+
         private string UserID
         {
             get
@@ -42,6 +45,7 @@ namespace Buy.Controllers
         }
 
         // GET: UserManage
+        [Authorize(Roles = SysRole.UserManageRead)]
         public ActionResult Index(int page = 1)
         {
             Sidebar();
@@ -66,6 +70,7 @@ namespace Buy.Controllers
         }
 
         // GET: UserManage/Create
+        [Authorize(Roles = SysRole.UserManageCreate)]
         public ActionResult Create()
         {
             Sidebar();
@@ -73,6 +78,7 @@ namespace Buy.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = SysRole.UserManageCreate)]
         public ActionResult Create(RegisterViewModel model)
         {
             var user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
@@ -100,6 +106,7 @@ namespace Buy.Controllers
         }
 
         // GET: UserManage/Edit/5
+        [Authorize(Roles = SysRole.UserManageEdit)]
         public ActionResult Edit(string id)
         {
             Sidebar();
@@ -108,11 +115,17 @@ namespace Buy.Controllers
             {
                 return RedirectToAction("Index");
             }
+            if (user.UserType == Enums.UserType.System)
+            {
+                var roles = db.RoleGroups.ToList();
+                ViewBag.SelRole = new SelectList(roles, "ID", "Name");
+            }
             return View(user);
         }
 
         // POST: UserManage/Edit/5
         [HttpPost]
+        [Authorize(Roles = SysRole.UserManageEdit)]
         public ActionResult Edit(ApplicationUser model)
         {
             var users = db.Users.Where(s => s.Id == model.Id || s.UserName == model.UserName);
@@ -129,6 +142,11 @@ namespace Buy.Controllers
             user.UserName = model.UserName;
             user.NickName = model.NickName;
             user.PhoneNumber = model.PhoneNumber;
+            if (user.UserType == Enums.UserType.System)
+            {
+                user.RoleGroupID = model.RoleGroupID;
+                _roles.EditUserRoleByGroupID(user.Id, model.RoleGroupID.Value);
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -226,6 +244,15 @@ namespace Buy.Controllers
             db.RegistrationCodes.RemoveRange(codes);
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "成功"));
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
     }

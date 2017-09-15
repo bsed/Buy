@@ -22,6 +22,7 @@ namespace Buy.Controllers
         }
 
         // GET: CouponTypeManage
+        [Authorize(Roles = SysRole.CouponTypeManageRead)]
         public ActionResult Index(int pid = 0)
         {
             Sidebar();
@@ -62,6 +63,7 @@ namespace Buy.Controllers
         }
 
         // GET: CouponTypeManage/Create
+        [Authorize(Roles = SysRole.CouponTypeManageCreate)]
         public ActionResult Create(int pid = 0)
         {
             Sidebar();
@@ -80,6 +82,7 @@ namespace Buy.Controllers
 
         // POST: CouponTypeManage/Create
         [HttpPost]
+        [Authorize(Roles = SysRole.CouponTypeManageCreate)]
         public ActionResult Create(CouponTypeViewModel model)
         {
             //if (model.FileUpload.Images.Count() <= 0)
@@ -112,6 +115,7 @@ namespace Buy.Controllers
         }
 
         // GET: CouponTypeManage/Edit/5
+        [Authorize(Roles = SysRole.CouponTypeManageEdit)]
         public ActionResult Edit(int id)
         {
             Sidebar();
@@ -137,6 +141,7 @@ namespace Buy.Controllers
 
         // POST: CouponTypeManage/Edit/5
         [HttpPost]
+        [Authorize(Roles = SysRole.CouponTypeManageEdit)]
         public ActionResult Edit(CouponTypeViewModel model)
         {
             //if (model.FileUpload.Images.Count() <= 0)
@@ -168,6 +173,7 @@ namespace Buy.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = SysRole.CouponTypeManageEdit)]
         public ActionResult Move(int pid, List<int> ids)
         {
             var items = couponType.Where(s => ids.Contains(s.ID)).ToList();
@@ -182,7 +188,8 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
 
-        // GET: CouponTypeManage/Edit/5
+        // GET: CouponTypeManage/Delete/5
+        [Authorize(Roles = SysRole.CouponTypeManageDelete)]
         public ActionResult Delete(int id)
         {
             Sidebar();
@@ -209,6 +216,7 @@ namespace Buy.Controllers
         // POST: CouponTypeManage/Delete/5
         [HttpPost]
         [ActionName("Delete")]
+        [Authorize(Roles = SysRole.CouponTypeManageDelete)]
         public ActionResult DeleteConfirm(int id)
         {
             var type = couponType.FirstOrDefault(s => s.ID == id);
@@ -246,6 +254,7 @@ namespace Buy.Controllers
         
 
         [HttpPost]
+        [Authorize(Roles = SysRole.CouponTypeManageDelete)]
         public ActionResult DeleteAll(string ids)
         {
             var idList = ids.SplitToIntArray();

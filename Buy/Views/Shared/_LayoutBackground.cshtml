@@ -38,14 +38,27 @@
     <div class="fluid">
         <div id="sidebar" class="sidebar">
             <ul class="nav nav-sidebar">
-                <li>
+                <li class="@hidSidebar(SysRole.UserManageRead)">
                     <a href="@Url.Action("Index", "UserManage")" title="用户管理">用户管理</a>
                 </li>
-                <li><a href="@Url.Action("Index", "CouponTypeManage")" title="优惠券类型管理">优惠券类型管理</a></li>
-                <li><a href="@Url.Action("Index", "CouponManage")" title="优惠券管理">优惠券管理</a></li>
-                <li><a href="@Url.Action("Index", "RegistrationCode")" title="注册码管理">注册码管理</a></li>
-                <li><a href="@Url.Action("Index", "ShopManage")" title="商家管理">商家管理</a></li>
-                <li><a href="@Url.Action("Index", "LocalCouponManage")" title="本地券管理">本地券管理</a></li>
+                <li class="@hidSidebar(SysRole.CouponTypeManageRead)">
+                    <a href="@Url.Action("Index", "CouponTypeManage")" title="优惠券类型管理">优惠券类型管理</a>
+                </li>
+                <li class="@hidSidebar(SysRole.CouponManageRead)">
+                    <a href="@Url.Action("Index", "CouponManage")" title="优惠券管理">优惠券管理</a>
+                </li>
+                <li class="@hidSidebar(SysRole.RegistrationCodeManageRead)">
+                    <a href="@Url.Action("Index", "RegistrationCode")" title="注册码管理">注册码管理</a>
+                </li>
+                <li class="@hidSidebar(SysRole.ShopManageRead)">
+                    <a href="@Url.Action("Index", "ShopManage")" title="商家管理">商家管理</a>
+                </li>
+                <li class="@hidSidebar(SysRole.LocalCouponManageRead)">
+                    <a href="@Url.Action("Index", "LocalCouponManage")" title="本地券管理">本地券管理</a>
+                </li>
+                <li class="@hidSidebar(SysRole.RoleManageRead)">
+                    <a href="@Url.Action("Index", "RoleManage")" title="权限管理">权限管理</a>
+                </li>
             </ul>
         </div>
 

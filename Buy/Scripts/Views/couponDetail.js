@@ -12,48 +12,73 @@ if ($("#ID").length > 0) {
                     var html = "";
                     if (data.Result.Data.length > 0) {
                         var lazyloadimg = $("#lazyloadimg").attr("src");
+                        var dttop = $("#detailTit").offset().top;
+                        var dth = $("#detailTit").height();
                         $.each(data.Result.Data, function (i, n) {
                             html += '<img src="' + lazyloadimg + '" data-original="' + n + '" />';
                         })
                         $("[name=poductDetail]").append(html);
                         comm.lazyloadALL();
+
+                        if ($("[name='poductDetail'] img").length > 0) {
+                            setTimeout(function () {
+                                $('body').animate({ scrollTop: Math.floor(dttop + dth) }, 600);
+                                $("#pullUpLoad").addClass("style02").text("收回商品详情");
+                                scState = true;
+                            }, 700)
+                        }
                     }
                 }
             }
         });
     }
-    //if ($("[name=poductDetail]").find("img").length <= 0) {
-    //    GetDetailImgs();
-    //}
 }
 
 var poffSetTop = $("#detailTit").offset().top;
 var pHeight = $("#detailTit").height();
-var pState = true;
+var dVal = $("body").height() - $(window).height();
+var pState = false;
+var scState = false;
+
+if ($("body").height() == $(window).height()) {
+    pState = true;
+}
+
+$(window).scroll(function (e) {
+    if ($(window).scrollTop() == dVal && dVal != 0) {
+        pState = true;
+    }
+    if ($(window).scrollTop() >= Math.floor(poffSetTop + pHeight)) {
+        pState = false;
+        scState = true;
+        $("#pullUpLoad").fadeIn();
+    } else {
+        if (scState) {
+            $("#pullUpLoad").fadeOut();
+            pState = false;
+        }    }
+});
 
 $("#pullUpLoad").click(function () {
-    if (!$(this).hasClass("style02")) {
-        $('body').animate({ scrollTop: Math.floor(poffSetTop + pHeight) }, 600);
-        GetDetailImgs();
-    } else {
+    if (scState) {
         $('body').animate({ scrollTop: 0 }, 600);
     }
 });
 
-$(window).scroll(function (e) {
-
-    if ($(window).scrollTop() >= Math.floor(poffSetTop + pHeight)) {
-        if (pState) {
-            $("#pullUpLoad").addClass("style02").text("收回商品详情");
-            $("#pullUpLoad").fadeIn();
-            pState = false;
-        }
-    } else {
-        if (!pState) {
-            $("#pullUpLoad").fadeOut();
-            pState = true;
-        }
+$(".couponDetail").rhuiSwipe('swipeUp', function (event) {
+    if (pState) {
+        $("#pullUpLoad span").addClass("active");
+        setTimeout(function () {
+            $("#pullUpLoad span").addClass("hidden");
+            $("#pullUpLoad .loading").removeClass("hidden");
+        },300)
+        GetDetailImgs();
     }
+}, {
+    // 可选参数
+    isStopPropagation: false,
+    isPreventDefault: false,
+    triggerOnMove: false
 });
 
 //淘口令

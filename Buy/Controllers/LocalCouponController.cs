@@ -22,9 +22,15 @@ namespace Buy.Controllers
         }
 
         // GET: LocalCoupon
-        public ActionResult Index(string typeId = null, int page = 1)
+        public ActionResult Index(int shopId)
         {
-            var paged = QueryShops(typeId?.SplitToIntArray())
+            var shops = db.Shops.FirstOrDefault(s => s.ID == shopId);
+            return View(shops);
+        }
+
+        public ActionResult GetList(string shopId = null, int page = 1)
+        {
+            var paged = QueryShops(shopId?.SplitToIntArray())
                 .OrderByDescending(s => s.CreateDateTime)
                 .ToPagedList(page);
             return View(paged);
@@ -46,7 +52,7 @@ namespace Buy.Controllers
             {
                 Data = shops.Select(s => new
                 {
-                    Image = Url.ResizeImage(s.Logo),
+                    Logo = Url.ResizeImage(s.Logo),
                     s.Code,
                     s.Name,
                     s.ID
@@ -56,9 +62,9 @@ namespace Buy.Controllers
 
         [HttpGet]
         [AllowCrossSiteJson]
-        public ActionResult GetAll(string typeId = null, int page = 1)
+        public ActionResult GetAll(string shopId = null, int page = 1)
         {
-            var paged = QueryShops(typeId?.SplitToIntArray())
+            var paged = QueryShops(shopId?.SplitToIntArray())
                 .OrderByDescending(s => s.CreateDateTime)
                 .ToPagedList(page);
             var model = paged.Select(s => new Models.ActionCell.LocalCouponCell(s)).ToList();
