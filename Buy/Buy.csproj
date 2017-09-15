@@ -305,6 +305,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoGuJieController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
+    <Compile Include="Controllers\RoleManageController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\ShopManageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -530,6 +531,7 @@
     <Content Include="Scripts\Views\forgotPassword.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
+    <Content Include="Scripts\Views\roleGroup.js" />
     <Content Include="Scripts\Views\search.js" />
     <Content Include="Scripts\Views\searchConfirm.js" />
     <Content Include="Scripts\Views\userIndex.js" />
@@ -610,6 +612,12 @@
     <Content Include="Views\LocalCouponManage\Create.cshtml" />
     <Content Include="Views\LocalCouponManage\Edit.cshtml" />
     <Content Include="Views\LocalCouponManage\Delete.cshtml" />
+    <Content Include="Views\RoleManage\Create.cshtml" />
+    <Content Include="Views\RoleManage\Delete.cshtml" />
+    <Content Include="Views\RoleManage\Edit.cshtml" />
+    <Content Include="Views\RoleManage\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SelectRoleListViewModel.cshtml" />
+    <Content Include="Views\UserManage\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

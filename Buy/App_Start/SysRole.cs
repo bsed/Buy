@@ -7,107 +7,40 @@ namespace Buy
 {
     public static class SysRole
     {
-        public const string TicketCreate = "TicketCreate";
-
-        public const string TicketSend = "TicketSend";
-
-        public const string TicketUse = "TicketUse";
-
-        public const string TicketManageRead = "TicketManageRead";
-
-        public const string TicketManageEdit = "TicketManageEdit";
-
-        public const string TicketManageDelete = "TicketManageDelete";
-
-        public const string SystemUserManageRead = "SystemUserManageRead";
-
-        public const string SystemUserManageCreate = "SystemUserManageCreate";
-
-        public const string SystemUserManageEdit = "SystemUserManageEdit";
-
-        public const string SystemUserManageDelete = "SystemUserManageDelete";
-
-        public const string NormalUserManageRead = "NormalUserManageRead";
-
-        public const string NormalUserManageVidCreate = "NormalUserManageVidCreate";
-
-        public const string NormalUserManageVidEdit = "NormalUserManageVidEdit";
-
         public const string RoleManageRead = "RoleManageRead";
-
         public const string RoleManageCreate = "RoleManageCreate";
-
         public const string RoleManageEdit = "RoleManageEdit";
-
         public const string RoleManageDelete = "RoleManageDelete";
 
+        public const string UserManageRead = "UserManageRead";
+        public const string UserManageCreate = "UserManageCreate";
+        public const string UserManageEdit = "UserManageEdit";
+        public const string UserManageDelete = "UserManageDelete";
 
-        public const string CompanyManageRead = "CompanyManageRead";
+        public const string CouponTypeManageRead = "CouponTypeManageRead";
+        public const string CouponTypeManageCreate = "CouponTypeManageCreate";
+        public const string CouponTypeManageEdit = "CouponTypeManageEdit";
+        public const string CouponTypeManageDelete = "CouponTypeManageDelete";
 
-        public const string CompanyManageEdit = "CompanyManageEdit";
+        public const string CouponManageRead = "CouponManageRead";
+        public const string CouponManageCreate = "CouponTypeManageCreate";
+        public const string CouponManageEdit = "CouponManageEdit";
+        public const string CouponManageDelete = "CouponManageDelete";
 
-        public const string AccessLogRead = "AccessLogRead";
+        public const string RegistrationCodeManageRead = "RegistrationCodeManageRead";
+        public const string RegistrationCodeManageCreate = "RegistrationCodeManageCreate";
+        public const string RegistrationCodeManageEdit = "RegistrationCodeManageEdit";
+        public const string RegistrationCodeManageDelete = "RegistrationCodeManageDelete";
 
+        public const string ShopManageRead = "ShopManageRead";
+        public const string ShopManageCreate = "ShopManageCreate";
+        public const string ShopManageEdit = "ShopManageEdit";
+        public const string ShopManageDelete = "ShopManageDelete";
 
-        public const string CompanyRankManageRead = "CompanyRankManageRead";
+        public const string LocalCouponManageRead = "LocalCouponManageRead";
+        public const string LocalCouponManageCreate = "LocalCouponManageCreate";
+        public const string LocalCouponManageEdit = "LocalCouponManageEdit";
+        public const string LocalCouponManageDelete = "LocalCouponManageDelete";
 
-        public const string CompanyRankManageEdit = "CompanyRankManageEdit";
-
-
-        public const string UpdateLogManageRead = "UpdateLogManageRead";
-
-        public const string UpdateLogManageCreate = "UpdateLogManageCreate";
-
-        public const string UpdateLogManageEdit = "UpdateLogManageEdit";
-
-        public const string UpdateLogManageDelete = "UpdateLogManageDelete";
-
-
-        public const string SystemMessageRead = "SystemMessageRead";
-
-        public const string SystemMessageEdit = "SystemMessageEdit";
-
-
-        public const string PostManageRead = "PostManageRead";
-
-        public const string PostManageDelete = "PostManageDelete";
-
-
-        public const string PostThemeManageRead = "PostThemeManageRead";
-
-        public const string PostThemeManageCreate = "PostThemeManageCreate";
-
-        public const string PostThemeManageEdit = "PostThemeManageEdit";
-
-        public const string PostThemeManageDelete = "PostThemeManageDelete";
-
-        public const string FeedbackManageRead = "FeedbackManageRead";
-
-        public const string SiteMessageManageSend = "SiteMessageManageSend";
-
-        public const string ThirdPartyTicketRead = "ThirdPartyTicketRead";
-
-        public const string ThirdPartyTicketCreate = "ThirdPartyTicketCreate";
-
-        public const string ThirdPartyTicketDelete = "ThirdPartyTicketDelete";
-
-        public const string WeChatManage = "WeChatManage";
-
-        public const string ThirdPartyFoodTicketRead = "ThirdPartyFoodTicketRead";
-
-        public const string ThirdPartyFoodTicketCreate = "ThirdPartyFoodTicketCreate";
-
-        public const string ThirdPartyFoodTicketEdit = "ThirdPartyFoodTicketEdit";
-
-        public const string ThirdPartyFoodTicketDelete = "ThirdPartyFoodTicketDelete";
-
-
-        public const string BannerManageRead = "BannerManageRead";
-
-        public const string BannerManageCreate = "BannerManageCreate";
-
-        public const string BannerManageEdit = "BannerManageEdit";
-
-        public const string BannerManageDelete = "BannerManageDelete";
     }
 }

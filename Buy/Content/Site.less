@@ -689,3 +689,32 @@ textarea {
     z-index: @z-index-bottom;
     .img();
 }
+
+
+
+.selectRoleList {
+    .clean-ul();
+
+    > li {
+        clear: both;
+
+        > ul {
+            .clean-ul();
+            .clearfix();
+            margin-bottom: 10px;
+            margin-left: 20px;
+
+            > li {
+                float: left;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    label {
+        span {
+            position: relative;
+            top: -2px;
+        }
+    }
+}

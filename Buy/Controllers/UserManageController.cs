@@ -108,6 +108,11 @@ namespace Buy.Controllers
             {
                 return RedirectToAction("Index");
             }
+            if (user.UserType == Enums.UserType.System)
+            {
+                var roles = db.RoleGroups.ToList();
+                ViewBag.SelRole = new SelectList(roles, "ID", "Name");
+            }
             return View(user);
         }
 
@@ -129,6 +134,10 @@ namespace Buy.Controllers
             user.UserName = model.UserName;
             user.NickName = model.NickName;
             user.PhoneNumber = model.PhoneNumber;
+            if (user.UserType == Enums.UserType.System)
+            {
+                user.RoleGroupID = model.RoleGroupID;
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -226,6 +235,15 @@ namespace Buy.Controllers
             db.RegistrationCodes.RemoveRange(codes);
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "成功"));
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
     }
