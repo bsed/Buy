@@ -87,69 +87,41 @@ namespace Buy.Bll
             //addUserRole(SysRole.TicketUse, "用户权限", "卡券使用");
             #endregion
             #region 后台权限
-            //addSystemRole(SysRole.SystemUserManageRead, "系统用户", "系统用户查看");
-            //addSystemRole(SysRole.SystemUserManageCreate, "系统用户", "系统用户创建");
-            //addSystemRole(SysRole.SystemUserManageEdit, "系统用户", "系统用户编辑");
-            //addSystemRole(SysRole.SystemUserManageDelete, "系统用户", "系统用户删除");
+            
+            addSystemRole(SysRole.UserManageRead, "用户管理", "代理用户查看");
+            addSystemRole(SysRole.UserManageCreate, "用户管理", "代理用户添加");
+            addSystemRole(SysRole.UserManageDelete, "用户管理", "代理用户删除");
+            addSystemRole(SysRole.UserManageEdit, "用户管理", "代理用户编辑");
+            
+            addSystemRole(SysRole.CouponTypeManageRead, "优惠券类型管理", "优惠券类型查看");
+            addSystemRole(SysRole.CouponTypeManageCreate, "优惠券类型管理", "优惠券类型添加");
+            addSystemRole(SysRole.CouponTypeManageEdit, "优惠券类型管理", "优惠券类型编辑");
+            addSystemRole(SysRole.CouponTypeManageDelete, "优惠券类型管理", "优惠券类型删除");
+            
+            addSystemRole(SysRole.CouponManageRead, "优惠券管理", "优惠券管理查看");
+            addSystemRole(SysRole.CouponManageCreate, "优惠券管理", "优惠券管理添加");
+            addSystemRole(SysRole.CouponManageEdit, "优惠券管理", "优惠券管理编辑");
+            addSystemRole(SysRole.CouponManageDelete, "优惠券管理", "优惠券管理删除");
 
-            //addSystemRole(SysRole.NormalUserManageRead, "用户管理", "普通用户查看");
-            //addSystemRole(SysRole.NormalUserManageVidCreate, "用户管理", "普通用户验证");
-            //addSystemRole(SysRole.NormalUserManageVidEdit, "用户管理", "普通用户验证编辑");
+            addSystemRole(SysRole.RegistrationCodeManageCreate, "注册码管理", "注册码管理添加");
+            addSystemRole(SysRole.RegistrationCodeManageDelete, "注册码管理", "注册码管理删除");
+            addSystemRole(SysRole.RegistrationCodeManageEdit, "注册码管理", "注册码管理编辑");
+            addSystemRole(SysRole.RegistrationCodeManageRead, "注册码管理", "注册码管理查看");
 
-            //addSystemRole(SysRole.RoleManageRead, "权限管理", "权限管理查看");
-            //addSystemRole(SysRole.RoleManageCreate, "权限管理", "权限管理创建");
-            //addSystemRole(SysRole.RoleManageEdit, "权限管理", "权限管理编辑");
-            //addSystemRole(SysRole.RoleManageDelete, "权限管理", "权限管理删除");
+            addSystemRole(SysRole.ShopManageCreate, "商家管理", "商家管理添加");
+            addSystemRole(SysRole.ShopManageDelete, "商家管理", "商家管理删除");
+            addSystemRole(SysRole.ShopManageEdit, "商家管理", "商家管理编辑");
+            addSystemRole(SysRole.ShopManageRead, "商家管理", "商家管理查看");
 
-            //addSystemRole(SysRole.TicketManageRead, "卡券管理", "卡券管理查看");
-            //addSystemRole(SysRole.TicketManageEdit, "卡券管理", "卡券管理编辑");
-            //addSystemRole(SysRole.TicketManageDelete, "卡券管理", "卡券管理删除");
+            addSystemRole(SysRole.LocalCouponManageCreate, "本地券管理", "本地券管理添加");
+            addSystemRole(SysRole.LocalCouponManageDelete, "本地券管理", "本地券管理删除");
+            addSystemRole(SysRole.LocalCouponManageEdit, "本地券管理", "本地券管理编辑");
+            addSystemRole(SysRole.LocalCouponManageRead, "本地券管理", "本地券管理查看");
 
-            //addSystemRole(SysRole.CompanyManageRead, "商家管理", "查看商家查看");
-            //addSystemRole(SysRole.CompanyManageEdit, "商家管理", "查看商家编辑");
-
-            //addSystemRole(SysRole.AccessLogRead, "点击统计", "点击统计查看");
-
-            //addSystemRole(SysRole.CompanyRankManageRead, "商家榜管理", "商家榜查看");
-            //addSystemRole(SysRole.CompanyRankManageEdit, "商家榜管理", "商家榜编辑");
-
-            //addSystemRole(SysRole.UpdateLogManageRead, "更新日志", "更新日志查看");
-            //addSystemRole(SysRole.UpdateLogManageCreate, "更新日志", "更新日志创建");
-            //addSystemRole(SysRole.UpdateLogManageEdit, "更新日志", "更新日志编辑");
-            //addSystemRole(SysRole.UpdateLogManageDelete, "更新日志", "更新日志删除");
-
-            //addSystemRole(SysRole.PostManageRead, "帖子管理", "帖子查看");
-            //addSystemRole(SysRole.PostManageDelete, "帖子管理", "帖子编辑");
-
-            //addSystemRole(SysRole.SystemMessageRead, "消息提醒", "消息查看");
-            //addSystemRole(SysRole.SystemMessageEdit, "消息提醒", "消息编辑");
-
-            //addSystemRole(SysRole.PostThemeManageRead, "主题贴管理", "主题贴查看");
-            //addSystemRole(SysRole.PostThemeManageCreate, "主题贴管理", "主题贴创建");
-            //addSystemRole(SysRole.PostThemeManageEdit, "主题贴管理", "主题贴编辑");
-            //addSystemRole(SysRole.PostThemeManageDelete, "主题贴管理", "主题贴删除");
-
-            //addSystemRole(SysRole.FeedbackManageRead, "用户反馈", "用户反馈查看");
-
-            //addSystemRole(SysRole.SiteMessageManageSend, "系统消息", "系统消息发送");
-
-            //addSystemRole(SysRole.ThirdPartyTicketRead, "第三方优惠", "第三方优惠查看");
-            //addSystemRole(SysRole.ThirdPartyTicketCreate, "第三方优惠", "第三方优惠创建");
-            //addSystemRole(SysRole.ThirdPartyTicketDelete, "第三方优惠", "第三方优惠删除");
-
-            //addSystemRole(SysRole.ThirdPartyFoodTicketRead, "快餐券管理", "快餐券管理查看");
-            //addSystemRole(SysRole.ThirdPartyFoodTicketCreate, "快餐券管理", "快餐券管理创建");
-            //addSystemRole(SysRole.ThirdPartyFoodTicketEdit, "快餐券管理", "快餐券管理编辑");
-            //addSystemRole(SysRole.ThirdPartyFoodTicketDelete, "快餐券管理", "快餐券管理删除");
-
-            //addSystemRole(SysRole.BannerManageRead, "Banner管理", "Banner管理查看");
-            //addSystemRole(SysRole.BannerManageCreate, "Banner管理", "Banner管理创建");
-            //addSystemRole(SysRole.BannerManageEdit, "Banner管理", "Banner管理编辑");
-            //addSystemRole(SysRole.BannerManageDelete, "Banner管理", "Banner管理删除");
-
-            //addSystemRole(SysRole.WeChatManage, "微信设置", "微信设置");
-
-
+            addSystemRole(SysRole.RoleManageRead, "权限管理", "权限管理查看");
+            addSystemRole(SysRole.RoleManageCreate, "权限管理", "权限管理创建");
+            addSystemRole(SysRole.RoleManageEdit, "权限管理", "权限管理编辑");
+            addSystemRole(SysRole.RoleManageDelete, "权限管理", "权限管理删除");
             #endregion
 
 

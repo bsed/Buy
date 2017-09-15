@@ -42,7 +42,7 @@ namespace Buy.Controllers
 
         public void Sidebar()
         {
-            ViewBag.Sidebar = "系统用户";
+            ViewBag.Sidebar = "权限管理";
         }
 
         // GET: RoleManage
@@ -83,7 +83,7 @@ namespace Buy.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = SysRole.RoleManageEdit)]
+       [Authorize(Roles = SysRole.RoleManageEdit)]
         public ActionResult Edit(int id)
         {
             Sidebar();
@@ -178,6 +178,15 @@ namespace Buy.Controllers
             var role = new Bll.Roles();
             role.Init();
             return Json(new { State = "Success", Message = "更新权限成功" });
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
     }

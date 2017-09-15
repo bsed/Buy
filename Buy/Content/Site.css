@@ -1926,3 +1926,42 @@ textarea {
   width: 100%;
   height: auto;
 }
+.selectRoleList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.selectRoleList > li {
+  clear: both;
+}
+.selectRoleList > li > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+.selectRoleList > li > ul:before,
+.selectRoleList > li > ul:after {
+  content: " ";
+  display: table;
+}
+.selectRoleList > li > ul:after {
+  clear: both;
+}
+.selectRoleList > li > ul:before,
+.selectRoleList > li > ul:after {
+  content: " ";
+  display: table;
+}
+.selectRoleList > li > ul:after {
+  clear: both;
+}
+.selectRoleList > li > ul > li {
+  float: left;
+  margin-right: 10px;
+}
+.selectRoleList label span {
+  position: relative;
+  top: -2px;
+}
