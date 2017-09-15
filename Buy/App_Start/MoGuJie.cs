@@ -10,9 +10,9 @@ namespace Buy.MoGuJie
 {
     public static class Config
     {
-        public const string AppKey = "100490";
+        public const string AppKey = "100561";
 
-        public const string AppSecret = "138F2ECA5170B5EDBF59F07727ED7B04";
+        public const string AppSecret = "A64A5E45A245B4366F0DC56E2CD53916";
 
     }
 

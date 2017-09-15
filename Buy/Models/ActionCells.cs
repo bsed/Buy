@@ -237,4 +237,45 @@ namespace Buy.Models.ActionCell
 
         public decimal Price { get; set; }
     }
+
+    public class LocalCouponCell : Cell
+    {
+        public LocalCouponCell(LocalCoupon lc)
+        {
+            ID = lc.ID.ToString();
+            Title = lc.Name;
+            Image = Comm.ResizeImage(lc.Image, image: null);
+            Action.Add(new KeyValuePair<string, string>("id", lc.ID.ToString()));
+            Type = ActionType.LocalCouponDetail;
+            Price = lc.Price;
+            EndDateTime = lc.EndDateTime.ToString("yyyy-MM-dd");
+            CreateDateTime = lc.CreateDateTime.ToString("yyyy-MM-dd");
+            Remark = lc.Remark;
+            ShopID = lc.ShopID;
+            ShopName = lc.Shop.Name;
+            ShopLogo= Comm.ResizeImage(lc.Shop.Logo, image: null);
+        }
+
+        public override CellStyle Style
+        {
+            get
+            {
+                return CellStyle.ThirdPartyFootTicketCell;
+            }
+        }
+
+        public string EndDateTime { get; set; }
+
+        public string CreateDateTime { get; set; }
+
+        public decimal Price { get; set; }
+
+        public string Remark { get; set; }
+        
+        public int ShopID { get; set; }
+
+        public string ShopName { get; set; }
+
+        public string ShopLogo { get; set; }
+    }
 }

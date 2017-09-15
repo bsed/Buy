@@ -185,7 +185,8 @@ namespace Buy.Enums
         None,
         Browser,
         ThirdPartyTicketDetail,
-        ThirdPartyFootTicketDetail
+        ThirdPartyFootTicketDetail,
+        LocalCouponDetail,
     }
 
     public enum SiteMessageType
@@ -330,42 +331,8 @@ namespace Buy.Enums
 
     public enum AccessLogType
     {
-        [Display(Name = "商家主页")]
-        CompanyIndex,
-        [Display(Name = "商家商品")]
-        CompanyProductIndex,
-        [Display(Name = "商家顾客留言")]
-        CompanyCustomerPostIndex,
-        [Display(Name = "商家定位")]
-        CompanyMap,
-        [Display(Name = "商家电话")]
-        CompanyPhone,
-        [Display(Name = "商家优惠券")]
-        CompanyTicket,
-        [Display(Name = "商家wifi")]
-        CompanyWifi,
-        [Display(Name = "商家帖子详情")]
-        CompanyPostDetail,
-        [Display(Name = "商家帖子分享")]
-        CompanyPostShare,
-        [Display(Name = "第三方优惠券首页")]
-        ThirdPartyTicketIndex,
-        [Display(Name = "第三方优惠券详情页")]
-        ThirdPartyTicketDetail,
-        [Display(Name = "第三方优惠券平台类型")]
-        ThirdPartyTicketPlatform,
-        [Display(Name = "第三方优惠券分类")]
-        ThirdPartyTicketType,
-        [Display(Name = "第三方优惠券排序方式")]
-        ThirdPartyTicketSort,
-        [Display(Name = "第三方优惠券搜索")]
-        ThirdPartyTicketSearch,
-        [Display(Name = "第三方优惠券进入主页")]
-        ThirdPartyTicketToIndex,
-        [Display(Name = "第三方优惠券进入另一张券")]
-        ThirdPartyTicketToOrderTicket,
-        [Display(Name = "第三方优惠券App首页")]
-        ThirdPartyTicketAppIndex,
+        [Display(Name = "惠券搜索")]
+        CouponSearch,
     }
 
     public enum SystemSettingType

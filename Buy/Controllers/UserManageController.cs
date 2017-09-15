@@ -57,17 +57,12 @@ namespace Buy.Controllers
                                 RegisterDateTime = u.RegisterDateTime,
                                 UnUseCount = c.Count(s => !s.UseTime.HasValue),
                                 UseCount = c.Count(s => s.UseTime.HasValue),
-                                UserName = u.UserName
+                                UserName = u.UserName,
+                                NickName = u.NickName,
                             })
                  .OrderBy(s => s.RegisterDateTime)
                 .ToPagedList(page);
             return View(userlist);
-        }
-
-        // GET: UserManage/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: UserManage/Create
@@ -105,25 +100,37 @@ namespace Buy.Controllers
         }
 
         // GET: UserManage/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            Sidebar();
+            var user = db.Users.FirstOrDefault(s => s.Id == id);
+            if (user == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(user);
         }
 
         // POST: UserManage/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(ApplicationUser model)
         {
-            try
+            var users = db.Users.Where(s => s.Id == model.Id || s.UserName == model.UserName);
+            if (users.Any(s => s.UserName == model.UserName && s.Id != model.Id))
             {
-                // TODO: Add update logic here
-
+                ModelState.AddModelError("UserName", "用户名有重复的");
+                return View(model);
+            }
+            var user = users.FirstOrDefault(s => s.Id == model.Id);
+            if (user == null)
+            {
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            user.UserName = model.UserName;
+            user.NickName = model.NickName;
+            user.PhoneNumber = model.PhoneNumber;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -153,24 +160,73 @@ namespace Buy.Controllers
                             RegisterDateTime = time,
                         };
                         users.Add(user);
-                        //var result = UserManager.CreateAsync(user,"123456");
-                        //if (!result.Result.Succeeded)
-                        //{
-                        //    return Json(Comm.ToJsonResult("Error", "失败"));
-                        //}
+                        var result = UserManager.CreateAsync(user, "123456");
+                        if (!result.Result.Succeeded)
+                        {
+                            return Json(Comm.ToJsonResult("Error", "失败"));
+                        }
                     }
-
+                    return Json(Comm.ToJsonResult("Success", "成功", new { data = users }));
                 }
             }
-            return Json(Comm.ToJsonResult("Success", "成功", new { data = users }));
+            return Json(Comm.ToJsonResult("Error", "文件不存在"));
         }
 
         [HttpPost]
         [AllowCrossSiteJson]
         [AllowAnonymous]
-        public ActionResult AddCode() {
+        public ActionResult AddCode(string id, int count)
+        {
+            var codes = new List<RegistrationCode>();
+            FileInfo fileInfo = new FileInfo("C:/Users/Administrator/Desktop/daochuCode.xml");
+            if (fileInfo.Exists)
+            {
+                XDocument doc = XDocument.Load("C:/Users/Administrator/Desktop/daochuCode.xml");
+                if (doc != null)
+                {
+                    var admin = db.Users.FirstOrDefault(s => s.UserType == Enums.UserType.System);
+                    IEnumerable<XElement> elementlist = doc.Root.Elements("code");
+                    foreach (var item in elementlist)
+                    {
+                        var time = DateTime.Now;
+                        //if (!string.IsNullOrWhiteSpace(item.Attribute("CreateTime").Value) || item.Attribute("CreateTime") != null)
+                        //{
+                        //    DateTime.TryParse(item.Attribute("CreateTime").Value, out time);
+                        //}
+                        RegistrationCode code = new RegistrationCode()
+                        {
+                            Code = item.Attribute("Code").Value,
+                            CreateTime = time,
+                            CreateUser = admin.Id,
+                            OwnUser = id,
+                        };
+                        codes.Add(code);
+                    }
+                    if (codes.Count == count)
+                    {
+                        db.RegistrationCodes.AddRange(codes);
+                        db.SaveChanges();
+                        return Json(Comm.ToJsonResult("Success", "成功"));
+                    }
+                    else
+                    {
+                        return Json(Comm.ToJsonResult("Error", "数量不对"));
+                    }
+                }
+            }
+            return Json(Comm.ToJsonResult("Error", "文件不存在"));
+        }
+
+        [HttpPost]
+        [AllowCrossSiteJson]
+        [AllowAnonymous]
+        public ActionResult DelCode(string id)
+        {
+            var codes = db.RegistrationCodes.Where(s => s.OwnUser == id);
+            db.RegistrationCodes.RemoveRange(codes);
+            db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "成功"));
-        } 
+        }
 
     }
 }

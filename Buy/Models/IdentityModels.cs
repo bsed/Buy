@@ -22,13 +22,15 @@ namespace Buy.Models
 
         public string Avatar { get; set; }
 
+        [Display(Name = "昵称")]
         public string NickName { get; set; }
 
 
         public string WeChatID { get; set; }
 
         public string QRCode { get; set; }
-               
+
+        [Display(Name = "注册时间")]
         public DateTime RegisterDateTime { get; set; }
 
         public DateTime LastLoginDateTime { get; set; }
@@ -99,5 +101,7 @@ namespace Buy.Models
         public virtual DbSet<LocalCoupon> LocalCoupons { get; set; }
 
         public virtual DbSet<ShopMember> ShopMembers { get; set; }
+
+        public virtual DbSet<AccessLog> AccessLogs { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace Buy.Controllers
             {
                 registrationCodes = registrationCodes.Where(s => s.OwnUser == userId);
             }
-            var list = registrationCodes.OrderBy(s => s.CreateTime).ToPagedList(page);
+            var list = registrationCodes.OrderBy(s => s.ID).ToPagedList(page);
 
             var userids = list.Select(s => s.OwnUser).ToList();
             userids.AddRange(list.Select(s => s.CreateUser).ToList());

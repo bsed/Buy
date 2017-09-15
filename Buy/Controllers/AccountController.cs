@@ -197,10 +197,10 @@ namespace Buy.Controllers
             if (ModelState.IsValid)
             {
                 var verCode = Bll.Accounts.VerCode(model.PhoneNumber, model.Code);
-                //if (!verCode.IsSuccess)
-                //{
-                //    return Json(Comm.ToMobileResult("Error", verCode.Message));
-                //}
+                if (!verCode.IsSuccess)
+                {
+                    return Json(Comm.ToJsonResult("Error", verCode.Message));
+                }
                 if (db.Users.Any(s => s.UserName == model.PhoneNumber))
                 {
                     return Json(Comm.ToJsonResult("Error", "用户名已存在"));
@@ -293,10 +293,10 @@ namespace Buy.Controllers
                     return Json(Comm.ToJsonResult("Error", "用户不存在"));
                 }
                 var verCode = Bll.Accounts.VerCode(user.PhoneNumber, model.Code);
-                //if (!verCode.IsSuccess)
-                //{
-                //    return Json(Comm.ToMobileResult("Error", verCode.Message));
-                //}
+                if (!verCode.IsSuccess)
+                {
+                    return Json(Comm.ToJsonResult("Error", verCode.Message));
+                }
                 UserManager.RemovePassword(user.Id);
                 var r = UserManager.AddPassword(user.Id, model.Password);
                 if (r.Succeeded)

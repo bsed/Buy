@@ -55,22 +55,24 @@ function vercode(option) {
 
 
 
-    $txt.focusout(function () {
-        $.ajax({
-            type: "POST",
-            url: comm.action("CheckCode", "Account"),
-            data: { code: $txt.val() },
-            dataType: "json",
-            success: function (data) {
-                if (data.State == "Success") {
-                    option.success();
-                    alert("验证成功");
-                } else {
-                    option.fail();
-                    alert("验证失败");
+    $txt.keyup(function () {
+        if ($txt.val().length == 4)
+
+            $.ajax({
+                type: "POST",
+                url: comm.action("CheckCode", "Account"),
+                data: { code: $txt.val() },
+                dataType: "json",
+                success: function (data) {
+                    if (data.State == "Success") {
+                        option.success();
+                        // alert("验证成功");
+                    } else {
+                        option.fail();
+                        //alert("验证失败");
+                    }
                 }
-            }
-        });
+            });
     });
 
     $img.click(function () {
@@ -94,10 +96,12 @@ var _vercode = new vercode({
                 if (data.State == "Success") {
                     codeCountDown(60);
                 } else {
-                    //var e = JSON.parse(data.Message);
-                    //comm.promptBox(e.msg);
-
-                    alert(data.Message);
+                    try {
+                        var e = JSON.parse(data.Message);
+                        comm.promptBox(e.msg);
+                    } catch (e) {
+                        comm.promptBox(data.Message);
+                    }
                 }
             }
         });
@@ -123,7 +127,7 @@ $("#btnGetCode").click(function () {
     } else {
         num = parseInt(cookie) + 1;
     }
-    
+
     $.cookie('getCodeSum', num, {
         path: "/", expires: 1
     });
@@ -143,15 +147,16 @@ $("#btnGetCode").click(function () {
                 if (data.State == "Success") {
                     codeCountDown(60);
                 } else {
-                    //var e = JSON.parse(data.Message);
-                    //comm.promptBox(e.msg);
-
-                    alert(data.Message);
+                    try {
+                        var e = JSON.parse(data.Message);
+                        comm.promptBox(e.msg);
+                    } catch (e) {
+                        comm.promptBox(data.Message);
+                    }
                 }
             }
         });
     }
-
 })
 
 

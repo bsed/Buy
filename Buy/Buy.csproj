@@ -300,10 +300,13 @@
     <Compile Include="Controllers\CouponTypeManageController.cs" />
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocalCouponController.cs" />
+    <Compile Include="Controllers\LocalCouponManageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoGuJieController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\ShopManageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UploaderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -331,7 +334,16 @@
     <Compile Include="Migrations\201709140400320_AddLocalCoupon.Designer.cs">
       <DependentUpon>201709140400320_AddLocalCoupon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709150138256_AddAccessLog.cs" />
+    <Compile Include="Migrations\201709150138256_AddAccessLog.Designer.cs">
+      <DependentUpon>201709150138256_AddAccessLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709150145234_LocalCouponAddCommission.cs" />
+    <Compile Include="Migrations\201709150145234_LocalCouponAddCommission.Designer.cs">
+      <DependentUpon>201709150145234_LocalCouponAddCommission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActionCells.cs" />
     <Compile Include="Models\ClientAccessLog.cs" />
@@ -588,9 +600,19 @@
     <Content Include="Views\Shared\_TaobaoPassPartial.cshtml" />
     <Content Include="Views\Account\LoginSystem.cshtml" />
     <Content Include="Views\CouponTypeManage\Clean.cshtml" />
+    <Content Include="Views\MoGuJie\LoginSuccess.cshtml" />
+    <Content Include="Views\ShopManage\Index.cshtml" />
+    <Content Include="Views\ShopManage\Create.cshtml" />
+    <Content Include="Views\ShopManage\Edit.cshtml" />
+    <Content Include="Views\ShopManage\Delete.cshtml" />
+    <Content Include="Views\LocalCouponManage\Index.cshtml" />
+    <Content Include="Views\LocalCouponManage\Create.cshtml" />
+    <Content Include="Views\LocalCouponManage\Edit.cshtml" />
+    <Content Include="Views\LocalCouponManage\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\LocalCoupon\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Test\" />
     <Folder Include="Views\Uploader\" />
@@ -614,6 +636,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709140400320_AddLocalCoupon.resx">
       <DependentUpon>201709140400320_AddLocalCoupon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709150138256_AddAccessLog.resx">
+      <DependentUpon>201709150138256_AddAccessLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709150145234_LocalCouponAddCommission.resx">
+      <DependentUpon>201709150145234_LocalCouponAddCommission.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

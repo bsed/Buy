@@ -1,0 +1,64 @@
+﻿@model Buy.Models.ShopManageViewModel
+
+@{
+    ViewBag.Title = "删除商家";
+    Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+}
+<ol class="breadcrumb">
+    <li>@Html.ActionLink("商家管理", "Index")</li>
+    <li class="active">删除商家</li>
+</ol>
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Logo)
+        </dt>
+
+        <dd>
+            <img src="@Url.ResizeImage(Model.Logo,h:150)" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sort)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sort)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt>
+        </dt>
+
+        <dd>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID)
+                <div class="form-actions no-color">
+                    <input type="submit" value="删除" class="btn btn-default" />
+                </div>
+            }
+        </dd>
+
+    </dl>
+
+   
+</div>
