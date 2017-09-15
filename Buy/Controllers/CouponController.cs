@@ -173,7 +173,7 @@ namespace Buy.Controllers
                 tpt.ProductType,
                 tpt.ShopName,
                 tpt.Subtitle,
-                Values = Bll.ThirdPartyTickets.GetValues(tpt),
+                Values = Bll.Coupons.GetValues(tpt),
                 tpt.Sales,
 
                 ShareUrl = Url.ContentFull($"~/Coupon/Details?id={tpt.ID}"),
@@ -397,16 +397,6 @@ namespace Buy.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public ActionResult ImportTaobao(string userID, string url)
-        {
-            if (string.IsNullOrWhiteSpace(userID))
-            {
-                return Json(Comm.ToJsonResult("Error", "失败"));
-            }
-            string path = Request.MapPath(url);
-            Taobao.Import(userID, path);
-            return Json(Comm.ToJsonResult("Success", "成功"));
-        }
+        
     }
 }

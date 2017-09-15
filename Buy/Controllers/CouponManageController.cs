@@ -100,7 +100,7 @@ namespace Buy.Controllers
                 var data = db.Coupons.Where(s => !s.TypeID.HasValue).OrderBy(s => s.ID).ToPagedList(i, 50);
                 foreach (var item in data)
                 {
-                    var typeID = Bll.ThirdPartyTickets.CheckType(item.ProductType);
+                    var typeID = Bll.Coupons.CheckType(item.ProductType);
                     if (typeID.HasValue)
                     {
                         item.TypeID = typeID;

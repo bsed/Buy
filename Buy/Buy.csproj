@@ -307,6 +307,7 @@
     <Compile Include="Controllers\RegistrationCodeController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\ShopManageController.cs" />
+    <Compile Include="Controllers\TaobaoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UploaderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -455,6 +456,7 @@
     <Content Include="Content\less\layoutBackground.less" />
     <Content Include="Content\less\base.less" />
     <Content Include="Content\Site.less" />
+    <Content Include="App_Data\mgjCids.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -609,9 +611,9 @@
     <Content Include="Views\LocalCouponManage\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\LocalCoupon\" />
     <Folder Include="Views\Security\" />
+    <Folder Include="Views\Taobao\" />
     <Folder Include="Views\Test\" />
     <Folder Include="Views\Uploader\" />
   </ItemGroup>
