@@ -6,7 +6,7 @@ using Buy.Models;
 
 namespace Buy.Bll
 {
-    public class ThirdPartyTickets
+    public class Coupons
     {
         public static int? CheckType(string keyword)
         {

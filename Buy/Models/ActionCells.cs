@@ -179,7 +179,7 @@ namespace Buy.Models.ActionCell
             Sale = tp.OriginalPrice - tp.Price;
             Link = tp.Link;
             Sales = tp.Sales;
-            Values = Bll.ThirdPartyTickets.GetValues(tp);
+            Values = Bll.Coupons.GetValues(tp);
         }
 
         public override CellStyle Style
@@ -206,37 +206,37 @@ namespace Buy.Models.ActionCell
     }
 
 
-    public class ThirdPartyFootTicketCell : Cell
-    {
-        public ThirdPartyFootTicketCell(FoodCoupon tp)
-        {
-            ID = tp.ID.ToString();
-            Title = tp.Name;
-            Image = Comm.ResizeImage(tp.Image, image: null);
-            Action.Add(new KeyValuePair<string, string>("id", tp.ID.ToString()));
-            Type = ActionType.ThirdPartyFootTicketDetail;
-            Price = tp.Price;
-            TypeImage = Comm.ResizeImage(tp.Type.Image, image: null);
-            EndDateTime = tp.EndDateTime.ToString("yyyy-MM-dd");
-            StartDateTime = tp.StartDateTime.ToString("yyyy-MM-dd");
-        }
+    //public class ThirdPartyFootTicketCell : Cell
+    //{
+    //    public ThirdPartyFootTicketCell(FoodCoupon tp)
+    //    {
+    //        ID = tp.ID.ToString();
+    //        Title = tp.Name;
+    //        Image = Comm.ResizeImage(tp.Image, image: null);
+    //        Action.Add(new KeyValuePair<string, string>("id", tp.ID.ToString()));
+    //        Type = ActionType.ThirdPartyFootTicketDetail;
+    //        Price = tp.Price;
+    //        TypeImage = Comm.ResizeImage(tp.Type.Image, image: null);
+    //        EndDateTime = tp.EndDateTime.ToString("yyyy-MM-dd");
+    //        StartDateTime = tp.StartDateTime.ToString("yyyy-MM-dd");
+    //    }
 
-        public override CellStyle Style
-        {
-            get
-            {
-                return CellStyle.ThirdPartyFootTicketCell;
-            }
-        }
+    //    public override CellStyle Style
+    //    {
+    //        get
+    //        {
+    //            return CellStyle.ThirdPartyFootTicketCell;
+    //        }
+    //    }
 
-        public string EndDateTime { get; set; }
+    //    public string EndDateTime { get; set; }
 
-        public string StartDateTime { get; set; }
+    //    public string StartDateTime { get; set; }
 
-        public string TypeImage { get; set; }
+    //    public string TypeImage { get; set; }
 
-        public decimal Price { get; set; }
-    }
+    //    public decimal Price { get; set; }
+    //}
 
     public class LocalCouponCell : Cell
     {

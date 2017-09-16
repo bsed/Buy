@@ -99,7 +99,7 @@ namespace Buy.MoGuJie
                 keyword = keyword,
                 pageNo = pageNo,
                 pageSize = pageSize,
-                sortType = (int)sortType,
+                //sortType = (int)sortType,
                 cid = cid,
                 hasCoupon = true
             };

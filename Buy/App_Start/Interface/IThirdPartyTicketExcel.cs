@@ -33,7 +33,7 @@ namespace Buy.Interface
                         {
                             EndDateTime = Convert.ToDateTime(item["优惠券结束时间"]).AddDays(1).AddSeconds(-1),
                             ProductID = item["商品id"].ToString(),
-                            TypeID = Bll.ThirdPartyTickets.CheckType(item["商品一级类目"].ToString()),
+                            TypeID = Bll.Coupons.CheckType(item["商品一级类目"].ToString()),
                             Image = item["商品主图"].ToString(),
                             Link = item["商品优惠券推广链接"].ToString(),
                             Name = item["商品名称"].ToString(),
@@ -76,7 +76,7 @@ namespace Buy.Interface
                     }
                 }
                 //分段添加到数据库
-                Bll.ThirdPartyTickets.DbAdd(models);
+                Bll.Coupons.DbAdd(models);
 
             }
             catch (Exception ex)
