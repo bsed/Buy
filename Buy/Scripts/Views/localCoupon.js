@@ -32,3 +32,5 @@ function loadCoupon() {
         }
     });
 }
+
+$("#btnBack").goback(comm.action("Index", "Find"));

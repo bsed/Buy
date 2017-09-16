@@ -1,69 +1,36 @@
 ﻿@model Buy.Models.LocalCoupon
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "券详情";
 }
 
 
 
-<div>
-
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateDateTime)
-        </dt>
-
-        <dd>
-            @Model.CreateDateTime.ToString("yyyy-MM-dd")
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Remark)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Remark)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-
-        <dd>
+<div class="localcoupon">
+    <div class="localcoupon-detail minHight100vh paddingT44">
+        <div class="navigationBar">
+            <div class="navigationBar-back" id="btnBack"></div>
+            券详情
+        </div>
+        <div class="localcoupon-detail-label fs20 fontWeight">
+            到店直接出示此页即可使用
+        </div>
+        <div class="localcoupon-detail-img">
             <img src="@Comm.ResizeImage(Model.Image)" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDateTime)
-        </dt>
-
-        <dd>
-            @Model.EndDateTime.ToString("yyyy-MM-dd")
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Shop.Logo)
-        </dt>
-
-        <dd>
-            <img src="@Comm.ResizeImage(Model.Shop.Logo)" />
-        </dd>
-
-    </dl>
+        </div>
+        <div class="localcoupon-detail-info">
+            <div name="foodName" class="fs16">
+                <img src="@Comm.ResizeImage(Model.Shop.Logo,w:15,h:15)" />
+                @Html.DisplayFor(model => model.Name)
+            </div>
+            <div class="localcoupon-info-detail-price fs14 marginT10"><label class="localcoupon-info-price-label"></label><span class="fs12">￥</span><span name="foodPrice" class="fs20 fontWeight">@Html.DisplayFor(model => model.Price)</span></div>
+            <div name="foodTime" class="color-main fs14">有效期至：@Model.EndDateTime.ToString("yyyy-MM-dd")</div>
+            <div class="fs16 marginT20">说明：@Html.DisplayFor(model => model.Remark)</div>
+        </div>
+    </div>
 </div>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/localCoupon")
+}

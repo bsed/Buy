@@ -606,6 +606,19 @@
   height: 1.73913043rem;
   line-height: 1.73913043rem;
 }
+.couponDetail .couponDetail-shareInfo textarea {
+  resize: none;
+  max-width: none;
+  width: 100%;
+  background-color: #f2f2f2;
+  font-size: 0.5410628rem;
+  padding: 0.30917874rem;
+  border: none;
+  text-align: left;
+}
+.couponDetail .couponDetail-shareInfo textarea:focus {
+  outline: none;
+}
 .coupon-tab {
   font-size: 0.46376812rem;
   color: rgba(0, 0, 0, 0.87);
@@ -730,6 +743,93 @@
 .pwdMask .pwdMask-remark p {
   float: left;
 }
+.shareImgModule {
+  width: 300px;
+}
+.shareImgModule .shareImgModule-img {
+  width: 300px;
+  height: 300px;
+}
+.shareImgModule .shareImgModule-img img {
+  width: 100%;
+  height: auto;
+}
+.shareImgModule .shareImgModule-info {
+  position: relative;
+}
+.shareImgModule .shareImgModule-info:before,
+.shareImgModule .shareImgModule-info:after {
+  content: " ";
+  display: table;
+}
+.shareImgModule .shareImgModule-info:after {
+  clear: both;
+}
+.shareImgModule .shareImgModule-info:before,
+.shareImgModule .shareImgModule-info:after {
+  content: " ";
+  display: table;
+}
+.shareImgModule .shareImgModule-info:after {
+  clear: both;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-code {
+  width: 100px;
+  height: 100px;
+  margin-left: 5px;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-code img {
+  width: 100px;
+  height: 100px;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons {
+  width: 195px;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-name {
+  line-height: 18px;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-name img {
+  height: 16px;
+  margin-right: 3px;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-price {
+  margin-top: 5px;
+  line-height: 25px;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-price:before,
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-price:after {
+  content: " ";
+  display: table;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-price:after {
+  clear: both;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-price:before,
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-price:after {
+  content: " ";
+  display: table;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-price:after {
+  clear: both;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-price .preferPrice {
+  color: #E02E24;
+  margin-right: 10px;
+  font-size: 12px;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-price .preferPrice .fontsize24 {
+  font-size: 24px;
+}
+.shareImgModule .shareImgModule-info .shareImgModule-info-cons .shareImgModule-info-cons-price .originalPrice {
+  text-decoration: line-through;
+  font-size: 14px;
+}
 .couponIndex .couponIndex-menu:before,
 .couponIndex .couponIndex-menu:after {
   content: " ";
@@ -784,6 +884,13 @@
 .coupon-list ul li .couponList-head img {
   width: 5.25603865rem;
   height: 5.25603865rem;
+}
+.coupon-list ul li .couponList-head.style02 {
+  width: 3.71014493rem;
+}
+.coupon-list ul li .couponList-head.style02 img {
+  width: 100%;
+  height: auto;
 }
 .coupon-list ul li .couponList-details {
   margin-top: 0.30917874rem;
@@ -1345,6 +1452,23 @@
 .moduleOptions a:active,
 .moduleOptions a:focus {
   color: inherit;
+}
+.localcoupon .localcoupon-detail {
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.87);
+  color: #fff;
+}
+.localcoupon .localcoupon-detail .localcoupon-detail-label {
+  color: #FFD500;
+  padding: 0.61835749rem;
+}
+.localcoupon .localcoupon-detail .localcoupon-detail-img img {
+  width: 100%;
+  height: auto;
+}
+.localcoupon .localcoupon-detail .localcoupon-detail-info {
+  padding: 0.57971014rem;
+  color: #fff;
 }
 body {
   color: rgba(0, 0, 0, 0.87);

@@ -4,15 +4,22 @@
     ViewBag.Title = "本地券";
 }
 
-<h2>@Model.Name</h2>
 @Html.HiddenFor(model => model.ID)
-<div id="localCoupon">
-    <ul>
-        <li class="loadModule loadModule-dataIng" data-next="true" data-page="0">
-            加载中
-        </li>
-    </ul>
+
+<div class="localcoupon minHight100vh paddingT44 bg-color-grey">
+    <div class="navigationBar">
+        <div class="navigationBar-back" onclick="history.back(-1)"></div>
+        @Model.Name
+    </div>
+    <div id="localCoupon" class="coupon-list coupon-list-style02">
+        <ul>
+            <li class="loadModule loadModule-dataIng" data-next="true" data-page="0">
+                加载中
+            </li>
+        </ul>
+    </div>
 </div>
+
 
 @section Scripts{
     @Scripts.Render("~/bundles/localCoupon")

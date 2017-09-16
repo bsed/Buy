@@ -65,7 +65,7 @@ $("#pullUpLoad").click(function () {
     }
 });
 
-$(".couponDetail").rhuiSwipe('swipeUp', function (event) {
+$("#detail").rhuiSwipe('swipeUp', function (event) {
     if (pState) {
         $("#pullUpLoad span").addClass("active");
         setTimeout(function () {
@@ -93,3 +93,10 @@ $("[name='clipboard']").click(function (e) {
     $("body").css("overflow", "hidden");
     comm.mask2.show();
 });
+
+var share_name = $("#share_name").val();
+var share_or_price = $("#share_or_price").val();
+var share_price = $("#share_price").val();
+var share_url = $("#share_url").val();
+var val = share_name + "\n【在售价】" + share_or_price + "元\n【券后价】" + share_price + "元\n【下单链接】" + share_url + "\n-------------------------------------\n复制这条信息，{淘口令}，打开【手机淘宝】即可查看"
+$("textarea").val(val);
