@@ -304,6 +304,7 @@
     <Compile Include="Controllers\LocalCouponManageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoGuJieController.cs" />
+    <Compile Include="Controllers\QrCodeController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
     <Compile Include="Controllers\RoleManageController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
@@ -496,6 +497,7 @@
     <Content Include="Scripts\datetimepicker\css\bootstrap-datetimepicker.css" />
     <Content Include="Scripts\datetimepicker\js\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\datetimepicker\js\locales\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="Scripts\html2canvas.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
@@ -625,13 +627,11 @@
     <Content Include="Views\LocalCoupon\Index.cshtml" />
     <Content Include="Views\LocalCoupon\GetList.cshtml" />
     <Content Include="Views\LocalCoupon\Details.cshtml" />
+    <Content Include="Views\Test\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\LocalCoupon\" />
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Taobao\" />
-    <Folder Include="Views\Test\" />
     <Folder Include="Views\Uploader\" />
   </ItemGroup>
   <ItemGroup>

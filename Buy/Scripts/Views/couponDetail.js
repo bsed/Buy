@@ -56,7 +56,8 @@ $(window).scroll(function (e) {
         if (scState) {
             $("#pullUpLoad").fadeOut();
             pState = false;
-        }    }
+        }
+    }
 });
 
 $("#pullUpLoad").click(function () {
@@ -71,7 +72,7 @@ $("#detail").rhuiSwipe('swipeUp', function (event) {
         setTimeout(function () {
             $("#pullUpLoad span").addClass("hidden");
             $("#pullUpLoad .loading").removeClass("hidden");
-        },300)
+        }, 300)
         GetDetailImgs();
     }
 }, {
@@ -100,3 +101,25 @@ var share_price = $("#share_price").val();
 var share_url = $("#share_url").val();
 var val = share_name + "\n【在售价】" + share_or_price + "元\n【券后价】" + share_price + "元\n【下单链接】" + share_url + "\n-------------------------------------\n复制这条信息，{淘口令}，打开【手机淘宝】即可查看"
 $("textarea").val(val);
+
+
+$("#btnShare").click(function (e) {
+    $("#detail").addClass("hidden");
+    $("#share").removeClass("hidden");
+    if ($("#Output").children().length <= 0) {
+        html2canvas(document.getElementById("shareImgModule"), {
+            allowTaint: true,
+            taintTest: true,
+            onrendered: function (canvas) {
+                document.getElementById('Output').appendChild(canvas);
+                $("#shareImgModule").addClass("hidden");
+            }
+        });
+    }
+});
+
+
+$("#shareback").click(function (e) {
+    $("#detail").removeClass("hidden");
+    $("#share").addClass("hidden");
+});

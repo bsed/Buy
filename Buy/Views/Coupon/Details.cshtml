@@ -36,7 +36,7 @@
     <div id="detail" class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
             <div class="couponDetail-top-back fl" id="btnBack"></div>
-            <div class="couponDetail-top-share fr"></div>
+            <div class="couponDetail-top-share fr" id="btnShare"></div>
         </div>
         <div class="couponDetail-pImg">
             <img src="@Comm.ResizeImage(Model.Image)" alt="" />
@@ -86,29 +86,32 @@
         @Html.Partial("_TaobaoPassPartial")
     </div>
 
-    <div class="couponDetail paddingT44 minHight100vh hidden">
+    <div id="share" class="couponDetail paddingT44 minHight100vh hidden">
         <div class="navigationBar">
-            <div class="navigationBar-back"></div>
+            <div class="navigationBar-back" id="shareback"></div>
             分享
         </div>
-        <div class="paddingLr16 paddingTb16">
+        <div class="paddingLr16 paddingTb16" style="position:static;">
             <div class="fs16">分享的文案</div>
             <div class="couponDetail-shareInfo marginT10 marginB5">
                 <textarea rows="8"></textarea>
             </div>
-            <input id="share_name" hidden value="@Model.Name"/>
+            <input id="share_name" hidden value="@Model.Name" />
             <input id="share_or_price" hidden value="@Model.OriginalPrice" />
             <input id="share_price" hidden value="@Model.Price" />
             <input id="share_url" hidden value="@url" />
 
             <div class="fs12 color-grey">请不要更改“｛｝”之间的文字哦～</div>
             <div class="fs16 marginT15">分享的图片</div>
-            <div class="shareImgModule">
-                <div class="shareImgModule-img"><img src="@Comm.ResizeImage(Model.Image,w:200,h:200)" /></div>
+            <div id="Output"></div>
+            <div class="shareImgModule" id="shareImgModule">
+                <div class="shareImgModule-img">
+                    <img crossorigin="anonymous" class="shareImgModule_img" src="@Comm.ResizeImage(Model.Image,w:200,h:200)" />
+                </div>
                 <div class="shareImgModule-info">
                     <div class="shareImgModule-info-cons fl">
                         <div class="shareImgModule-info-cons-name">
-                            <img src="@platformLogo" />@Model.Name
+                            <img src="@platformLogo" crossorigin="anonymous" />@Model.Name
                         </div>
                         <div class="shareImgModule-info-cons-price">
                             <div class="fl preferPrice"><span class="">¥</span><span class="fontsize24">@Model.Price</span></div>
@@ -124,7 +127,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="shareImgModule-code fr"><img src=""/></div>
+                    <div class="shareImgModule-code fr">
+                        <img crossorigin="anonymous" src="@Url.Action("Index", "QrCode", new { data = Url.Action("Details", "Coupon", new { id = Model.ID }) })" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -147,6 +152,7 @@ else
 
 @section Scripts{
     @Scripts.Render("~/bundles/touchSwipe")
+    @Scripts.Render("~/Scripts/html2canvas.js")
     @Scripts.Render("~/bundles/couponDetail")
 }
 

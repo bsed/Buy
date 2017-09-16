@@ -58,7 +58,7 @@ namespace Buy.Controllers
             //不显示创建时间是未来的和过期的
             if (orderByTime)
             {
-                query = query.Where(s => s.CreateDateTime <= DateTime.Now && s.EndDateTime > DateTime.Now);
+                query = query.Where(s => s.CreateDateTime < DateTime.Now && s.EndDateTime > DateTime.Now);
             }
             if (type != null && type.Count > 0 && type.Contains(0))
             {
@@ -350,6 +350,10 @@ namespace Buy.Controllers
         public ActionResult Index(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
             Enums.CouponSort sort = Enums.CouponSort.Default, int? typeID = null)
         {
+            if (!Comm.IsMobileDrive)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var couponTypes = new List<CouponTypeTreeNode>();
             couponTypes.Add(new CouponTypeTreeNode() { ID = 0, Name = "首页", ParentID = -1, Childs = new List<CouponTypeTreeNode>() });
             couponTypes.AddRange(CouponTypes());
