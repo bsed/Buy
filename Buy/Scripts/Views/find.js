@@ -6,5 +6,6 @@ var swiper = new Swiper('.find-banner .swiper-container', {
     pagination: '.swiper-pagination',
     paginationClickable: true,
     autoplay: 2500,
-    autoplayDisableOnInteraction: false
+    autoplayDisableOnInteraction: false,
+    loop:true
 });

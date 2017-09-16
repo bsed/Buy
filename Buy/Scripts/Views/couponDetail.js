@@ -65,7 +65,7 @@ $("#pullUpLoad").click(function () {
     }
 });
 
-$(".couponDetail").rhuiSwipe('swipeUp', function (event) {
+$("#detail").rhuiSwipe('swipeUp', function (event) {
     if (pState) {
         $("#pullUpLoad span").addClass("active");
         setTimeout(function () {

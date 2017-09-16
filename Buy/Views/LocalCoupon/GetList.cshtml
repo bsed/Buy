@@ -11,12 +11,27 @@
     foreach (var item in Model)
     {
         <li>
-            <a href="@Url.Action("Details", "LocalCoupon", new { id = item.ID })">
-                图片： <img src="@Comm.ResizeImage(item.Image, w: 150, h: 150)" />
-                名称： @item.Name
-                有效期：@item.CreateDateTime.ToString("yyyy-MM-dd") - @item.EndDateTime.ToString("yyyy-MM-dd")
-                价格：@item.Price
-                商家图片：<img src="@Comm.ResizeImage(item.Shop.Logo, w: 50, h: 50)" />
+            <div class="couponList-head style02">
+                <a href="@Url.Action("Details", "LocalCoupon", new {id=item.ID })">
+                    <img src="~/Content/image/404/placeholder_image.png?w=150&h=150" data-original="@Comm.ResizeImage(item.Image,w:150,h:150)" />
+                </a>
+            </div>
+            <div class="couponList-details">
+                <a href="@Url.Action("Details", "LocalCoupon", new {id=item.ID })">
+                    <div class="couponList-title">
+                        <img src="@Comm.ResizeImage(item.Shop.Logo,w:15,h:15)" />
+                        @item.Name
+                    </div>
+                    <div class="couponList-afterPrice marginT10">
+                        <span class="yuan">￥</span>@item.Price
+                    </div>
+                    <div class="color-main fs12">有效期至：@item.EndDateTime.ToString("yyyy-MM-dd")</div>
+                </a>
+            </div>
+            <a href="@Url.Action("Details", "LocalCoupon", new {id=item.ID })">
+                <div class="couponList-ticket" data-href="">
+                    <div class="lingquan">立即领取</div>
+                </div>
             </a>
         </li>
     }
@@ -35,7 +50,7 @@
 }
 else
 {
-    <li class="loadModule loadModule-dataIng" data-next="false">
-        已经到底了
+    <li class="loadModule loadModule-noData">
+        <img src="~/Content/image/view/img_coupon_nodata.png"/>
     </li>
 }

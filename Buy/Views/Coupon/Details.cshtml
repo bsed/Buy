@@ -25,13 +25,15 @@
                 break;
         }
     }
+
+    string url = Request.Url.ToString();
 }
 
 @if (Model != null)
 {
     @Html.HiddenFor(modle => modle.ID)
     <img id="lazyloadimg" hidden src="~/Content/image/404/placeholder_image.png?w=150&h=150" />
-    <div class="couponDetail minHight100vh bg-color-grey">
+    <div id="detail" class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
             <div class="couponDetail-top-back fl" id="btnBack"></div>
             <div class="couponDetail-top-share fr"></div>
@@ -82,6 +84,26 @@
 
 
         @Html.Partial("_TaobaoPassPartial")
+    </div>
+
+    <div class="couponDetail paddingT44 minHight100vh hidden">
+        <div class="navigationBar">
+            <div class="navigationBar-back"></div>
+            分享
+        </div>
+        <div class="paddingLr16 paddingTb16">
+            <div class="fs16">分享的文案</div>
+            <div class="couponDetail-shareInfo marginT10">
+                <textarea rows="9">
+                    @Model.Name
+                    【在售价】@Model.OriginalPrice 元
+                    【券后价】@Model.Price 元
+                    【下单链接】@url
+                    -------------------------------------
+                    复制这条信息，{淘口令}，打开【手机淘宝】即可查看
+                </textarea>
+            </div>
+        </div>
     </div>
 }
 else

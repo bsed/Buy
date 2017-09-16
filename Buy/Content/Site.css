@@ -606,6 +606,18 @@
   height: 1.73913043rem;
   line-height: 1.73913043rem;
 }
+.couponDetail .couponDetail-shareInfo textarea {
+  resize: none;
+  max-width: none;
+  width: 100%;
+  background-color: #f2f2f2;
+  font-size: 0.5410628rem;
+  padding: 0.30917874rem;
+  border: none;
+}
+.couponDetail .couponDetail-shareInfo textarea:focus {
+  outline: none;
+}
 .coupon-tab {
   font-size: 0.46376812rem;
   color: rgba(0, 0, 0, 0.87);
@@ -784,6 +796,13 @@
 .coupon-list ul li .couponList-head img {
   width: 5.25603865rem;
   height: 5.25603865rem;
+}
+.coupon-list ul li .couponList-head.style02 {
+  width: 3.71014493rem;
+}
+.coupon-list ul li .couponList-head.style02 img {
+  width: 100%;
+  height: auto;
 }
 .coupon-list ul li .couponList-details {
   margin-top: 0.30917874rem;
@@ -1345,6 +1364,23 @@
 .moduleOptions a:active,
 .moduleOptions a:focus {
   color: inherit;
+}
+.localcoupon .localcoupon-detail {
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.87);
+  color: #fff;
+}
+.localcoupon .localcoupon-detail .localcoupon-detail-label {
+  color: #FFD500;
+  padding: 0.61835749rem;
+}
+.localcoupon .localcoupon-detail .localcoupon-detail-img img {
+  width: 100%;
+  height: auto;
+}
+.localcoupon .localcoupon-detail .localcoupon-detail-info {
+  padding: 0.57971014rem;
+  color: #fff;
 }
 body {
   color: rgba(0, 0, 0, 0.87);

@@ -106,10 +106,10 @@
             }
         }
 
-        .loading{
-            background:url("../../image/view/loadingGif.gif") no-repeat center;
+        .loading {
+            background: url("../../image/view/loadingGif.gif") no-repeat center;
             .square(16rem*@resize);
-            background-size:contain;
+            background-size: contain;
             .block-mid(50%);
             margin-left: -70rem*@resize;
         }
@@ -121,6 +121,19 @@
             z-index: @z-index-bottom;
             background-color: rgba(249, 249, 249, 0.9);
             .one-line-vertical-mid(45rem*@resize);
+        }
+    }
+
+    .couponDetail-shareInfo {
+        textarea {
+            .clean-input();
+            resize: none;
+            max-width: none;
+            width: 100%;
+            background-color: @bg-color-grey01;
+            font-size: @font-size-2;
+            padding: 8rem*@resize;
+            border:none;
         }
     }
 }
