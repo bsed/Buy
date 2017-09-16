@@ -54,7 +54,7 @@
             </div>
             <div class="clearfix marginT10">
                 <div class="coupon-tab fl marginR8">
-                    @foreach (var item in Buy.Bll.ThirdPartyTickets.GetValues(Model))
+                    @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
                     {
                         <div class="coupon-tab-type fl">@item.Type</div>
                         <div class="coupon-tab-val fl">@item.Value</div>
