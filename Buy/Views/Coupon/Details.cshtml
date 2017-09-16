@@ -106,7 +106,7 @@
             <div id="Output"></div>
             <div class="shareImgModule" id="shareImgModule">
                 <div class="shareImgModule-img">
-                    <img crossorigin="anonymous" class="shareImgModule_img" src="@Comm.ResizeImage(Model.Image,w:200,h:200)" />
+                    <img crossorigin="anonymous" id="shareImgModule_img" src="@Comm.ResizeImage(Model.Image,w:200,h:200)" />
                 </div>
                 <div class="shareImgModule-info">
                     <div class="shareImgModule-info-cons fl">
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                     <div class="shareImgModule-code fr">
-                        <img crossorigin="anonymous" src="@Url.Action("Index", "QrCode", new { data = Url.Action("Details", "Coupon", new { id = Model.ID }) })" />
+                        <img crossorigin="anonymous" src="@Url.Action("Index", "QrCode", new { data =Url.ContentFull( Url.Action("Details", "Coupon", new { id = Model.ID }) )})" />
                     </div>
                 </div>
             </div>

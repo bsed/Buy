@@ -60,7 +60,7 @@
                             @foreach (var value in Buy.Bll.Coupons.GetValues(item))
                             {
                                 <div class="coupon-tab-type fl">@value.Type</div>
-                                    <div class="coupon-tab-val fl">@value.Value</div>
+                                <div class="coupon-tab-val fl">@value.Value</div>
                             }
                         </div>
                     </div>
@@ -90,4 +90,7 @@
 }
 else
 {
+    <li class="loadModule loadModule-dataIng" data-next="false" data-page="0">
+        已经到底了
+    </li>
 }

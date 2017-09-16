@@ -106,18 +106,36 @@ $("textarea").val(val);
 $("#btnShare").click(function (e) {
     $("#detail").addClass("hidden");
     $("#share").removeClass("hidden");
+
     if ($("#Output").children().length <= 0) {
+        var img = document.getElementById('shareImgModule_img');
+        var data = getBase64Image(img);
+        $('#shareImgModule_img').prop("src", data);
+
         html2canvas(document.getElementById("shareImgModule"), {
             allowTaint: true,
             taintTest: true,
+            useCORS: true,
             onrendered: function (canvas) {
-                document.getElementById('Output').appendChild(canvas);
+                var url = canvas.toDataURL();
+                var img = new Image();
+                img.src = url;
+                document.getElementById('Output').appendChild(img);
                 $("#shareImgModule").addClass("hidden");
             }
         });
     }
 });
 
+function getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL // return dataURL.replace("data:image/png;base64,", ""); 
+}
 
 $("#shareback").click(function (e) {
     $("#detail").removeClass("hidden");
