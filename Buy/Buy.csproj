@@ -345,6 +345,10 @@
     <Compile Include="Migrations\201709150145234_LocalCouponAddCommission.Designer.cs">
       <DependentUpon>201709150145234_LocalCouponAddCommission.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709160742252_CouponAddPCouponID.cs" />
+    <Compile Include="Migrations\201709160742252_CouponAddPCouponID.Designer.cs">
+      <DependentUpon>201709160742252_CouponAddPCouponID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -659,6 +663,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709150145234_LocalCouponAddCommission.resx">
       <DependentUpon>201709150145234_LocalCouponAddCommission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709160742252_CouponAddPCouponID.resx">
+      <DependentUpon>201709160742252_CouponAddPCouponID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

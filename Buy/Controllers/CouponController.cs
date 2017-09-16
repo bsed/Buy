@@ -401,6 +401,5 @@ namespace Buy.Controllers
             return View(model);
         }
 
-        
     }
 }

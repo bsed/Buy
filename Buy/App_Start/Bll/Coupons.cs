@@ -72,7 +72,7 @@ namespace Buy.Bll
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 //分段添加到数据库
-                int pageSize = 200;
+                int pageSize = 50;
                 var totalPage = models.Count / pageSize + (models.Count % pageSize > 0 ? 1 : 0);
 
                 var dtTS = DateTime.Now;
@@ -80,11 +80,26 @@ namespace Buy.Bll
                 {
                     int pageIndex = i * pageSize;
                     var addTemp = models.Skip(pageIndex).Take(pageSize).ToList();
-
+                    var platforms = models.GroupBy(s => s.Platform).Select(s => s.Key).ToList();
                     //判断是否有重复添加
                     var links = addTemp.Select(s => s.Link).ToList();
-                    var dbLinks = db.Coupons.Where(s => links.Contains(s.Link)).Select(s => s.Link).ToList();
-
+                    List<string> dbLinks;
+                    if (platforms.Count == 1)
+                    {
+                        dbLinks = db.Coupons
+                            .Where(s => s.Platform == platforms[0]
+                            && links.Contains(s.Link))
+                            .Select(s => s.Link)
+                            .ToList();
+                    }
+                    else
+                    {
+                        dbLinks = db.Coupons
+                           .Where(s => platforms.Contains(s.Platform)
+                           && links.Contains(s.Link))
+                           .Select(s => s.Link)
+                           .ToList();
+                    }
                     if (dbLinks.Count > 0)
                     {
                         addTemp = addTemp.Where(s => !dbLinks.Contains(s.Link)).ToList();
