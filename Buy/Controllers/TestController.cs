@@ -11,8 +11,9 @@ namespace Buy.Controllers
         // GET: Test
         public ActionResult Index(string phone)
         {
-            ISms sms = new YunPianSms();
-            sms.Send(phone, Comm.Random.Next(1000, 9999).ToString());
+            var url = "https://taoquan.taobao.com/coupon/unify_apply.htm?sellerId=2081659912&activityId=0afbb33985824d91bafbf40f7916e12b";
+            Uri myUri = new Uri(url);
+            string param1 = HttpUtility.ParseQueryString(myUri.Query).Get("activityId");
             return Json("1");
         }
 
