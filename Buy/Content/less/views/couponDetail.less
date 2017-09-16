@@ -133,7 +133,8 @@
             background-color: @bg-color-grey01;
             font-size: @font-size-2;
             padding: 8rem*@resize;
-            border:none;
+            border: none;
+            text-align: left;
         }
     }
 }
@@ -236,6 +237,71 @@
 
         p {
             float: left;
+        }
+    }
+}
+
+.shareImgModule {
+    width: 300px;
+
+    .shareImgModule-img {
+        .square(300px);
+        .img();
+    }
+
+    .shareImgModule-info {
+        .clearfix();
+        position: relative;
+
+        .shareImgModule-code {
+            .square(100px);
+
+            img {
+                .square(100px);
+            }
+
+            margin-left: 5px;
+        }
+
+        .shareImgModule-info-cons {
+            width: 195px;
+
+            .shareImgModule-info-cons-name {
+                line-height: 18px;
+                font-size: 14px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+
+                img {
+                    height: 16px;
+                    margin-right: 3px;
+                }
+            }
+
+            .shareImgModule-info-cons-price{
+                .clearfix();
+                margin-top:5px;
+                line-height:25px;
+                
+
+                .preferPrice{
+                    color:@font-col-main;
+                    margin-right:10px;
+                    font-size:12px;
+
+                    .fontsize24{
+                        font-size:24px;
+                    }
+                }
+
+                .originalPrice{
+                    text-decoration: line-through;
+                    font-size:14px;
+                }
+            }
         }
     }
 }

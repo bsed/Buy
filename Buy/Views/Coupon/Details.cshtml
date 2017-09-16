@@ -71,12 +71,12 @@
             <div id="pullUpLoad" class="couponDetail-scroll"><span>↑</span><div class="loading hidden"></div>上拉查看商品详情</div>
             <div name="poductDetail" class="couponDetail-detailImg">
                 @*@if (!string.IsNullOrWhiteSpace(Model.UrlLisr))
-                {
-                    foreach (var item in Model.UrlLisr.SplitToArray<string>())
                     {
-                        <img src="@item" />
-                    }
-                }*@
+                        foreach (var item in Model.UrlLisr.SplitToArray<string>())
+                        {
+                            <img src="@item" />
+                        }
+                    }*@
             </div>
         </div>
 
@@ -93,15 +93,39 @@
         </div>
         <div class="paddingLr16 paddingTb16">
             <div class="fs16">分享的文案</div>
-            <div class="couponDetail-shareInfo marginT10">
-                <textarea rows="9">
-                    @Model.Name
-                    【在售价】@Model.OriginalPrice 元
-                    【券后价】@Model.Price 元
-                    【下单链接】@url
-                    -------------------------------------
-                    复制这条信息，{淘口令}，打开【手机淘宝】即可查看
-                </textarea>
+            <div class="couponDetail-shareInfo marginT10 marginB5">
+                <textarea rows="8"></textarea>
+            </div>
+            <input id="share_name" hidden value="@Model.Name"/>
+            <input id="share_or_price" hidden value="@Model.OriginalPrice" />
+            <input id="share_price" hidden value="@Model.Price" />
+            <input id="share_url" hidden value="@url" />
+
+            <div class="fs12 color-grey">请不要更改“｛｝”之间的文字哦～</div>
+            <div class="fs16 marginT15">分享的图片</div>
+            <div class="shareImgModule">
+                <div class="shareImgModule-img"><img src="@Comm.ResizeImage(Model.Image,w:200,h:200)" /></div>
+                <div class="shareImgModule-info">
+                    <div class="shareImgModule-info-cons fl">
+                        <div class="shareImgModule-info-cons-name">
+                            <img src="@platformLogo" />@Model.Name
+                        </div>
+                        <div class="shareImgModule-info-cons-price">
+                            <div class="fl preferPrice"><span class="">¥</span><span class="fontsize24">@Model.Price</span></div>
+                            <div class="fl originalPrice color-grey">在售价 ¥ @Model.OriginalPrice</div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="coupon-tab fl marginR8">
+                                @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
+                                {
+                                    <div class="coupon-tab-type fl">@item.Type</div>
+                                    <div class="coupon-tab-val fl">@item.Value</div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shareImgModule-code fr"><img src=""/></div>
+                </div>
             </div>
         </div>
     </div>
@@ -118,6 +142,8 @@ else
         </div>
     </div>
 }
+
+
 
 @section Scripts{
     @Scripts.Render("~/bundles/touchSwipe")
