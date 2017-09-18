@@ -80,11 +80,27 @@ namespace Buy.Bll
                 {
                     int pageIndex = i * pageSize;
                     var addTemp = models.Skip(pageIndex).Take(pageSize).ToList();
-
+                    var platforms = models.GroupBy(s => s.Platform).Select(s => s.Key).ToList();
                     //判断是否有重复添加
                     var links = addTemp.Select(s => s.Link).ToList();
-                    var dbLinks = db.Coupons.Where(s => links.Contains(s.Link)).Select(s => s.Link).ToList();
-
+                    List<string> dbLinks;
+                    if (platforms.Count == 1)
+                    {
+                        var p = platforms[0];
+                        dbLinks = db.Coupons
+                            .Where(s => s.Platform == p
+                            && links.Contains(s.Link))
+                            .Select(s => s.Link)
+                            .ToList();
+                    }
+                    else
+                    {
+                        dbLinks = db.Coupons
+                           .Where(s => platforms.Contains(s.Platform)
+                           && links.Contains(s.Link))
+                           .Select(s => s.Link)
+                           .ToList();
+                    }
                     if (dbLinks.Count > 0)
                     {
                         addTemp = addTemp.Where(s => !dbLinks.Contains(s.Link)).ToList();
@@ -118,7 +134,7 @@ namespace Buy.Bll
                     }
 
                 }
-                Comm.WriteLog("testTime", $"重复时间：{(DateTime.Now - dtTS).TotalSeconds}，添加用时：{(DateTime.Now - dtTS2).TotalSeconds}，导入数量{models.Count}，添加数量{addDbCount}，重复数{models.Count - afterFilter.Count},添加失败数{afterFilter.Count - addDbCount}", Enums.DebugLogLevel.Normal);
+                Comm.WriteLog("testTime", $"重复时间：{(dtTS2 - dtTS).TotalSeconds}，添加用时：{(DateTime.Now - dtTS2).TotalSeconds}，导入数量{models.Count}，添加数量{addDbCount}，重复数{models.Count - afterFilter.Count},添加失败数{afterFilter.Count - addDbCount}", Enums.DebugLogLevel.Normal);
 
             }
 

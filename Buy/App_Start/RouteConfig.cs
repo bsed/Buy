@@ -29,7 +29,7 @@ namespace Buy
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Find", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Coupon", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

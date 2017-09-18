@@ -304,6 +304,7 @@
     <Compile Include="Controllers\LocalCouponManageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoGuJieController.cs" />
+    <Compile Include="Controllers\QrCodeController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
     <Compile Include="Controllers\RoleManageController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
@@ -343,6 +344,14 @@
     <Compile Include="Migrations\201709150145234_LocalCouponAddCommission.cs" />
     <Compile Include="Migrations\201709150145234_LocalCouponAddCommission.Designer.cs">
       <DependentUpon>201709150145234_LocalCouponAddCommission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709160742252_CouponAddPCouponID.cs" />
+    <Compile Include="Migrations\201709160742252_CouponAddPCouponID.Designer.cs">
+      <DependentUpon>201709160742252_CouponAddPCouponID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709180711287_CouponTypeAddPlatform.cs" />
+    <Compile Include="Migrations\201709180711287_CouponTypeAddPlatform.Designer.cs">
+      <DependentUpon>201709180711287_CouponTypeAddPlatform.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
@@ -488,6 +497,7 @@
     <Content Include="Content\less\base.less" />
     <Content Include="Content\Site.less" />
     <Content Include="App_Data\mgjCids.json" />
+    <Content Include="App_Data\temp.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -526,6 +536,7 @@
     <Content Include="Scripts\datetimepicker\css\bootstrap-datetimepicker.css" />
     <Content Include="Scripts\datetimepicker\js\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\datetimepicker\js\locales\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="Scripts\html2canvas.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
@@ -657,6 +668,7 @@
     <Content Include="Views\LocalCoupon\Index.cshtml" />
     <Content Include="Views\LocalCoupon\GetList.cshtml" />
     <Content Include="Views\LocalCoupon\Details.cshtml" />
+    <Content Include="Views\CouponTypeManage\MGJType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Security\" />
@@ -689,6 +701,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709150145234_LocalCouponAddCommission.resx">
       <DependentUpon>201709150145234_LocalCouponAddCommission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709160742252_CouponAddPCouponID.resx">
+      <DependentUpon>201709160742252_CouponAddPCouponID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709180711287_CouponTypeAddPlatform.resx">
+      <DependentUpon>201709180711287_CouponTypeAddPlatform.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

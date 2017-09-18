@@ -11,7 +11,7 @@ namespace Buy.Controllers
 {
     public class MoGuJieController : Controller
     {
-
+        ApplicationDbContext db = new ApplicationDbContext();
 
         [AllowCrossSiteJson]
         public ActionResult Login(string code, string state)
@@ -38,10 +38,13 @@ namespace Buy.Controllers
 
         public ActionResult LoginSuccess()
         {
-            return View();
+            var mgj = new MoGuJie.Method();
+            var token = mgj.Token;
+            return View(token);
         }
 
-
+        [HttpGet]
+        [AllowCrossSiteJson]
         public ActionResult GetCategory()
         {
             var mgj = new MoGuJie.Method();
@@ -53,14 +56,20 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", "成功", cids), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ImportItems(List<Models.Coupon> models)
+        [HttpPost]
+        [AllowCrossSiteJson]
+        public ActionResult ImportItems(string url)
         {
+            var path = Request.MapPath(url);
+            string text = System.IO.File.ReadAllText(path);
+            List<Models.Coupon> models = JsonConvert.DeserializeObject<List<Models.Coupon>>(text);
             Bll.Coupons.DbAdd(models);
 
             return Json(Comm.ToJsonResult("Success", "成功"), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
+        [AllowCrossSiteJson]
         public ActionResult RefreshTaken()
         {
             var mgj = new Buy.MoGuJie.Method();
@@ -80,5 +89,22 @@ namespace Buy.Controllers
 
         }
 
+        [HttpGet]
+        [AllowCrossSiteJson]
+        public ActionResult Count(string userID)
+        {
+            var count = db.Coupons.Count(s => s.Platform == Enums.CouponPlatform.MoGuJie);
+
+            return Json(Comm.ToJsonResult("Success", "成功", new { Count = count }), JsonRequestBehavior.AllowGet);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

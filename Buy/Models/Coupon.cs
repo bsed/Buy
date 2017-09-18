@@ -93,104 +93,11 @@ namespace Buy.Models
 
         [Display(Name = "连接")]
         public string Link { get; set; }
+
+        [Display(Name = "优惠券ID")]
+        public string PCouponID { get; set; }
     }
 
-
-
-    public class CouponViewModel
-    {
-
-        [Display(Name = "分类")]
-        [Required]
-        public virtual int? TypeID { get; set; }
-        [Display(Name = "分类")]
-        public virtual CouponType Type { get; set; }
-
-        [Display(Name = "类目")]
-        [Required]
-        public virtual string ProductType { get; set; }
-
-        [Display(Name = "商品ID")]
-        [Required]
-        public virtual string ProductID { get; set; }
-
-        [Display(Name = "平台")]
-        [Required]
-        public Enums.CouponPlatform Platform { get; set; }
-
-        [Required]
-        [Display(Name = "店铺名称")]
-        public virtual string ShopName { get; set; }
-
-        [Required]
-        [Display(Name = "名称")]
-        public virtual string Name { get; set; }
-
-        [Display(Name = "图片")]
-        public virtual string Image { get; set; }
-
-        [Required]
-        [Display(Name = "链接")]
-        public virtual string Link { get; set; }
-
-        [Display(Name = "副标题")]
-        public virtual string Subtitle { get; set; }
-
-        [Required]
-        [Display(Name = "价格")]
-        [DataType(DataType.Currency)]
-        public virtual decimal Price { get; set; }
-
-        [Required]
-        [Display(Name = "原价")]
-        [DataType(DataType.Currency)]
-        public virtual decimal OriginalPrice { get; set; }
-
-        [Required]
-        [Display(Name = "面值")]
-        public virtual string Value { get; set; }
-
-        [Required]
-        [Display(Name = "开始时间")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public virtual DateTime StartDateTime { get; set; }
-
-        [Required]
-        [Display(Name = "结束时间")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public virtual DateTime EndDateTime { get; set; }
-
-        [Display(Name = "特殊参数")]
-        public virtual string DataJson { get; set; }
-
-        [Required]
-        [Display(Name = "创建时间")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public virtual DateTime CreateDateTime { get; set; }
-
-        [Required]
-        [Display(Name = "销量")]
-        public virtual int Sales { get; set; }
-
-        [Display(Name = "地址列表")]
-        public string UrlLisr { get; set; }
-
-        [Display(Name = "佣金")]
-        [DataType(DataType.Currency)]
-        public decimal Commission { get; set; }
-
-        [Display(Name = "佣金比例")]
-        [DisplayFormat(DataFormatString = "{0}%")]
-        public decimal CommissionRate { get; set; }
-
-        [Display(Name = "剩余")]
-        public int Left { get; set; }
-
-        [Display(Name = "总数")]
-        public int Total { get; set; }
-
-        public FileUpload FileUpload { get; set; }
-    }
 
     public class CouponNotType
     {

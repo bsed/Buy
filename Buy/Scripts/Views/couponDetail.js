@@ -56,7 +56,8 @@ $(window).scroll(function (e) {
         if (scState) {
             $("#pullUpLoad").fadeOut();
             pState = false;
-        }    }
+        }
+    }
 });
 
 $("#pullUpLoad").click(function () {
@@ -71,7 +72,7 @@ $("#detail").rhuiSwipe('swipeUp', function (event) {
         setTimeout(function () {
             $("#pullUpLoad span").addClass("hidden");
             $("#pullUpLoad .loading").removeClass("hidden");
-        },300)
+        }, 300)
         GetDetailImgs();
     }
 }, {
@@ -100,3 +101,43 @@ var share_price = $("#share_price").val();
 var share_url = $("#share_url").val();
 var val = share_name + "\n【在售价】" + share_or_price + "元\n【券后价】" + share_price + "元\n【下单链接】" + share_url + "\n-------------------------------------\n复制这条信息，{淘口令}，打开【手机淘宝】即可查看"
 $("textarea").val(val);
+
+
+$("#btnShare").click(function (e) {
+    $("#detail").addClass("hidden");
+    $("#share").removeClass("hidden");
+
+    if ($("#Output").children().length <= 0) {
+        var img = document.getElementById('shareImgModule_img');
+        var data = getBase64Image(img);
+        $('#shareImgModule_img').prop("src", data);
+
+        html2canvas(document.getElementById("shareImgModule"), {
+            allowTaint: true,
+            taintTest: true,
+            useCORS: true,
+            onrendered: function (canvas) {
+                var url = canvas.toDataURL();
+                var img = new Image();
+                img.src = url;
+                document.getElementById('Output').appendChild(img);
+                $("#shareImgModule").addClass("hidden");
+            }
+        });
+    }
+});
+
+function getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL // return dataURL.replace("data:image/png;base64,", ""); 
+}
+
+$("#shareback").click(function (e) {
+    $("#detail").removeClass("hidden");
+    $("#share").addClass("hidden");
+});

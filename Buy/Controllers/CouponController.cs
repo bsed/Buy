@@ -27,7 +27,7 @@ namespace Buy.Controllers
             if (string.IsNullOrWhiteSpace(userId))
             {
                 userId = db.Coupons.GroupBy(s => s.UserID)
-                    .Select(s => new { UserID=s.Key, count = s.Count() })
+                    .Select(s => new { UserID = s.Key, count = s.Count() })
                     .OrderByDescending(s => s.count).FirstOrDefault().UserID;
             }
             var query = db.Coupons.Where(s => s.UserID == userId).Select(s => new CouponQuery
@@ -58,7 +58,7 @@ namespace Buy.Controllers
             //不显示创建时间是未来的和过期的
             if (orderByTime)
             {
-                query = query.Where(s => s.CreateDateTime <= DateTime.Now && s.EndDateTime > DateTime.Now);
+                query = query.Where(s => s.CreateDateTime < DateTime.Now && s.EndDateTime > DateTime.Now);
             }
             if (type != null && type.Count > 0 && type.Contains(0))
             {
@@ -315,19 +315,19 @@ namespace Buy.Controllers
         }
 
         [AllowCrossSiteJson]
-        public ActionResult GetCouponTypes()
+        public ActionResult GetCouponTypes(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao)
         {
-            var data = CouponTypes();
+            var data = CouponTypes(platform);
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
         }
 
-        public List<CouponTypeTreeNode> CouponTypes()
+        public List<CouponTypeTreeNode> CouponTypes(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao)
         {
             var data = new List<CouponTypeTreeNode>();
             Action<List<CouponTypeTreeNode>, int> setTree = null;
             setTree = (childs, pid) =>
             {
-                childs.AddRange(Bll.SystemSettings.CouponType.Where(s => s.ParentID == pid)
+                childs.AddRange(Bll.SystemSettings.CouponType.Where(s => s.ParentID == pid && s.Platform == platform)
                      .OrderBy(s => s.Sort)
                      .Select(s => new CouponTypeTreeNode
                      {
@@ -350,9 +350,19 @@ namespace Buy.Controllers
         public ActionResult Index(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
             Enums.CouponSort sort = Enums.CouponSort.Default, int? typeID = null)
         {
+            if (!Comm.IsMobileDrive)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var couponTypes = new List<CouponTypeTreeNode>();
-            couponTypes.Add(new CouponTypeTreeNode() { ID = 0, Name = "首页", ParentID = -1, Childs = new List<CouponTypeTreeNode>() });
-            couponTypes.AddRange(CouponTypes());
+            couponTypes.Add(new CouponTypeTreeNode()
+            {
+                ID = 0,
+                Name = "首页",
+                ParentID = -1,
+                Childs = new List<CouponTypeTreeNode>()
+            });
+            couponTypes.AddRange(CouponTypes(platform));
             ViewBag.CouponTypes = couponTypes;
             return View();
         }
@@ -397,6 +407,5 @@ namespace Buy.Controllers
             return View(model);
         }
 
-        
     }
 }

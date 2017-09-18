@@ -179,6 +179,8 @@ namespace Buy
                     var index = dtable.Rows.IndexOf(item);
                     try
                     {
+                        Uri myUri = new Uri(item["优惠券链接"].ToString());
+                        string activityId = HttpUtility.ParseQueryString(myUri.Query).Get("activityId");
                         var model = new Models.Coupon
                         {
                             EndDateTime = Convert.ToDateTime(item["优惠券结束时间"]).AddDays(1).AddSeconds(-1),
@@ -199,7 +201,8 @@ namespace Buy
                             CommissionRate = Convert.ToDecimal(item["收入比率(%)"]),
                             Left = Convert.ToInt32(item["优惠券剩余量"]),
                             Total = Convert.ToInt32(item["优惠券总量"]),
-                            UserID = userID
+                            UserID = userID,
+                            PCouponID = activityId
 
                         };
                         try

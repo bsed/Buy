@@ -28,6 +28,9 @@ namespace Buy.Models
 
         public virtual List<Coupon> Tickets { get; set; }
 
+        [Display(Name = "平台")]
+        public Enums.CouponPlatform Platform { get; set; }
+
     }
 
     [NotMapped]
@@ -35,6 +38,6 @@ namespace Buy.Models
     {
         public FileUpload FileUpload { get; set; }
 
-       public List<CouponTypeViewModel> Childs { get; set; }
+        public List<CouponTypeViewModel> Childs { get; set; }
     }
 }

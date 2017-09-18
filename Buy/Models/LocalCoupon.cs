@@ -38,6 +38,7 @@ namespace Buy.Models
 
         public virtual Shop Shop { get; set; }
 
+        [Display(Name = "佣金")]
         public virtual decimal Commission { get; set; }
 
     }

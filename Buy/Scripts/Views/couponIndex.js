@@ -161,14 +161,3 @@ if (platform == "" || platform == "0" || platform == "TaoBao") {
 } else {
     $(".navTabBottom li.jd").addClass("active");
 }
-
-$(".navTabBottom li.jd,.navTabBottom li.mogujie,.navTabBottom li.taobao").click(function (e) {
-    e.preventDefault();
-    platform = $(this).data("platform");
-    location = comm.action("Index", "Coupon",
-        {
-            typeID: typeID,
-            platform: platform,
-            sort: sort
-        });
-});

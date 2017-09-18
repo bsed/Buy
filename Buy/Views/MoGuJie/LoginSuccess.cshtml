@@ -1,6 +1,9 @@
-﻿
+﻿@model Buy.MoGuJie.Token
 @{
     ViewBag.Title = "LoginSuccess";
 }
 
 <h2 class="text-success">授权成功</h2>
+<input id="hidAccessToken" type="hidden" value="@Model.AccessToken" />
+<input id="hidRefreshToken" type="hidden" value="@Model.RefreshToken" />
+<input id="hidUserID" type="hidden" value="@Model.UserID" />

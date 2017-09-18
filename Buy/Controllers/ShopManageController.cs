@@ -10,7 +10,6 @@ namespace Buy.Controllers
     [Authorize]
     public class ShopManageController : Controller
     {
-
         private ApplicationDbContext db = new ApplicationDbContext();
 
         private void Sidebar()
