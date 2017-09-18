@@ -6,7 +6,7 @@
 }
 
 <ol class="breadcrumb">
-    <li>@Html.ActionLink("分类管理", "Index", new { pid = Model.ParentID })</li>
+    <li>@Html.ActionLink("分类管理", "Index", new { pid = Model.ParentID, Platform = Model.Platform })</li>
     <li class="active">删除分类</li>
 </ol>
 
@@ -19,6 +19,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Platform)
+        </dt>
+
+        <dd>
+            @Model.Platform.GetDisplayName()
         </dd>
 
         <dt>

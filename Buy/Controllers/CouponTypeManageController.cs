@@ -26,7 +26,7 @@ namespace Buy.Controllers
 
         // GET: CouponTypeManage
         [Authorize(Roles = SysRole.CouponTypeManageRead)]
-        public ActionResult Index(int pid = 0)
+        public ActionResult Index(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao, int pid = 0)
         {
             Sidebar();
             var tree = new CouponTypeTreeNode
@@ -39,7 +39,7 @@ namespace Buy.Controllers
             Action<CouponTypeTreeNode> setTree = null;
             setTree = p =>
             {
-                var childs = couponType.Where(s => s.ParentID == p.ID)
+                var childs = couponType.Where(s => s.ParentID == p.ID && s.Platform == platform)
                     .OrderBy(s => s.Sort)
                     .ThenBy(s => s.ID)
                     .Select(s => new CouponTypeTreeNode
@@ -62,12 +62,12 @@ namespace Buy.Controllers
             setTree(tree);
             ViewBag.Tree = tree;
             Sidebar();
-            return View(couponType.ToList().Where(s => s.ParentID == pid).OrderBy(s => s.Sort).ThenBy(s => s.ID));
+            return View(couponType.ToList().Where(s => s.ParentID == pid && s.Platform == platform).OrderBy(s => s.Sort).ThenBy(s => s.ID));
         }
 
         // GET: CouponTypeManage/Create
         [Authorize(Roles = SysRole.CouponTypeManageCreate)]
-        public ActionResult Create(int pid = 0)
+        public ActionResult Create(int pid = 0, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao)
         {
             Sidebar();
             var model = new CouponTypeViewModel()
@@ -79,6 +79,7 @@ namespace Buy.Controllers
                     Name = "CouponTypeViewModelImage"
                 },
                 ParentID = pid,
+                Platform=platform,
             };
             return View(model);
         }
@@ -109,6 +110,7 @@ namespace Buy.Controllers
                     Name = model.Name,
                     Sort = model.Sort,
                     ParentID = model.ParentID,
+                    Platform=model.Platform,
                 };
                 couponType.Add(type);
                 return RedirectToAction("Index", new { pid = model.ParentID });
@@ -138,6 +140,7 @@ namespace Buy.Controllers
                 Keyword = type.Keyword,
                 Name = type.Name,
                 Sort = type.Sort,
+                Platform=type.Platform,
             };
             return View(model);
         }
@@ -168,6 +171,7 @@ namespace Buy.Controllers
                 type.Keyword = model.Keyword;
                 type.Name = model.Name;
                 type.Sort = model.Sort;
+                type.Platform = model.Platform;
 
                 couponType[index] = type;
                 return RedirectToAction("Index", new { pid = model.ParentID });
@@ -212,6 +216,7 @@ namespace Buy.Controllers
                 Keyword = type.Keyword,
                 Name = type.Name,
                 Sort = type.Sort,
+                Platform=type.Platform,
             };
             return View(model);
         }
@@ -254,7 +259,7 @@ namespace Buy.Controllers
             };
             return View(model);
         }
-        
+
 
         [HttpPost]
         [Authorize(Roles = SysRole.CouponTypeManageDelete)]

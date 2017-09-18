@@ -27,7 +27,7 @@ namespace Buy.Controllers
             if (string.IsNullOrWhiteSpace(userId))
             {
                 userId = db.Coupons.GroupBy(s => s.UserID)
-                    .Select(s => new { UserID=s.Key, count = s.Count() })
+                    .Select(s => new { UserID = s.Key, count = s.Count() })
                     .OrderByDescending(s => s.count).FirstOrDefault().UserID;
             }
             var query = db.Coupons.Where(s => s.UserID == userId).Select(s => new CouponQuery
@@ -315,19 +315,19 @@ namespace Buy.Controllers
         }
 
         [AllowCrossSiteJson]
-        public ActionResult GetCouponTypes()
+        public ActionResult GetCouponTypes(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao)
         {
-            var data = CouponTypes();
+            var data = CouponTypes(platform);
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
         }
 
-        public List<CouponTypeTreeNode> CouponTypes()
+        public List<CouponTypeTreeNode> CouponTypes(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao)
         {
             var data = new List<CouponTypeTreeNode>();
             Action<List<CouponTypeTreeNode>, int> setTree = null;
             setTree = (childs, pid) =>
             {
-                childs.AddRange(Bll.SystemSettings.CouponType.Where(s => s.ParentID == pid)
+                childs.AddRange(Bll.SystemSettings.CouponType.Where(s => s.ParentID == pid && s.Platform == platform)
                      .OrderBy(s => s.Sort)
                      .Select(s => new CouponTypeTreeNode
                      {
@@ -355,8 +355,14 @@ namespace Buy.Controllers
                 return RedirectToAction("Index", "Home");
             }
             var couponTypes = new List<CouponTypeTreeNode>();
-            couponTypes.Add(new CouponTypeTreeNode() { ID = 0, Name = "首页", ParentID = -1, Childs = new List<CouponTypeTreeNode>() });
-            couponTypes.AddRange(CouponTypes());
+            couponTypes.Add(new CouponTypeTreeNode()
+            {
+                ID = 0,
+                Name = "首页",
+                ParentID = -1,
+                Childs = new List<CouponTypeTreeNode>()
+            });
+            couponTypes.AddRange(CouponTypes(platform));
             ViewBag.CouponTypes = couponTypes;
             return View();
         }

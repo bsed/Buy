@@ -19,14 +19,29 @@
             ParentID = -1
         };
     }
+    var p = Buy.Enums.CouponPlatform.TaoBao;
+    if (!string.IsNullOrWhiteSpace(Request["platform"]))
+    {
+        Enum.TryParse(Request["platform"], out p);
+    }
 }
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("添加分类", "Create")</li>
-                <li>@Html.ActionLink("蘑菇街分理", "MGJType")</li>
+                <li>@Html.ActionLink("蘑菇街分类", "MGJType")</li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        @p.GetDisplayName()<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach (Buy.Enums.CouponPlatform item in Enum.GetValues(typeof(Buy.Enums.CouponPlatform)))
+                        {
+                            <li>@Html.ActionLink(item.GetDisplayName(), "Index", new { platform = item })</li>
+                        }
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -50,7 +65,7 @@
                     <div class="container-fluid">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
-                                <li>@Html.ActionLink($"添加到[{selNode.Name}]", "Create", new { pid = selNode.ID })</li>
+                                <li>@Html.ActionLink($"添加到[{selNode.Name}]", "Create", new { pid = selNode.ID, platform = p })</li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><input type="button" value="删除勾选" id="btnAll" class="btn btn-default navbar-btn" /></li>
@@ -83,29 +98,29 @@
                     </thead>
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>
-                            <input name="chkItem" type="checkbox" value="@item.ID" />
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            <div style="width:500px;" class="overFlowText" title="@item.Keyword">
-                                @Html.DisplayFor(modelItem => item.Keyword)
-                            </div>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Sort)
-                        </td>
-                        <td>
-                            @Html.TableImg(item.Image)
-                        </td>
-                        <td>
-                            @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("删除", "Delete", new { id = item.ID })
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <input name="chkItem" type="checkbox" value="@item.ID" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <div style="width:500px;" class="overFlowText" title="@item.Keyword">
+                                    @Html.DisplayFor(modelItem => item.Keyword)
+                                </div>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sort)
+                            </td>
+                            <td>
+                                @Html.TableImg(item.Image)
+                            </td>
+                            <td>
+                                @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("删除", "Delete", new { id = item.ID })
+                            </td>
+                        </tr>
                     }
                 </table>
             </td>

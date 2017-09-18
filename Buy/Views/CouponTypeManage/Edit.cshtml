@@ -6,7 +6,7 @@
     var parentCouponType = new Buy.Models.CouponType();
 }
 <ol class="breadcrumb">
-    <li>@Html.ActionLink("分类管理", "Index")</li>
+    <li>@Html.ActionLink("分类管理", "Index", new { pid = Model.ParentID, Platform = Model.Platform })</li>
     <li class="active">编辑分类</li>
 </ol>
 
@@ -19,6 +19,15 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.ParentID)
+        @Html.HiddenFor(model => model.Platform)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Platform, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 form-control-static">
+                @Model.Platform.GetDisplayName()
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

@@ -28,6 +28,7 @@ namespace Buy.Models
 
         public virtual List<Coupon> Tickets { get; set; }
 
+        [Display(Name = "平台")]
         public Enums.CouponPlatform Platform { get; set; }
 
     }
