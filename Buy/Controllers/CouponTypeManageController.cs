@@ -290,6 +290,7 @@ namespace Buy.Controllers
 
         public ActionResult MGJType()
         {
+            Sidebar();
             string json = GetFileJson(Server.MapPath("~/App_Data/temp.json"));
             JArray json1 = (JArray)JsonConvert.DeserializeObject(json);
             List<CouponTypeTreeNode> aa = new List<CouponTypeTreeNode>();
