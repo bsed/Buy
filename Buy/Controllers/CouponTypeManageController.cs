@@ -1,9 +1,12 @@
 ﻿using Buy.Models;
-using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -278,6 +281,86 @@ namespace Buy.Controllers
         {
             Bll.SystemSettings.Clean();
             return View();
+        }
+
+        public ActionResult MGJType()
+        {
+            string json = GetFileJson(Server.MapPath("~/App_Data/temp.json"));
+            JArray json1 = (JArray)JsonConvert.DeserializeObject(json);
+            List<CouponTypeTreeNode> aa = new List<CouponTypeTreeNode>();
+            foreach (var item in json1)
+            {
+                int? typeid = null;
+                if (!string.IsNullOrWhiteSpace(item["TypeID"].ToString()))
+                {
+                    typeid = int.Parse(item["TypeID"].ToString());
+                }
+                //赋值属性
+                if (int.Parse(item["Count"].ToString()) > 0)
+                {
+                    aa.Add(new CouponTypeTreeNode()
+                    {
+                        TestID = item["ID"].ToString(),
+                        Count = int.Parse(item["Count"].ToString()),
+                        IsLeaf = bool.Parse(item["IsLeaf"].ToString()),
+                        Name = item["Name"].ToString(),
+                        TypeID = typeid,
+                        ParentId = item["ParentId"].ToString(),
+                        Childs = new List<CouponTypeTreeNode>()
+                    });
+                }
+            }
+            var tree = new CouponTypeTreeNode
+            {
+                Childs = new List<CouponTypeTreeNode>(),
+                TestID = "",
+                Name = "全部",
+                ParentId = "",
+                Count = 0,
+                IsLeaf = true,
+                TypeID = null
+            };
+            Action<CouponTypeTreeNode> setTree = null;
+            setTree = p =>
+            {
+                var childs = aa.Where(s => s.ParentId == p.TestID)
+                    .Select(s => new CouponTypeTreeNode
+                    {
+                        ID = s.ID,
+                        Childs = new List<CouponTypeTreeNode>(),
+                        Name = s.Name,
+                        ParentId = s.ParentId,
+                        Count = s.Count,
+                        IsLeaf = s.IsLeaf,
+                        TypeID = s.TypeID,
+                        TestID = s.TestID
+                    })
+                    .ToList();
+                if (childs.Count > 0)
+                {
+                    p.Childs.AddRange(childs);
+                    foreach (var item in childs)
+                    {
+                        setTree(item);
+                    };
+                }
+            };
+            setTree(tree);
+            return View(tree);
+        }
+        public string GetFileJson(string filepath)
+        {
+            string json = string.Empty;
+            using (FileStream fs = new FileStream(filepath, FileMode.Open, System.IO.FileAccess.Read, FileShare.ReadWrite))
+            {
+                using (StreamReader sr = new StreamReader(fs, Encoding.GetEncoding("gb2312")))
+                {
+                    byte[] byArray = new byte[fs.Length];
+                    fs.Read(byArray, 0, (int)fs.Length);
+                    json = Encoding.UTF8.GetString(byArray).Replace("\n", "").Replace("\t", "").Replace("\r", "");
+                }
+            }
+            return json;
         }
 
         protected override void Dispose(bool disposing)

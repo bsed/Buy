@@ -64,5 +64,17 @@ namespace Buy.Models
         public string Image { get; set; }
 
         public List<CouponTypeTreeNode> Childs { get; set; }
+
+        //以下添加测试的的
+        public string TestID { get; set; }
+
+        public bool IsLeaf { get; set; }
+
+        public string ParentId { get; set; }
+
+        public int? TypeID { get; set; }
+
+        public int Count { get; set; }
+        //以上添加测试的的
     }
 }

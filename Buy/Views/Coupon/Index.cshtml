@@ -37,7 +37,7 @@
 
 <div id="couponBox" class="couponIndex paddingT80 paddingB50 bg-color-grey minHight100vh">
     @Html.Hidden("typeID", Request["typeID"])
-    @Html.Hidden("platform", Request["platform"])
+    @Html.Hidden("platform", p)
     @Html.Hidden("sort", Request["sort"])
     <div class="navigationBar bgcolor-orange" onclick="location.href='@Url.Action("Search","coupon")'">
         <div class="navigationBar-search style02 fl">

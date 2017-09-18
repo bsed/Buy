@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Buy.Models;
+using System.IO;
+using System.Text;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Buy.Controllers
 {
@@ -16,17 +20,6 @@ namespace Buy.Controllers
             sms.Send(phone, Comm.Random.Next(1000, 9999).ToString());
             return Json("1");
         }
-
-
-        public ActionResult Test(int? id)
-        {
-            using (ApplicationDbContext db=new ApplicationDbContext())
-            {
-                var coupon = db.Coupons.FirstOrDefault(s => s.ID == id.Value);
-                return View(coupon);
-            }
-        }
-
     }
 
 }
