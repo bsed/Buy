@@ -388,6 +388,35 @@
     <Content Include="Content\image\404\avatar.png" />
     <Content Include="Content\image\404\default.jpg" />
     <Content Include="Content\image\404\placeholder_image.png" />
+    <Content Include="Content\image\home\slide_android_qr.png" />
+    <Content Include="Content\image\home\slide_bg_001.png" />
+    <Content Include="Content\image\home\slide_bg_android.png" />
+    <Content Include="Content\image\home\slide_bg_ios.png" />
+    <Content Include="Content\image\home\slide_bg_qr.png" />
+    <Content Include="Content\image\home\slide_coupon_bg_001.png" />
+    <Content Include="Content\image\home\slide_coupon_bg_002.png" />
+    <Content Include="Content\image\home\slide_coupon_bg_jd.png" />
+    <Content Include="Content\image\home\slide_coupon_bg_mogu.png" />
+    <Content Include="Content\image\home\slide_coupon_bg_taobao.png" />
+    <Content Include="Content\image\home\slide_coupon_bg_tianmao.png" />
+    <Content Include="Content\image\home\slide_download_qr.png" />
+    <Content Include="Content\image\home\slide_hz_bg_jd.png" />
+    <Content Include="Content\image\home\slide_hz_bg_jm.png" />
+    <Content Include="Content\image\home\slide_hz_bg_kfc.png" />
+    <Content Include="Content\image\home\slide_hz_bg_mdl.png" />
+    <Content Include="Content\image\home\slide_hz_bg_mgj.png" />
+    <Content Include="Content\image\home\slide_hz_bg_myj.png" />
+    <Content Include="Content\image\home\slide_hz_bg_tb.png" />
+    <Content Include="Content\image\home\slide_hz_bg_tm.png" />
+    <Content Include="Content\image\home\slide_ios_qr.png" />
+    <Content Include="Content\image\home\slide_jm_bg_001.png" />
+    <Content Include="Content\image\home\slide_jm_bg_002.png" />
+    <Content Include="Content\image\home\slide_jm_bg_003.png" />
+    <Content Include="Content\image\home\slide_jm_bg_004.png" />
+    <Content Include="Content\image\home\slide_jm_bg_005.png" />
+    <Content Include="Content\image\home\slide_jm_bg_006.png" />
+    <Content Include="Content\image\home\slide_jm_bg_007.png" />
+    <Content Include="Content\image\home\slide_yj_bg_001.png" />
     <Content Include="Content\image\test\banner_home%402x.png" />
     <Content Include="Content\image\test\coupon-detail-pimg02.png" />
     <Content Include="Content\image\test\find_banner.png" />
@@ -473,6 +502,7 @@
     <Content Include="Content\less\views\find.less" />
     <Content Include="Content\less\views\userIndex.less" />
     <Content Include="Content\less\views\localcoupon.less" />
+    <Content Include="Content\less\views\homeIndex.less" />
     <None Include="Properties\PublishProfiles\BuyPublish.pubxml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="phantomjs-license.txt">
@@ -510,6 +540,7 @@
     <Content Include="Scripts\jquery-ui-1.11.4.custom\jquery-ui.structure.min.css" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.lazyload.min.js" />
+    <Content Include="Scripts\jquery.mousewheel.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -532,6 +563,7 @@
     <Content Include="Scripts\Views\couponTicketTypeManageIndex.js" />
     <Content Include="Scripts\Views\find.js" />
     <Content Include="Scripts\Views\forgotPassword.js" />
+    <Content Include="Scripts\Views\home.js" />
     <Content Include="Scripts\Views\localCoupon.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
@@ -627,8 +659,6 @@
     <Content Include="Views\LocalCoupon\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\LocalCoupon\" />
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Taobao\" />
     <Folder Include="Views\Test\" />

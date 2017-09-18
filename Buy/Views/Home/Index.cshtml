@@ -1,31 +1,191 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "首页";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="homeIndex">
+    <div class="homeIndex-head">
+        <div class="homeIndex-head-wrap">
+            <div class="homeIndex-head-logo fl">买了么</div>
+            <div class="homeIndex-head-nav fr">
+                <ul id="nav">
+                    <li class="active">APP下载<i></i></li>
+                    <li>内部优惠券<i></i></li>
+                    <li>商家加盟<i></i></li>
+                    <li>赚佣金<i></i></li>
+                    <li>联系我们<i></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="homeIndex-wrap">
+        <div id="slideBox" class="homeIndex-slide-container" style="transform: translate3d(0px, 0%, 0px);">
+            <div class="homeIndex-slide-item app active">
+                <div class="homeIndex-slide-item-wrap">
+                    <div class="slide-item-wrap">
+                        <div class="slide-item-left fl"><div class="slide-item-app-bg01"><img src="~/Content/image/home/slide_bg_001.png" /></div></div>
+                        <div class="slide-item-right fl">
+                            <div class="slide-item-app-cons fl">
+                                <div class="slide-item-app-cons-name">买了么</div>
+                                <div class="slide-item-app-cons-text">吃喝玩乐<br />享优惠</div>
+                                <div class="slide-item-app-cons-detail">这段为说明文案这段为说明文案这段为说明文案这段为说明文案这段为说明文案这段为说明文案</div>
+                                <div class="slide-item-app-cons-download">
+                                    <div class="download-btns fl"><a href="#"><img src="~/Content/image/home/slide_bg_android.png" />Android 下载</a></div>
+                                    <div class="download-btns fl"><a href="#"><img src="~/Content/image/home/slide_bg_ios.png" />App Store 下载</a></div>
+                                </div>
+                            </div>
+                            <div class="slide-item-app-qr fr">
+                                <img src="~/Content/image/home/slide_download_qr.png"/>
+                                <div>扫一扫立即下载</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mq-bgwhite"></div>
+            </div>
+            <div class="homeIndex-slide-item coupon">
+                <div class="homeIndex-slide-item-wrap">
+                    <div class="slide-item-wrap">
+                        <div class="slide-item-left fl">
+                            <div class="slide-item-coupon-tit">
+                                <div class="fsize48">购物内部优惠券</div>
+                                <div class="fsize18">淘宝、天猫、京东、蘑菇街，百万商品已接入。</div>
+                            </div>
+                            <div class="slide-item-coupon-bg01"><img src="~/Content/image/home/slide_coupon_bg_001.png" /></div>
+                        </div>
+                        <div class="slide-item-right fr">
+                            <div class="slide-item-coupon-bg02"><img src="~/Content/image/home/slide_coupon_bg_002.png" /></div>
+                            <div class="slide-item-coupon-taobao"><img src="~/Content/image/home/slide_coupon_bg_taobao.png" /></div>
+                            <div class="slide-item-coupon-tm"><img src="~/Content/image/home/slide_coupon_bg_tianmao.png" /></div>
+                            <div class="slide-item-coupon-jd"><img src="~/Content/image/home/slide_coupon_bg_jd.png" /></div>
+                            <div class="slide-item-coupon-mgj"><img src="~/Content/image/home/slide_coupon_bg_mogu.png" /></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="homeIndex-slide-item jm">
+                <div class="homeIndex-slide-item-wrap">
+                    <div class="slide-item-wrap">
+                        <div class="slide-item-left fl">
+                            <div class="slide-item-jm-bg01">
+                                <img class="img01" src="~/Content/image/home/slide_jm_bg_002.png" />
+                                <img class="img02" src="~/Content/image/home/slide_jm_bg_001.png" />
+                            </div>
+                        </div>
+                        <div class="slide-item-right fr">
+                            <div class="slide-item-jm-cons">
+                                <div class="slide-item-jm-tits">本地商家加盟</div>
+                                <div class="slide-item-jm-text">更多第三方服务接入，吃喝玩乐尽在“买了么”App</div>
+                            </div>
+                            <div class="slide-item-jm-bg02">
+                                <img class="img01" src="~/Content/image/home/slide_jm_bg_003.png" />
+                                <img class="img02" src="~/Content/image/home/slide_jm_bg_004.png" />
+                                <img class="img03" src="~/Content/image/home/slide_jm_bg_005.png" />
+                                <img class="img04" src="~/Content/image/home/slide_jm_bg_006.png" />
+                                <img class="img05" src="~/Content/image/home/slide_jm_bg_007.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="homeIndex-slide-item yj">
+                <div class="homeIndex-slide-item-wrap">
+                    <div class="slide-item-wrap">
+                        <div class="">
+                            <div class="slide-item-tits">疯狂赚佣金</div>
+                            <div class="slide-item-detail">代理商可以获得平台所有商品、本地商家、第三方服务商的高额推广分成。</div>
+                        </div>
+                        <div class="slide-item-table">
+                            <div class="slide-item-table-tits"><img src="~/Content/image/home/slide_yj_bg_001.png" /></div>
+                            <div class="slide-item-table-cons">
+                                <div class="table-cons-tits">
+                                    <div class="table-cons-tits-li">代理人</div>
+                                    <div class="table-cons-tits-li">佣金收入</div>
+                                    <div class="table-cons-tits-li">时间</div>
+                                    <div class="table-cons-tits-li">代理人</div>
+                                    <div class="table-cons-tits-li">佣金收入</div>
+                                    <div class="table-cons-tits-li">时间</div>
+                                </div>
+                                <div class="table-cons-bg01"></div>
+                                <div class="table-cons-bg02"></div>
+                                <ul>
+                                    <li>
+                                        <div class="table-cons-li">18****58</div>
+                                        <div class="table-cons-li"> ￥6,300</div>
+                                        <div class="table-cons-li">1分钟前</div>
+                                    </li>
+                                    <li>
+                                        <div class="table-cons-li">18****58</div>
+                                        <div class="table-cons-li"> ￥6,300</div>
+                                        <div class="table-cons-li">1分钟前</div>
+                                    </li>
+                                    <li>
+                                        <div class="table-cons-li">18****58</div>
+                                        <div class="table-cons-li"> ￥6,300</div>
+                                        <div class="table-cons-li">1分钟前</div>
+                                    </li>
+                                    <li>
+                                        <div class="table-cons-li">18****58</div>
+                                        <div class="table-cons-li"> ￥6,300</div>
+                                        <div class="table-cons-li">1分钟前</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="homeIndex-slide-item hz">
+                <div class="homeIndex-slide-item-wrap">
+                    <div class="slide-item-wrap">
+                        <div class="text-center">
+                            <div class="slide-item-tits">合作伙伴</div>
+                            <div class="slide-item-detail">更多第三方服务接入，吃喝玩乐尽在“买了么”APP。</div>
+                        </div>
+                        <div class="slide-item-jmlist">
+                            <ul>
+                                <li><img src="~/Content/image/home/slide_hz_bg_myj.png" /></li>
+                                <li><img src="~/Content/image/home/slide_hz_bg_tb.png" /></li>
+                                <li><img src="~/Content/image/home/slide_hz_bg_tm.png" /></li>
+                                <li><img src="~/Content/image/home/slide_hz_bg_jd.png" /></li>
+                                <li><img src="~/Content/image/home/slide_hz_bg_mgj.png" /></li>
+                                <li><img src="~/Content/image/home/slide_hz_bg_kfc.png" /></li>
+                                <li><img src="~/Content/image/home/slide_hz_bg_mdl.png" /></li>
+                                <li><img src="~/Content/image/home/slide_hz_bg_jm.png" /></li>
+                            </ul>
+                        </div>
+                        <div class="slide-item-footer">
+                            <div class="slide-item-left fl">
+                                <div class="slide-item-logo fl">买了么</div>
+                                <div class="slide-item-footer-contect fl">
+                                    <div class="tits">联系方式</div>
+                                    <div class="detail">
+                                        <div>邮箱：xxxxxx@mlm.cn</div>
+                                        <div>QQ：xxxxxxxxxxxx</div>
+                                        <div>电话：xxxx-xxxxxx-xx</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slide-item-right fr">
+                                <div class="slide-item-footer-iosqr fl">
+                                    <div class="tits">iOS下载</div>
+                                    <img src="~/Content/image/home/slide_ios_qr.png" />
+                                </div>
+                                <div class="slide-item-footer-andriodqr fl">
+                                    <div class="tits">iOS下载</div>
+                                    <img src="~/Content/image/home/slide_ios_qr.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="homeIndex-f">
+            ©20157 immlm.cn 粤ICP备888888888号 
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/mousewheel")
+    @Scripts.Render("~/bundles/home")
+}

@@ -76,6 +76,9 @@ namespace Buy
             bundles.Add(new ScriptBundle("~/bundles/touchSwipe").Include(
                 "~/Scripts/touchSwipe.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/mousewheel").Include(
+                "~/Scripts/jquery.mousewheel.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/clipboard")
                 .Include("~/Scripts/clipboard.min.js"));
             bundles.Add(new ScriptBundle($"~/bundles/mapapi").Include(
@@ -108,6 +111,7 @@ namespace Buy
             addViewScripts("forgotPassword", new string[] { "forgotPassword.js" });
             addViewScripts("roleGroup", new string[] { "roleGroup.js" });
             addViewScripts("localCoupon", new string[] { "localCoupon.js" });
+            addViewScripts("home", new string[] { "home.js" });
         }
     }
 }
