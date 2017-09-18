@@ -318,6 +318,10 @@ namespace Buy.Controllers
         public ActionResult GetCouponTypes(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao)
         {
             var data = CouponTypes(platform);
+            data.ForEach(s =>
+            {
+                s.Childs.Select(x => x.Image = Comm.ResizeImage(x.Image, image: null));
+            });
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
         }
 
@@ -334,7 +338,7 @@ namespace Buy.Controllers
                          Childs = new List<CouponTypeTreeNode>(),
                          Name = s.Name,
                          ID = s.ID,
-                         Image = Comm.ResizeImage(s.Image, image: null),
+                         Image = s.Image,
                          ParentID = s.ParentID,
                      })
                      .ToList());
