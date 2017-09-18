@@ -38,7 +38,9 @@ namespace Buy.Controllers
 
         public ActionResult LoginSuccess()
         {
-            return View();
+            var mgj = new MoGuJie.Method();
+            var token = mgj.Token;
+            return View(token);
         }
 
         [HttpGet]
