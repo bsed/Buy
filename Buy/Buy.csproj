@@ -205,7 +205,7 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Yunpian">
-      <HintPath>C:\Users\Administrator\Desktop\Yunpian.dll</HintPath>
+      <HintPath>C:\Users\sonicshadow\Downloads\Yunpian.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -728,7 +728,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62209</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
