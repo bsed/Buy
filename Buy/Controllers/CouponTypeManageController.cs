@@ -117,7 +117,7 @@ namespace Buy.Controllers
                     Platform = model.Platform,
                 };
                 couponType.Add(type);
-                return RedirectToAction("Index", new { pid = model.ParentID });
+                return RedirectToAction("Index", new { pid = model.ParentID , platform =model.Platform});
             }
             Sidebar();
             return View(model);
@@ -178,7 +178,7 @@ namespace Buy.Controllers
                 type.Platform = model.Platform;
 
                 couponType[index] = type;
-                return RedirectToAction("Index", new { pid = model.ParentID });
+                return RedirectToAction("Index", new { pid = model.ParentID, platform = model.Platform });
             }
             return View(model);
         }
@@ -243,7 +243,7 @@ namespace Buy.Controllers
             if (ModelState.IsValid)
             {
                 couponType.Remove(type);
-                return RedirectToAction("Index", new { pid = type.ParentID });
+                return RedirectToAction("Index", new { pid = type.ParentID, platform = type.Platform });
             }
             var model = new CouponTypeViewModel()
             {
