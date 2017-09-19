@@ -1543,22 +1543,18 @@
 }
 .homeIndex .homeIndex-head .homeIndex-head-wrap .homeIndex-head-nav ul li i {
   transition: 0.5s all;
+  position: absolute;
+  height: 4px;
+  background-color: #d8203e;
+  bottom: 15px;
+  left: 0;
+  width: 0%;
 }
 .homeIndex .homeIndex-head .homeIndex-head-wrap .homeIndex-head-nav ul li.active i {
-  position: absolute;
   width: 100%;
-  height: 4px;
-  background-color: #d8203e;
-  bottom: 15px;
-  left: 0;
 }
 .homeIndex .homeIndex-head .homeIndex-head-wrap .homeIndex-head-nav ul li:hover i {
-  position: absolute;
   width: 100%;
-  height: 4px;
-  background-color: #d8203e;
-  bottom: 15px;
-  left: 0;
 }
 .homeIndex .homeIndex-head .homeIndex-head-wrap .homeIndex-head-nav ul li:last-child {
   margin-right: 0;
@@ -2073,10 +2069,15 @@
   width: 995px;
   height: 344px;
   overflow: hidden;
+  padding-top: 45px;
 }
 .homeIndex .homeIndex-wrap .homeIndex-slide-container .homeIndex-slide-item.yj .slide-item-table .slide-item-table-cons .table-cons-tits {
+  width: 100%;
   height: 45px;
   background: #f1da9b;
+  position: absolute;
+  top: 0;
+  z-index: 100;
 }
 .homeIndex .homeIndex-wrap .homeIndex-slide-container .homeIndex-slide-item.yj .slide-item-table .slide-item-table-cons .table-cons-tits:before,
 .homeIndex .homeIndex-wrap .homeIndex-slide-container .homeIndex-slide-item.yj .slide-item-table .slide-item-table-cons .table-cons-tits:after {
