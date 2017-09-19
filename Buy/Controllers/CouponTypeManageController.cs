@@ -36,6 +36,10 @@ namespace Buy.Controllers
                 Name = "全部",
                 ParentID = -1
             };
+            if (platform == Enums.CouponPlatform.TMall)
+            {
+                platform = Enums.CouponPlatform.TaoBao;
+            }
             Action<CouponTypeTreeNode> setTree = null;
             setTree = p =>
             {
@@ -79,7 +83,7 @@ namespace Buy.Controllers
                     Name = "CouponTypeViewModelImage"
                 },
                 ParentID = pid,
-                Platform=platform,
+                Platform = platform,
             };
             return View(model);
         }
@@ -110,7 +114,7 @@ namespace Buy.Controllers
                     Name = model.Name,
                     Sort = model.Sort,
                     ParentID = model.ParentID,
-                    Platform=model.Platform,
+                    Platform = model.Platform,
                 };
                 couponType.Add(type);
                 return RedirectToAction("Index", new { pid = model.ParentID });
@@ -140,7 +144,7 @@ namespace Buy.Controllers
                 Keyword = type.Keyword,
                 Name = type.Name,
                 Sort = type.Sort,
-                Platform=type.Platform,
+                Platform = type.Platform,
             };
             return View(model);
         }
@@ -216,7 +220,7 @@ namespace Buy.Controllers
                 Keyword = type.Keyword,
                 Name = type.Name,
                 Sort = type.Sort,
-                Platform=type.Platform,
+                Platform = type.Platform,
             };
             return View(model);
         }
