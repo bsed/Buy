@@ -398,15 +398,15 @@ namespace Buy.Enums
     public enum CouponPlatform
     {
         [Display(Name = "淘宝")]
-        TaoBao,
+        TaoBao = 0,
         [Display(Name = "天猫")]
-        TMall,
+        TMall = 1,
         [Display(Name = "京东")]
-        Jd,
-        [Display(Name = "唯品会")]
-        Vip,
+        Jd = 2,
+        //[Display(Name = "唯品会")]
+        //Vip,
         [Display(Name = "蘑菇街")]
-        MoGuJie
+        MoGuJie = 4
     }
 
     public enum CouponSort

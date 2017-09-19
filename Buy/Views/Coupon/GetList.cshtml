@@ -7,6 +7,11 @@
 {
     foreach (var item in Model)
     {
+        var img = item.Image;
+        if (img.Contains("mogucdn"))
+        {
+            img = $"{img}_200x200.jpg";
+        }
         string platformLogo = null;
         switch (item.Platform)
         {
@@ -19,9 +24,9 @@
             case Buy.Enums.CouponPlatform.Jd:
                 platformLogo = "/Content/image/view/logo_jd_tag@2x.png";
                 break;
-            case Buy.Enums.CouponPlatform.Vip:
-                platformLogo = "/Content/image/view/logo_taobao_tag@2x.png";
-                break;
+            //case Buy.Enums.CouponPlatform.Vip:
+            //    platformLogo = "/Content/image/view/logo_taobao_tag@2x.png";
+            //    break;
             case Buy.Enums.CouponPlatform.MoGuJie:
                 platformLogo = "/Content/image/view/logo_mogujie_tag@2x.png";
                 break;
@@ -31,7 +36,7 @@
         <li>
             <div class="couponList-head">
                 <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
-                    <img src="~/Content/image/404/placeholder_image.png?w=150&h=150" data-original="@Comm.ResizeImage(item.Image)" />
+                    <img src="~/Content/Images/404/placeholder_image.png?w=150&h=150" data-original="@img" />
                 </a>
             </div>
 

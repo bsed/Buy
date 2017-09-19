@@ -149,8 +149,8 @@ namespace Buy.Controllers
                 case Enums.CouponPlatform.Jd:
                     productUrl = $"https://item.m.jd.com/product/{tpt.ProductID}.html";
                     break;
-                case Enums.CouponPlatform.Vip:
-                    break;
+                //case Enums.CouponPlatform.Vip:
+                //    break;
                 case Enums.CouponPlatform.MoGuJie:
                     productUrl = $"https://detail.m.tmall.com/item.htm?id={tpt.ProductID}";
                     break;
@@ -257,8 +257,8 @@ namespace Buy.Controllers
                                 }
                             }
                             break;
-                        case Enums.CouponPlatform.Vip:
-                            break;
+                        //case Enums.CouponPlatform.Vip:
+                        //    break;
                         case Enums.CouponPlatform.MoGuJie:
                             {
                                 var options = new PhantomJSOptions();

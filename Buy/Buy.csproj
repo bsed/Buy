@@ -520,6 +520,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\clipboard.min.js" />
     <Content Include="Scripts\Comm\accessLog.js" />
     <Content Include="Scripts\Comm\canvas-to-blob.min.js" />
     <Content Include="Scripts\Comm\check.js" />

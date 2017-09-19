@@ -15,9 +15,9 @@
             case Buy.Enums.CouponPlatform.Jd:
                 platformLogo = "/Content/image/view/logo_jd_tag@2x.png";
                 break;
-            case Buy.Enums.CouponPlatform.Vip:
-                platformLogo = "/Content/image/view/logo_taobao_tag@2x.png";
-                break;
+            //case Buy.Enums.CouponPlatform.Vip:
+            //    platformLogo = "/Content/image/view/logo_taobao_tag@2x.png";
+            //    break;
             case Buy.Enums.CouponPlatform.MoGuJie:
                 platformLogo = "/Content/image/view/logo_mogujie_tag@2x.png";
                 break;
@@ -25,13 +25,18 @@
                 break;
         }
     }
-
     string url = Request.Url.ToString();
 }
 
 @if (Model != null)
 {
     @Html.HiddenFor(modle => modle.ID)
+    var img = Model.Image;
+    if (img.Contains("mogucdn"))
+    {
+        img = $"{img}_200x200.jpg";
+    }
+
     <img id="lazyloadimg" hidden src="~/Content/image/404/placeholder_image.png?w=150&h=150" />
     <div id="detail" class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
@@ -106,7 +111,7 @@
             <div class="marginT10" id="Output"></div>
             <div class="shareImgModule" id="shareImgModule">
                 <div class="shareImgModule-img">
-                    <img crossorigin="anonymous" id="shareImgModule_img" src="@Comm.ResizeImage(Model.Image,w:200,h:200)" />
+                    <img crossorigin="anonymous" id="shareImgModule_img" src="@img" />
                 </div>
                 <div class="shareImgModule-info">
                     <div class="shareImgModule-info-cons fl">
@@ -121,8 +126,8 @@
                             <div class="coupon-tab fl marginR8">
                                 @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
                                 {
-                                    <div class="coupon-tab-type fl">@item.Type</div>
-                                    <div class="coupon-tab-val fl">@item.Value</div>
+                                <div class="coupon-tab-type fl">@item.Type</div>
+                                <div class="coupon-tab-val fl">@item.Value</div>
                                 }
                             </div>
                         </div>
@@ -149,9 +154,8 @@ else
     </div>
 }
 
-
-
 @section Scripts{
+    @Scripts.Render("~/bundles/clipboard")
     @Scripts.Render("~/bundles/touchSwipe")
     @Scripts.Render("~/bundles/html2canvas")
     @Scripts.Render("~/bundles/couponDetail")
