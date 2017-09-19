@@ -67,7 +67,7 @@
                 {
                     <li>
                         <a name="childType" data-type="@item.ID">
-                            <img src="@Comm.ResizeImage(item.Image)" /><div>@item.Name</div>
+                            <img src="@Url.ResizeImage(item.Image,80,80)" /><div>@item.Name</div>
                         </a>
                     </li>
                 }
@@ -132,7 +132,7 @@
         </ul>
     </div>
 
-    <div class="setScrollTop" style="display:none"><img src="~/Content/image/view/img_backtop@2x.png"/></div>
+    <div class="setScrollTop" style="display:none"><img src="~/Content/image/view/img_backtop@2x.png" /></div>
 
     @Html.Partial("_navTabBottomPartial")
 </div>
