@@ -133,6 +133,21 @@ namespace Buy.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", "UserManage", null);
             }
+            if (string.IsNullOrWhiteSpace(model.OwnUser))
+            {
+                var userlist = db.Users.Where(s => s.UserType == Enums.UserType.Proxy)
+                    .Select(s => new SelectListItem()
+                    {
+                        Text = s.UserName,
+                        Value = s.Id
+                    }).ToList();
+                ViewBag.UserList = userlist;
+            }
+            else
+            {
+                var user = db.Users.FirstOrDefault(s => s.Id == model.OwnUser);
+                model.Own = user;
+            }
             return View(model);
         }
 

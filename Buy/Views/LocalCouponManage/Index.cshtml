@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Buy.Models.LocalCoupon>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "本地券管理";
     Layout = "~/Views/Shared/_LayoutBackground.cshtml";
     var paged = (PagedList.IPagedList<Buy.Models.LocalCoupon>)Model;
     List<SelectListItem> shop = ViewBag.Shop;

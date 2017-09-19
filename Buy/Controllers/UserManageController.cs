@@ -91,6 +91,7 @@ namespace Buy.Controllers
                 user = new ApplicationUser
                 {
                     UserName = model.PhoneNumber,
+                    PhoneNumber=model.PhoneNumber,
                     UserType = Enums.UserType.Proxy,
                     RegisterDateTime = DateTime.Now,
                     LastLoginDateTime = DateTime.Now

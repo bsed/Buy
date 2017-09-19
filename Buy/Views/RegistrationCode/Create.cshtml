@@ -26,6 +26,7 @@
                 else
                 {
                     @Model.Own.UserName
+                    @Html.HiddenFor(model=>Model.OwnUser)
                 }
                 @Html.ValidationMessageFor(model => model.OwnUser, "", new { @class = "text-danger" })
             </div>
@@ -35,7 +36,7 @@
             @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control", @min = "1" } })
-                @Html.ValidationMessageFor(model => model.OwnUser, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
             </div>
         </div>
 

@@ -18,7 +18,11 @@ var typeTree = function () {
     var $btnEdit = $target.find("#btnEditMode");
     $.each($target.find("a"), function (i, n) {
         var $item = $(n);
-        $item.attr("href", comm.action("Index", "CouponTypeManage", { pid: $item.data("id") }))
+        $item.attr("href", comm.action("Index", "CouponTypeManage",
+            {
+                pid: $item.data("id"),
+                platform: $("#platform").val()
+            }))
     });
 
     var $sort = $target.find(">ul ul").sortable({
