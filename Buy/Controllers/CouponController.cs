@@ -338,7 +338,7 @@ namespace Buy.Controllers
                          Childs = new List<CouponTypeTreeNode>(),
                          Name = s.Name,
                          ID = s.ID,
-                         Image = s.Image,
+                         Image = Comm.ResizeImage(s.Image,image:null),
                          ParentID = s.ParentID,
                      })
                      .ToList());

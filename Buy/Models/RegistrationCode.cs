@@ -35,11 +35,13 @@ namespace Buy.Models
     public class RegistrationCodeCreate
     {
         [Display(Name = "拥有用户")]
+        [Required(ErrorMessage = "请选择{0}")]
         public string OwnUser { get; set; }
 
         public ApplicationUser Own { get; set; }
 
         [Display(Name = "数量")]
+        [Range(1,int.MaxValue,ErrorMessage ="{0}不能小于{1}")]
         public int Count { get; set; }
     }
 

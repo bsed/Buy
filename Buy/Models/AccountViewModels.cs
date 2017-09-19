@@ -68,7 +68,14 @@ namespace Buy.Models
         [Display(Name = "电话号码")]
         public string PhoneNumber { get; set; }
 
+        [Display(Name = "验证码")]
         public string Code { get; set; }
+
+        [Display(Name = "用户类型")]
+        public Enums.UserType UserType { get; set; }
+
+        [Display(Name = "权限分组")]
+        public int? RoleGroupID { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]

@@ -71,10 +71,19 @@ namespace Buy.Controllers
 
         // GET: UserManage/Create
         [Authorize(Roles = SysRole.UserManageCreate)]
-        public ActionResult Create()
+        public ActionResult Create(Enums.UserType userType = Enums.UserType.Proxy)
         {
             Sidebar();
-            return View();
+            var model = new RegisterViewModel()
+            {
+                UserType = userType
+            };
+            if (userType == Enums.UserType.System)
+            {
+                var roles = db.RoleGroups.ToList();
+                ViewBag.SelRole = new SelectList(roles, "ID", "Name");
+            }
+            return View(model);
         }
 
         [HttpPost]
@@ -86,13 +95,20 @@ namespace Buy.Controllers
             {
                 ModelState.AddModelError("UserName", "用户名已存在");
             }
+            if (model.UserType == Enums.UserType.System)
+            {
+                if (!model.RoleGroupID.HasValue)
+                {
+                    ModelState.AddModelError("RoleGroupID", "选择权限分组");
+                }
+            }
             if (ModelState.IsValid)
             {
                 user = new ApplicationUser
                 {
                     UserName = model.PhoneNumber,
-                    PhoneNumber=model.PhoneNumber,
-                    UserType = Enums.UserType.Proxy,
+                    PhoneNumber = model.PhoneNumber,
+                    UserType = model.UserType,
                     RegisterDateTime = DateTime.Now,
                     LastLoginDateTime = DateTime.Now
                 };
@@ -102,8 +118,12 @@ namespace Buy.Controllers
                     return RedirectToAction("Index");
                 }
             }
+            if (model.UserType == Enums.UserType.System)
+            {
+                var roles = db.RoleGroups.ToList();
+                ViewBag.SelRole = new SelectList(roles, "ID", "Name");
+            }
             return View(model);
-
         }
 
         // GET: UserManage/Edit/5

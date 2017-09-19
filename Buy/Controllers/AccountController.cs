@@ -239,6 +239,7 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult Activation(string userId, string code)
         {
+            code = code.ToUpper();
             var registrationCodes = db.RegistrationCodes.FirstOrDefault(s => s.Code == code);
             if (registrationCodes == null)
             {
