@@ -62,23 +62,13 @@ namespace Buy.Controllers
         public ActionResult GetUserInfo(string userId)
         {
             var user = db.Users.FirstOrDefault(s => s.Id == userId);
-            if (user == null)
-            {
-                return Json(Comm.ToJsonResult("Error", "没有这个用户"), JsonRequestBehavior.AllowGet);
-            }
-            var isActivation = true;
-            var registrationCodes = db.RegistrationCodes.Where(s => s.UseUser == user.Id);
-            if (registrationCodes.Count() <= 0)
-            {
-                isActivation = false;
-            }
             var data = new
             {
                 user.Id,
                 user.UserName,
                 user.NickName,
                 user.PhoneNumber,
-                IsActivation = isActivation,
+                IsActivation = IsActivation(user.Id),
                 user.UserType,
             };
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
@@ -115,7 +105,7 @@ namespace Buy.Controllers
                 case SignInStatus.Success:
                     {
                         var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName || s.PhoneNumber == model.UserName);
-                        var data = new
+                        return Json(Comm.ToJsonResult("Success", "登录成功", new
                         {
                             user.Id,
                             user.UserName,
@@ -123,8 +113,7 @@ namespace Buy.Controllers
                             user.PhoneNumber,
                             IsActivation = IsActivation(user.Id),
                             user.UserType,
-                        };
-                        return Json(Comm.ToJsonResult("Success", "登录成功", new { Data = data }));
+                        }));
                     }
                 case SignInStatus.LockedOut:
                     {
@@ -229,8 +218,7 @@ namespace Buy.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
-  
-                    var data = new
+                    return Json(Comm.ToJsonResult("Success", "成功", new
                     {
                         user.Id,
                         user.UserName,
@@ -238,8 +226,7 @@ namespace Buy.Controllers
                         user.PhoneNumber,
                         IsActivation = IsActivation(user.Id),
                         user.UserType,
-                    };
-                    return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }));
+                    }));
                 }
                 return Json(Comm.ToJsonResult("Error", result.Errors.FirstOrDefault()));
             }
