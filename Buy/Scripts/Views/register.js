@@ -2,7 +2,7 @@
 //注册按钮
 $("#registerBtn").click(function () {
     var data = {
-        UserName: $("#PhoneNumber").val(),
+        PhoneNumber: $("#PhoneNumber").val(),
         Code: $("#Code").val(),
         Password: $("#Password").val(),
     };
@@ -53,11 +53,8 @@ function vercode(option) {
         _hide();
     }
 
-
-
     $txt.keyup(function () {
         if ($txt.val().length == 4)
-
             $.ajax({
                 type: "POST",
                 url: comm.action("CheckCode", "Account"),
@@ -66,10 +63,8 @@ function vercode(option) {
                 success: function (data) {
                     if (data.State == "Success") {
                         option.success();
-                        // alert("验证成功");
                     } else {
                         option.fail();
-                        //alert("验证失败");
                     }
                 }
             });
@@ -180,12 +175,12 @@ function codeCountDown(timespan) {
 $("#inviteBtn").click(function (e) {
     var data = {
         userId: $("#Id").val(),
-        Code: $("#inviteCode").val(),
+        code: $("#inviteCode").val(),
     };
     $.ajax({
         type: "POST",
         url: comm.action("Activation", "Account"),
-        data: "",
+        data: data,
         dataType: "json",
         success: function (data) {
             if (data.State == "Success") {

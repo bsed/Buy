@@ -16,7 +16,7 @@
         <div class="paddingLr16">
             <div class="account-input">
                 <div class="account-input-tits">手机号码</div>
-                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "register-input", @placeholder = "请填写手机号码" })
+                @Html.EditorFor(m => m.PhoneNumber, new { @class = "register-input", @placeholder = "请填写手机号码" })
                 <input id="btnGetCode" class="identifyCode" type="button" value="获取验证码" />
                 @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger hidden" })
                 <div name="clearVal" class="account-input-del style02 hidden"></div>

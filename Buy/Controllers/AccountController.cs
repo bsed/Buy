@@ -115,7 +115,16 @@ namespace Buy.Controllers
                 case SignInStatus.Success:
                     {
                         var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName || s.PhoneNumber == model.UserName);
-                        return Json(Comm.ToJsonResult("Success", "登录成功", new { ID = user.Id }));
+                        var data = new
+                        {
+                            user.Id,
+                            user.UserName,
+                            user.NickName,
+                            user.PhoneNumber,
+                            IsActivation = IsActivation(user.Id),
+                            user.UserType,
+                        };
+                        return Json(Comm.ToJsonResult("Success", "登录成功", new { Data = data }));
                     }
                 case SignInStatus.LockedOut:
                     {
@@ -220,7 +229,17 @@ namespace Buy.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
-                    return Json(Comm.ToJsonResult("Success", "成功", new { ID = user.Id }));
+  
+                    var data = new
+                    {
+                        user.Id,
+                        user.UserName,
+                        user.NickName,
+                        user.PhoneNumber,
+                        IsActivation = IsActivation(user.Id),
+                        user.UserType,
+                    };
+                    return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }));
                 }
                 return Json(Comm.ToJsonResult("Error", result.Errors.FirstOrDefault()));
             }
@@ -234,11 +253,26 @@ namespace Buy.Controllers
             return View(u);
         }
 
+        public bool IsActivation(string id)
+        {
+            var isActivation = true;
+            var registrationCodes = db.RegistrationCodes.Where(s => s.UseUser == id);
+            if (registrationCodes.Count() <= 0)
+            {
+                isActivation = false;
+            }
+            return isActivation;
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [AllowCrossSiteJson]
         public ActionResult Activation(string userId, string code)
         {
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                return Json(Comm.ToJsonResult("Error", "填写注册码"));
+            }
             code = code.ToUpper();
             var registrationCodes = db.RegistrationCodes.FirstOrDefault(s => s.Code == code);
             if (registrationCodes == null)

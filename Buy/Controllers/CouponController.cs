@@ -390,6 +390,28 @@ namespace Buy.Controllers
         public ActionResult Details(int? id)
         {
             var coupon = db.Coupons.FirstOrDefault(s => s.ID == id.Value);
+            string codeMessage = null;
+            var userid = User.Identity.GetUserId();
+            if (string.IsNullOrWhiteSpace(userid))
+            {
+                codeMessage = "NotLogin";
+            }
+            else
+            {
+                var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userid);
+                if (code == null)
+                {
+                    codeMessage = "NotActivation";
+                }
+                else
+                {
+                    if (code.OwnUser != coupon.UserID)
+                    {
+                        codeMessage = "NotOwnUser";
+                    }
+                }
+            }
+            ViewBag.codeMessage = codeMessage;
             return View(coupon);
         }
 

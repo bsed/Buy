@@ -85,7 +85,10 @@
             </div>
         </div>
 
-        <div name="clipboard" class="couponDetail-useBtn">立即领取优惠</div>
+        <div name="clipboard" class="couponDetail-useBtn">
+            @Html.Hidden("codeMessage",(string)ViewBag.codeMessage)
+            立即领取优惠
+        </div>
 
 
         @Html.Partial("_TaobaoPassPartial")
