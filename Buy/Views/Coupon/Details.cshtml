@@ -103,7 +103,7 @@
 
             <div class="fs12 color-grey">请不要更改“｛｝”之间的文字哦～</div>
             <div class="fs16 marginT15">分享的图片</div>
-            <div id="Output"></div>
+            <div class="marginT10" id="Output"></div>
             <div class="shareImgModule" id="shareImgModule">
                 <div class="shareImgModule-img">
                     <img crossorigin="anonymous" id="shareImgModule_img" src="@Comm.ResizeImage(Model.Image,w:200,h:200)" />
@@ -128,7 +128,8 @@
                         </div>
                     </div>
                     <div class="shareImgModule-code fr">
-                        <img crossorigin="anonymous" src="@Url.Action("Index", "QrCode", new { data =Url.ContentFull( Url.Action("Details", "Coupon", new { id = Model.ID }) )})" />
+                        <img class="marginB5" crossorigin="anonymous" src="@Url.Action("Index", "QrCode", new { data =Url.ContentFull( Url.Action("Details", "Coupon", new { id = Model.ID }) )})" />
+                        <div class="fs12 color-main">长按识别二维码</div>
                     </div>
                 </div>
             </div>
@@ -152,7 +153,7 @@ else
 
 @section Scripts{
     @Scripts.Render("~/bundles/touchSwipe")
-    @Scripts.Render("~/Scripts/html2canvas.js")
+    @Scripts.Render("~/bundles/html2canvas")
     @Scripts.Render("~/bundles/couponDetail")
 }
 

@@ -134,7 +134,7 @@ function getBase64Image(img) {
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0, img.width, img.height);
     var dataURL = canvas.toDataURL("image/png");
-    return dataURL // return dataURL.replace("data:image/png;base64,", ""); 
+    return dataURL
 }
 
 $("#shareback").click(function (e) {

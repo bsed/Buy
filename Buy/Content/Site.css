@@ -756,6 +756,7 @@
 }
 .shareImgModule .shareImgModule-info {
   position: relative;
+  padding-top: 5px;
 }
 .shareImgModule .shareImgModule-info:before,
 .shareImgModule .shareImgModule-info:after {
@@ -774,13 +775,13 @@
   clear: both;
 }
 .shareImgModule .shareImgModule-info .shareImgModule-code {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  text-align: center;
   margin-left: 5px;
 }
 .shareImgModule .shareImgModule-info .shareImgModule-code img {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
 }
 .shareImgModule .shareImgModule-info .shareImgModule-info-cons {
   width: 195px;

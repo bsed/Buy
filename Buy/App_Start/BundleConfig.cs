@@ -79,6 +79,12 @@ namespace Buy
             bundles.Add(new ScriptBundle("~/bundles/mousewheel").Include(
                 "~/Scripts/jquery.mousewheel.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/html2canvas").Include(
+                "~/Scripts/html2canvas.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/hidpi-canvas").Include(
+                "~/Scripts/hidpi-canvas.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/clipboard")
                 .Include("~/Scripts/clipboard.min.js"));
             bundles.Add(new ScriptBundle($"~/bundles/mapapi").Include(
