@@ -2,7 +2,7 @@
 //注册按钮
 $("#registerBtn").click(function () {
     var data = {
-        UserName: $("#PhoneNumber").val(),
+        PhoneNumber: $("#PhoneNumber").val(),
         Code: $("#Code").val(),
         Password: $("#Password").val(),
     };
