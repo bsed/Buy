@@ -90,6 +90,33 @@ $(".mask").click(function (e) {
 });
 
 $("[name='clipboard']").click(function (e) {
+    $.ajax({
+        type: "GET",
+        url: comm.action("GetPwd", "Coupon"),
+        data: { id: $("#ID").val() },
+        dataType: "json",
+        success: function (data) {
+            if (data.State == "Success") {
+                $("#pwdMask-text").text(data.Result.Data);
+                $(".pwdMask").attrdata("clipboard-text", data.Result.Data);
+                $(".pwdMask").removeClass("hidden");
+                $("body").css("overflow", "hidden");
+                comm.mask2.show();
+            }
+        }
+    });
+});
+
+//复制粘贴板
+var clipboard = new Clipboard('.pwdMask');
+clipboard.on('success', function (e) {
+    $(".pwdMask").addClass("hidden");
+    $("body").css("overflow", "auto");
+    comm.mask2.hide();
+    comm.promptBox("复制成功,请打开淘宝APP查看");
+});
+clipboard.on('error', function (e) {
+    comm.promptBox("长按口令复制");
     $(".pwdMask").removeClass("hidden");
     $("body").css("overflow", "hidden");
     comm.mask2.show();

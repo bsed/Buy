@@ -121,8 +121,8 @@
                             <div class="coupon-tab fl marginR8">
                                 @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
                                 {
-                                    <div class="coupon-tab-type fl">@item.Type</div>
-                                    <div class="coupon-tab-val fl">@item.Value</div>
+                                <div class="coupon-tab-type fl">@item.Type</div>
+                                <div class="coupon-tab-val fl">@item.Value</div>
                                 }
                             </div>
                         </div>
@@ -148,9 +148,8 @@ else
     </div>
 }
 
-
-
 @section Scripts{
+    @Scripts.Render("~/bundles/clipboard")
     @Scripts.Render("~/bundles/touchSwipe")
     @Scripts.Render("~/Scripts/html2canvas.js")
     @Scripts.Render("~/bundles/couponDetail")

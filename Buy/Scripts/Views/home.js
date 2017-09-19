@@ -129,3 +129,29 @@ $("#nav li").click(function () {
         sum = 0;
     }
 });
+
+//滚动向上
+var loop2 = true;
+var scrollUpListLength = $("#scrollUpList li").length;
+if (scrollUpListLength < 15) {
+    loop2 = false;
+}
+
+function autoScrolls(obj) {
+    if (loop2) {
+        $(obj).find("#scrollUpList").animate({
+            marginTop: "-45px"
+        }, 500, function () {
+            $(this).css({ marginTop: "0px" }).find("li:lt(2)").appendTo(this);
+        });
+    }
+}
+
+$("#scrollUpList").mouseover(function () {
+    loop2 = false;
+});
+$("#scrollUpList").mouseout(function () {
+    loop2 = true;
+});
+
+setInterval('autoScrolls("#slideBox")', 3000)
