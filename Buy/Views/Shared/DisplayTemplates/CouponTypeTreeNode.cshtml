@@ -6,7 +6,7 @@
 <li data-id="@Model.ID">
     <div>
         <span class="glyphicon glyphicon-triangle-bottom @(Model.Childs.Count > 0?"":"vhidden")"></span>
-        <a data-id="@Model.ID">@Model.Name</a>
+        <a data-id="@Model.ID">@Model.Name @(string.IsNullOrWhiteSpace(Model.TestID) ? "" : Model.Count.ToString())</a>
     </div>
     <ul>
         @foreach (var item in Model.Childs)
