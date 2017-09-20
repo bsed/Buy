@@ -51,7 +51,7 @@ namespace Buy.Controllers
             var cids = MoGuJie.Method.AllCategory;
             foreach (var cid in cids)
             {
-                cid.TypeID = Bll.Coupons.CheckType(cid.Name);
+                cid.TypeID = Bll.Coupons.CheckType(cid.Name, Enums.CouponPlatform.MoGuJie);
             }
             return Json(Comm.ToJsonResult("Success", "成功", cids), JsonRequestBehavior.AllowGet);
         }
