@@ -90,6 +90,19 @@ $(".mask").click(function (e) {
 });
 
 $("[name='clipboard']").click(function (e) {
+    var codeMessage = $("#codeMessage").val();
+    if (codeMessage == "NotLogin") {
+        location = comm.action("Login", "Account");
+        return false;
+    }
+    if (codeMessage == "NotActivation") {
+        location = comm.action("Activation", "Account");
+        return false;
+    }
+    if (codeMessage == "NotOwnUser") {
+        location = comm.action("Index", "Coupon");
+        return false;
+    }
     $.ajax({
         type: "GET",
         url: comm.action("GetPwd", "Coupon"),

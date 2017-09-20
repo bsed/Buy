@@ -25,6 +25,15 @@
             <div class="marginT35">
                 <input id="inviteBtn" type="button" disabled class="account-button" value="完成" />
             </div>
+            <div class="account-link marginT20 fs12">
+                <div class="fr">
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                    }
+                    <a href="javascript:document.getElementById('logoutForm').submit()">退出登录</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

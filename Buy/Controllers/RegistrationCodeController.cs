@@ -153,7 +153,7 @@ namespace Buy.Controllers
 
         public string CreateCode(int length)
         {
-            string str = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string str = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             int len = str.Length;
             Random r = new Random();
             string result = null;
