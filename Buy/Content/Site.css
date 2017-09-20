@@ -2306,6 +2306,160 @@
   bottom: 0;
   z-index: 1000;
 }
+.homeIndexM {
+  height: 100vh;
+}
+.homeIndexM .homeIndexM-swiper {
+  position: relative;
+  height: 100vh;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container {
+  width: 100%;
+  height: 100%;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide {
+  overflow: hidden;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.app {
+  background: -webkit-linear-gradient(left, #d8203e, #f62447);
+  /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(right, #d8203e, #f62447);
+  /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(right, #d8203e, #f62447);
+  /* Firefox 3.6 - 15 */
+  background: linear-gradient(to right, #d8203e, #f62447);
+  /* 标准的语法 */
+  text-align: center;
+  color: #fff;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.app .slideApp-tits {
+  font-size: 1.15942029rem;
+  color: #d80628;
+  background-color: #fff;
+  width: 4.32850242rem;
+  line-height: 2.31884058rem;
+  font-weight: bold;
+  margin: 0 auto;
+  margin-top: 1.93236715rem;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.app .slideApp-text {
+  font-size: 1.39130435rem;
+  font-weight: bold;
+  letter-spacing: 0.23188406rem;
+  margin-top: 0.38647343rem;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.app .slideApp-detail {
+  font-size: 0.61835749rem;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 0.38647343rem;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.app .slideApp-btns {
+  margin-top: 0.77294686rem;
+  display: -webkit-box;
+  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+  display: -moz-box;
+  /* 老版本语法: Firefox (buggy) */
+  display: -ms-flexbox;
+  /* 混合版本语法: IE 10 */
+  display: -webkit-flex;
+  /* 新版本语法: Chrome 21+ */
+  display: flex;
+  padding: 0 0.38647343rem;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.app .slideApp-btns .slideApp-btns-li {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 0 0.38647343rem;
+  background-color: #101010;
+  font-size: 0.69565217rem;
+  text-align: center;
+  height: 2.12560386rem;
+  line-height: 2.12560386rem;
+  box-shadow: 0 0.07729469rem 0.38647343rem -0.03864734rem #232323;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.app .slideApp-btns .slideApp-btns-li img {
+  height: 1.15942029rem;
+  margin-right: 0.30917874rem;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.app .slideApp-view img {
+  width: 80%;
+  height: auto;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.coupon {
+  color: #101010;
+  text-align: center;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.coupon .slideCoupon-text {
+  font-size: 1.15942029rem;
+  font-weight: bold;
+  margin-top: 1.93236715rem;
+  letter-spacing: 0.07729469rem;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.coupon .slideCoupon-detail {
+  font-size: 0.61835749rem;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.coupon .slideCoupon-bg01 {
+  margin-top: 1.15942029rem;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.coupon .slideCoupon-bg01 img {
+  width: 40%;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.coupon .slideCoupon-view {
+  position: relative;
+  margin-top: 2.31884058rem;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.coupon .slideCoupon-view .bg {
+  width: 100%;
+  height: auto;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.coupon .slideCoupon-view .taobao {
+  width: 2.24541063rem;
+  height: 2.40772947rem;
+  position: absolute;
+  right: 0.15458937rem;
+  top: 0.77294686rem;
+  z-index: 100;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.coupon .slideCoupon-view .jd {
+  width: 2.73236715rem;
+  height: 2.38067633rem;
+  position: absolute;
+  left: 50%;
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  top: 0.38647343rem;
+  margin-left: -1.15942029rem;
+  z-index: 100;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.coupon .slideCoupon-view .mgj {
+  width: 2.73236715rem;
+  height: 2.38067633rem;
+  position: absolute;
+  left: 1.15942029rem;
+  top: 3.47826087rem;
+  z-index: 100;
+}
+.homeIndexM .homeIndexM-swiper .swiper-container .swiper-slide.coupon .slideCoupon-view .tm {
+  width: 2.27246377rem;
+  height: 2.51594203rem;
+  position: absolute;
+  left: 50%;
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  top: 7.34299517rem;
+  margin-left: 2.70531401rem;
+  z-index: 100;
+}
 body {
   color: rgba(0, 0, 0, 0.87);
   min-height: 100vh;

@@ -154,4 +154,10 @@ $("#scrollUpList").mouseout(function () {
     loop2 = true;
 });
 
-setInterval('autoScrolls("#slideBox")', 3000)
+setInterval('autoScrolls("#slideBox")', 3000);
+
+
+//移动端js
+var swiper = new Swiper('.homeIndexM-swiper .swiper-container', {
+    direction: 'vertical'
+});

@@ -49,7 +49,6 @@
                             bottom: 15px;
                             left: 0;
                             width: 0%;
-                            
                         }
 
                         &.active {
@@ -564,16 +563,16 @@
                             width: 995px;
                             height: 344px;
                             overflow: hidden;
-                            padding-top:45px;
+                            padding-top: 45px;
 
                             .table-cons-tits {
                                 .clearfix();
-                                width:100%;
+                                width: 100%;
                                 height: 45px;
                                 background: #f1da9b;
-                                position:absolute;
-                                top:0;
-                                z-index:@z-index-bottom;
+                                position: absolute;
+                                top: 0;
+                                z-index: @z-index-bottom;
 
                                 .table-cons-tits-li {
                                     width: 100/6%;
@@ -718,8 +717,8 @@
                         }
                     }
 
-                    @media only screen and (max-width:1370px){
-                        .slide-item-footer{
+                    @media only screen and (max-width:1370px) {
+                        .slide-item-footer {
                             margin-top: 30px;
                         }
                     }
@@ -745,16 +744,171 @@
             }
         }
 
-        .homeIndex-f{
-            position:fixed;
-            background-color:@bg-color-white;
-            border-top:1px solid rgba(0,0,0,0.15);
+        .homeIndex-f {
+            position: fixed;
+            background-color: @bg-color-white;
+            border-top: 1px solid rgba(0,0,0,0.15);
             .one-line-vertical-mid(40px);
-            text-align:center;
-            font-size:14px;
-            width:100%;
-            bottom:0;
-            z-index:@z-index-mid;
+            text-align: center;
+            font-size: 14px;
+            width: 100%;
+            bottom: 0;
+            z-index: @z-index-mid;
+        }
+    }
+}
+
+.homeIndexM {
+    height: 100vh;
+
+    .homeIndexM-swiper {
+        position: relative;
+        height: 100vh;
+
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+
+            .swiper-slide {
+                overflow: hidden;
+
+                &.app {
+                    background: -webkit-linear-gradient(left, #d8203e, #f62447); /* Safari 5.1 - 6.0 */
+                    background: -o-linear-gradient(right, #d8203e, #f62447); /* Opera 11.1 - 12.0 */
+                    background: -moz-linear-gradient(right, #d8203e, #f62447); /* Firefox 3.6 - 15 */
+                    background: linear-gradient(to right, #d8203e, #f62447); /* 标准的语法 */
+                    text-align: center;
+                    color: @font-col-white;
+
+                    .slideApp-tits {
+                        font-size: 30rem*@resize;
+                        color: #d80628;
+                        background-color: @bg-color-white;
+                        width: 112rem*@resize;
+                        line-height: 60rem*@resize;
+                        font-weight: bold;
+                        margin: 0 auto;
+                        margin-top: 50rem*@resize;
+                    }
+
+                    .slideApp-text {
+                        font-size: 36rem*@resize;
+                        font-weight: bold;
+                        letter-spacing: 6rem*@resize;
+                        margin-top: 10rem*@resize;
+                    }
+
+                    .slideApp-detail {
+                        font-size: 16rem*@resize;
+                        width: 80%;
+                        margin: 0 auto;
+                        margin-top: 10rem*@resize;
+                    }
+
+                    .slideApp-btns {
+                        margin-top: 20rem*@resize;
+                        display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+                        display: -moz-box; /* 老版本语法: Firefox (buggy) */
+                        display: -ms-flexbox; /* 混合版本语法: IE 10 */
+                        display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+                        display: flex;
+                        padding: 0 10rem*@resize;
+
+                        .slideApp-btns-li {
+                            -webkit-box-flex: 1;
+                            -moz-box-flex: 1;
+                            -webkit-flex: 1;
+                            -ms-flex: 1;
+                            flex: 1;
+                            margin: 0 10rem*@resize;
+                            background-color: #101010;
+                            font-size: 18rem*@resize;
+                            text-align: center;
+                            .one-line-vertical-mid(55rem*@resize);
+                            box-shadow: 0 2rem*@resize 10rem*@resize -1rem*@resize #232323;
+
+                            img {
+                                height: 30rem*@resize;
+                                margin-right: 8rem*@resize;
+                            }
+                        }
+                    }
+
+                    .slideApp-view {
+
+                        img {
+                            width: 80%;
+                            height: auto;
+                        }
+                    }
+                }
+
+                &.coupon {
+                    color: #101010;
+                    text-align: center;
+
+                    .slideCoupon-text {
+                        font-size: 30rem*@resize;
+                        font-weight: bold;
+                        margin-top: 50rem*@resize;
+                        letter-spacing: 2rem*@resize;
+                    }
+
+                    .slideCoupon-detail{
+                        font-size: 16rem*@resize;
+                    }
+
+                    .slideCoupon-bg01{
+                        margin-top:30rem*@resize;
+
+                        img{
+                            width:40%;
+                        }
+                    }
+
+                    .slideCoupon-view{
+                        position:relative;
+                        margin-top:60rem*@resize;
+
+                        .bg{
+                            width:100%;
+                            height:auto;
+                        }
+
+                        .taobao{
+                            .rectangle(83*0.7rem*@resize,89*0.7rem*@resize);
+                            position:absolute;
+                            right:4rem*@resize;
+                            top:20rem*@resize;
+                            z-index:@z-index-bottom;
+                        }
+
+                        .jd{
+                            .rectangle(101*0.7rem*@resize,88*0.7rem*@resize);
+                            .block-horizontal-mid(50%);
+                            top:10rem*@resize;
+                            margin-left:-30rem*@resize;
+                            z-index:@z-index-bottom;
+                        }
+
+                        .mgj{
+                            .rectangle(101*0.7rem*@resize,88*0.7rem*@resize);
+                            position:absolute;
+                            left:30rem*@resize;
+                            top:90rem*@resize;
+                            z-index:@z-index-bottom;
+                        }
+
+                        .tm{
+                            .rectangle(84*0.7rem*@resize,93*0.7rem*@resize);
+                            .block-horizontal-mid(50%);
+                            top:190rem*@resize;
+                            margin-left:70rem*@resize;
+                            z-index:@z-index-bottom;
+                        }
+                    }
+                }
+            }
         }
     }
 }
