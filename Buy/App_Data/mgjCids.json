@@ -1,656 +1,737 @@
 [
   {
-    "ID": "683",
+    "ID": "10005654",
     "IsLeaf": false,
-    "Name": "女装",
-    "ParentId": "113g"
+    "Name": "宠物用品",
+    "ParentId": "",
+    "TypeID": null
   },
   {
-    "ID": "757",
+    "ID": "10005653",
     "IsLeaf": false,
-    "Name": "女鞋",
-    "ParentId": "113g"
+    "Name": "成人用品",
+    "ParentId": "",
+    "TypeID": null
   },
   {
-    "ID": "822",
+    "ID": "10005657",
     "IsLeaf": false,
-    "Name": "男装",
-    "ParentId": "113g"
+    "Name": "文教用品",
+    "ParentId": "",
+    "TypeID": null
   },
   {
-    "ID": "869",
+    "ID": "925",
     "IsLeaf": false,
-    "Name": "男鞋",
-    "ParentId": "113g"
+    "Name": "家居建材",
+    "ParentId": "",
+    "TypeID": null
   },
   {
-    "ID": "1395",
+    "ID": "3856",
     "IsLeaf": false,
-    "Name": "女士内衣/家居服",
-    "ParentId": "113g"
+    "Name": "百货",
+    "ParentId": "",
+    "TypeID": null
+  },
+  {
+    "ID": "1592",
+    "IsLeaf": false,
+    "Name": "汽配摩托",
+    "ParentId": "",
+    "TypeID": null
   },
   {
     "ID": "4180",
     "IsLeaf": false,
     "Name": "男士内衣/家居服",
-    "ParentId": "113g"
+    "ParentId": "113g",
+    "TypeID": null
   },
   {
     "ID": "1583",
     "IsLeaf": false,
     "Name": "箱包皮具/女包/男包",
-    "ParentId": "113g"
-  },
-  {
-    "ID": "1191",
-    "IsLeaf": false,
-    "Name": "彩妆/香水",
-    "ParentId": "11u0"
-  },
-  {
-    "ID": "1635",
-    "IsLeaf": false,
-    "Name": "美容护肤/精油",
-    "ParentId": "11u0"
-  },
-  {
-    "ID": "4140",
-    "IsLeaf": false,
-    "Name": "个人护理",
-    "ParentId": "11u0"
-  },
-  {
-    "ID": "2154",
-    "IsLeaf": false,
-    "Name": "美妆工具/个护工具",
-    "ParentId": "11u0"
-  },
-  {
-    "ID": "10004851",
-    "IsLeaf": false,
-    "Name": "珠宝／钻石／翡翠／黄金",
-    "ParentId": "12hk"
-  },
-  {
-    "ID": "1597",
-    "IsLeaf": false,
-    "Name": "女士配饰",
-    "ParentId": "12hk"
-  },
-  {
-    "ID": "4097",
-    "IsLeaf": false,
-    "Name": "男士饰品",
-    "ParentId": "12hk"
-  },
-  {
-    "ID": "1596",
-    "IsLeaf": false,
-    "Name": "ZIPPO/瑞士军刀/烟酒具",
-    "ParentId": "12hk"
-  },
-  {
-    "ID": "1419",
-    "IsLeaf": false,
-    "Name": "童装/婴儿装/亲子装",
-    "ParentId": "128a"
-  },
-  {
-    "ID": "1448",
-    "IsLeaf": false,
-    "Name": "童鞋/婴儿鞋/亲子鞋",
-    "ParentId": "128a"
-  },
-  {
-    "ID": "1476",
-    "IsLeaf": false,
-    "Name": "孕妇装/孕产妇用品/营养",
-    "ParentId": "128a"
-  },
-  {
-    "ID": "1489",
-    "IsLeaf": false,
-    "Name": "玩具/模型/动漫/早教/益智",
-    "ParentId": "128a"
-  },
-  {
-    "ID": "1735",
-    "IsLeaf": false,
-    "Name": "奶粉/辅食/营养品/零食",
-    "ParentId": "128a"
-  },
-  {
-    "ID": "1736",
-    "IsLeaf": false,
-    "Name": "尿片/洗护/喂哺/推车床",
-    "ParentId": "128a"
-  },
-  {
-    "ID": "1032",
-    "IsLeaf": false,
-    "Name": "家居饰品",
-    "ParentId": "11gy"
-  },
-  {
-    "ID": "2243",
-    "IsLeaf": false,
-    "Name": "五金/工具",
-    "ParentId": "11gy"
-  },
-  {
-    "ID": "2041",
-    "IsLeaf": false,
-    "Name": "特色手工艺",
-    "ParentId": "11gy"
-  },
-  {
-    "ID": "2039",
-    "IsLeaf": false,
-    "Name": "家装主材",
-    "ParentId": "11gy"
-  },
-  {
-    "ID": "2016",
-    "IsLeaf": false,
-    "Name": "居家布艺",
-    "ParentId": "11gy"
-  },
-  {
-    "ID": "971",
-    "IsLeaf": false,
-    "Name": "住宅家居",
-    "ParentId": "11gy"
-  },
-  {
-    "ID": "1014",
-    "IsLeaf": false,
-    "Name": "床上用品",
-    "ParentId": "11gy"
-  },
-  {
-    "ID": "2072",
-    "IsLeaf": false,
-    "Name": "传统滋补营养品",
-    "ParentId": "11zq"
-  },
-  {
-    "ID": "2066",
-    "IsLeaf": false,
-    "Name": "水产肉类/新鲜蔬果/熟食",
-    "ParentId": "11zq"
-  },
-  {
-    "ID": "2070",
-    "IsLeaf": false,
-    "Name": "粮油米面/南北干货/调味品",
-    "ParentId": "11zq"
-  },
-  {
-    "ID": "2068",
-    "IsLeaf": false,
-    "Name": "茶/咖啡/冲饮/酒类",
-    "ParentId": "11zq"
-  },
-  {
-    "ID": "2067",
-    "IsLeaf": false,
-    "Name": "保健食品/膳食营养补充食品",
-    "ParentId": "11zq"
-  },
-  {
-    "ID": "2071",
-    "IsLeaf": false,
-    "Name": "零食/坚果/特产",
-    "ParentId": "11zq"
-  },
-  {
-    "ID": "4135",
-    "IsLeaf": false,
-    "Name": "玩具/模型/动漫周边/DIY",
-    "ParentId": "15zs"
-  },
-  {
-    "ID": "4082",
-    "IsLeaf": false,
-    "Name": "文具纸本",
-    "ParentId": "15zs"
-  },
-  {
-    "ID": "2155",
-    "IsLeaf": false,
-    "Name": "个人护理工具",
-    "ParentId": "15zs"
-  },
-  {
-    "ID": "2069",
-    "IsLeaf": false,
-    "Name": "洗护清洁剂/卫生纸/湿巾/香薰",
-    "ParentId": "15zs"
-  },
-  {
-    "ID": "2065",
-    "IsLeaf": false,
-    "Name": "节庆用品/礼品",
-    "ParentId": "15zs"
-  },
-  {
-    "ID": "1734",
-    "IsLeaf": false,
-    "Name": "家庭清洁工具",
-    "ParentId": "15zs"
-  },
-  {
-    "ID": "1733",
-    "IsLeaf": false,
-    "Name": "居家日用",
-    "ParentId": "15zs"
-  },
-  {
-    "ID": "1393",
-    "IsLeaf": false,
-    "Name": "成人用品/避孕/计生用品",
-    "ParentId": "15zs"
+    "ParentId": "113g",
+    "TypeID": null
   },
   {
     "ID": "940",
     "IsLeaf": false,
     "Name": "厨房/烹饪用具",
-    "ParentId": "15zs"
+    "ParentId": "1bwwvc",
+    "TypeID": null
   },
   {
     "ID": "952",
     "IsLeaf": false,
     "Name": "餐饮具",
-    "ParentId": "15zs"
-  },
-  {
-    "ID": "986",
-    "IsLeaf": false,
-    "Name": "收纳整理",
-    "ParentId": "15zs"
-  },
-  {
-    "ID": "1030",
-    "IsLeaf": true,
-    "Name": "园艺用品",
-    "ParentId": "15zs"
-  },
-  {
-    "ID": "2485",
-    "IsLeaf": false,
-    "Name": "3C数码配件",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "3310",
-    "IsLeaf": false,
-    "Name": "闪存卡/U盘/存储/移动硬盘",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "3991",
-    "IsLeaf": false,
-    "Name": "品牌台机/品牌一体机/服务器",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "2077",
-    "IsLeaf": true,
-    "Name": "闪存卡/U盘/存储/移动硬盘",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "2080",
-    "IsLeaf": true,
-    "Name": "电玩/配件/游戏/攻略",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "2078",
-    "IsLeaf": false,
-    "Name": "办公设备/耗材/相关服务",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "2081",
-    "IsLeaf": true,
-    "Name": "品牌台机/品牌一体机/服务器",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "3911",
-    "IsLeaf": false,
-    "Name": "电玩/配件/游戏/攻略",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "2076",
-    "IsLeaf": false,
-    "Name": "网络设备/网络相关",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "3886",
-    "IsLeaf": false,
-    "Name": "电子词典/电纸书/文化用品",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "2075",
-    "IsLeaf": false,
-    "Name": "DIY电脑",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "2074",
-    "IsLeaf": true,
-    "Name": "MP3/MP4/IPod/录音笔",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "2073",
-    "IsLeaf": false,
-    "Name": "国货精品数码",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "1050",
-    "IsLeaf": true,
-    "Name": "手机",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "1051",
-    "IsLeaf": false,
-    "Name": "数码相机/单反相机/摄像机",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "1060",
-    "IsLeaf": true,
-    "Name": "笔记本电脑",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "1061",
-    "IsLeaf": true,
-    "Name": "平板电脑/MID",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "1062",
-    "IsLeaf": false,
-    "Name": "电脑硬件/显示器/电脑周边",
-    "ParentId": "11nu"
-  },
-  {
-    "ID": "1362",
-    "IsLeaf": true,
-    "Name": "其它家用电器",
-    "ParentId": "11q2"
+    "ParentId": "1bwwvc",
+    "TypeID": null
   },
   {
     "ID": "1981",
     "IsLeaf": false,
     "Name": "个人护理/保健/按摩器材",
-    "ParentId": "11q2"
+    "ParentId": "1bwwv4",
+    "TypeID": null
   },
   {
-    "ID": "1090",
+    "ID": "2485",
     "IsLeaf": false,
-    "Name": "大家电",
-    "ParentId": "11q2"
+    "Name": "3C数码配件",
+    "ParentId": "1bwwv4",
+    "TypeID": null
+  },
+  {
+    "ID": "3310",
+    "IsLeaf": false,
+    "Name": "闪存卡/U盘/存储/移动硬盘",
+    "ParentId": "1bwwv4",
+    "TypeID": null
+  },
+  {
+    "ID": "2077",
+    "IsLeaf": true,
+    "Name": "闪存卡/U盘/存储/移动硬盘",
+    "ParentId": "1bwwv4",
+    "TypeID": null
+  },
+  {
+    "ID": "2076",
+    "IsLeaf": false,
+    "Name": "网络设备/网络相关",
+    "ParentId": "1bwwv4",
+    "TypeID": null
+  },
+  {
+    "ID": "1050",
+    "IsLeaf": true,
+    "Name": "手机",
+    "ParentId": "1bwwv4",
+    "TypeID": null
+  },
+  {
+    "ID": "1062",
+    "IsLeaf": false,
+    "Name": "电脑硬件/显示器/电脑周边",
+    "ParentId": "1bwwv4",
+    "TypeID": null
   },
   {
     "ID": "1101",
     "IsLeaf": false,
     "Name": "厨房电器",
-    "ParentId": "11q2"
+    "ParentId": "1bwwv4",
+    "TypeID": null
   },
   {
     "ID": "1120",
     "IsLeaf": false,
     "Name": "影音电器",
-    "ParentId": "11q2"
+    "ParentId": "1bwwv4",
+    "TypeID": null
   },
   {
     "ID": "1130",
     "IsLeaf": false,
     "Name": "生活电器",
-    "ParentId": "11q2"
+    "ParentId": "1bwwv4",
+    "TypeID": null
   },
   {
-    "ID": "1586",
+    "ID": "1032",
     "IsLeaf": false,
-    "Name": "运动/瑜伽/健身/球迷用品",
-    "ParentId": "12hm"
+    "Name": "家居饰品",
+    "ParentId": "1bwwv2",
+    "TypeID": null
   },
   {
-    "ID": "1587",
+    "ID": "2016",
     "IsLeaf": false,
-    "Name": "户外/登山/野营/旅行用品",
-    "ParentId": "12hm"
+    "Name": "居家布艺",
+    "ParentId": "1bwwv2",
+    "TypeID": null
   },
   {
-    "ID": "1588",
+    "ID": "1014",
     "IsLeaf": false,
-    "Name": "运动服/休闲服装",
-    "ParentId": "12hm"
+    "Name": "床上用品",
+    "ParentId": "1bwwv2",
+    "TypeID": null
   },
   {
-    "ID": "1589",
+    "ID": "1191",
     "IsLeaf": false,
-    "Name": "运动鞋",
-    "ParentId": "12hm"
+    "Name": "彩妆/香水",
+    "ParentId": "11u0",
+    "TypeID": null
   },
   {
-    "ID": "1590",
+    "ID": "1635",
     "IsLeaf": false,
-    "Name": "运动包/户外包/配件",
-    "ParentId": "12hm"
+    "Name": "美容护肤/精油",
+    "ParentId": "11u0",
+    "TypeID": null
   },
   {
-    "ID": "1591",
+    "ID": "4140",
     "IsLeaf": false,
-    "Name": "自行车/骑行装备/零配件",
-    "ParentId": "12hm"
+    "Name": "个人护理",
+    "ParentId": "11u0",
+    "TypeID": null
   },
   {
-    "ID": "1606",
-    "IsLeaf": true,
-    "Name": "保险分销",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1607",
-    "IsLeaf": true,
-    "Name": "购物提货券/蛋糕面包",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1608",
-    "IsLeaf": true,
-    "Name": "休闲娱乐",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1609",
-    "IsLeaf": true,
-    "Name": "餐饮美食",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1610",
-    "IsLeaf": true,
-    "Name": "超市/便民店卡",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1611",
-    "IsLeaf": true,
-    "Name": "教育培训",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1612",
-    "IsLeaf": true,
-    "Name": "摄影/摄像服务",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1613",
-    "IsLeaf": true,
-    "Name": "鲜花速递/花卉仿真/绿植园艺",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1614",
-    "IsLeaf": true,
-    "Name": "淘商号",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1615",
-    "IsLeaf": true,
-    "Name": "网店/网络服务/软件",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1616",
-    "IsLeaf": true,
-    "Name": "房产/租房/新房/二手房/委托服务",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1617",
-    "IsLeaf": true,
-    "Name": "外卖/外送/订餐(请勿发布)",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1618",
-    "IsLeaf": true,
-    "Name": "个性定制/设计服务/DIY",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1619",
-    "IsLeaf": true,
-    "Name": "电影/演出/体育赛事",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1620",
-    "IsLeaf": true,
-    "Name": "网络店铺代金/优惠券",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1621",
-    "IsLeaf": true,
-    "Name": "本地化生活服务",
-    "ParentId": "12i2"
-  },
-  {
-    "ID": "1601",
+    "ID": "2154",
     "IsLeaf": false,
-    "Name": "汽车/用品/配件/改装",
-    "ParentId": "12i0"
+    "Name": "美妆工具/个护工具",
+    "ParentId": "11u0",
+    "TypeID": null
   },
   {
-    "ID": "1603",
-    "IsLeaf": true,
-    "Name": "新车/二手车",
-    "ParentId": "12i0"
-  },
-  {
-    "ID": "1605",
-    "IsLeaf": true,
-    "Name": "摩托车/电动车/装备/配件",
-    "ParentId": "12i0"
-  },
-  {
-    "ID": "10005449",
+    "ID": "10004851",
     "IsLeaf": false,
-    "Name": "模玩/动漫/周边/cos/桌游",
-    "ParentId": "12i4"
+    "Name": "珠宝／钻石／翡翠／黄金",
+    "ParentId": "12hk",
+    "TypeID": null
   },
   {
-    "ID": "1622",
-    "IsLeaf": true,
-    "Name": "度假线路/签证送关/旅游服务",
-    "ParentId": "12i4"
+    "ID": "1597",
+    "IsLeaf": false,
+    "Name": "女士配饰",
+    "ParentId": "12hk",
+    "TypeID": null
   },
   {
-    "ID": "1623",
-    "IsLeaf": true,
-    "Name": "特价酒店/特色客栈/公寓旅馆",
-    "ParentId": "12i4"
+    "ID": "4097",
+    "IsLeaf": false,
+    "Name": "男士饰品",
+    "ParentId": "12hk",
+    "TypeID": null
+  },
+  {
+    "ID": "1419",
+    "IsLeaf": false,
+    "Name": "童装/婴儿装/亲子装",
+    "ParentId": "128a",
+    "TypeID": null
+  },
+  {
+    "ID": "1448",
+    "IsLeaf": false,
+    "Name": "童鞋/婴儿鞋/亲子鞋",
+    "ParentId": "128a",
+    "TypeID": null
+  },
+  {
+    "ID": "1476",
+    "IsLeaf": false,
+    "Name": "孕妇装/孕产妇用品/营养",
+    "ParentId": "128a",
+    "TypeID": null
+  },
+  {
+    "ID": "1489",
+    "IsLeaf": false,
+    "Name": "玩具/模型/动漫/早教/益智",
+    "ParentId": "128a",
+    "TypeID": null
+  },
+  {
+    "ID": "1736",
+    "IsLeaf": false,
+    "Name": "尿片/洗护/喂哺/推车床",
+    "ParentId": "128a",
+    "TypeID": null
+  },
+  {
+    "ID": "2066",
+    "IsLeaf": false,
+    "Name": "水产肉类/新鲜蔬果/熟食",
+    "ParentId": "11zq",
+    "TypeID": null
+  },
+  {
+    "ID": "2070",
+    "IsLeaf": false,
+    "Name": "粮油米面/南北干货/调味品",
+    "ParentId": "11zq",
+    "TypeID": null
+  },
+  {
+    "ID": "2068",
+    "IsLeaf": false,
+    "Name": "茶/咖啡/冲饮/酒类",
+    "ParentId": "11zq",
+    "TypeID": null
+  },
+  {
+    "ID": "2071",
+    "IsLeaf": false,
+    "Name": "零食/坚果/特产",
+    "ParentId": "11zq",
+    "TypeID": null
+  },
+  {
+    "ID": "4135",
+    "IsLeaf": false,
+    "Name": "玩具/模型/动漫周边/DIY",
+    "ParentId": "15zs",
+    "TypeID": null
+  },
+  {
+    "ID": "2155",
+    "IsLeaf": false,
+    "Name": "个人护理工具",
+    "ParentId": "15zs",
+    "TypeID": null
+  },
+  {
+    "ID": "2069",
+    "IsLeaf": false,
+    "Name": "洗护清洁剂/卫生纸/湿巾/香薰",
+    "ParentId": "15zs",
+    "TypeID": null
+  },
+  {
+    "ID": "2065",
+    "IsLeaf": false,
+    "Name": "节庆用品/礼品",
+    "ParentId": "15zs",
+    "TypeID": null
+  },
+  {
+    "ID": "1733",
+    "IsLeaf": false,
+    "Name": "居家日用",
+    "ParentId": "15zs",
+    "TypeID": null
   },
   {
     "ID": "1625",
     "IsLeaf": false,
     "Name": "图书/杂志",
-    "ParentId": "12i4"
+    "ParentId": "15zs",
+    "TypeID": null
   },
   {
-    "ID": "1626",
-    "IsLeaf": true,
-    "Name": "音乐/影视/明星/音像",
-    "ParentId": "12i4"
-  },
-  {
-    "ID": "1627",
+    "ID": "986",
     "IsLeaf": false,
-    "Name": "乐器/吉他/钢琴/配件",
-    "ParentId": "12i4"
+    "Name": "收纳整理",
+    "ParentId": "15zs",
+    "TypeID": null
   },
   {
-    "ID": "1628",
+    "ID": "1586",
     "IsLeaf": false,
-    "Name": "宠物/宠物食品及用品",
-    "ParentId": "12i4"
+    "Name": "运动/瑜伽/健身/球迷用品",
+    "ParentId": "12hm",
+    "TypeID": null
   },
   {
-    "ID": "1629",
-    "IsLeaf": true,
-    "Name": "交通票",
-    "ParentId": "12i4"
-  },
-  {
-    "ID": "1630",
-    "IsLeaf": true,
-    "Name": "景点门票/实景演出/主题乐园",
-    "ParentId": "12i4"
-  },
-  {
-    "ID": "10004577",
-    "IsLeaf": true,
-    "Name": "手机流量充值",
-    "ParentId": "12i6"
-  },
-  {
-    "ID": "10005413",
-    "IsLeaf": true,
-    "Name": "Q币充值",
-    "ParentId": "12i6"
-  },
-  {
-    "ID": "1633",
+    "ID": "1587",
     "IsLeaf": false,
-    "Name": "网络游戏点卡",
-    "ParentId": "12i6"
+    "Name": "户外/登山/野营/旅行用品",
+    "ParentId": "12hm",
+    "TypeID": null
   },
   {
-    "ID": "10004454",
-    "IsLeaf": true,
-    "Name": "手机话费充值",
-    "ParentId": "12i6"
+    "ID": "1588",
+    "IsLeaf": false,
+    "Name": "运动服/休闲服装",
+    "ParentId": "12hm",
+    "TypeID": null
   },
   {
-    "ID": "1265",
+    "ID": "1589",
+    "IsLeaf": false,
+    "Name": "运动鞋",
+    "ParentId": "12hm",
+    "TypeID": null
+  },
+  {
+    "ID": "1590",
+    "IsLeaf": false,
+    "Name": "运动包/户外包/配件",
+    "ParentId": "12hm",
+    "TypeID": null
+  },
+  {
+    "ID": "1591",
+    "IsLeaf": false,
+    "Name": "自行车/骑行装备/零配件",
+    "ParentId": "12hm",
+    "TypeID": null
+  },
+  {
+    "ID": "684",
+    "IsLeaf": false,
+    "Name": "上装",
+    "ParentId": "113i",
+    "TypeID": null
+  },
+  {
+    "ID": "704",
+    "IsLeaf": false,
+    "Name": "裙子",
+    "ParentId": "113i",
+    "TypeID": null
+  },
+  {
+    "ID": "710",
+    "IsLeaf": false,
+    "Name": "裤子",
+    "ParentId": "113i",
+    "TypeID": null
+  },
+  {
+    "ID": "2534",
     "IsLeaf": true,
-    "Name": "虚拟商品",
-    "ParentId": "11zs"
+    "Name": "中老年服装",
+    "ParentId": "113i",
+    "TypeID": null
+  },
+  {
+    "ID": "10005406",
+    "IsLeaf": true,
+    "Name": "棉鞋",
+    "ParentId": "117m",
+    "TypeID": null
+  },
+  {
+    "ID": "758",
+    "IsLeaf": true,
+    "Name": "单鞋",
+    "ParentId": "117m",
+    "TypeID": null
+  },
+  {
+    "ID": "759",
+    "IsLeaf": true,
+    "Name": "凉鞋",
+    "ParentId": "117m",
+    "TypeID": null
+  },
+  {
+    "ID": "760",
+    "IsLeaf": true,
+    "Name": "拖鞋",
+    "ParentId": "117m",
+    "TypeID": null
+  },
+  {
+    "ID": "761",
+    "IsLeaf": true,
+    "Name": "靴子",
+    "ParentId": "117m",
+    "TypeID": null
+  },
+  {
+    "ID": "764",
+    "IsLeaf": true,
+    "Name": "帆布鞋",
+    "ParentId": "117m",
+    "TypeID": null
+  },
+  {
+    "ID": "765",
+    "IsLeaf": true,
+    "Name": "休闲鞋",
+    "ParentId": "117m",
+    "TypeID": null
+  },
+  {
+    "ID": "766",
+    "IsLeaf": true,
+    "Name": "运动鞋（休闲）",
+    "ParentId": "117m",
+    "TypeID": null
+  },
+  {
+    "ID": "1270",
+    "IsLeaf": true,
+    "Name": "雪地靴",
+    "ParentId": "117m",
+    "TypeID": null
+  },
+  {
+    "ID": "823",
+    "IsLeaf": false,
+    "Name": "上衣",
+    "ParentId": "11b8",
+    "TypeID": null
+  },
+  {
+    "ID": "846",
+    "IsLeaf": false,
+    "Name": "裤子",
+    "ParentId": "11b8",
+    "TypeID": null
+  },
+  {
+    "ID": "4157",
+    "IsLeaf": true,
+    "Name": "休闲鞋",
+    "ParentId": "11du",
+    "TypeID": null
+  },
+  {
+    "ID": "872",
+    "IsLeaf": true,
+    "Name": "帆布鞋",
+    "ParentId": "11du",
+    "TypeID": null
+  },
+  {
+    "ID": "873",
+    "IsLeaf": true,
+    "Name": "凉鞋",
+    "ParentId": "11du",
+    "TypeID": null
+  },
+  {
+    "ID": "874",
+    "IsLeaf": true,
+    "Name": "拖鞋",
+    "ParentId": "11du",
+    "TypeID": null
+  },
+  {
+    "ID": "876",
+    "IsLeaf": true,
+    "Name": "靴子",
+    "ParentId": "11du",
+    "TypeID": null
+  },
+  {
+    "ID": "878",
+    "IsLeaf": false,
+    "Name": "运动鞋",
+    "ParentId": "11du",
+    "TypeID": null
+  },
+  {
+    "ID": "722",
+    "IsLeaf": true,
+    "Name": "文胸",
+    "ParentId": "1272",
+    "TypeID": null
+  },
+  {
+    "ID": "723",
+    "IsLeaf": true,
+    "Name": "文胸套装",
+    "ParentId": "1272",
+    "TypeID": null
+  },
+  {
+    "ID": "725",
+    "IsLeaf": true,
+    "Name": "睡衣/家居服",
+    "ParentId": "1272",
+    "TypeID": null
+  },
+  {
+    "ID": "728",
+    "IsLeaf": true,
+    "Name": "睡裙",
+    "ParentId": "1272",
+    "TypeID": null
+  },
+  {
+    "ID": "729",
+    "IsLeaf": true,
+    "Name": "睡袍/浴袍",
+    "ParentId": "1272",
+    "TypeID": null
+  },
+  {
+    "ID": "731",
+    "IsLeaf": true,
+    "Name": "保暖内衣",
+    "ParentId": "1272",
+    "TypeID": null
+  },
+  {
+    "ID": "724",
+    "IsLeaf": true,
+    "Name": "内裤",
+    "ParentId": "1272",
+    "TypeID": null
+  },
+  {
+    "ID": "734",
+    "IsLeaf": true,
+    "Name": "吊带/背心",
+    "ParentId": "1272",
+    "TypeID": null
+  },
+  {
+    "ID": "817",
+    "IsLeaf": true,
+    "Name": "短袜/打底袜/丝袜/美腿袜",
+    "ParentId": "1272",
+    "TypeID": null
+  },
+  {
+    "ID": "4181",
+    "IsLeaf": false,
+    "Name": "保暖内衣",
+    "ParentId": "16hs",
+    "TypeID": null
+  },
+  {
+    "ID": "4183",
+    "IsLeaf": true,
+    "Name": "背心",
+    "ParentId": "16hs",
+    "TypeID": null
+  },
+  {
+    "ID": "4184",
+    "IsLeaf": true,
+    "Name": "内裤",
+    "ParentId": "16hs",
+    "TypeID": null
+  },
+  {
+    "ID": "4185",
+    "IsLeaf": false,
+    "Name": "家居服/睡衣",
+    "ParentId": "16hs",
+    "TypeID": null
+  },
+  {
+    "ID": "10004903",
+    "IsLeaf": true,
+    "Name": "书包",
+    "ParentId": "12hi",
+    "TypeID": null
+  },
+  {
+    "ID": "10004897",
+    "IsLeaf": true,
+    "Name": "手机包",
+    "ParentId": "12hi",
+    "TypeID": null
+  },
+  {
+    "ID": "1331",
+    "IsLeaf": true,
+    "Name": "证件包",
+    "ParentId": "12hi",
+    "TypeID": null
+  },
+  {
+    "ID": "1330",
+    "IsLeaf": true,
+    "Name": "钥匙包",
+    "ParentId": "12hi",
+    "TypeID": null
+  },
+  {
+    "ID": "1329",
+    "IsLeaf": true,
+    "Name": "卡包/卡套",
+    "ParentId": "12hi",
+    "TypeID": null
+  },
+  {
+    "ID": "788",
+    "IsLeaf": true,
+    "Name": "旅行袋",
+    "ParentId": "12hi",
+    "TypeID": null
+  },
+  {
+    "ID": "777",
+    "IsLeaf": false,
+    "Name": "女包",
+    "ParentId": "12hi",
+    "TypeID": null
+  },
+  {
+    "ID": "778",
+    "IsLeaf": true,
+    "Name": "双肩包",
+    "ParentId": "12hi",
+    "TypeID": null
+  },
+  {
+    "ID": "785",
+    "IsLeaf": false,
+    "Name": "旅行箱",
+    "ParentId": "12hi",
+    "TypeID": null
+  },
+  {
+    "ID": "789",
+    "IsLeaf": false,
+    "Name": "收纳包",
+    "ParentId": "12hi",
+    "TypeID": null
+  },
+  {
+    "ID": "1435",
+    "IsLeaf": false,
+    "Name": "裙子",
+    "ParentId": "128e",
+    "TypeID": null
+  },
+  {
+    "ID": "1436",
+    "IsLeaf": true,
+    "Name": "裤子",
+    "ParentId": "128e",
+    "TypeID": null
+  },
+  {
+    "ID": "3694",
+    "IsLeaf": true,
+    "Name": "棉鞋",
+    "ParentId": "12a0",
+    "TypeID": null
+  },
+  {
+    "ID": "1455",
+    "IsLeaf": true,
+    "Name": "拖鞋",
+    "ParentId": "12a0",
+    "TypeID": null
+  },
+  {
+    "ID": "1454",
+    "IsLeaf": true,
+    "Name": "帆布鞋",
+    "ParentId": "12a0",
+    "TypeID": null
+  },
+  {
+    "ID": "1453",
+    "IsLeaf": true,
+    "Name": "运动鞋",
+    "ParentId": "12a0",
+    "TypeID": null
+  },
+  {
+    "ID": "1451",
+    "IsLeaf": true,
+    "Name": "单鞋",
+    "ParentId": "12a0",
+    "TypeID": null
+  },
+  {
+    "ID": "1450",
+    "IsLeaf": true,
+    "Name": "凉鞋",
+    "ParentId": "12a0",
+    "TypeID": null
+  },
+  {
+    "ID": "10005182",
+    "IsLeaf": true,
+    "Name": "帆布鞋",
+    "ParentId": "12hu",
+    "TypeID": null
   }
 ]
