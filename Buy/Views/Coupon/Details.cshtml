@@ -7,19 +7,19 @@
         switch (Model.Platform)
         {
             case Buy.Enums.CouponPlatform.TaoBao:
-                platformLogo = "/Content/image/view/logo_taobao_tag@2x.png";
+                platformLogo = "/Content/images/view/logo_taobao_tag@2x.png";
                 break;
             case Buy.Enums.CouponPlatform.TMall:
-                platformLogo = "/Content/image/view/logo_tmall_tag@2x.png";
+                platformLogo = "/Content/images/view/logo_tmall_tag@2x.png";
                 break;
             case Buy.Enums.CouponPlatform.Jd:
-                platformLogo = "/Content/image/view/logo_jd_tag@2x.png";
+                platformLogo = "/Content/images/view/logo_jd_tag@2x.png";
                 break;
             //case Buy.Enums.CouponPlatform.Vip:
-            //    platformLogo = "/Content/image/view/logo_taobao_tag@2x.png";
+            //    platformLogo = "/Content/images/view/logo_taobao_tag@2x.png";
             //    break;
             case Buy.Enums.CouponPlatform.MoGuJie:
-                platformLogo = "/Content/image/view/logo_mogujie_tag@2x.png";
+                platformLogo = "/Content/images/view/logo_mogujie_tag@2x.png";
                 break;
             default:
                 break;
@@ -37,7 +37,7 @@
         img = $"{img}_200x200.jpg";
     }
 
-    <img id="lazyloadimg" hidden src="~/Content/image/404/placeholder_image.png?w=150&h=150" />
+    <img id="lazyloadimg" hidden src="~/Content/images/404/placeholder_image.png?w=150&h=150" />
     <div id="detail" class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
             <div class="couponDetail-top-back fl" id="btnBack"></div>
@@ -152,7 +152,7 @@ else
             <div class="couponDetail-top-share fr"></div>
         </div>
         <div class="nodata nodata-style02">
-            <a href="@Url.Action("Index","Coupon")"><img src="~/Content/image/view/img_coupon_nodata.png" /></a>
+            <a href="@Url.Action("Index","Coupon")"><img src="~/Content/images/view/img_coupon_nodata.png" /></a>
         </div>
     </div>
 }
