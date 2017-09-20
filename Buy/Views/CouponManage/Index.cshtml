@@ -44,7 +44,7 @@
                         <li><a class="platform" href="#">所有平台</a></li>
                         @foreach (Buy.Enums.CouponPlatform item in Enum.GetValues(typeof(Buy.Enums.CouponPlatform)))
                         {
-                        <li><a href="#" class="platform" data-type="@item">@item.GetDisplayName()</a></li>
+                            <li><a href="#" class="platform" data-type="@item">@item.GetDisplayName()</a></li>
                         }
                     </ul>
                 </li>
@@ -56,11 +56,11 @@
                         <li><a class="typeid" href="#">所有类型</a></li>
                         @foreach (var item in type)
                         {
-                        <li>
-                            <a href="#" class="typeid" data-type="@item.ID">
-                                @item.Name (@item.Platform.GetDisplayName())
-                            </a>
-                        </li>
+                            <li>
+                                <a href="#" class="typeid" data-type="@item.ID">
+                                    @item.Name (@item.Platform.GetDisplayName())
+                                </a>
+                            </li>
                         }
                     </ul>
                 </li>
@@ -142,75 +142,75 @@
     </thead>
     @foreach (var item in Model)
     {
-    <tr>
-        <td><input name="chkItem" type="checkbox" value="@item.ID" /></td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type.Name)
-        </td>
-        <td>
-            <div style="width:100px" class="textOverflow" title="@item.ProductType">
-                @Html.DisplayFor(modelItem => item.ProductType)
-            </div>
-        </td>
-        <td>
-            <div style="width:100px" class="textOverflow" title="@item.ShopName">
-                @Html.DisplayFor(modelItem => item.ShopName)
-            </div>
-        </td>
-        <td>
-            <div style="width:100px" class="textOverflow" title="@item.Name">
-                @Html.DisplayFor(modelItem => item.Name)
-            </div>
-        </td>
-        <td>
-            @Html.TableImg(item.Image)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OriginalPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Value)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sales)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Commission)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CommissionRate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Left)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Total)
-        </td>
-        <td>
-            <a href="@item.Link" target="_blank">链接</a>
-        </td>
-        @*<td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-            </td>*@
-    </tr>
+        <tr>
+            <td><input name="chkItem" type="checkbox" value="@item.ID" /></td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type.Name)
+            </td>
+            <td>
+                <div style="width:100px" class="textOverflow" title="@item.ProductType">
+                    @Html.DisplayFor(modelItem => item.ProductType)
+                </div>
+            </td>
+            <td>
+                <div style="width:100px" class="textOverflow" title="@item.ShopName">
+                    @Html.DisplayFor(modelItem => item.ShopName)
+                </div>
+            </td>
+            <td>
+                <div style="width:100px" class="textOverflow" title="@item.Name">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </div>
+            </td>
+            <td>
+                @Html.TableImg(item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OriginalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Commission)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommissionRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Left)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                <a href="@item.Link" target="_blank">链接</a>
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+                </td>*@
+        </tr>
     }
 </table>
 
-@Html.PageList(paged, Url.PageUrl(),10, PageStyle.ShowTotal)
+@Html.PageList(paged, Url.PageUrl(), 10, PageStyle.ShowTotal)
 
 @*批量删除优惠券*@
 <div id="modDel" class="panel panel-default panel-modal hidden">
@@ -226,9 +226,9 @@
                 <div class="col-md-9">
                     @foreach (Buy.Enums.CouponPlatform item in Enum.GetValues(typeof(Buy.Enums.CouponPlatform)))
                     {
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="delPlatform" checked value="@((int)item)"> @item.GetDisplayName()
-                        </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="delPlatform" checked value="@((int)item)"> @item.GetDisplayName()
+                    </label>
                     }
                 </div>
             </div>
