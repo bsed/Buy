@@ -498,6 +498,7 @@
     <Content Include="Content\Site.less" />
     <Content Include="App_Data\mgjCids.json" />
     <Content Include="App_Data\temp.json" />
+    <Content Include="App_Data\蘑菇街_201709201224.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
