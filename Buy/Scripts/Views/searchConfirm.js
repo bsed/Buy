@@ -32,17 +32,16 @@ function loadCoupon() {
     }
     var page = $page.data("page") + 1;
     canLoadPage = false;
-
     $.ajax({
         type: "GET",
         url: comm.action("GetList", "coupon"),
         data: {
-            page: page,
-            sort: sort,
-            platforms: platform,
-            types: types,
-            orderByTime: false
-        },
+        page: page,
+        sort: sort,
+        platforms: platform,
+        types: types,
+        orderByTime: $("#secound").val() == "secound"?true:false,
+    },
         dataType: "html",
         success: function (data) {
             $page.remove();
@@ -50,12 +49,12 @@ function loadCoupon() {
 
             $coupon.find(">ul").append($data);
             comm.lazyloadALL();
-        },
+    },
         complete: function () {
             canLoadPage = true;
 
             nodataCheck("#coupon ul");
-        }
+    }
     });
 
 }

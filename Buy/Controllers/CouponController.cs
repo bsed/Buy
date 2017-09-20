@@ -64,10 +64,12 @@ namespace Buy.Controllers
             {
                 type.Remove(0);
             }
+            var coiu = query.Count();
             if (type != null && type.Count > 0)
             {
                 query = query.Where(s => s.TypeID.HasValue && (type.Contains(s.Type.ID) || type.Contains(s.Type.ParentID)));
             }
+            var dfd = query.Count();
             if (platform != null && platform.Count > 0)
             {
                 if (platform.Contains(Enums.CouponPlatform.TaoBao) || platform.Contains(Enums.CouponPlatform.TMall))
@@ -432,6 +434,5 @@ namespace Buy.Controllers
             };
             return View(model);
         }
-
     }
 }
