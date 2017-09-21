@@ -3,6 +3,7 @@
     sort = $("[data-sort].active").data("sort");
 var canLoadPage = true;
 var navTop = $("#couponNav").offset().top;
+var loopState = false;
 
 //swiper
 if ($(".navigationSwiper").length > 0) {
@@ -15,13 +16,17 @@ if ($(".navigationSwiper").length > 0) {
 
 //主导航
 if ($(".couponIndex-banner").find(".swiper-wrapper").length > 0) {
+    if ($(".couponIndex-banner").find(".swiper-slide").length > 1) {
+        loopState: true;
+    }
+
     var swiper = new Swiper('.couponIndex-banner .swiper-container', {
         slidesPerView: "auto",
         pagination: '.swiper-pagination',
         paginationClickable: true,
         autoplay: 2500,
         autoplayDisableOnInteraction: false,
-        loop: true
+        loop: loopState
     });
 }
 
