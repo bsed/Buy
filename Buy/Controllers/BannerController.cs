@@ -31,7 +31,7 @@ namespace Buy.Controllers
                     return item;
                 });
 
-            return Json(Comm.ToJsonResult("Success", "成功", new { Data = model }));
+            return Json(Comm.ToJsonResult("Success", "成功", new { Data = model }),JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -50,8 +50,7 @@ namespace Buy.Controllers
                     item.UrlToAction(s.Link);
                     return item;
                 });
-
-            return Json(Comm.ToJsonResult("Success", "成功", new { Data = model }));
+            return Json(Comm.ToJsonResult("Success", "成功", new { Data = model }), JsonRequestBehavior.AllowGet);
         }
     }
 }
