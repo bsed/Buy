@@ -379,6 +379,35 @@
   margin-right: 10px;
   margin-left: 0;
 }
+.urlMatch {
+  position: absolute;
+  z-index: 999;
+  background: #fff;
+  width: 70%;
+  margin-top: 5px;
+}
+.urlMatch .head {
+  background: #efefef;
+  padding: 5px;
+}
+.urlMatch .item {
+  cursor: pointer;
+}
+.urlMatch .searchResult table thead tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.urlMatch .searchResult table tbody {
+  display: block;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.urlMatch .searchResult table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
 .couponTicketTypeManageIndex .vhidden {
   visibility: hidden;
 }

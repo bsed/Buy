@@ -49,8 +49,8 @@
         data.keyWord = $keyWord.val();
         data.type = $type.val();
         $.ajax({
-            type: "POST",
-            url: comm.action("Index", "urlMatch"),
+            type: "GET",
+            url: comm.action("Index", "UrlMatch"),
             data: data,
             dataType: "html",
             success: function (data) {

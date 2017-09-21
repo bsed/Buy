@@ -360,31 +360,6 @@ namespace Buy.Enums
     /// </summary>
     public enum UrlMatchType
     {
-        /// <summary>
-        /// 商家
-        /// </summary>
-        [Display(Name = "商家")]
-        Company,
-        /// <summary>
-        /// 券
-        /// </summary>
-        [Display(Name = "券")]
-        Ticket,
-        /// <summary>
-        /// 主题帖
-        /// </summary>
-        [Display(Name = "主题帖")]
-        PostTheme,
-        /// <summary>
-        /// 帮助
-        /// </summary>
-        [Display(Name = "帮助")]
-        Help,
-        /// <summary>
-        /// 第三方优惠券
-        /// </summary>
-        [Display(Name = "第三方优惠券")]
-        ThirdPartyTicket,
     }
 
     public enum UserTitleType

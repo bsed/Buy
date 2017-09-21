@@ -1,0 +1,41 @@
+﻿@model Buy.Models.UrlMatchModel
+
+<div class="urlMatch">
+    @Html.EditorFor(s => s.URL, new { htmlAttributes = new { @class = "form-control hidden" } })
+    <div class="urlMatch_content hidden">
+        @Html.HiddenFor(s => s.ID)
+        <div class="form-inline head">
+            <button type="button" class="close">
+                &times;
+            </button>
+            <select id="type" class="form-control">
+                @foreach (Buy.Enums.UrlMatchType item in Enum.GetValues(typeof(Buy.Enums.UrlMatchType)))
+                {
+                    <option value="@item.GetHashCode()">@item.GetDisplayName()</option>
+                }
+            </select>
+            <input type="text" class="form-control keyWord" placeholder="Search">
+            <button type="button" class="btn btn-default submit">查询</button>
+            <button type="button" class="btn btn-default order">其它</button>
+        </div>
+        <div class="searchResult"></div>
+        <div class="fixedList hidden">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>地址</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="item">
+                        <td>
+                            标题A
+                        </td>
+                        <td>URL</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

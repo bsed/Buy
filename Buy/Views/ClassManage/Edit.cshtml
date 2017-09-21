@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "编辑";
     Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+    var urlMatch = new Buy.Models.UrlMatchModel() { ID = "Url" };
 }
 
 <ol class="breadcrumb">
@@ -47,6 +48,7 @@
             @Html.LabelFor(model => model.Link, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => urlMatch)
                 @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -75,6 +77,16 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var url = new urlMatch({
+            target: "#Link",
+            selected: function (data) {
+                $("#Link").val(data.URL);
+            }
+        })
+    </script>
+}
+
+
