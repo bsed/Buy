@@ -27,35 +27,25 @@ $("#submit").click(function (e) {
         dataType: "json",
         success: function (data) {
             if (data.State == "Success") {
-                $.ajax({
-                    type: "GET",
-                    url: comm.action("GetUserInfo", "Account"),
-                    data: { userId: data.Result.ID },
-                    dataType: "json",
-                    success: function (result) {
-                        if (result.State == "Success") {
-                            if (result.Result.Data.UserType == 1) {
-                                if ($("#returnUrl").val() != "") {
-                                    location = $("#returnUrl").val();
-                                }
-                                else {
-                                    location = comm.action("Index", "UserManage");
-                                }
-                            } else {
-                                if (result.Result.Data.IsActivation) {
-                                    if ($("#returnUrl").val() != "") {
-                                        location = $("#returnUrl").val();
-                                    }
-                                    else {
-                                        location = comm.action("Index", "Coupon");
-                                    }
-                                } else {
-                                    location = comm.action("Activation", "Account");
-                                }
-                            }
-                        }
+                if (data.Result.UserType == 1) {
+                    if ($("#returnUrl").val() != "") {
+                        location = $("#returnUrl").val();
                     }
-                });
+                    else {
+                        location = comm.action("Index", "UserManage");
+                    }
+                } else {
+                    if (data.Result.IsActivation) {
+                        if ($("#returnUrl").val() != "") {
+                            location = $("#returnUrl").val();
+                        }
+                        else {
+                            location = comm.action("Index", "Coupon");
+                        }
+                    } else {
+                        location = comm.action("Activation", "Account");
+                    }
+                }
             }
             else {
                 comm.promptBox(data.Message)

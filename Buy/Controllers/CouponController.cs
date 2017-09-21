@@ -21,8 +21,15 @@ namespace Buy.Controllers
         {
             if (!string.IsNullOrWhiteSpace(userId))
             {
-                var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userId);
-                userId = code == null ? null : code.OwnUser;
+                var user = db.Users.FirstOrDefault(s => s.Id == userId);
+                if (user != null)
+                {
+                    if (user.UserType != Enums.UserType.Proxy)
+                    {
+                        var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userId);
+                        userId = code == null ? null : code.OwnUser;
+                    }
+                }
             }
             if (string.IsNullOrWhiteSpace(userId))
             {
@@ -64,12 +71,10 @@ namespace Buy.Controllers
             {
                 type.Remove(0);
             }
-            var coiu = query.Count();
             if (type != null && type.Count > 0)
             {
                 query = query.Where(s => s.TypeID.HasValue && (type.Contains(s.Type.ID) || type.Contains(s.Type.ParentID)));
             }
-            var dfd = query.Count();
             if (platform != null && platform.Count > 0)
             {
                 if (platform.Contains(Enums.CouponPlatform.TaoBao) || platform.Contains(Enums.CouponPlatform.TMall))
@@ -370,6 +375,8 @@ namespace Buy.Controllers
             });
             couponTypes.AddRange(CouponTypes(platform));
             ViewBag.CouponTypes = couponTypes;
+            ViewBag.Banner = Bll.SystemSettings.BannerSetting.Where(s=>s.Platform==platform).OrderBy(s=>s.Sort).ToList();
+            ViewBag.Classify = Bll.SystemSettings.ClassifySetting.Where(s => s.Platform == platform).OrderBy(s => s.Sort).ToList();
             return View();
         }
 
@@ -400,16 +407,20 @@ namespace Buy.Controllers
             }
             else
             {
-                var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userid);
-                if (code == null)
+                var user = db.Users.FirstOrDefault(s => s.Id == userid);
+                if (user.UserType != Enums.UserType.Proxy)
                 {
-                    codeMessage = "NotActivation";
-                }
-                else
-                {
-                    if (code.OwnUser != coupon.UserID)
+                    var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userid);
+                    if (code == null)
                     {
-                        codeMessage = "NotOwnUser";
+                        codeMessage = "NotActivation";
+                    }
+                    else
+                    {
+                        if (code.OwnUser != coupon.UserID)
+                        {
+                            codeMessage = "NotOwnUser";
+                        }
                     }
                 }
             }

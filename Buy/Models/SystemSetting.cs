@@ -27,10 +27,8 @@ namespace Buy.Models
     public class BannerSetting
     {
         [Required]
-
         public int ID { get; set; }
 
-        [Required]
         [Display(Name = "编号")]
         public string Code { get; set; }
 
@@ -51,7 +49,7 @@ namespace Buy.Models
         public int Sort { get; set; }
 
         [Display(Name = "显示平台")]
-        public string ShowPlatform { get; set; }
+        public Enums.CouponPlatform Platform { get; set; }
 
     }
 
@@ -65,19 +63,18 @@ namespace Buy.Models
         public BannerSettingCreateEditViewModel(BannerSetting setting)
         {
             ID = setting.ID;
-            Code = setting.Code;
             Title = setting.Title;
+            Code = setting.Code;
             Image.Images = new string[] { setting.Image };
             Link = setting.Link;
             Sort = setting.Sort;
-            ShowPlatform = setting.ShowPlatform;
+            Platform = setting.Platform;
         }
 
         [Required]
 
         public int ID { get; set; }
 
-        [Required]
         [Display(Name = "编号")]
         public string Code { get; set; }
 
@@ -99,7 +96,7 @@ namespace Buy.Models
 
         [Required]
         [Display(Name = "显示平台")]
-        public string ShowPlatform { get; set; }
+        public Enums.CouponPlatform Platform { get; set; }
 
     }
 

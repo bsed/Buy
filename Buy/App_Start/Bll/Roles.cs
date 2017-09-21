@@ -122,6 +122,16 @@ namespace Buy.Bll
             addSystemRole(SysRole.RoleManageCreate, "权限管理", "权限管理创建");
             addSystemRole(SysRole.RoleManageEdit, "权限管理", "权限管理编辑");
             addSystemRole(SysRole.RoleManageDelete, "权限管理", "权限管理删除");
+
+            addSystemRole(SysRole.BannerManageRead, "Banner管理", "Banner管理查看");
+            addSystemRole(SysRole.BannerManageCreate, "Banner管理", "Banner管理创建");
+            addSystemRole(SysRole.BannerManageEdit, "Banner管理", "Banner管理编辑");
+            addSystemRole(SysRole.BannerManageDelete, "Banner管理", "Banner管理删除");
+
+            addSystemRole(SysRole.ClassifyManageRead, "分类管理", "分类管理查看");
+            addSystemRole(SysRole.ClassifyManageCreate, "分类管理", "分类管理创建");
+            addSystemRole(SysRole.ClassifyManageEdit, "分类管理", "分类管理编辑");
+            addSystemRole(SysRole.ClassifyManageDelete, "分类管理", "分类管理删除");
             #endregion
 
 

@@ -295,6 +295,9 @@
     <Compile Include="App_Start\WeChat\Config.cs" />
     <Compile Include="App_Start\yuntongxun\CCPRestSDK.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BannerController.cs" />
+    <Compile Include="Controllers\BannerManageController.cs" />
+    <Compile Include="Controllers\ClassManageController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\CouponManageController.cs" />
     <Compile Include="Controllers\CouponTypeManageController.cs" />
@@ -312,6 +315,7 @@
     <Compile Include="Controllers\TaobaoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UploaderController.cs" />
+    <Compile Include="Controllers\UrlMatchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -379,6 +383,7 @@
     <Compile Include="Models\CouponType.cs" />
     <Compile Include="Models\CouponViewModels.cs" />
     <Compile Include="Models\UpdateLog.cs" />
+    <Compile Include="Models\UrlMatch.cs" />
     <Compile Include="Models\UserManage.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\VerificationCode.cs" />
@@ -516,6 +521,7 @@
     <Content Include="Content\less\views\userIndex.less" />
     <Content Include="Content\less\views\localcoupon.less" />
     <Content Include="Content\less\views\homeIndex.less" />
+    <Content Include="Content\less\urlMatch.less" />
     <None Include="Properties\PublishProfiles\BuyPublish.pubxml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="phantomjs-license.txt">
@@ -674,8 +680,17 @@
     <Content Include="Views\LocalCoupon\GetList.cshtml" />
     <Content Include="Views\LocalCoupon\Details.cshtml" />
     <Content Include="Views\CouponTypeManage\MGJType.cshtml" />
+    <Content Include="Views\BannerManage\Create.cshtml" />
+    <Content Include="Views\BannerManage\Edit.cshtml" />
+    <Content Include="Views\BannerManage\Index.cshtml" />
+    <Content Include="Views\ClassManage\Index.cshtml" />
+    <Content Include="Views\ClassManage\Create.cshtml" />
+    <Content Include="Views\ClassManage\Edit.cshtml" />
+    <Content Include="Views\UrlMatch\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\UrlMatchModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Banner\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Taobao\" />
     <Folder Include="Views\Test\" />

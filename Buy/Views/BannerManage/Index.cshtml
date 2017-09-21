@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Buy.Models.BannerSetting>
+
+@{
+    ViewBag.Title = "Banner管理";
+    Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+    var p = Buy.Enums.CouponPlatform.TaoBao;
+    if (!string.IsNullOrWhiteSpace(Request["platform"]))
+    {
+        Enum.TryParse(Request["platform"], out p);
+    }
+}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="@Url.Action("Create",new {platform=p })">添加</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        @p.GetDisplayName()<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach (Buy.Enums.CouponPlatform item in Enum.GetValues(typeof(Buy.Enums.CouponPlatform)))
+                        {
+                            <li>@Html.ActionLink(item.GetDisplayName(), "Index", new { platform = item })</li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Link)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Platform)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.TableImg(item.Image)
+            </td>
+            <td>
+                <div style="width:250px" class="textOverflow" title="@item.Link">
+                    @Html.DisplayFor(modelItem => item.Link)
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sort)
+            </td>
+            <td>
+                @item.Platform.GetDisplayName()
+            </td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
+                <a href="#" name="btnDelete" data-id="@item.ID">删除</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@section Scripts{
+    <script>
+        $("[name=btnDelete]").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                type: "POST",
+                url: comm.action("Delete", "BannerManage"),
+                data: { id: id },
+                dataType: "json",
+                success: function (data) {
+                    if (data.State == "Success") {
+                        comm.alter(1, "删除成功");
+                        setTimeout(function () {
+                            location = location;
+                        }, 1000)
+                    }
+                }
+            });
+            return false;
+        });
+    </script>
+}

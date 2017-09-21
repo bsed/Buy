@@ -42,5 +42,15 @@ namespace Buy
         public const string LocalCouponManageEdit = "LocalCouponManageEdit";
         public const string LocalCouponManageDelete = "LocalCouponManageDelete";
 
+        public const string BannerManageRead = "BannerManageRead";
+        public const string BannerManageCreate = "BannerManageCreate";
+        public const string BannerManageEdit = "BannerManageEdit";
+        public const string BannerManageDelete = "BannerManageDelete";
+
+        public const string ClassifyManageRead = "ClassifyManageRead";
+        public const string ClassifyManageCreate = "ClassifyManageCreate";
+        public const string ClassifyManageEdit = "ClassifyManageEdit";
+        public const string ClassifyManageDelete = "ClassifyManageDelete";
+
     }
 }

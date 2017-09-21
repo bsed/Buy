@@ -58,12 +58,7 @@ namespace Buy.Models.ActionCell
                             Action.Add(new KeyValuePair<string, string>(kv[0], kv[1]));
                         }
                     });
-
-                    if (url.Contains("/u?") || url.Contains("/u/index") || url.Contains("/user/index"))
-                    {
-                        
-                    }
-                    else if (url.Contains("/coupon/details"))
+                    if (url.Contains("/coupon/details"))
                     {
                         type = ActionType.ThirdPartyTicketDetail;
                     }
@@ -253,7 +248,7 @@ namespace Buy.Models.ActionCell
             Remark = lc.Remark;
             ShopID = lc.ShopID;
             ShopName = lc.Shop.Name;
-            ShopLogo= Comm.ResizeImage(lc.Shop.Logo, image: null);
+            ShopLogo = Comm.ResizeImage(lc.Shop.Logo, image: null);
         }
 
         public override CellStyle Style
@@ -271,11 +266,12 @@ namespace Buy.Models.ActionCell
         public decimal Price { get; set; }
 
         public string Remark { get; set; }
-        
+
         public int ShopID { get; set; }
 
         public string ShopName { get; set; }
 
         public string ShopLogo { get; set; }
     }
+
 }

@@ -10,9 +10,9 @@
         <div class="fs24 marginB5">@Model.UserName</div>
         <div class="fs14">手机号：@Model.PhoneNumber</div>
     </div>
-    <div class="moduleOptions">
+    @*<div class="moduleOptions">
         <div class="fl">我的消息</div>
-    </div>
+    </div>*@
     <div class="moduleOptions marginT10">
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
