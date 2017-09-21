@@ -2,11 +2,12 @@
     sort = $("#sort").val(),
     filter = $("#searchConfirm").val();
 var canLoadPage = true;
+var loading = $("#loading").attr("src");
 
 function clear(target) {
     target.children().remove();
     var html = "";
-    html += '<li class="loadModule loadModule-dataIng" data-page="0" data-next="true">加载中</li>';
+    html += '<li class="loadModule loadModule-dataIng" data-page="0" data-next="true"><img class="marginR8" src="' + loading + '"/>加载中</li>';
     target.append(html);
 }
 

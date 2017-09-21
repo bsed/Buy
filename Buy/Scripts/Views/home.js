@@ -130,20 +130,29 @@ $("#nav li").click(function () {
     }
 });
 
-//滚动向上
+//pc滚动向上
 var loop2 = true;
 var scrollUpListLength = $("#scrollUpList li").length;
+var scrollUpListLiHeight = $("#scrollUpList li").height();
 if (scrollUpListLength < 15) {
     loop2 = false;
 }
 
 function autoScrolls(obj) {
     if (loop2) {
-        $(obj).find("#scrollUpList").animate({
-            marginTop: "-45px"
-        }, 500, function () {
-            $(this).css({ marginTop: "0px" }).find("li:lt(2)").appendTo(this);
-        });
+        if ($(obj).hasClass("mobile")) {
+            $(obj).find("#scrollUpList").animate({
+                marginTop: -scrollUpListLiHeight
+            }, 500, function () {
+                $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
+            });
+        } else {
+            $(obj).find("#scrollUpList").animate({
+                marginTop: "-45px"
+            }, 500, function () {
+                $(this).css({ marginTop: "0px" }).find("li:lt(2)").appendTo(this);
+            });
+        }
     }
 }
 
