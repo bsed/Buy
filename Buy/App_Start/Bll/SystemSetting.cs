@@ -29,6 +29,18 @@ namespace Buy.Bll
                 {
                     switch (item.Key)
                     {
+                        case Enums.SystemSettingType.BannerSetting:
+                            {
+                                _bannerSetting = JsonConvert.DeserializeObject<ObservableCollection<BannerSetting>>(item.Value);
+                                _bannerSetting.CollectionChanged += _bannerSetting_CollectionChanged;
+                            }
+                            break;
+                        case Enums.SystemSettingType.ClassifySetting:
+                            {
+                                _classifySetting = JsonConvert.DeserializeObject<ObservableCollection<BannerSetting>>(item.Value);
+                                _classifySetting.CollectionChanged += _classifySetting_CollectionChanged;
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -105,8 +117,22 @@ namespace Buy.Bll
             {
                 var setting = db.SystemSettings.ToList();
                 var init = new List<SystemSetting>();
-               
-              
+                if (!setting.Any(s => s.Key == Enums.SystemSettingType.BannerSetting))
+                {
+                    init.Add(new SystemSetting
+                    {
+                        Key = Enums.SystemSettingType.BannerSetting,
+                        Value = JsonConvert.SerializeObject(new string[0])
+                    });
+                }
+                if (!setting.Any(s => s.Key == Enums.SystemSettingType.ClassifySetting))
+                {
+                    init.Add(new SystemSetting
+                    {
+                        Key = Enums.SystemSettingType.ClassifySetting,
+                        Value = JsonConvert.SerializeObject(new string[0])
+                    });
+                }
                 if (init.Count > 0)
                 {
                     db.SystemSettings.AddRange(init);
@@ -128,6 +154,48 @@ namespace Buy.Bll
             }
         }
 
+        //banner
+
+       public static ObservableCollection<BannerSetting> _bannerSetting;
+
+        public static ObservableCollection<BannerSetting> BannerSetting
+        {
+            get
+            {
+                return _bannerSetting;
+
+            }
+            set
+            {
+                Update(Enums.SystemSettingType.BannerSetting, _bannerSetting);
+            }
+        }
+
+        private static void _bannerSetting_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            Update(Enums.SystemSettingType.BannerSetting, _bannerSetting);
+        }
+
+        //分类
+        public static ObservableCollection<BannerSetting> _classifySetting;
+
+        public static ObservableCollection<BannerSetting> ClassifySetting
+        {
+            get
+            {
+                return _classifySetting;
+
+            }
+            set
+            {
+                Update(Enums.SystemSettingType.ClassifySetting, _classifySetting);
+            }
+        }
+
+        private static void _classifySetting_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            Update(Enums.SystemSettingType.ClassifySetting, _classifySetting);
+        }
 
         /// <summary>
         /// 更新后Setting清空内存

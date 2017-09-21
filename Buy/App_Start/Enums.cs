@@ -337,7 +337,8 @@ namespace Buy.Enums
 
     public enum SystemSettingType
     {
-
+        BannerSetting,
+        ClassifySetting,
     }
 
     public enum CompanyRankCellTag

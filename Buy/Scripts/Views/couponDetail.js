@@ -135,12 +135,7 @@ clipboard.on('error', function (e) {
     comm.mask2.show();
 });
 
-var share_name = $("#share_name").val();
-var share_or_price = $("#share_or_price").val();
-var share_price = $("#share_price").val();
-var share_url = $("#share_url").val();
-var val = share_name + "\n【在售价】" + share_or_price + "元\n【券后价】" + share_price + "元\n【下单链接】" + share_url + "\n-------------------------------------\n复制这条信息，{淘口令}，打开【手机淘宝】即可查看"
-$("textarea").val(val);
+
 
 
 $("#btnShare").click(function (e) {
@@ -148,20 +143,37 @@ $("#btnShare").click(function (e) {
     $("#share").removeClass("hidden");
 
     if ($("#Output").children().length <= 0) {
-        var img = document.getElementById('shareImgModule_img');
-        var data = getBase64Image(img);
-        $('#shareImgModule_img').prop("src", data);
+        $.ajax({
+            type: "GET",
+            url: comm.action("GetPwd", "Coupon"),
+            data: { id: $("#ID").val() },
+            dataType: "json",
+            success: function (data) {
+                if (data.State == "Success") {
+                    var share_name = $("#share_name").val();
+                    var share_or_price = $("#share_or_price").val();
+                    var share_price = $("#share_price").val();
+                    var share_url = $("#share_url").val();
+                    var val = share_name + "\n【在售价】" + share_or_price + "元\n【券后价】" + share_price + "元\n【下单链接】" + share_url + "\n-------------------------------------\n复制这条信息，{" + data.Result.Data + "}，打开【手机淘宝】即可查看"
+                    $("textarea").val(val);
 
-        html2canvas(document.getElementById("shareImgModule"), {
-            allowTaint: true,
-            taintTest: true,
-            useCORS: true,
-            onrendered: function (canvas) {
-                var url = canvas.toDataURL();
-                var img = new Image();
-                img.src = url;
-                document.getElementById('Output').appendChild(img);
-                $("#shareImgModule").addClass("hidden");
+                    var img = document.getElementById('shareImgModule_img');
+                    var data = getBase64Image(img);
+                    $('#shareImgModule_img').prop("src", data);
+
+                    html2canvas(document.getElementById("shareImgModule"), {
+                        allowTaint: true,
+                        taintTest: true,
+                        useCORS: true,
+                        onrendered: function (canvas) {
+                            var url = canvas.toDataURL();
+                            var img = new Image();
+                            img.src = url;
+                            document.getElementById('Output').appendChild(img);
+                            $("#shareImgModule").addClass("hidden");
+                        }
+                    });
+                }
             }
         });
     }

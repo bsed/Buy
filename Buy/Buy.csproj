@@ -295,6 +295,9 @@
     <Compile Include="App_Start\WeChat\Config.cs" />
     <Compile Include="App_Start\yuntongxun\CCPRestSDK.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BannerController.cs" />
+    <Compile Include="Controllers\BannerManageController.cs" />
+    <Compile Include="Controllers\ClassManageController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\CouponManageController.cs" />
     <Compile Include="Controllers\CouponTypeManageController.cs" />
@@ -671,8 +674,15 @@
     <Content Include="Views\LocalCoupon\GetList.cshtml" />
     <Content Include="Views\LocalCoupon\Details.cshtml" />
     <Content Include="Views\CouponTypeManage\MGJType.cshtml" />
+    <Content Include="Views\BannerManage\Create.cshtml" />
+    <Content Include="Views\BannerManage\Edit.cshtml" />
+    <Content Include="Views\BannerManage\Index.cshtml" />
+    <Content Include="Views\ClassManage\Index.cshtml" />
+    <Content Include="Views\ClassManage\Create.cshtml" />
+    <Content Include="Views\ClassManage\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Banner\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Taobao\" />
     <Folder Include="Views\Test\" />
