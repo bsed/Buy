@@ -47,6 +47,7 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult GetCategory()
         {
+
             var mgj = new MoGuJie.Method();
             var cids = MoGuJie.Method.AllCategory;
             foreach (var cid in cids)
@@ -64,9 +65,11 @@ namespace Buy.Controllers
             string text = System.IO.File.ReadAllText(path);
             List<Models.Coupon> models = JsonConvert.DeserializeObject<List<Models.Coupon>>(text);
             Bll.Coupons.DbAdd(models);
-
             return Json(Comm.ToJsonResult("Success", "成功"), JsonRequestBehavior.AllowGet);
         }
+
+
+      
 
         [HttpPost]
         [AllowCrossSiteJson]

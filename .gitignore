@@ -290,4 +290,4 @@ __pycache__/
 /Buy/imagecache
 
 #custom
-/bin/Buy.dll
+/Buy/bin/Buy.*
