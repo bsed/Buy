@@ -154,6 +154,12 @@
             line-height: 1;
             background-color: @bg-color-white;
 
+            .name {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space:nowrap;
+            }
+
             a {
                 .clean-a();
                 display: block;
@@ -161,7 +167,7 @@
 
             img {
                 .square(44rem*@resize);
-                margin-bottom: 2rem*@resize;
+                margin-bottom: 3rem*@resize;
             }
 
             &.all {
@@ -187,6 +193,14 @@
         .all {
             display: none;
         }
+    }
+
+    &.style03{
+        position: fixed;
+        width: 100%;
+        height: auto;
+        top: 44rem*@resize;
+        z-index: @z-index-top;
     }
 }
 

@@ -68,6 +68,7 @@ sortGetAll.click(function () {
 
 $(".mask.style02").click(function () {
     sortList.removeClass("getAll");
+    $("#sortOne").slideUp();
     $("body").css("overflow", "auto");
     comm.mask3();
 });
@@ -99,6 +100,28 @@ couponType.click(function () {
     } else {
         $("[name='sortList']").removeClass("hidden");
     }
+});
+
+var couponType2 = $("#sortOne [name='type']");
+couponType2.click(function () {
+    var date_type = $(this).data("type");
+    typeID = date_type;
+    location = comm.action("Index", "Coupon",
+        {
+            typeID: typeID,
+            platform: platform,
+            sort: sort
+        });
+
+    if (date_type == "0") {
+        $("#index").removeClass("hidden");
+    } else {
+        $("[name='sortList']").removeClass("hidden");
+    }
+
+    $("body").css("overflow", "auto");
+    $("#sortOne").hide();
+    comm.mask3();
 });
 
 //加载列表
@@ -163,3 +186,9 @@ if (platform == "" || platform == "0" || platform == "TaoBao") {
 } else {
     $(".navTabBottom li.jd").addClass("active");
 }
+
+$("#pullDown").click(function () {
+    comm.mask3();
+    $("body").css("overflow", "hidden");
+    $("#sortOne").slideDown();
+});

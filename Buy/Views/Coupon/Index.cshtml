@@ -61,6 +61,18 @@
                 }
             </div>
         </div>
+        <div id="pullDown" class="pullDown">∨</div>
+    </div>
+    <div id="sortOne" class="sortList style03"  style="display:none">
+        <ul>
+            @foreach (var item in couponTypes)
+            {
+                string active = pid == item.ID ? "active" : "";
+                <li name="type" class="@active" data-type="@item.ID">
+                    <img src="@Url.ResizeImage(item.Image,80,80)" /><div>@item.Name</div>
+                </li>
+            }
+        </ul>
     </div>
     @if (pid != 0)
     {
@@ -70,7 +82,7 @@
                 {
                     <li>
                         <a name="childType" data-type="@item.ID">
-                            <img src="@Url.ResizeImage(item.Image,80,80)" /><div>@item.Name</div>
+                            <img src="@Url.ResizeImage(item.Image,80,80)" /><div class="name">@item.Name</div>
                         </a>
                     </li>
                 }
@@ -150,7 +162,7 @@
     <div id="coupon" class="coupon-list coupon-list-style02">
         <ul>
             <li class="loadModule loadModule-dataIng" data-page="0" data-next="true">
-                加载中
+                <img class="marginR8" src="~/Content/images/view/loadingGif.gif" />加载中
             </li>
         </ul>
     </div>

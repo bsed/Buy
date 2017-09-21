@@ -11,7 +11,7 @@ namespace Buy.Bll
         public static int? CheckType(string keyword, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao)
         {
             return Bll.SystemSettings.CouponType
-                .Where(s => !string.IsNullOrWhiteSpace(s.Keyword))
+                .Where(s => s.Platform == platform && !string.IsNullOrWhiteSpace(s.Keyword))
                 .FirstOrDefault(s =>
                 {
 

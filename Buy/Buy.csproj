@@ -400,6 +400,7 @@
     <Content Include="Content\images\404\avatar.png" />
     <Content Include="Content\images\404\default.jpg" />
     <Content Include="Content\images\404\placeholder_image.png" />
+    <Content Include="Content\images\home\arrow_up.png" />
     <Content Include="Content\images\home\slide_android_qr.png" />
     <Content Include="Content\images\home\slide_bg_001.png" />
     <Content Include="Content\images\home\slide_bg_android.png" />
@@ -429,6 +430,7 @@
     <Content Include="Content\images\home\slide_jm_bg_006.png" />
     <Content Include="Content\images\home\slide_jm_bg_007.png" />
     <Content Include="Content\images\home\slide_yj_bg_001.png" />
+    <Content Include="Content\images\home\slide_yj_bg_001_m.png" />
     <Content Include="Content\images\test\banner_home%402x.png" />
     <Content Include="Content\images\test\coupon-detail-pimg02.png" />
     <Content Include="Content\images\test\find_banner.png" />
@@ -501,6 +503,7 @@
     <Content Include="Content\Site.less" />
     <Content Include="App_Data\mgjCids.json" />
     <Content Include="App_Data\temp.json" />
+    <Content Include="App_Data\蘑菇街_201709201224.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

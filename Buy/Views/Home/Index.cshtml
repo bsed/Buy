@@ -194,6 +194,7 @@ else
                         <div class="slideApp-view">
                             <img src="~/Content/images/home/slide_bg_001.png"/>
                         </div>
+                        <div class="arrow-up"></div>
                     </div>
                     <div class="swiper-slide coupon">
                         <div class="slideCoupon-text">购物内部优惠券</div>
@@ -206,10 +207,77 @@ else
                             <img class="mgj" src="~/Content/images/home/slide_coupon_bg_mogu.png" />
                             <img class="tm" src="~/Content/images/home/slide_coupon_bg_tianmao.png" />
                         </div>
+                        <div class="arrow-up"></div>
                     </div>
-                    <div class="swiper-slide jm">Slide 3</div>
-                    <div class="swiper-slide yj">Slide 4</div>
-                    <div class="swiper-slide hz">Slide 5</div>
+                    <div class="swiper-slide jm">
+                        <div class="slideJm-text">本地商家加盟</div>
+                        <div class="slideJm-detail">更多第三方服务接入，吃喝玩乐尽在“买了么”APP。</div>
+                        <div class="slideJm-view">
+                            <img class="bg" src="~/Content/images/home/slide_jm_bg_003.png" />
+                            <img class="eat" src="~/Content/images/home/slide_jm_bg_004.png" />
+                            <img class="drink" src="~/Content/images/home/slide_jm_bg_005.png" />
+                            <img class="play" src="~/Content/images/home/slide_jm_bg_006.png" />
+                            <img class="song" src="~/Content/images/home/slide_jm_bg_007.png" />
+                        </div>
+                        <div class="slideJm-bg">
+                            <img class="bg" src="~/Content/images/home/slide_jm_bg_002.png" />
+                            <img class="bg02" src="~/Content/images/home/slide_jm_bg_001.png" />
+                        </div>
+                        <div class="arrow-up"></div>
+                    </div>
+                    <div class="swiper-slide yj">
+                        <div class="slideYj-text">疯狂赚佣金</div>
+                        <div class="slideYj-detail">代理商可以获得平台所有商品、本地商家、第三方服务商的高额推广分成。</div>
+                        <div class="slideYj-table">
+                            <div class="slideYj-table-tits"><img src="~/Content/images/home/slide_yj_bg_001_m.png" /></div>
+                            <div class="slideYj-table-cons">
+                                <div class="table-cons-tits">
+                                    <div class="table-cons-tits-li">代理人</div>
+                                    <div class="table-cons-tits-li">佣金收入</div>
+                                    <div class="table-cons-tits-li">时间</div>
+                                </div>
+                                <div id="slideBox" class="slideYj-table-list mobile">
+                                    <ul id="scrollUpList" style="margin-top: 0;">
+                                        @for (var i = 0; i < 20; i++)
+                                        {
+                                            <li>
+                                                <div class="table-cons-li">18****58</div>
+                                                <div class="table-cons-li"> ￥6,300</div>
+                                                <div class="table-cons-li">1分钟前</div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="arrow-up"></div>
+                    </div>
+                    <div class="swiper-slide hz">
+                        <div class="slideHz-text">合作伙伴</div>
+                        <div class="slideHz-detail">更多第三方服务接入，吃喝玩乐尽在“买了么”APP。</div>
+                        <div class="slideHz-list">
+                            <ul>
+                                <li><img src="~/Content/images/home/slide_hz_bg_myj.png" /></li>
+                                <li><img src="~/Content/images/home/slide_hz_bg_tb.png" /></li>
+                                <li><img src="~/Content/images/home/slide_hz_bg_tm.png" /></li>
+                                <li><img src="~/Content/images/home/slide_hz_bg_jd.png" /></li>
+                                <li><img src="~/Content/images/home/slide_hz_bg_mgj.png" /></li>
+                                <li><img src="~/Content/images/home/slide_hz_bg_kfc.png" /></li>
+                                <li><img src="~/Content/images/home/slide_hz_bg_mdl.png" /></li>
+                                <li><img src="~/Content/images/home/slide_hz_bg_jm.png" /></li>
+                            </ul>
+                        </div>
+                        <div class="slide-footer fs12">
+                            <div class="slide-footer-tits">买了么</div>
+                            <div class="slide-footer-contect">
+                                <div class="slide-footer-contect-tits">联系方式</div>
+                                <div>邮箱：xxxxxx@mlm.cn</div>
+                                <div>QQ：xxxxxxxxxxxx</div>
+                                <div>电话：xxxx-xxxxxx-xx</div>
+                            </div>
+                            <div class="marginT15">©20157 immlm.cn 粤ICP备888888888号</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
