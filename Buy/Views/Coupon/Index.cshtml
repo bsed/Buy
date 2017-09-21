@@ -58,6 +58,18 @@
                 }
             </div>
         </div>
+        <div id="pullDown" class="pullDown">∨</div>
+    </div>
+    <div id="sortOne" class="sortList style03"  style="display:none">
+        <ul>
+            @foreach (var item in couponTypes)
+            {
+                string active = pid == item.ID ? "active" : "";
+                <li name="type" class="@active" data-type="@item.ID">
+                    <img src="@Url.ResizeImage(item.Image,80,80)" /><div>@item.Name</div>
+                </li>
+            }
+        </ul>
     </div>
     @if (pid != 0)
     {

@@ -485,6 +485,17 @@ textarea {
         }
     }
 
+    .pullDown{
+        .rectangle(36rem*@resize,34rem*@resize);
+        background-color:@bg-color-white;
+        position:absolute;
+        top:0;
+        right:0;
+        z-index:@z-index-bottom;
+        text-align:center;
+        box-shadow:-1rem*@resize 0 5rem*@resize 0rem*@resize rgba(0,0,0,0.3);
+    }
+
     &.top44 {
         top: 44rem*@resize;
     }
