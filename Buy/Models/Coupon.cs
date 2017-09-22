@@ -9,6 +9,8 @@ namespace Buy.Models
 {
     public class Coupon
     {
+
+
         public int ID { get; set; }
 
         [Display(Name = "分类")]
@@ -113,5 +115,7 @@ namespace Buy.Models
 
         [Display(Name = "数量")]
         public int Count { get; set; }
+
+       
     }
 }

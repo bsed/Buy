@@ -84,6 +84,39 @@ namespace Buy.Models
         public new string UserID { get; set; }
 
         public new string Link { get; set; }
+
+        public Coupon ToCoupon()
+        {
+            return new Coupon
+            {
+                Commission = Commission,
+                CommissionRate = CommissionRate,
+                CreateDateTime = CreateDateTime,
+                DataJson = DataJson,
+                EndDateTime = EndDateTime,
+                Image = Image,
+                Left = Left,
+                ID = ID,
+                Link = Link,
+                Name = Name,
+                OriginalPrice = OriginalPrice,
+                PCouponID = PCouponID,
+                Platform = Platform,
+                PLink = PLink,
+                Price = Price,
+                ProductID = ProductID,
+                ProductType = ProductType,
+                Sales = Sales,
+                ShopName = ShopName,
+                StartDateTime = StartDateTime,
+                Subtitle = Subtitle,
+                Total = Total,
+                TypeID = TypeID,
+                UrlLisr = UrlLisr,
+                Value = Value
+
+            };
+        }
     }
 
 }

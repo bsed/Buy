@@ -80,38 +80,25 @@ namespace Buy.Bll
                 for (int i = 0; i < totalPage; i++)
                 {
                     int pageIndex = i * pageSize;
-                    var addTemp = models.Skip(pageIndex).Take(pageSize).ToList();
+                    var addTemp = models.Skip(pageIndex).Take(pageSize).Select(s => s.ToCoupon()).ToList();
                     var platforms = models.GroupBy(s => s.Platform).Select(s => s.Key).ToList();
                     //判断是否有重复添加
-                    var pLinks= addTemp.Select(s => s.PLink).ToList();
+                    var pLinks = addTemp.Select(s => s.PLink).ToList();
+                    List<string> dbLinks = new List<string>();
                     if (platforms.Count == 1)//如果非淘宝联盟
                     {
                         var p = platforms[0];
-                        //dbLinks = db.Coupons.Where(s=> pLinks.Contains(s.P)) (from c in db.Coupons
-                        //           from t in pCoupons
-                        //           where c.Platform == p
-                        //            && c.ProductID == t.ProductID
-                        //            && c.PCouponID == t.PCouponID
-                        //           select t)
-                        //    .ToList();
+                        dbLinks = db.Coupons.Where(s => s.Platform == p && pLinks.Contains(s.PLink)).Select(s => s.PLink).ToList();
                     }
                     else
                     {
-                        //dbLinks = (from c in db.Coupons
-                        //           from t in pCoupons
-                        //           where platforms.Contains(c.Platform)
-                        //            && c.ProductID == t.ProductID
-                        //            && c.PCouponID == t.PCouponID
-                        //           select t)
-                        //   .ToList();
+                        dbLinks = db.Coupons.Where(s => platforms.Contains(s.Platform) && pLinks.Contains(s.PLink)).Select(s => s.PLink).ToList();
+
                     }
-                    //if (dbLinks.Count > 0)
-                    //{
-                    //    addTemp = (from a in addTemp
-                    //               from d in dbLinks
-                    //               where !(a.ProductID == d.ProductID && a.PCouponID == d.PCouponID)
-                    //               select a).ToList();
-                    //}
+                    if (dbLinks.Count > 0)
+                    {
+                        addTemp = addTemp.Where(s => !dbLinks.Contains(s.PLink)).ToList();
+                    }
                     afterFilter.AddRange(addTemp);
                 }
                 var dtTS2 = DateTime.Now;
