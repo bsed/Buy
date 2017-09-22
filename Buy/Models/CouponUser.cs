@@ -16,5 +16,7 @@ namespace Buy.Models
         public string UserID { get; set; }
 
         public string Link { get; set; }
+
+        
     }
 }

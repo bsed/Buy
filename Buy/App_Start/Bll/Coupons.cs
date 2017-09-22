@@ -60,7 +60,7 @@ namespace Buy.Bll
             return values;
         }
 
-        public static void DbAdd(List<Coupon> models)
+        public static void DbAdd(List<CouponUserViewModel> models)
         {
             if (models?.Count == 0)
             {

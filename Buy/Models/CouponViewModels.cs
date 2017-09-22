@@ -77,4 +77,12 @@ namespace Buy.Models
         public int Count { get; set; }
         //以上添加测试的的
     }
+
+    public class CouponUserViewModel : Coupon
+    {
+        public new string UserID { get; set; }
+
+        public new string Link { get; set; }
+    }
+
 }
