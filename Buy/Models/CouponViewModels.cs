@@ -38,7 +38,7 @@ namespace Buy.Models
 
     }
 
-    public class ThirdPartyTicketValue
+    public class CouponValue
     {
         public string Type { get; set; }
 
@@ -47,9 +47,9 @@ namespace Buy.Models
 
     public class CouponDetailViewModel
     {
-        public Coupon ThirdPartyTicket { get; set; }
+        public Coupon Coupon { get; set; }
 
-        public List<Coupon> ThirdPartyTicketList { get; set; }
+        public List<Coupon> CouponList { get; set; }
     }
 
 

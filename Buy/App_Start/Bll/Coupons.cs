@@ -20,9 +20,9 @@ namespace Buy.Bll
                 })?.ID;
         }
 
-        public static List<ThirdPartyTicketValue> GetValues(Coupon t)
+        public static List<CouponValue> GetValues(Coupon t)
         {
-            List<ThirdPartyTicketValue> values = new List<ThirdPartyTicketValue>();
+            List<CouponValue> values = new List<CouponValue>();
 
 
             foreach (var item in t.Value.SplitToArray<string>())
@@ -34,26 +34,26 @@ namespace Buy.Bll
                         if (item.Contains("-"))
                         {
                             var temp = item.SplitToArray<string>('-');
-                            values.Add(new ThirdPartyTicketValue { Type = "券", Value = $"满{temp[0]}减{temp[1]}" });
+                            values.Add(new CouponValue { Type = "券", Value = $"满{temp[0]}减{temp[1]}" });
                         }
                         else if (item.Contains("满"))
                         {
-                            values.Add(new ThirdPartyTicketValue { Type = "减", Value = item });
+                            values.Add(new CouponValue { Type = "减", Value = item });
                         }
                         else
                         {
-                            values.Add(new ThirdPartyTicketValue { Type = "专享价", Value = $"{item.Remove(0, 4)}元" });
+                            values.Add(new CouponValue { Type = "专享价", Value = $"{item.Remove(0, 4)}元" });
                         }
                     }
                     catch (Exception)
                     {
-                        values.Add(new ThirdPartyTicketValue { Type = "券", Value = item });
+                        values.Add(new CouponValue { Type = "券", Value = item });
                     }
 
                 }
                 else
                 {
-                    values.Add(new ThirdPartyTicketValue { Type = "券", Value = $"{(t.OriginalPrice - t.Price):##.##}元" });
+                    values.Add(new CouponValue { Type = "券", Value = $"{(t.OriginalPrice - t.Price):##.##}元" });
                 }
 
             }

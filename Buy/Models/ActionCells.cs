@@ -243,7 +243,7 @@ namespace Buy.Models.ActionCell
 
         public string ProductUrl { get; set; }
 
-        public List<ThirdPartyTicketValue> Values { get; set; }
+        public List<CouponValue> Values { get; set; }
     }
 
 
