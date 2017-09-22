@@ -14,27 +14,38 @@ namespace Buy.Controllers
     public class TestController : Controller
     {
         [AllowCrossSiteJson]
-        public ActionResult Index(string phone)
+        public ActionResult Index()
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            List<Models.Coupon> models = new List<Coupon>();
+            for (int i = 0; i < 10; i++)
             {
-                //var c = db.CouponTypes
-                //   .Where(s => s.Platform == Enums.CouponPlatform.MoGuJie && s.Keyword != null)
-                //   .ToList();
-                //foreach (var item in c)
-                //{
-                //    item.Keyword = item.Keyword.Replace(";", ",");
-                //}
-                //db.SaveChanges();
-                var cid = db.CouponTypes
-                    .Where(s => s.Platform == Enums.CouponPlatform.MoGuJie && s.Keyword != null)
-                    .ToList()
-                    .Select(s => s.Keyword.SplitToArray<string>(','))
-                    .SelectMany(s => s)
-                    .ToList();
-                return Json(Comm.ToJsonResult("Success", "", cid), JsonRequestBehavior.AllowGet);
+                models.Add(new Coupon
+                {
+                    Commission = 1,
+                    CommissionRate = 0.1m,
+                    CreateDateTime = DateTime.Now,
+                    EndDateTime = DateTime.Now.AddDays(3),
+                    Link = "http://www.baidu.com/",
+                    Name = "测试",
+                    Left = 100,
+                    Platform = Enums.CouponPlatform.MoGuJie
+                });
+            }
+            var dLinks = models.GroupBy(s => s.Link).Select(s => new
+            {
+                Link = s.Key,
+                Count = s.Count()
+            }).Where(s => s.Count > 1)
+                .Select(s => s.Link)
+                .ToList();
+            foreach (var link in dLinks)
+            {
+                var dModels = models.Where(s => s.Link == link)
+                     .Skip(1).ToList();
+                models.RemoveAll(s => dModels.Contains(s));
             }
 
+            return Json(Comm.ToJsonResult("Success", ""), JsonRequestBehavior.AllowGet);
         }
     }
 

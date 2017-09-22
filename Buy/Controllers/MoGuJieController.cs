@@ -61,15 +61,37 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult ImportItems(string url)
         {
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                return Json(Comm.ToJsonResult("Error", "链接为空"), JsonRequestBehavior.AllowGet);
+            }
             var path = Request.MapPath(url);
+            var fileInfo = new System.IO.FileInfo(path);
+            if (!fileInfo.Exists)
+            {
+                return Json(Comm.ToJsonResult("Error", $"文件{fileInfo.Name}不存在"), JsonRequestBehavior.AllowGet);
+            }
             string text = System.IO.File.ReadAllText(path);
             List<Models.Coupon> models = JsonConvert.DeserializeObject<List<Models.Coupon>>(text);
+            var dLinks = models.GroupBy(s => s.Link).Select(s => new
+            {
+                Link = s.Key,
+                Count = s.Count()
+            }).Where(s => s.Count > 1)
+                .Select(s => s.Link)
+                .ToList();
+            foreach (var link in dLinks)
+            {
+                var dModels = models.Where(s => s.Link == link)
+                     .Skip(1).ToList();
+                models.RemoveAll(s => dModels.Contains(s));
+            }
             Bll.Coupons.DbAdd(models);
             return Json(Comm.ToJsonResult("Success", "成功"), JsonRequestBehavior.AllowGet);
         }
 
 
-      
+
 
         [HttpPost]
         [AllowCrossSiteJson]
