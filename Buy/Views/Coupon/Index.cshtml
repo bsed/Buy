@@ -99,29 +99,23 @@
         <div id="index" class="">
             <div class="couponIndex-banner banner">
                 <div class="swiper-container">
-                    @if (banner.Count() > 1)
-                    {
-                        <div class="swiper-wrapper">
-                            @foreach (var item in banner)
-                            {
-                                <div class="swiper-slide">
-                                    <a href="@Url.ContentFull(item.Link)" data-code="" title="">
-                                        <img src="@Comm.ResizeImage(item.Image)" />
-                                    </a>
-                                </div>
-                            }
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <a href="#" data-code="" title="">
+                                <img src="~/Content/images/test/banner_home@2x.png" />
+                            </a>
                         </div>
-                    }
-                    else if (banner.Count() == 1)
-                    {
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <a href="@Url.ContentFull(banner.FirstOrDefault().Link)" data-code="" title="">
-                                    <img src="@Comm.ResizeImage(banner.FirstOrDefault().Image)" />
-                                </a>
-                            </div>
+                        <div class="swiper-slide">
+                            <a href="#" data-code="" title="">
+                                <img src="~/Content/images/test/banner_home@2x.png" />
+                            </a>
                         </div>
-                    }
+                        <div class="swiper-slide">
+                            <a href="#" data-code="" title="">
+                                <img src="~/Content/images/test/banner_home@2x.png" />
+                            </a>
+                        </div>
+                    </div>
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
                 </div>
@@ -129,17 +123,11 @@
             </div>
 
             <div class="couponIndex-menu">
-                @foreach (var item in classify)
-                {
-                    <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
-                        <img src="@Comm.ResizeImage( item.Image)" />
-                    </a>
-                }
-                @*<img src="~/Content/images/test/img_ztihome_001@2x.png" />
-                    <img src="~/Content/images/test/img_ztihome_002@2x.png" />
-                    <img src="~/Content/images/test/img_ztihome_003@2x.png" />
-                    <img src="~/Content/images/test/img_ztihome_004@2x.png" />
-                    <img src="~/Content/images/test/img_ztihome_005@2x.png" />*@
+                <img src="~/Content/images/test/img_ztihome_001@2x.png" />
+                <img src="~/Content/images/test/img_ztihome_002@2x.png" />
+                <img src="~/Content/images/test/img_ztihome_003@2x.png" />
+                <img src="~/Content/images/test/img_ztihome_004@2x.png" />
+                <img src="~/Content/images/test/img_ztihome_005@2x.png" />
             </div>
         </div>
     }
