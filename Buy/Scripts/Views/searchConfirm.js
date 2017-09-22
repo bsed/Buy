@@ -1,5 +1,6 @@
 ﻿var platform = $("#platform").val(),
     sort = $("[data-sort].active").data("sort"),
+    maxPrice = $("#maxPrice").val(),
     types = $("#typeID").val();
 var canLoadPage = true;
 
@@ -36,12 +37,13 @@ function loadCoupon() {
         type: "GET",
         url: comm.action("GetList", "coupon"),
         data: {
-        page: page,
-        sort: sort,
-        platforms: platform,
-        types: types,
-        orderByTime: $("#secound").val() == "secound"?true:false,
-    },
+            page: page,
+            sort: sort,
+            platforms: platform,
+            types: types,
+            maxPrice: maxPrice,
+            orderByTime: $("#secound").val() == "secound" ? true : false,
+        },
         dataType: "html",
         success: function (data) {
             $page.remove();
@@ -49,12 +51,12 @@ function loadCoupon() {
 
             $coupon.find(">ul").append($data);
             comm.lazyloadALL();
-    },
+        },
         complete: function () {
             canLoadPage = true;
 
             nodataCheck("#coupon ul");
-    }
+        }
     });
 
 }
