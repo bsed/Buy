@@ -44,6 +44,8 @@ namespace Buy.Controllers
                 Discount = s.OriginalPrice - s.Price,
                 DiscountRate = (s.OriginalPrice - s.Price) / s.OriginalPrice,
                 EndDateTime = s.EndDateTime,
+                Commission = s.Commission,
+                CommissionRate = s.Commission,
                 ID = s.ID,
                 Image = s.Image,
                 Link = s.Link,
@@ -113,10 +115,20 @@ namespace Buy.Controllers
                         query = query.OrderByDescending(s => s.CreateDateTime);
                     }
                     break;
+                case Enums.CouponSort.CouponValue:
+                    {
+                        query = query.OrderByDescending(s => s.Discount);
+                    }
+                    break;
+                case Enums.CouponSort.CouponPrice:
+                    {
+                        query = query.OrderByDescending(s => s.Price);
+                    }
+                    break;
                 case Enums.CouponSort.Default:
                 default:
                     {
-                        query = query.OrderByDescending(s => s.ID);
+                        query = query.OrderByDescending(s => s.Commission);
                     }
                     break;
             }
