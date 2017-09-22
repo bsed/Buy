@@ -449,6 +449,14 @@ namespace Buy.Controllers
             return View();
         }
 
+        [HttpGet]
+        [AllowCrossSiteJson]
+        public ActionResult AutoComplate(string keyword, string userID)
+        {
+            var titles = QueryCoupon(filter: keyword, userId: userID).Take(10).Select(s => s.Name).ToList();
+            return Json(Comm.ToJsonResult("Success", "成功", titles), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult SearchConfirm(string filter, int page = 1, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
             Enums.CouponSort sort = Enums.CouponSort.Default)
         {
