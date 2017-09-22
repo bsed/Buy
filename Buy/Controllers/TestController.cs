@@ -8,44 +8,25 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using JiebaNet.Segmenter;
+using JiebaNet.Analyser;
+using JiebaNet.Segmenter.PosSeg;
 
 namespace Buy.Controllers
 {
     public class TestController : Controller
     {
         [AllowCrossSiteJson]
-        public ActionResult Index()
+        public ActionResult Index(string text)
         {
-            //List<Models.Coupon> models = new List<Coupon>();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    models.Add(new Coupon
-            //    {
-            //        Commission = 1,
-            //        CommissionRate = 0.1m,
-            //        CreateDateTime = DateTime.Now,
-            //        EndDateTime = DateTime.Now.AddDays(3),
-            //        Link = "http://www.baidu.com/",
-            //        Name = "测试",
-            //        Left = 100,
-            //        Platform = Enums.CouponPlatform.MoGuJie
-            //    });
-            //}
-            //var dLinks = models.GroupBy(s => s.Link).Select(s => new
-            //{
-            //    Link = s.Key,
-            //    Count = s.Count()
-            //}).Where(s => s.Count > 1)
-            //    .Select(s => s.Link)
-            //    .ToList();
-            //foreach (var link in dLinks)
-            //{
-            //    var dModels = models.Where(s => s.Link == link)
-            //         .Skip(1).ToList();
-            //    models.RemoveAll(s => dModels.Contains(s));
-            //}
+            var segmenter = new JiebaSegmenter();
+            var segments = segmenter.Cut(text, cutAll: true);
+            var segments2 = segmenter.Cut(text);
+            var segments3 = segmenter.CutForSearch(text);
+            var posSeg = new PosSegmenter();
 
-            return Json(Comm.ToJsonResult("Success", ""), JsonRequestBehavior.AllowGet);
+            var tokens = posSeg.Cut(text).Where(s => s.Flag.IndexOf('n') == 0).Select(s => s.Word).Distinct();
+            return Json(Comm.ToJsonResult("Success", "", segments3.Where(s => s.Length > 1).Distinct()), JsonRequestBehavior.AllowGet);
         }
     }
 

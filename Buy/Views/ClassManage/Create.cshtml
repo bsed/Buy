@@ -6,7 +6,7 @@
     var urlMatch = new Buy.Models.UrlMatchModel() { ID = "Url" };
 }
 <ol class="breadcrumb">
-    <li><a href="@Url.Action("Index", new { platform = Model.Platform })">Banner管理</a></li>
+    <li><a href="@Url.Action("Index", new { platform = Model.Platform })">分类管理</a></li>
     <li class="active">创建</li>
 </ol>
 
@@ -16,6 +16,15 @@
     @Html.HiddenFor(model => model.Platform)
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Platform, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 form-control-static">
+                @Model.Platform.GetDisplayName()
+                @Html.ValidationMessageFor(model => model.Platform, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -67,7 +76,6 @@
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
     <script>
         var url = new urlMatch({
             target: "#Link",

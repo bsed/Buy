@@ -124,7 +124,7 @@ namespace Buy.Controllers
             {
                 return Json(Comm.ToJsonResult("Error", "数据不存在"));
             }
-            Bll.SystemSettings.BannerSetting.Remove(t);
+            Bll.SystemSettings.ClassifySetting.Remove(t);
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
     }
