@@ -194,7 +194,6 @@ namespace Buy.Controllers
                 tpt.Subtitle,
                 Values = Bll.Coupons.GetValues(tpt),
                 tpt.Sales,
-
                 ShareUrl = Url.ContentFull($"~/Coupon/Details?id={tpt.ID}"),
                 ProductUrl = productUrl,
             };
