@@ -21,5 +21,7 @@ namespace Buy.Models
 
         public string PCouponID { get; set; }
 
+        public string ProductID { get; set; }
+
     }
 }
