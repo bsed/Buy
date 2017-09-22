@@ -200,7 +200,8 @@ namespace Buy
                             Left = Convert.ToInt32(item["优惠券剩余量"]),
                             Total = Convert.ToInt32(item["优惠券总量"]),
                             UserID = userID,
-                            PCouponID = item["优惠券id"].ToString()
+                            PCouponID = item["优惠券id"].ToString(),
+                            PLink = item["优惠券链接"].ToString(),
 
                         };
                         try

@@ -83,36 +83,35 @@ namespace Buy.Bll
                     var addTemp = models.Skip(pageIndex).Take(pageSize).ToList();
                     var platforms = models.GroupBy(s => s.Platform).Select(s => s.Key).ToList();
                     //判断是否有重复添加
-                    var pCoupons = addTemp.Select(s => new CouponSimple { PCouponID = s.PCouponID, ProductID = s.ProductID }).ToList();
-                    List<CouponSimple> dbLinks;//重复的券
+                    var pLinks= addTemp.Select(s => s.PLink).ToList();
                     if (platforms.Count == 1)//如果非淘宝联盟
                     {
                         var p = platforms[0];
-                        dbLinks = (from c in db.Coupons
-                                   from t in pCoupons
-                                   where c.Platform == p
-                                    && c.ProductID == t.ProductID
-                                    && c.PCouponID == t.PCouponID
-                                   select t)
-                            .ToList();
+                        //dbLinks = db.Coupons.Where(s=> pLinks.Contains(s.P)) (from c in db.Coupons
+                        //           from t in pCoupons
+                        //           where c.Platform == p
+                        //            && c.ProductID == t.ProductID
+                        //            && c.PCouponID == t.PCouponID
+                        //           select t)
+                        //    .ToList();
                     }
                     else
                     {
-                        dbLinks = (from c in db.Coupons
-                                   from t in pCoupons
-                                   where platforms.Contains(c.Platform)
-                                    && c.ProductID == t.ProductID
-                                    && c.PCouponID == t.PCouponID
-                                   select t)
-                           .ToList();
+                        //dbLinks = (from c in db.Coupons
+                        //           from t in pCoupons
+                        //           where platforms.Contains(c.Platform)
+                        //            && c.ProductID == t.ProductID
+                        //            && c.PCouponID == t.PCouponID
+                        //           select t)
+                        //   .ToList();
                     }
-                    if (dbLinks.Count > 0)
-                    {
-                        addTemp = (from a in addTemp
-                                   from d in dbLinks
-                                   where !(a.ProductID == d.ProductID && a.PCouponID == d.PCouponID)
-                                   select a).ToList();
-                    }
+                    //if (dbLinks.Count > 0)
+                    //{
+                    //    addTemp = (from a in addTemp
+                    //               from d in dbLinks
+                    //               where !(a.ProductID == d.ProductID && a.PCouponID == d.PCouponID)
+                    //               select a).ToList();
+                    //}
                     afterFilter.AddRange(addTemp);
                 }
                 var dtTS2 = DateTime.Now;
