@@ -10,7 +10,7 @@ namespace Buy.Bll
 {
     public static class Accounts
     {
-        
+
 
         /// <summary>
         /// 验证码验证
@@ -41,6 +41,28 @@ namespace Buy.Bll
             }
             return verCode;
         }
-        
+
+        public static string GetCouponUserID(string userId)
+        {
+            string couponUserID = null;
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var user = db.Users.FirstOrDefault(s => s.Id == userId);
+                if (user != null)
+                {
+                    if (user.UserType != Enums.UserType.Proxy)
+                    {
+                        var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userId);
+                        couponUserID = code == null ? null : code.OwnUser;
+                    }
+                    else if (user.UserType == Enums.UserType.Proxy)
+                    {
+                        couponUserID = userId;
+                    }
+                }
+            }
+            return couponUserID;
+        }
+
     }
 }

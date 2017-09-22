@@ -90,11 +90,7 @@ namespace Buy.Models
         [Display(Name = "总数")]
         public int Total { get; set; }
 
-        [Display(Name = "用户ID")]
-        public string UserID { get; set; }
 
-        [Display(Name = "连接")]
-        public string Link { get; set; }
 
         [Display(Name = "优惠券ID")]
         public string PCouponID { get; set; }
@@ -102,7 +98,7 @@ namespace Buy.Models
         [Display(Name = "优惠券链接不带佣金")]
         public string PLink { get; set; }
 
-        public List<CouponUser> Users { get; set; }
+        public virtual List<CouponUser> CouponUsers { get; set; }
     }
 
 
@@ -116,6 +112,6 @@ namespace Buy.Models
         [Display(Name = "数量")]
         public int Count { get; set; }
 
-       
+
     }
 }

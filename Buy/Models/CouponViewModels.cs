@@ -8,8 +8,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Buy.Models
 {
     [NotMapped]
-    public class CouponQuery : Coupon
+    public class CouponQuery : CouponUserViewModel
     {
+        
+
         public decimal Discount { get; set; }
 
         public decimal DiscountRate { get; set; }
@@ -81,9 +83,9 @@ namespace Buy.Models
     [NotMapped]
     public class CouponUserViewModel : Coupon
     {
-        public new string UserID { get; set; }
+        public string UserID { get; set; }
 
-        public new string Link { get; set; }
+        public string Link { get; set; }
 
         public Coupon ToCoupon()
         {
@@ -97,7 +99,6 @@ namespace Buy.Models
                 Image = Image,
                 Left = Left,
                 ID = ID,
-                Link = Link,
                 Name = Name,
                 OriginalPrice = OriginalPrice,
                 PCouponID = PCouponID,

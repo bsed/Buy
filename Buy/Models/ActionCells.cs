@@ -162,7 +162,7 @@ namespace Buy.Models.ActionCell
 
     public class CouponCell : Cell
     {
-        public CouponCell(Coupon coupon)
+        public CouponCell(CouponUserViewModel coupon)
         {
             string productUrl = null;
             switch (coupon.Platform)
