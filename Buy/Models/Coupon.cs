@@ -97,6 +97,8 @@ namespace Buy.Models
         [Display(Name = "优惠券ID")]
         public string PCouponID { get; set; }
 
+        [Display(Name = "优惠券链接不带佣金")]
+        public string PLink { get; set; }
 
         public List<CouponUser> Users { get; set; }
     }
