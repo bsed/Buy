@@ -267,6 +267,7 @@
     <Compile Include="App_Start\ActionFilterAttributes.cs" />
     <Compile Include="App_Start\Api.cs" />
     <Compile Include="App_Start\Bll\Accounts.cs" />
+    <Compile Include="App_Start\Bll\Keywords.cs" />
     <Compile Include="App_Start\Bll\Roles.cs" />
     <Compile Include="App_Start\Bll\SystemSetting.cs" />
     <Compile Include="App_Start\Bll\Coupons.cs" />

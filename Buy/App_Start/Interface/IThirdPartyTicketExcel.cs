@@ -19,7 +19,7 @@ namespace Buy.Interface
 
         public void Set(string path)
         {
-            List<Models.Coupon> models = new List<Models.Coupon>();
+            var models = new List<CouponUserViewModel>();
             try
             {
                 var dtable = new ExcelHelper(path).ExcelToDataTable(null, true);
@@ -29,7 +29,7 @@ namespace Buy.Interface
                     var index = dtable.Rows.IndexOf(item);
                     try
                     {
-                        var model = new Models.Coupon
+                        var model = new CouponUserViewModel
                         {
                             EndDateTime = Convert.ToDateTime(item["优惠券结束时间"]).AddDays(1).AddSeconds(-1),
                             ProductID = item["商品id"].ToString(),

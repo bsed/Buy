@@ -85,4 +85,12 @@ namespace Buy.Models
         public new string Link { get; set; }
     }
 
+    public class CouponSimple
+    {
+        public string ProductID { get; set; }
+
+        public string PCouponID { get; set; }
+
+
+    }
 }
