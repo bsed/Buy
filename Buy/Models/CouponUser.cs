@@ -17,6 +17,9 @@ namespace Buy.Models
 
         public string Link { get; set; }
 
-        
+        public Enums.CouponPlatform Platform { get; set; }
+
+        public string PCouponID { get; set; }
+
     }
 }
