@@ -3,6 +3,8 @@
     sort = $("[data-sort].active").data("sort");
 var canLoadPage = true;
 var navTop = $("#couponNav").offset().top;
+var sTop = $(".navigationBar").height();
+var tTop = $(".navigationSwiper").height();
 var loopState = false;
 
 //swiper
@@ -37,11 +39,11 @@ $(window).scroll(function (e) {
         $(".setScrollTop").fadeOut();
     }
 
-    if ($(window).scrollTop() + 80 >= navTop) {
-        $("#couponBox").addClass("paddingT112");
+    if ($(window).scrollTop() + sTop + tTop >= navTop) {
+        $("#couponBox").addClass("paddingT120");
         $("#couponNav").addClass("fixTop80");
     } else {
-        $("#couponBox").removeClass("paddingT112");
+        $("#couponBox").removeClass("paddingT120");
         $("#couponNav").removeClass("fixTop80");
     }
 
