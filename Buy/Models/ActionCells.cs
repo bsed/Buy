@@ -182,6 +182,7 @@ namespace Buy.Models.ActionCell
                 default:
                     break;
             }
+            ID = coupon.ID.ToString();
             Title = coupon.Name;
             Image = Comm.ResizeImage(coupon.Image, image: null);
             Action.Add(new KeyValuePair<string, string>("id", coupon.ID.ToString()));
