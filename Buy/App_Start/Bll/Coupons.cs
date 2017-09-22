@@ -135,12 +135,11 @@ namespace Buy.Bll
                 //导入用户用户券
                 for (int i = 0; i < totalPage; i++)
                 {
-                    var couponUsersAfiterFilter = new List<CouponUser>();
                     int pageIndex = i * pageSize;
                     var addTemp = models.Skip(pageIndex).Take(pageSize).ToList();
                     var platforms = models.GroupBy(s => s.Platform).Select(s => s.Key).ToList();
                     //判断是否有重复添加
-                    var pLink = addTemp.Select(s => s.Link).ToList();
+                    var links = addTemp.Select(s => s.Link).ToList();
                     List<string> dbLinks;//重复的券
                     if (platforms.Count == 1)//如果非淘宝联盟
                     {
@@ -148,8 +147,8 @@ namespace Buy.Bll
                         dbLinks = db.CouponUsers
                             .Where(s => s.UserID == userID
                             && s.Platform == p
-                            && pLink.Contains(s.Link))
-                            .Select(s => s.PCouponID)
+                            && links.Contains(s.Link))
+                            .Select(s => s.Link)
                             .ToList();
                     }
                     else
@@ -157,41 +156,44 @@ namespace Buy.Bll
                         dbLinks = db.CouponUsers
                            .Where(s => s.UserID == userID
                            && platforms.Contains(s.Platform)
-                           && pLink.Contains(s.Link))
-                           .Select(s => s.PCouponID)
+                           && links.Contains(s.Link))
+                           .Select(s => s.Link)
                            .ToList();
                     }
 
                     if (dbLinks.Count > 0)
                     {
-                        addTemp = addTemp.Where(s => !dbLinks.Contains(s.PCouponID)).ToList();
+                        addTemp = addTemp.Where(s => !dbLinks.Contains(s.Link)).ToList();
                     }
-                    var ppCouponIDs = addTemp.Select(s => s.PCouponID).ToList();
+                    var plinks = addTemp.Select(s => s.PLink);
                     var queryCoupon = db.Coupons.AsQueryable();
                     if (platforms.Count == 1)
                     {
                         var p = platforms[0];
-                        queryCoupon = queryCoupon.Where(s => s.Platform == p && ppCouponIDs.Contains(s.PCouponID));
+                        queryCoupon = queryCoupon.Where(s => s.Platform == p && plinks.Contains(s.PLink));
 
                     }
                     else
                     {
                         queryCoupon = queryCoupon.Where(s => platforms.Contains(s.Platform)
-                            && ppCouponIDs.Contains(s.PCouponID));
+                            && plinks.Contains(s.PLink));
                     }
                     var couponIDs = queryCoupon
-                        .Select(s => new { s.ID, s.PCouponID })
+                        .Select(s => new { s.ID, s.PLink })
                         .ToList();
-                    var userCoupons = (from c in couponIDs
+                    var userCoupons = (
                                        from t in addTemp
-                                       where c.PCouponID == t.PCouponID
+                                       join ci in couponIDs on t.PLink equals ci.PLink into cig
+                                       from k in cig.DefaultIfEmpty()
+                                       where k != null
                                        select new CouponUser
                                        {
-                                           CouponID = c.ID,
+                                           CouponID = k.ID,
                                            Link = t.Link,
                                            PCouponID = t.PCouponID,
                                            UserID = userID,
-                                           Platform = t.Platform
+                                           Platform = t.Platform,
+                                           ProductID = t.ProductID
                                        }).ToList();
                     db.CouponUsers.AddRange(userCoupons);
                     db.SaveChanges();
