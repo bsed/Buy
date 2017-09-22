@@ -78,13 +78,12 @@ namespace Buy.Models
         //以上添加测试的的
     }
 
+    [NotMapped]
     public class CouponUserViewModel : Coupon
     {
         public new string UserID { get; set; }
 
         public new string Link { get; set; }
-
-        public string PLink { get; set; }
     }
 
 }
