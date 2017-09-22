@@ -42,7 +42,7 @@
     });
     $fixedList.find(".item").click(function (e) {
         $urlMatch.addClass("hidden");
-        $searchResult.empty();
+        $target.val($(this).find(".url").text());
     });
     function ajax() {
         var data = {};
@@ -58,7 +58,7 @@
                 $searchResult.empty().append(data);
                 $searchResult.find(".item").click(function (e) {
                     var data = JSON.parse($(this).find(".info").val());
-                    $URlText.attr("value",data.URL);
+                    $target.attr("value", data.URL);
                     option.selected(data);
                     $urlMatch.addClass("hidden");
                     //getChild();
