@@ -365,6 +365,10 @@
     <Compile Include="Migrations\201709180711287_CouponTypeAddPlatform.Designer.cs">
       <DependentUpon>201709180711287_CouponTypeAddPlatform.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709221305316_AddCouponUserAndKeywords.cs" />
+    <Compile Include="Migrations\201709221305316_AddCouponUserAndKeywords.Designer.cs">
+      <DependentUpon>201709221305316_AddCouponUserAndKeywords.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -373,6 +377,7 @@
     <Compile Include="Models\CloudFile.cs" />
     <Compile Include="Models\CloudFileControl.cs" />
     <Compile Include="Models\CloudFileViewModel.cs" />
+    <Compile Include="Models\CouponUser.cs" />
     <Compile Include="Models\FileUpload.cs" />
     <Compile Include="Models\Help.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -744,6 +749,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709180711287_CouponTypeAddPlatform.resx">
       <DependentUpon>201709180711287_CouponTypeAddPlatform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709221305316_AddCouponUserAndKeywords.resx">
+      <DependentUpon>201709221305316_AddCouponUserAndKeywords.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

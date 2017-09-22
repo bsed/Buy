@@ -11,6 +11,8 @@ namespace Buy.Models
 
         public string Word { get; set; }
 
-        public int Count { get; set; }
+        public int CouponNameCount { get; set; }
+
+        public int SearchCount { get; set; }
     }
 }

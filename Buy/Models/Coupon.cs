@@ -96,6 +96,9 @@ namespace Buy.Models
 
         [Display(Name = "优惠券ID")]
         public string PCouponID { get; set; }
+
+
+        public List<CouponUser> Users { get; set; }
     }
 
 
