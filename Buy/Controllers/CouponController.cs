@@ -345,7 +345,7 @@ namespace Buy.Controllers
                          Childs = new List<CouponTypeTreeNode>(),
                          Name = s.Name,
                          ID = s.ID,
-                         Image = Comm.ResizeImage(s.Image,image:null),
+                         Image = Comm.ResizeImage(s.Image, image: null),
                          ParentID = s.ParentID,
                      })
                      .ToList());
@@ -375,7 +375,7 @@ namespace Buy.Controllers
             });
             couponTypes.AddRange(CouponTypes(platform));
             ViewBag.CouponTypes = couponTypes;
-            ViewBag.Banner = Bll.SystemSettings.BannerSetting.Where(s=>s.Platform==platform).OrderBy(s=>s.Sort).ToList();
+            ViewBag.Banner = Bll.SystemSettings.BannerSetting.Where(s => s.Platform == platform).OrderBy(s => s.Sort).ToList();
             ViewBag.Classify = Bll.SystemSettings.ClassifySetting.Where(s => s.Platform == platform).OrderBy(s => s.Sort).ToList();
             return View();
         }
@@ -432,6 +432,14 @@ namespace Buy.Controllers
         public ActionResult Search()
         {
             return View();
+        }
+
+        [HttpGet]
+        [AllowCrossSiteJson]
+        public ActionResult AutoComplate(string keyword, string userID)
+        {
+            var titles = QueryCoupon(filter: keyword, userId: userID).Take(10).Select(s => s.Name).ToList();
+            return Json(Comm.ToJsonResult("Success", "成功", titles), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult SearchConfirm(string filter, int page = 1, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
