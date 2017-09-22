@@ -373,6 +373,10 @@
     <Compile Include="Migrations\201709221346297_CouponUserAddPlatform.Designer.cs">
       <DependentUpon>201709221346297_CouponUserAddPlatform.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709221705585_CouponUserAddProductID.cs" />
+    <Compile Include="Migrations\201709221705585_CouponUserAddProductID.Designer.cs">
+      <DependentUpon>201709221705585_CouponUserAddProductID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -759,6 +763,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709221346297_CouponUserAddPlatform.resx">
       <DependentUpon>201709221346297_CouponUserAddPlatform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709221705585_CouponUserAddProductID.resx">
+      <DependentUpon>201709221705585_CouponUserAddProductID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
