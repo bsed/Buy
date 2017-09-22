@@ -1,18 +1,25 @@
 ﻿
 @{
     ViewBag.Title = "分类";
-    Buy.Models.CouponType type = ViewBag.TypeName;
+    var name = Request["name"];
+    if (!string.IsNullOrWhiteSpace(Request["typeID"]))
+    {
+        Buy.Models.CouponType type = ViewBag.TypeName;
+        name = type.Name;
+    }
 }
 
 <div class="minHight100vh bg-color-grey paddingT84">
     <div class="navigationBar">
         <div class="navigationBar-back" onclick="history.back(-1)"></div>
-        @type.Name
+        @name
         <a href="@Url.Action("Search","coupon")"><div class="navigationBar-searchIcon bgblack"></div></a>
     </div>
     <div class="coupon-nav fixTop44">
-        @Html.Hidden("typeID",type.ID)
+        @Html.Hidden("typeID", Request["typeID"])
         @Html.Hidden("platform", Request["platform"])
+        @Html.Hidden("maxPrice", Request["maxPrice"])
+        @Html.Hidden("name", Request["name"])
         <input id="secound" value="secound" type="hidden" />
         <ul>
             <li class="active sort" data-sort="0">综合排序</li>

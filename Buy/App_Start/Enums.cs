@@ -360,6 +360,12 @@ namespace Buy.Enums
     /// </summary>
     public enum UrlMatchType
     {
+        [Display(Name = "淘宝天猫")]
+        Taobao,
+        [Display(Name = "蘑菇街")]
+        MoGuJie,
+        [Display(Name = "本地券")]
+        LocationCoupon
     }
 
     public enum UserTitleType
@@ -393,6 +399,10 @@ namespace Buy.Enums
         Sales,
         [Display(Name = "最新上架")]
         CreateTime,
+        [Display(Name = "券额")]
+        CouponValue,
+        [Display(Name = "券后价")]
+        CouponPrice,
     }
 
 

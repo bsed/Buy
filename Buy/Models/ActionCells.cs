@@ -162,19 +162,47 @@ namespace Buy.Models.ActionCell
 
     public class CouponCell : Cell
     {
-        public CouponCell(Coupon tp)
+        public CouponCell(Coupon coupon)
         {
-            Title = tp.Name;
-            Image = Comm.ResizeImage(tp.Image, image: null);
-            Action.Add(new KeyValuePair<string, string>("id", tp.ID.ToString()));
+            string productUrl = null;
+            switch (coupon.Platform)
+            {
+                case Enums.CouponPlatform.TaoBao:
+                    productUrl = $"http://h5.m.taobao.com/awp/core/detail.htm?id={coupon.ProductID}";
+                    break;
+                case Enums.CouponPlatform.TMall:
+                    productUrl = $"https://detail.m.tmall.com/item.htm?id={coupon.ProductID}";
+                    break;
+                case Enums.CouponPlatform.Jd:
+                    productUrl = $"https://item.m.jd.com/product/{coupon.ProductID}.html";
+                    break;
+                case Enums.CouponPlatform.MoGuJie:
+                    productUrl = $"https://detail.m.tmall.com/item.htm?id={coupon.ProductID}";
+                    break;
+                default:
+                    break;
+            }
+            ID = coupon.ID.ToString();
+            Title = coupon.Name;
+            Image = Comm.ResizeImage(coupon.Image, image: null);
+            Action.Add(new KeyValuePair<string, string>("id", coupon.ID.ToString()));
             Type = ActionType.ThirdPartyTicketDetail;
-            Platform = tp.Platform;
-            Price = tp.Price;
-            OriginalPrice = tp.OriginalPrice;
-            Sale = tp.OriginalPrice - tp.Price;
-            Link = tp.Link;
-            Sales = tp.Sales;
-            Values = Bll.Coupons.GetValues(tp);
+            Platform = coupon.Platform;
+            Price = coupon.Price;
+            OriginalPrice = coupon.OriginalPrice;
+            Sale = coupon.OriginalPrice - coupon.Price;
+            Link = coupon.Link;
+            Sales = coupon.Sales;
+            Values = Bll.Coupons.GetValues(coupon);
+            StartDateTime = coupon.StartDateTime.ToString("yyyy-MM-dd HH:mm");
+            CreateDateTime = coupon.CreateDateTime.ToString("yyyy-MM-dd HH:mm");
+            EndDateTime = coupon.EndDateTime.ToString("yyyy-MM-dd HH:mm");
+            ProductID = coupon.ProductID;
+            ProductType = coupon.ProductType;
+            ShopName = coupon.ShopName;
+            Subtitle = coupon.Subtitle;
+            ShareUrl = Comm.ResizeImage($"~/Coupon/Details?id={coupon.ID}", image: null);
+            ProductUrl = productUrl;
         }
 
         public override CellStyle Style
@@ -196,6 +224,24 @@ namespace Buy.Models.ActionCell
         public decimal Sale { get; set; }
 
         public int Sales { get; set; }
+
+        public string StartDateTime { get; set; }
+
+        public string CreateDateTime { get; set; }
+
+        public string EndDateTime { get; set; }
+
+        public string ProductID { get; set; }
+
+        public string ProductType { get; set; }
+
+        public string ShopName { get; set; }
+
+        public string Subtitle { get; set; }
+
+        public string ShareUrl { get; set; }
+
+        public string ProductUrl { get; set; }
 
         public List<ThirdPartyTicketValue> Values { get; set; }
     }
