@@ -112,6 +112,7 @@ namespace Buy.Models
         [Display(Name = "数量")]
         public int Count { get; set; }
 
-
+        [Display(Name = "平台")]
+        public Enums.CouponPlatform Platform { get; set; }
     }
 }
