@@ -164,19 +164,21 @@ namespace Buy.Bll
                     if (dbLinks.Count > 0)
                     {
                         addTemp = addTemp.Where(s => !dbLinks.Contains(s.Link)).ToList();
+                        links = addTemp.Select(s => s.Link).ToList();
                     }
-                    var plinks = addTemp.Select(s => s.PLink);
+                    //通过pLink反查CountID
+                    var pLinks = addTemp.Select(s => s.PLink);
                     var queryCoupon = db.Coupons.AsQueryable();
                     if (platforms.Count == 1)
                     {
                         var p = platforms[0];
-                        queryCoupon = queryCoupon.Where(s => s.Platform == p && plinks.Contains(s.PLink));
+                        queryCoupon = queryCoupon.Where(s => s.Platform == p && pLinks.Contains(s.PLink));
 
                     }
                     else
                     {
                         queryCoupon = queryCoupon.Where(s => platforms.Contains(s.Platform)
-                            && plinks.Contains(s.PLink));
+                            && pLinks.Contains(s.PLink));
                     }
                     var couponIDs = queryCoupon
                         .Select(s => new { s.ID, s.PLink })
