@@ -86,7 +86,7 @@ namespace Buy.Models
         [Display(Name = "图片")]
         public FileUpload Image { get; set; } = new FileUpload { Max = 1, Name = "Image" };
 
-        [Required]
+        
         [Display(Name = "链接")]
         public string Link { get; set; }
 

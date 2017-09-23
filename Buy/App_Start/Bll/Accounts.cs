@@ -50,14 +50,21 @@ namespace Buy.Bll
                 var user = db.Users.FirstOrDefault(s => s.Id == userId);
                 if (user != null)
                 {
-                    if (user.UserType != Enums.UserType.Proxy)
+                    switch (user.UserType)
                     {
-                        var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userId);
-                        couponUserID = code == null ? null : code.OwnUser;
-                    }
-                    else if (user.UserType == Enums.UserType.Proxy)
-                    {
-                        couponUserID = userId;
+                        case Enums.UserType.Normal:
+                            {
+                                var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userId);
+                                couponUserID = code == null ? null : code.OwnUser;
+                            }
+                            break;
+                        case Enums.UserType.Proxy:
+                            {
+                                couponUserID = userId;
+                            }
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
