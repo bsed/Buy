@@ -425,7 +425,11 @@ namespace Buy.Controllers
             {
                 return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
             }
-            var pwd = new Taobao().GetWirelessShareTpwd(tpt.Coupon.Image, tpt.Link, tpt.Coupon.Name, 0);
+            string pwd = "";
+            if (tpt.Platform == Enums.CouponPlatform.TaoBao || tpt.Platform == Enums.CouponPlatform.TMall)
+            {
+                pwd = new Taobao().GetWirelessShareTpwd(tpt.Coupon.Image, tpt.Link, tpt.Coupon.Name, 0);
+            }
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
         }
 
@@ -508,8 +512,8 @@ namespace Buy.Controllers
             return View(model);
         }
 
-        public ActionResult GetList(string filter, int page = 1, 
-            string types = null, string platforms = null , 
+        public ActionResult GetList(string filter, int page = 1,
+            string types = null, string platforms = null,
             bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0)
         {
