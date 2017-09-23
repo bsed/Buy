@@ -149,8 +149,8 @@
     <div id="couponNav" class="coupon-nav">
         <ul>
             <li class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序</li>
-            <li class="sort @(Request["sort"]=="3" ?"active":"")" data-sort="3">券价</li>
-            <li class="sort @(Request["sort"]=="4"?"active":"")" data-sort="4">券后价</li>
+            @*<li class="sort @(Request["sort"]=="3" ?"active":"")" data-sort="3">券价</li>
+            <li class="sort @(Request["sort"]=="4"?"active":"")" data-sort="4">券后价</li>*@
              <li class="sort @(Request["sort"]=="1" ?"active":"")" data-sort="1">人气热销</li>
             <li class="sort @(Request["sort"]=="2"?"active":"")" data-sort="2">最新上架</li>
         </ul>
