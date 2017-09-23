@@ -61,7 +61,7 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult ImportItems(string url)
         {
-            if (!string.IsNullOrWhiteSpace(url))
+            if (string.IsNullOrWhiteSpace(url))
             {
                 return Json(Comm.ToJsonResult("Error", "链接为空"), JsonRequestBehavior.AllowGet);
             }
