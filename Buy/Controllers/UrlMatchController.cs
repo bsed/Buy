@@ -32,7 +32,7 @@ namespace Buy.Controllers
                              .Select(s => new UrlMatch()
                              {
                                  Title = s.Name,
-                                 URL = $"~/Coupon/Second?typeID={s.ID}&platform=Taobao",
+                                 URL = $"~/Coupon/Second?types={s.ID}&platform=Taobao",
                              }).ToList();
                     }
                     break;
@@ -48,7 +48,7 @@ namespace Buy.Controllers
                              .Select(s => new UrlMatch()
                              {
                                  Title = s.Name,
-                                 URL = $"~/Coupon/Second?typeID={s.ID}&platform=MoGuJie",
+                                 URL = $"~/Coupon/Second?types={s.ID}&platform=MoGuJie",
                              }).ToList();
                     }
                     break;

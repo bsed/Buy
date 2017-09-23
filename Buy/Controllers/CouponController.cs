@@ -488,14 +488,24 @@ namespace Buy.Controllers
             return View();
         }
 
-        public ActionResult Second(string name, int? typeID, decimal maxPrice = 0,
-            Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao)
+        public ActionResult Second(string name, string filter, string types = null, decimal maxPrice = 0,
+            decimal minPrice = 0,Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
+            Enums.CouponSort sort = Enums.CouponSort.Default)
         {
-            if (typeID.HasValue)
+            var model = new CouponSearchViewModel()
             {
+                Filter = filter,
+                Platform = platform,
+                Sort = sort,
+                MaxPrice=maxPrice,
+                MinPrice= minPrice,
+            };
+            if (!string.IsNullOrWhiteSpace(types))
+            {
+                var typeID = types.SplitToArray<int>().FirstOrDefault();
                 ViewBag.TypeName = Bll.SystemSettings.CouponType.First(s => s.ID == typeID);
             }
-            return View();
+            return View(model);
         }
 
         public ActionResult GetList(string filter, int page = 1, string types = null, string platforms = null

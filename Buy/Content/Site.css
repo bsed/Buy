@@ -860,6 +860,9 @@
   text-decoration: line-through;
   font-size: 14px;
 }
+.couponIndex .couponIndex-menu {
+  background-color: #ffffff;
+}
 .couponIndex .couponIndex-menu:before,
 .couponIndex .couponIndex-menu:after {
   content: " ";
@@ -878,7 +881,7 @@
 }
 .couponIndex .couponIndex-menu img {
   float: left;
-  width: 33.33333333%;
+  width: 25%;
 }
 .coupon-list ul {
   list-style: none;

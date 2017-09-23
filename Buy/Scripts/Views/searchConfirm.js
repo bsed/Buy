@@ -1,7 +1,8 @@
 ﻿var platform = $("#platform").val(),
     sort = $("[data-sort].active").data("sort"),
     maxPrice = $("#maxPrice").val(),
-    types = $("#typeID").val();
+    filter = $("#filter").val(),
+    types = $("#types").val();
 var canLoadPage = true;
 
 function clear(target) {
@@ -42,6 +43,7 @@ function loadCoupon() {
             platforms: platform,
             types: types,
             maxPrice: maxPrice,
+            filter:filter,
             orderByTime: $("#secound").val() == "secound" ? true : false,
         },
         dataType: "html",

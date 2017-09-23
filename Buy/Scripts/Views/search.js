@@ -154,7 +154,6 @@ $("#search").keyup(function (e) {
             dataType: "json",
             success: function (data) {
                 if (data.State == "Success") {
-                    $(".keywordTips").removeClass("hidden");
                     $("#SearchResult").children().not(".demo").remove();
                     $.each(data.Result, function (i, item) {
                         var demo = $("#SearchResult").find(".demo").clone().removeClass("demo hidden").text(item);
@@ -163,8 +162,6 @@ $("#search").keyup(function (e) {
                 }
             }
         });
-    } else {
-        $(".keywordTips").addClass("hidden");
     }
 });
 
