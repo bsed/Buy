@@ -118,7 +118,6 @@ namespace Buy.Controllers
                 }
                 query = query.Where(s => platform.Contains(s.Platform));
             }
-
             if (!string.IsNullOrWhiteSpace(filter))
             {
                 var filterList = filter.SplitToArray<string>(' ');
@@ -419,6 +418,7 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult GetPwd(int id, string userID)
         {
+            userID = UserID == null ? userID : UserID;
             var couponUserID = Bll.Accounts.GetCouponUserID(userID);
             var tpt = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.CouponID == id && s.UserID == couponUserID);
             if (tpt == null)
@@ -510,7 +510,8 @@ namespace Buy.Controllers
 
         public ActionResult Details(int? id)
         {
-            var coupon = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.ID == id.Value);
+            var coupon = db.CouponUsers.Include(s => s.Coupon)
+                .FirstOrDefault(s => s.CouponID == id.Value);
             string codeMessage = null;
             if (string.IsNullOrWhiteSpace(UserID))
             {
@@ -538,8 +539,7 @@ namespace Buy.Controllers
             ViewBag.codeMessage = codeMessage;
             return View(coupon.Coupon);
         }
-
-
+        
         public ActionResult Search()
         {
             return View();
@@ -547,9 +547,10 @@ namespace Buy.Controllers
 
         [HttpGet]
         [AllowCrossSiteJson]
-        public ActionResult AutoComplate(string keyword, string userID)
+        public ActionResult AutoComplate(string keyword)
         {
-            var titles = QueryCoupon(filter: keyword, userId: userID).Take(10).Select(s => s.Name).ToList();
+            var titles = db.Keywords.Where(s => s.Word.Contains(keyword))
+                .OrderBy(s => s.CouponNameCount).Take(10).Select(s => s.Word).ToList();
             return Json(Comm.ToJsonResult("Success", "成功", titles), JsonRequestBehavior.AllowGet);
         }
 

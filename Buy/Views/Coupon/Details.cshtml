@@ -15,9 +15,6 @@
             case Buy.Enums.CouponPlatform.Jd:
                 platformLogo = "/Content/images/view/logo_jd_tag@2x.png";
                 break;
-            //case Buy.Enums.CouponPlatform.Vip:
-            //    platformLogo = "/Content/images/view/logo_taobao_tag@2x.png";
-            //    break;
             case Buy.Enums.CouponPlatform.MoGuJie:
                 platformLogo = "/Content/images/view/logo_mogujie_tag@2x.png";
                 break;
@@ -75,13 +72,6 @@
             </div>
             <div id="pullUpLoad" class="couponDetail-scroll"><span>↑</span><div class="loading hidden"></div>上拉查看商品详情</div>
             <div name="poductDetail" class="couponDetail-detailImg">
-                @*@if (!string.IsNullOrWhiteSpace(Model.UrlLisr))
-                    {
-                        foreach (var item in Model.UrlLisr.SplitToArray<string>())
-                        {
-                            <img src="@item" />
-                        }
-                    }*@
             </div>
         </div>
 

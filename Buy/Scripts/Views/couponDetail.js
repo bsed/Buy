@@ -160,20 +160,19 @@ $("#btnShare").click(function (e) {
                     var img = document.getElementById('shareImgModule_img');
                     var data = getBase64Image(img);
                     $('#shareImgModule_img').prop("src", data);
-
-                    html2canvas(document.getElementById("shareImgModule"), {
-                        allowTaint: true,
-                        taintTest: true,
-                        useCORS: true,
-                        onrendered: function (canvas) {
-                            var url = canvas.toDataURL();
-                            var img = new Image();
-                            img.src = url;
-                            document.getElementById('Output').appendChild(img);
-                            $("#shareImgModule").addClass("hidden");
-                        }
-                    });
                 }
+            }
+        });
+        html2canvas(document.getElementById("shareImgModule"), {
+            allowTaint: true,
+            taintTest: true,
+            useCORS: true,
+            onrendered: function (canvas) {
+                var url = canvas.toDataURL();
+                var img = new Image();
+                img.src = url;
+                document.getElementById('Output').appendChild(img);
+                $("#shareImgModule").addClass("hidden");
             }
         });
     }

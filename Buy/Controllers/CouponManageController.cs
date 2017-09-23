@@ -103,7 +103,7 @@ namespace Buy.Controllers
                 var data = db.Coupons.Where(s => !s.TypeID.HasValue).OrderBy(s => s.ID).ToPagedList(i, 50);
                 foreach (var item in data)
                 {
-                    var typeID = Bll.Coupons.CheckType(item.ProductType);
+                    var typeID = Bll.Coupons.CheckType(item.ProductType, item.Platform);
                     if (typeID.HasValue)
                     {
                         item.TypeID = typeID;
@@ -119,12 +119,16 @@ namespace Buy.Controllers
         [AllowAnonymous]
         public ActionResult CleanType()
         {
-            int count = db.Coupons.Where(s => s.TypeID.HasValue && s.ProductType != null).Count();
+            int count = db.Coupons.Where(s => (s.Platform == Enums.CouponPlatform.TaoBao ||
+            s.Platform == Enums.CouponPlatform.TMall) &&
+            s.TypeID.HasValue && s.ProductType != null).Count();
             int totalPage = count / 50 + (count % 50 > 0 ? 1 : 0);
             int changeCount = 0;
             for (int i = 1; i <= totalPage; i++)
             {
-                var data = db.Coupons.Where(s => s.TypeID.HasValue && s.ProductType != null)
+                var data = db.Coupons.Where(s => (s.Platform == Enums.CouponPlatform.TaoBao ||
+                s.Platform == Enums.CouponPlatform.TMall) &&
+                s.TypeID.HasValue && s.ProductType != null)
                     .OrderBy(s => s.ID).ToPagedList(i, 50);
                 foreach (var item in data)
                 {

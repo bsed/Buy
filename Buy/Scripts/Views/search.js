@@ -144,6 +144,25 @@ function search(val) {
 
 }
 
+//搜索提示
+$("#search").keyup(function (e) {
+    if ($("#search").val() != "") {
+        $.ajax({
+            type: "GET",
+            url: comm.action("AutoComplate", "Coupon"),
+            data: { keyword: $("#search").val() },
+            dataType: "json",
+            success: function (data) {
+                if (data.State == "Success") {
+                    $.each(data.Result, function (i, item) {
+                        console.log(item);
+                    });
+                }
+            }
+        });
+    }
+});
+
 $("#search").bind('search', function () {
     var filterText = $("[name='filterText']").val();
     search(filterText);
