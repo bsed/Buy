@@ -94,20 +94,27 @@ namespace Buy.Controllers
         [HttpPost]
         public ActionResult CheckTypes()
         {
-            int count = db.Coupons
-                .Where(s => !s.TypeID.HasValue && s.ProductType != null).Count();
-            int totalPage = count / 50 + (count % 50 > 0 ? 1 : 0);
+
+            var groupProductType = db.Coupons
+                .Where(s => !s.TypeID.HasValue && s.ProductType != null)
+                .GroupBy(s => s.ProductType)
+                .Select(s => s.Key)
+                .ToList();
             int changeCount = 0;
-            for (int i = 1; i <= totalPage; i++)
+            foreach (var productType in groupProductType)
             {
-                var data = db.Coupons.Where(s => !s.TypeID.HasValue).OrderBy(s => s.ID).ToPagedList(i, 50);
-                foreach (var item in data)
+                var typeID = Bll.Coupons.CheckType(productType, Enums.CouponPlatform.TaoBao);
+                if (typeID == null)
                 {
-                    var typeID = Bll.Coupons.CheckType(item.ProductType, item.Platform);
-                    if (typeID.HasValue)
-                    {
-                        item.TypeID = typeID;
-                    }
+                    continue;
+                }
+                var coupons = db.Coupons.Where(s => !s.TypeID.HasValue
+                    && s.ProductType == productType
+                    && (s.Platform == Enums.CouponPlatform.TaoBao
+                        || s.Platform == Enums.CouponPlatform.TMall)).ToList();
+                foreach (var item in coupons)
+                {
+                    item.TypeID = typeID;
                 }
                 changeCount += db.SaveChanges();
             }
