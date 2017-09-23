@@ -489,7 +489,7 @@ namespace Buy.Controllers
         }
 
         public ActionResult Second(string name, string filter, string types = null, decimal maxPrice = 0,
-            decimal minPrice = 0,Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
+            decimal minPrice = 0, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
             Enums.CouponSort sort = Enums.CouponSort.Default)
         {
             var model = new CouponSearchViewModel()
@@ -497,8 +497,8 @@ namespace Buy.Controllers
                 Filter = filter,
                 Platform = platform,
                 Sort = sort,
-                MaxPrice=maxPrice,
-                MinPrice= minPrice,
+                MaxPrice = maxPrice,
+                MinPrice = minPrice,
             };
             if (!string.IsNullOrWhiteSpace(types))
             {
@@ -520,9 +520,10 @@ namespace Buy.Controllers
 
         public ActionResult Details(int? id)
         {
-            var coupon = db.CouponUsers.Include(s => s.Coupon)
-                .FirstOrDefault(s => s.CouponID == id.Value);
-            string codeMessage = null;
+            var coupons = db.CouponUsers.Include(s => s.Coupon)
+                .Where(s => s.CouponID == id.Value);
+            var coupon = coupons.FirstOrDefault();
+            string codeMessage = null, link = null;
             if (string.IsNullOrWhiteSpace(UserID))
             {
                 codeMessage = "NotLogin";
@@ -543,13 +544,19 @@ namespace Buy.Controllers
                         {
                             codeMessage = "NotOwnUser";
                         }
+                        else
+                        {
+                            link = coupons.FirstOrDefault(s => s.UserID == code.OwnUser).Link;
+                        }
                     }
                 }
+
             }
             ViewBag.codeMessage = codeMessage;
+            ViewBag.Link = link;
             return View(coupon.Coupon);
         }
-        
+
         public ActionResult Search()
         {
             return View();
