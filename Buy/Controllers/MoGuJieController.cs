@@ -72,7 +72,7 @@ namespace Buy.Controllers
                 return Json(Comm.ToJsonResult("Error", $"文件{fileInfo.Name}不存在"), JsonRequestBehavior.AllowGet);
             }
             string text = System.IO.File.ReadAllText(path);
-            List<Models.Coupon> models = JsonConvert.DeserializeObject<List<Models.Coupon>>(text);
+            var models = JsonConvert.DeserializeObject<List<Models.CouponUserViewModel>>(text);
             var dLinks = models.GroupBy(s => s.Link).Select(s => new
             {
                 Link = s.Key,

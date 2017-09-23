@@ -7,63 +7,95 @@ using OpenQA.Selenium.PhantomJS;
 using CsQuery;
 using Newtonsoft.Json;
 using Microsoft.AspNet.Identity;
-
+using System.Data.Entity;
 namespace Buy.Controllers
 {
     public class CouponController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        private IQueryable<Coupon> QueryCoupon(string filter = null, List<int> type = null
+        private string UserID
+        {
+
+            get
+            {
+                return User.Identity.GetUserId();
+            }
+        }
+
+        private IQueryable<CouponUserViewModel> QueryCoupon(string filter = null, List<int> type = null
             , List<Enums.CouponPlatform> platform = null, bool orderByTime = false
             , Enums.CouponSort sort = Enums.CouponSort.Default
             , decimal minPrice = 0, decimal maxPrice = 0, string userId = null)
         {
+            IQueryable<CouponQuery> query;
             if (!string.IsNullOrWhiteSpace(userId))
             {
                 var user = db.Users.FirstOrDefault(s => s.Id == userId);
-                if (user != null)
-                {
-                    if (user.UserType != Enums.UserType.Proxy)
-                    {
-                        var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userId);
-                        userId = code == null ? null : code.OwnUser;
-                    }
-                }
+                string couponUserID = Bll.Accounts.GetCouponUserID(userId);
+                query = from u in db.CouponUsers
+                        from s in db.Coupons
+                        where u.CouponID == s.ID && u.UserID == couponUserID
+                        select new CouponQuery
+                        {
+                            CreateDateTime = s.CreateDateTime,
+                            DataJson = s.DataJson,
+                            Discount = s.OriginalPrice - s.Price,
+                            DiscountRate = (s.OriginalPrice - s.Price) / s.OriginalPrice,
+                            EndDateTime = s.EndDateTime,
+                            Commission = s.Commission,
+                            CommissionRate = s.Commission,
+                            ID = s.ID,
+                            Image = s.Image,
+                            Link = u.Link,
+                            Name = s.Name,
+                            OriginalPrice = s.OriginalPrice,
+                            Platform = s.Platform,
+                            Price = s.Price,
+                            ProductID = s.ProductID,
+                            ProductType = s.ProductType,
+                            Sales = s.Sales,
+                            ShopName = s.ShopName,
+                            StartDateTime = s.StartDateTime,
+                            Subtitle = s.Subtitle,
+                            Type = s.Type,
+                            TypeID = s.TypeID,
+                            Value = s.Value,
+                            UserID = u.UserID,
+                        };
             }
-            if (string.IsNullOrWhiteSpace(userId))
+            else
             {
-                userId = db.Coupons.GroupBy(s => s.UserID)
-                    .Select(s => new { UserID = s.Key, count = s.Count() })
-                    .OrderByDescending(s => s.count).FirstOrDefault().UserID;
+                query = db.Coupons.Select(s =>
+                         new CouponQuery
+                         {
+                             CreateDateTime = s.CreateDateTime,
+                             DataJson = s.DataJson,
+                             Discount = s.OriginalPrice - s.Price,
+                             DiscountRate = (s.OriginalPrice - s.Price) / s.OriginalPrice,
+                             EndDateTime = s.EndDateTime,
+                             Commission = s.Commission,
+                             CommissionRate = s.Commission,
+                             ID = s.ID,
+                             Image = s.Image,
+                             Link = null,
+                             Name = s.Name,
+                             OriginalPrice = s.OriginalPrice,
+                             Platform = s.Platform,
+                             Price = s.Price,
+                             ProductID = s.ProductID,
+                             ProductType = s.ProductType,
+                             Sales = s.Sales,
+                             ShopName = s.ShopName,
+                             StartDateTime = s.StartDateTime,
+                             Subtitle = s.Subtitle,
+                             Type = s.Type,
+                             TypeID = s.TypeID,
+                             Value = s.Value,
+                             UserID = null,
+                         });
             }
-            var query = db.Coupons.Where(s => s.UserID == userId).Select(s => new CouponQuery
-            {
-                CreateDateTime = s.CreateDateTime,
-                DataJson = s.DataJson,
-                Discount = s.OriginalPrice - s.Price,
-                DiscountRate = (s.OriginalPrice - s.Price) / s.OriginalPrice,
-                EndDateTime = s.EndDateTime,
-                Commission = s.Commission,
-                CommissionRate = s.Commission,
-                ID = s.ID,
-                Image = s.Image,
-                Link = s.Link,
-                Name = s.Name,
-                OriginalPrice = s.OriginalPrice,
-                Platform = s.Platform,
-                Price = s.Price,
-                ProductID = s.ProductID,
-                ProductType = s.ProductType,
-                Sales = s.Sales,
-                ShopName = s.ShopName,
-                StartDateTime = s.StartDateTime,
-                Subtitle = s.Subtitle,
-                Type = s.Type,
-                TypeID = s.TypeID,
-                Value = s.Value,
-                UserID = s.UserID
-            });
+
             //不显示创建时间是未来的和过期的
             if (orderByTime)
             {
@@ -149,9 +181,73 @@ namespace Buy.Controllers
         }
 
         [AllowCrossSiteJson]
-        public ActionResult Get(int id)
+        public ActionResult Get(int id, string userID)
         {
-            var tpt = db.Coupons.FirstOrDefault(s => s.ID == id);
+            string couponUserID = Bll.Accounts.GetCouponUserID(userID);
+            CouponQuery tpt;
+            if (couponUserID != null)
+            {
+                tpt = (from s in db.Coupons
+                       from u in db.CouponUsers
+                       where s.ID == id && s.ID == u.CouponID && u.UserID == couponUserID
+                       select new CouponQuery
+                       {
+                           CreateDateTime = s.CreateDateTime,
+                           DataJson = s.DataJson,
+                           Discount = s.OriginalPrice - s.Price,
+                           DiscountRate = (s.OriginalPrice - s.Price) / s.OriginalPrice,
+                           EndDateTime = s.EndDateTime,
+                           Commission = s.Commission,
+                           CommissionRate = s.Commission,
+                           ID = s.ID,
+                           Image = s.Image,
+                           Link = u.Link,
+                           Name = s.Name,
+                           OriginalPrice = s.OriginalPrice,
+                           Platform = s.Platform,
+                           Price = s.Price,
+                           ProductID = s.ProductID,
+                           ProductType = s.ProductType,
+                           Sales = s.Sales,
+                           ShopName = s.ShopName,
+                           StartDateTime = s.StartDateTime,
+                           Subtitle = s.Subtitle,
+                           Type = s.Type,
+                           TypeID = s.TypeID,
+                           Value = s.Value,
+                       }).FirstOrDefault();
+            }
+            else
+            {
+                tpt = (from s in db.Coupons
+                       select new CouponQuery
+                       {
+                           CreateDateTime = s.CreateDateTime,
+                           DataJson = s.DataJson,
+                           Discount = s.OriginalPrice - s.Price,
+                           DiscountRate = (s.OriginalPrice - s.Price) / s.OriginalPrice,
+                           EndDateTime = s.EndDateTime,
+                           Commission = s.Commission,
+                           CommissionRate = s.Commission,
+                           ID = s.ID,
+                           Image = s.Image,
+                           Link = null,
+                           Name = s.Name,
+                           OriginalPrice = s.OriginalPrice,
+                           Platform = s.Platform,
+                           Price = s.Price,
+                           ProductID = s.ProductID,
+                           ProductType = s.ProductType,
+                           Sales = s.Sales,
+                           ShopName = s.ShopName,
+                           StartDateTime = s.StartDateTime,
+                           Subtitle = s.Subtitle,
+                           Type = s.Type,
+                           TypeID = s.TypeID,
+                           Value = s.Value,
+                       }).FirstOrDefault();
+            }
+
             if (tpt == null)
             {
                 return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
@@ -321,14 +417,15 @@ namespace Buy.Controllers
         }
 
         [AllowCrossSiteJson]
-        public ActionResult GetPwd(int id)
+        public ActionResult GetPwd(int id, string userID)
         {
-            var tpt = db.Coupons.Find(id);
+            var couponUserID = Bll.Accounts.GetCouponUserID(userID);
+            var tpt = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.CouponID == id && s.UserID == couponUserID);
             if (tpt == null)
             {
                 return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
             }
-            var pwd = new Taobao().GetWirelessShareTpwd(tpt.Image, tpt.Link, tpt.Name, 0);
+            var pwd = new Taobao().GetWirelessShareTpwd(tpt.Coupon.Image, tpt.Link, tpt.Coupon.Name, 0);
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
         }
 
@@ -413,19 +510,18 @@ namespace Buy.Controllers
 
         public ActionResult Details(int? id)
         {
-            var coupon = db.Coupons.FirstOrDefault(s => s.ID == id.Value);
+            var coupon = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.ID == id.Value);
             string codeMessage = null;
-            var userid = User.Identity.GetUserId();
-            if (string.IsNullOrWhiteSpace(userid))
+            if (string.IsNullOrWhiteSpace(UserID))
             {
                 codeMessage = "NotLogin";
             }
             else
             {
-                var user = db.Users.FirstOrDefault(s => s.Id == userid);
+                var user = db.Users.FirstOrDefault(s => s.Id == UserID);
                 if (user.UserType != Enums.UserType.Proxy)
                 {
-                    var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userid);
+                    var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == UserID);
                     if (code == null)
                     {
                         codeMessage = "NotActivation";
@@ -440,7 +536,7 @@ namespace Buy.Controllers
                 }
             }
             ViewBag.codeMessage = codeMessage;
-            return View(coupon);
+            return View(coupon.Coupon);
         }
 
 
@@ -467,6 +563,15 @@ namespace Buy.Controllers
                 Sort = sort,
             };
             return View(model);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

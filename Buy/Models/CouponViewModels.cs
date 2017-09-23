@@ -8,8 +8,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Buy.Models
 {
     [NotMapped]
-    public class CouponQuery : Coupon
+    public class CouponQuery : CouponUserViewModel
     {
+        
+
         public decimal Discount { get; set; }
 
         public decimal DiscountRate { get; set; }
@@ -38,7 +40,7 @@ namespace Buy.Models
 
     }
 
-    public class ThirdPartyTicketValue
+    public class CouponValue
     {
         public string Type { get; set; }
 
@@ -47,9 +49,9 @@ namespace Buy.Models
 
     public class CouponDetailViewModel
     {
-        public Coupon ThirdPartyTicket { get; set; }
+        public Coupon Coupon { get; set; }
 
-        public List<Coupon> ThirdPartyTicketList { get; set; }
+        public List<Coupon> CouponList { get; set; }
     }
 
 
@@ -77,4 +79,45 @@ namespace Buy.Models
         public int Count { get; set; }
         //以上添加测试的的
     }
+
+    [NotMapped]
+    public class CouponUserViewModel : Coupon
+    {
+        public string UserID { get; set; }
+
+        public string Link { get; set; }
+
+        public Coupon ToCoupon()
+        {
+            return new Coupon
+            {
+                Commission = Commission,
+                CommissionRate = CommissionRate,
+                CreateDateTime = CreateDateTime,
+                DataJson = DataJson,
+                EndDateTime = EndDateTime,
+                Image = Image,
+                Left = Left,
+                ID = ID,
+                Name = Name,
+                OriginalPrice = OriginalPrice,
+                PCouponID = PCouponID,
+                Platform = Platform,
+                PLink = PLink,
+                Price = Price,
+                ProductID = ProductID,
+                ProductType = ProductType,
+                Sales = Sales,
+                ShopName = ShopName,
+                StartDateTime = StartDateTime,
+                Subtitle = Subtitle,
+                Total = Total,
+                TypeID = TypeID,
+                UrlLisr = UrlLisr,
+                Value = Value
+
+            };
+        }
+    }
+
 }

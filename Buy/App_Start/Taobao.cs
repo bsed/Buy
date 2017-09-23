@@ -169,7 +169,7 @@ namespace Buy
 
         public static void Import(string userID, string path)
         {
-            List<Models.Coupon> models = new List<Models.Coupon>();
+            var models = new List<Models.CouponUserViewModel>();
             try
             {
                 var dtable = new ExcelHelper(path).ExcelToDataTable(null, true);
@@ -179,9 +179,7 @@ namespace Buy
                     var index = dtable.Rows.IndexOf(item);
                     try
                     {
-                        Uri myUri = new Uri(item["优惠券链接"].ToString());
-                        string activityId = HttpUtility.ParseQueryString(myUri.Query).Get("activityId");
-                        var model = new Models.Coupon
+                        var model = new Models.CouponUserViewModel
                         {
                             EndDateTime = Convert.ToDateTime(item["优惠券结束时间"]).AddDays(1).AddSeconds(-1),
                             ProductID = item["商品id"].ToString(),
@@ -202,7 +200,8 @@ namespace Buy
                             Left = Convert.ToInt32(item["优惠券剩余量"]),
                             Total = Convert.ToInt32(item["优惠券总量"]),
                             UserID = userID,
-                            PCouponID = activityId
+                            PCouponID = item["优惠券id"].ToString(),
+                            PLink = item["优惠券链接"].ToString(),
 
                         };
                         try

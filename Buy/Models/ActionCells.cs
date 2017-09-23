@@ -162,7 +162,7 @@ namespace Buy.Models.ActionCell
 
     public class CouponCell : Cell
     {
-        public CouponCell(Coupon coupon)
+        public CouponCell(CouponUserViewModel coupon)
         {
             string productUrl = null;
             switch (coupon.Platform)
@@ -243,7 +243,7 @@ namespace Buy.Models.ActionCell
 
         public string ProductUrl { get; set; }
 
-        public List<ThirdPartyTicketValue> Values { get; set; }
+        public List<CouponValue> Values { get; set; }
     }
 
 

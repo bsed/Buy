@@ -84,92 +84,92 @@ namespace Buy.MoGuJie
             Token = new Token(j);
         }
 
-        public GetItemListResult GetItemList(string keyword = null, int pageNo = 1, int pageSize = 50, SortType sortType = SortType.Default, string cid = null)
-        {
-            //{ "keyword":    字符串 否    搜索词（商品名称关键词或商品描述关键词） 
-            //"pageNo":    整型 否    页码 
-            //"pageSize": 整型 否    每页数据个数 
-            //"sortType":    整型 是    0:默认排序，11:佣金升序，12:佣金降序，21:价格升序，22：价格降序；销量升序，32:销量降序，41:优惠券升序，42:优惠券降序 
-            //"tag":    字符串 否    商品标签，待官方确认要素值 
-            //"cid":    整型 否    类目id }
+        //public GetItemListResult GetItemList(string keyword = null, int pageNo = 1, int pageSize = 50, SortType sortType = SortType.Default, string cid = null)
+        //{
+        //    //{ "keyword":    字符串 否    搜索词（商品名称关键词或商品描述关键词） 
+        //    //"pageNo":    整型 否    页码 
+        //    //"pageSize": 整型 否    每页数据个数 
+        //    //"sortType":    整型 是    0:默认排序，11:佣金升序，12:佣金降序，21:价格升序，22：价格降序；销量升序，32:销量降序，41:优惠券升序，42:优惠券降序 
+        //    //"tag":    字符串 否    商品标签，待官方确认要素值 
+        //    //"cid":    整型 否    类目id }
 
-            var p = new Dictionary<string, string>();
-            var q = new
-            {
-                keyword = keyword,
-                pageNo = pageNo,
-                pageSize = pageSize,
-                //sortType = (int)sortType,
-                cid = cid,
-                hasCoupon = true
-            };
+        //    var p = new Dictionary<string, string>();
+        //    var q = new
+        //    {
+        //        keyword = keyword,
+        //        pageNo = pageNo,
+        //        pageSize = pageSize,
+        //        //sortType = (int)sortType,
+        //        cid = cid,
+        //        hasCoupon = true
+        //    };
 
-            p.Add("promInfoQuery", JsonConvert.SerializeObject(q));
-            p.Add("userId", Token.UserID);
-            var url = GetUrl("xiaodian.cpsdata.promitem.get", p);
-            var result = new Api.BaseApi(url, "POST", p).CreateRequestReturnJson();
-            var model = new GetItemListResult();
+        //    p.Add("promInfoQuery", JsonConvert.SerializeObject(q));
+        //    p.Add("userId", Token.UserID);
+        //    var url = GetUrl("xiaodian.cpsdata.promitem.get", p);
+        //    var result = new Api.BaseApi(url, "POST", p).CreateRequestReturnJson();
+        //    var model = new GetItemListResult();
            
-            model.Total = result["result"]["data"]["total"].Value<int>();
-            model.TotalPage = (model.Total / 50) + (model.Total % 50 > 0 ? 1 : 0);
-            model.Page = pageNo;
-            foreach (JObject item in result["result"]["data"]["items"])
-            {
-                try
-                {
-                    var obj = new
-                    {
-                        ItemID = item["itemId"].Value<string>(),
-                        DayLeft = item["dayLeft"].Value<int>(),
-                        PictUrl = item["pictUrl"].Value<string>(),
-                        Title = item["title"].Value<string>(),
-                        ShopTitle = item["shopTitle"].Value<string>(),
-                        ExtendDesc = item["extendDesc"].Value<string>(),
-                        AfterCouponPrice = item["afterCouponPrice"].Value<decimal>(),
-                        CouponStartFee = item["couponStartFee"].Value<decimal>(),
-                        CouponInfo = item["couponInfo"].Value<string>(),
-                        Promid = item["promid"].Value<string>(),
-                        BIZ30day = item["biz30day"].Value<int>(),
-                        CommissionRate = Convert.ToDecimal(item["commissionRate"].Value<string>().Replace("%", "")),
-                        CouponLeftCount = item["couponLeftCount"].Value<int>(),
-                        CouponTotalCount = item["couponTotalCount"].Value<int>()
-                    };
-                    if (!string.IsNullOrWhiteSpace(obj.CouponInfo))
-                    {
-                        var tm = new Models.Coupon
-                        {
-                            CreateDateTime = DateTime.Now,
-                            EndDateTime = DateTime.Now.Date.AddDays(obj.DayLeft + 1).AddSeconds(-1),
-                            StartDateTime = DateTime.Now.Date,
-                            ProductID = obj.ItemID,
-                            Image = obj.PictUrl,
-                            Link = $"http://union.mogujie.com/jump?userid={Token.UserID}&itemid={obj.ItemID}&promid={obj.Promid}",
-                            Name = obj.Title,
-                            OriginalPrice = obj.AfterCouponPrice + obj.CouponStartFee,
-                            Platform = Enums.CouponPlatform.MoGuJie,
-                            Price = obj.AfterCouponPrice,
-                            ShopName = obj.ShopTitle,
-                            Subtitle = obj.ExtendDesc,
-                            Value = obj.CouponInfo,
-                            Sales = obj.BIZ30day,
-                            CommissionRate = obj.CommissionRate,
-                            Commission = Math.Round(obj.AfterCouponPrice * obj.CommissionRate / 100, 2),
-                            Total = obj.CouponTotalCount,
-                            Left = obj.CouponLeftCount
-                        };
-                        model.Items.Add(tm);
-                    }
+        //    model.Total = result["result"]["data"]["total"].Value<int>();
+        //    model.TotalPage = (model.Total / 50) + (model.Total % 50 > 0 ? 1 : 0);
+        //    model.Page = pageNo;
+        //    foreach (JObject item in result["result"]["data"]["items"])
+        //    {
+        //        try
+        //        {
+        //            var obj = new
+        //            {
+        //                ItemID = item["itemId"].Value<string>(),
+        //                DayLeft = item["dayLeft"].Value<int>(),
+        //                PictUrl = item["pictUrl"].Value<string>(),
+        //                Title = item["title"].Value<string>(),
+        //                ShopTitle = item["shopTitle"].Value<string>(),
+        //                ExtendDesc = item["extendDesc"].Value<string>(),
+        //                AfterCouponPrice = item["afterCouponPrice"].Value<decimal>(),
+        //                CouponStartFee = item["couponStartFee"].Value<decimal>(),
+        //                CouponInfo = item["couponInfo"].Value<string>(),
+        //                Promid = item["promid"].Value<string>(),
+        //                BIZ30day = item["biz30day"].Value<int>(),
+        //                CommissionRate = Convert.ToDecimal(item["commissionRate"].Value<string>().Replace("%", "")),
+        //                CouponLeftCount = item["couponLeftCount"].Value<int>(),
+        //                CouponTotalCount = item["couponTotalCount"].Value<int>()
+        //            };
+        //            if (!string.IsNullOrWhiteSpace(obj.CouponInfo))
+        //            {
+        //                var tm = new Models.Coupon
+        //                {
+        //                    CreateDateTime = DateTime.Now,
+        //                    EndDateTime = DateTime.Now.Date.AddDays(obj.DayLeft + 1).AddSeconds(-1),
+        //                    StartDateTime = DateTime.Now.Date,
+        //                    ProductID = obj.ItemID,
+        //                    Image = obj.PictUrl,
+        //                    Link = $"http://union.mogujie.com/jump?userid={Token.UserID}&itemid={obj.ItemID}&promid={obj.Promid}",
+        //                    Name = obj.Title,
+        //                    OriginalPrice = obj.AfterCouponPrice + obj.CouponStartFee,
+        //                    Platform = Enums.CouponPlatform.MoGuJie,
+        //                    Price = obj.AfterCouponPrice,
+        //                    ShopName = obj.ShopTitle,
+        //                    Subtitle = obj.ExtendDesc,
+        //                    Value = obj.CouponInfo,
+        //                    Sales = obj.BIZ30day,
+        //                    CommissionRate = obj.CommissionRate,
+        //                    Commission = Math.Round(obj.AfterCouponPrice * obj.CommissionRate / 100, 2),
+        //                    Total = obj.CouponTotalCount,
+        //                    Left = obj.CouponLeftCount
+        //                };
+        //                model.Items.Add(tm);
+        //            }
 
-                }
-                catch (Exception ex)
-                {
-                    continue;
-                }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            continue;
+        //        }
 
-            }
-            return model;
+        //    }
+        //    return model;
 
-        }
+        //}
 
         public string GetUrl(string method, Dictionary<string, string> p)
         {
