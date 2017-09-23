@@ -535,6 +535,7 @@
     <Content Include="Content\less\base.less" />
     <Content Include="Content\Site.less" />
     <Content Include="App_Data\mgjCids.json" />
+    <Content Include="App_Data\temp.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

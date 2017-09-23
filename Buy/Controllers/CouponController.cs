@@ -498,8 +498,9 @@ namespace Buy.Controllers
             return View();
         }
 
-        public ActionResult GetList(string filter, int page = 1, string types = null, string platforms = null
-          , bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
+        public ActionResult GetList(string filter, int page = 1, 
+            string types = null, string platforms = null , 
+            bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0)
         {
             var paged = QueryCoupon(filter, types.SplitToArray<int>()
