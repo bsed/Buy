@@ -4,10 +4,26 @@
 
     .couponIndex-menu {
         .clearfix();
-        background-color:#ffffff;
-        img {
-            float: left;
-            width: 100%/4;
+        padding-bottom: 12rem*@resize;
+        background-color: @bg-color-white;
+
+        ul {
+            .clean-ul();
+
+            li {
+                float: left;
+                width: 100%/4;
+                text-align: center;
+                background-color: @bg-color-white;
+
+                a {
+                    display: block;
+                }
+
+                img {
+                    .rectangle(62rem*@resize,62rem*@resize);
+                }
+            }
         }
     }
 }
@@ -31,15 +47,26 @@
             }
 
             .couponList-head {
-                margin: 8rem*@resize;
+                position: relative;
+                .rectangle(126rem*@resize,126rem*@resize);
+                margin: 8rem*@resize 12rem*@resize 8rem*@resize 16rem*@resize;
 
                 img {
-                    .rectangle(136rem*@resize,136rem*@resize);
+                    .rectangle(126rem*@resize,126rem*@resize);
                 }
 
                 &.style02 {
                     width: 96rem*@resize;
                     .img();
+                }
+
+                .plogo {
+                    width: auto;
+                    height: 16rem*@resize;
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    z-index: @z-index-bottom;
                 }
             }
 
@@ -67,23 +94,21 @@
                     -webkit-box-orient: vertical;
                     line-height: 20rem*@resize;
                     font-size: @font-size-2;
-
-                    img {
-                        margin-right: 3rem*@resize;
-                        margin-bottom: 3rem*@resize;
-                        height: 16rem*@resize;
-                    }
                 }
 
                 .couponList-price {
                     .clearfix();
                     display: block;
-                    padding-top: 5rem*@resize;
+                    padding-top: 8rem*@resize;
                     color: @font-col-grey01;
-                    font-size: 14rem*@resize;
+                    font-size: 12rem*@resize;
 
                     .originalPrice {
-                        text-decoration: line-through;
+                        margin-top: 8rem*@resize;
+
+                        > span {
+                            text-decoration: line-through;
+                        }
                     }
 
                     .thirdPartyTicketList-sales {
@@ -91,9 +116,13 @@
                 }
 
                 .couponList-afterPrice {
-                    margin-bottom: 8rem*@resize;
                     color: @font-col-main;
                     font-size: @font-size-5;
+                    margin-top: 6rem*@resize;
+
+                    .yuan {
+                        font-size: @font-size-1;
+                    }
 
                     img {
                         vertical-align: baseline;
@@ -105,20 +134,19 @@
             .couponList-ticket {
                 text-align: center;
                 position: relative;
-                font-size: @font-size-24;
+                font-size: @font-size-1;
                 position: absolute;
-                right: 8rem*@resize;
-                bottom: 0;
+                right: 16rem*@resize;
+                bottom: 8rem*@resize;
 
 
                 .lingquan {
-                    margin: 8rem*@resize 0;
-                    background-color: @bg-color-main;
+                    background: url("../../images/view/tag_quan@2x.png") no-repeat center;
+                    .rectangle(64rem*@resize,28.5rem*@resize);
+                    background-size: contain;
+                    padding-left: 15rem*@resize;
+                    line-height: 32rem*@resize;
                     color: @font-col-white;
-                    font-size: @font-size-3;
-                    padding: 5rem*@resize 9rem*@resize;
-                    font-family: 'Microsoft YaHei';
-                    border-radius: 2rem*@resize;
                 }
             }
         }
@@ -157,7 +185,7 @@
             .name {
                 text-overflow: ellipsis;
                 overflow: hidden;
-                white-space:nowrap;
+                white-space: nowrap;
             }
 
             a {
@@ -195,7 +223,7 @@
         }
     }
 
-    &.style03{
+    &.style03 {
         position: fixed;
         width: 100%;
         height: auto;
@@ -256,6 +284,22 @@
         bottom: -110rem*@resize;
         z-index: @z-index-bottom;
     }
+
+    &.couponIndex-banner {
+        .swiper-container {
+            .swiper-wrapper {
+                .swiper-slide {
+                    height: 155rem*@resize;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                        .block-vertical-mid(50%);
+                    }
+                }
+            }
+        }
+    }
 }
 
 .coupon-nav {
@@ -275,21 +319,36 @@
             line-height: 40rem*@resize;
             font-size: @font-size-2;
             position: relative;
+            color: @font-col-grey01;
+
+            > span {
+                .block-horizontal-mid(50%);
+                margin-left: 40rem*@resize;
+                z-index: @z-index-bottom;
+            }
 
             &.active {
-                color: @font-col-main;
+                color: @font-col-black01;
+            }
+        }
 
-                > div {
-                    display: inline-block;
-                    position: relative;
+        &.platform {
+            li {
+                &.active {
+                    color: @font-col-main;
 
-                    i {
-                        position: absolute;
-                        left: 0;
-                        right: 0;
-                        bottom: 4rem*@resize;
-                        height: 4rem*@resize;
-                        background-color: @bg-color-main;
+                    > div {
+                        display: inline-block;
+                        position: relative;
+
+                        i {
+                            position: absolute;
+                            left: 0;
+                            right: 0;
+                            bottom: 4rem*@resize;
+                            height: 2rem*@resize;
+                            background-color: @bg-color-main;
+                        }
                     }
                 }
             }
@@ -304,9 +363,9 @@
         margin-top: 0;
     }
 
-    &.fixTop80 {
+    &.fixTop88 {
         position: fixed;
-        top: 80rem*@resize;
+        top: 88rem*@resize;
         width: 100%;
         z-index: @z-index-mid;
         margin-top: 0;
