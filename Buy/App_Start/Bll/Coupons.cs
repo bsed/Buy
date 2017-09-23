@@ -83,28 +83,21 @@ namespace Buy.Bll
                     var addTemp = models.Skip(pageIndex).Take(pageSize).Select(s => s.ToCoupon()).ToList();
                     var platforms = models.GroupBy(s => s.Platform).Select(s => s.Key).ToList();
                     //判断是否有重复添加
-                    //通过ProductID+PCountID来作为唯一标识
-                    var pLinks = addTemp.Select(s => $"{s.ProductID}{s.PCouponID}").ToList();
+                    var pLinks = addTemp.Select(s => s.PLink).ToList();
                     List<string> dbLinks = new List<string>();
                     if (platforms.Count == 1)//如果非淘宝联盟
                     {
                         var p = platforms[0];
-                        dbLinks = db.Coupons
-                            .Where(s => s.Platform == p 
-                                && pLinks.Contains(s.ProductID + s.PCouponID))
-                            .Select(s => s.ProductID + s.PCouponID).ToList();
+                        dbLinks = db.Coupons.Where(s => s.Platform == p && pLinks.Contains(s.PLink)).Select(s => s.PLink).ToList();
                     }
                     else
                     {
-                        dbLinks = db.Coupons
-                            .Where(s => platforms.Contains(s.Platform) 
-                                && pLinks.Contains(s.ProductID + s.PCouponID))
-                            .Select(s => s.ProductID + s.PCouponID).ToList();
+                        dbLinks = db.Coupons.Where(s => platforms.Contains(s.Platform) && pLinks.Contains(s.PLink)).Select(s => s.PLink).ToList();
 
                     }
                     if (dbLinks.Count > 0)
                     {
-                        addTemp = addTemp.Where(s => !dbLinks.Contains(s.ProductID + s.PCouponID)).ToList();
+                        addTemp = addTemp.Where(s => !dbLinks.Contains(s.PLink)).ToList();
                     }
                     afterFilter.AddRange(addTemp);
                 }
