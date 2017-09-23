@@ -860,6 +860,9 @@
   text-decoration: line-through;
   font-size: 14px;
 }
+.couponIndex .couponIndex-menu {
+  background-color: #ffffff;
+}
 .couponIndex .couponIndex-menu:before,
 .couponIndex .couponIndex-menu:after {
   content: " ";
@@ -878,7 +881,7 @@
 }
 .couponIndex .couponIndex-menu img {
   float: left;
-  width: 33.33333333%;
+  width: 25%;
 }
 .coupon-list ul {
   list-style: none;
@@ -1405,6 +1408,45 @@
   margin-right: 0.30917874rem;
   margin-bottom: 0.30917874rem;
   line-height: 1;
+}
+.keywordTips {
+  position: absolute;
+  top: 1.70048309rem;
+  width: 100%;
+  z-index: 100;
+}
+.keywordTips:before,
+.keywordTips:after {
+  content: " ";
+  display: table;
+}
+.keywordTips:after {
+  clear: both;
+}
+.keywordTips:before,
+.keywordTips:after {
+  content: " ";
+  display: table;
+}
+.keywordTips:after {
+  clear: both;
+}
+.keywordTips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.keywordTips ul li {
+  background-color: #fff;
+  border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.12);
+  font-size: 0.46376812rem;
+  height: 1.54589372rem;
+  line-height: 1.54589372rem;
+  padding-left: 0.61835749rem;
+}
+.keywordTips ul li b {
+  font-weight: normal;
+  color: rgba(0, 0, 0, 0.38);
 }
 .find .thirdWayList:before,
 .find .thirdWayList:after {

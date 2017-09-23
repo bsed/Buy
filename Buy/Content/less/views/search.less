@@ -26,3 +26,28 @@
         }
     }
 }
+
+.keywordTips{
+    .clearfix();
+    position:absolute;
+    top:44rem*@resize;
+    width:100%;
+    z-index:@z-index-bottom;
+
+    ul{
+        .clean-ul();
+
+        li{
+            background-color:@bg-color-white;
+            border-bottom:@border;
+            font-size:@font-size-1;
+            .one-line-vertical-mid(40rem*@resize);
+            padding-left:16rem*@resize;
+
+            b{
+                font-weight:normal;
+                color:@font-col-grey02;
+            }
+        }
+    }
+}

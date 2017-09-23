@@ -154,8 +154,10 @@ $("#search").keyup(function (e) {
             dataType: "json",
             success: function (data) {
                 if (data.State == "Success") {
+                    $("#SearchResult").children().not(".demo").remove();
                     $.each(data.Result, function (i, item) {
-                        console.log(item);
+                        var demo = $("#SearchResult").find(".demo").clone().removeClass("demo hidden").text(item);
+                        $(".demo").before(demo);
                     });
                 }
             }

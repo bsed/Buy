@@ -67,7 +67,7 @@ namespace Buy.Controllers
                     Title = model.Title,
                     Platform = model.Platform,
                 });
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { platform = model.Platform });
             }
             return View(model);
         }
@@ -109,7 +109,7 @@ namespace Buy.Controllers
                 setting.Platform = model.Platform;
 
                 classifySetting[index] = setting;
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { platform = model.Platform });
             }
             return View(model);
         }

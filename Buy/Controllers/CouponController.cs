@@ -488,14 +488,24 @@ namespace Buy.Controllers
             return View();
         }
 
-        public ActionResult Second(string name, int? typeID, decimal maxPrice = 0,
-            Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao)
+        public ActionResult Second(string name, string filter, string types = null, decimal maxPrice = 0,
+            decimal minPrice = 0, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
+            Enums.CouponSort sort = Enums.CouponSort.Default)
         {
-            if (typeID.HasValue)
+            var model = new CouponSearchViewModel()
             {
+                Filter = filter,
+                Platform = platform,
+                Sort = sort,
+                MaxPrice = maxPrice,
+                MinPrice = minPrice,
+            };
+            if (!string.IsNullOrWhiteSpace(types))
+            {
+                var typeID = types.SplitToArray<int>().FirstOrDefault();
                 ViewBag.TypeName = Bll.SystemSettings.CouponType.First(s => s.ID == typeID);
             }
-            return View();
+            return View(model);
         }
 
         public ActionResult GetList(string filter, int page = 1, 
@@ -511,9 +521,10 @@ namespace Buy.Controllers
 
         public ActionResult Details(int? id)
         {
-            var coupon = db.CouponUsers.Include(s => s.Coupon)
-                .FirstOrDefault(s => s.CouponID == id.Value);
-            string codeMessage = null;
+            var coupons = db.CouponUsers.Include(s => s.Coupon)
+                .Where(s => s.CouponID == id.Value);
+            var coupon = coupons.FirstOrDefault();
+            string codeMessage = null, link = null;
             if (string.IsNullOrWhiteSpace(UserID))
             {
                 codeMessage = "NotLogin";
@@ -534,13 +545,19 @@ namespace Buy.Controllers
                         {
                             codeMessage = "NotOwnUser";
                         }
+                        else
+                        {
+                            link = coupons.FirstOrDefault(s => s.UserID == code.OwnUser).Link;
+                        }
                     }
                 }
+
             }
             ViewBag.codeMessage = codeMessage;
+            ViewBag.Link = link;
             return View(coupon.Coupon);
         }
-        
+
         public ActionResult Search()
         {
             return View();
@@ -551,7 +568,7 @@ namespace Buy.Controllers
         public ActionResult AutoComplate(string keyword)
         {
             var titles = db.Keywords.Where(s => s.Word.Contains(keyword))
-                .OrderBy(s => s.CouponNameCount).Take(10).Select(s => s.Word).ToList();
+                .OrderByDescending(s => s.CouponNameCount).Take(10).Select(s => s.Word).ToList();
             return Json(Comm.ToJsonResult("Success", "成功", titles), JsonRequestBehavior.AllowGet);
         }
 

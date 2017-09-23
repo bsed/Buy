@@ -103,21 +103,25 @@ $("[name='clipboard']").click(function (e) {
         location = comm.action("Index", "Coupon");
         return false;
     }
-    $.ajax({
-        type: "GET",
-        url: comm.action("GetPwd", "Coupon"),
-        data: { id: $("#ID").val() },
-        dataType: "json",
-        success: function (data) {
-            if (data.State == "Success") {
-                $("#pwdMask-text").text(data.Result.Data);
-                $(".pwdMask").attrdata("clipboard-text", data.Result.Data);
-                $(".pwdMask").removeClass("hidden");
-                $("body").css("overflow", "hidden");
-                comm.mask2.show();
+    if ($("#Platform").val() == "TaoBao" || $("#Platform").val() == "TMall") {
+        $.ajax({
+            type: "GET",
+            url: comm.action("GetPwd", "Coupon"),
+            data: { id: $("#ID").val() },
+            dataType: "json",
+            success: function (data) {
+                if (data.State == "Success") {
+                    $("#pwdMask-text").text(data.Result.Data);
+                    $(".pwdMask").attrdata("clipboard-text", data.Result.Data);
+                    $(".pwdMask").removeClass("hidden");
+                    $("body").css("overflow", "hidden");
+                    comm.mask2.show();
+                }
             }
-        }
-    });
+        });
+    } else {
+        location = $("#link").val();
+    }
 });
 
 //复制粘贴板

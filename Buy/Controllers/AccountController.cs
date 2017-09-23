@@ -68,7 +68,7 @@ namespace Buy.Controllers
                 user.UserName,
                 user.NickName,
                 user.PhoneNumber,
-                IsActivation = IsActivation(user.Id),
+                IsActivation = user.UserType == Enums.UserType.Proxy ? true : IsActivation(user.Id),
                 user.UserType,
             };
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
@@ -111,7 +111,7 @@ namespace Buy.Controllers
                             user.UserName,
                             user.NickName,
                             user.PhoneNumber,
-                            IsActivation = IsActivation(user.Id),
+                            IsActivation = user.UserType == Enums.UserType.Proxy ? true : IsActivation(user.Id),
                             user.UserType,
                         }));
                     }
@@ -224,7 +224,7 @@ namespace Buy.Controllers
                         user.UserName,
                         user.NickName,
                         user.PhoneNumber,
-                        IsActivation = IsActivation(user.Id),
+                        IsActivation = user.UserType == Enums.UserType.Proxy ? true : IsActivation(user.Id),
                         user.UserType,
                     }));
                 }

@@ -1,12 +1,15 @@
-﻿
+﻿@model Buy.Models.CouponSearchViewModel
 @{
-    ViewBag.Title = "分类";
     var name = Request["name"];
-    if (!string.IsNullOrWhiteSpace(Request["typeID"]))
+    if (string.IsNullOrWhiteSpace(Request["name"]))
     {
-        Buy.Models.CouponType type = ViewBag.TypeName;
-        name = type.Name;
+        if (!string.IsNullOrWhiteSpace(Request["types"]))
+        {
+            Buy.Models.CouponType type = ViewBag.TypeName;
+            name = type.Name;
+        }
     }
+    ViewBag.Title = name;
 }
 
 <div class="minHight100vh bg-color-grey paddingT84">
@@ -16,15 +19,17 @@
         <a href="@Url.Action("Search","coupon")"><div class="navigationBar-searchIcon bgblack"></div></a>
     </div>
     <div class="coupon-nav fixTop44">
-        @Html.Hidden("typeID", Request["typeID"])
-        @Html.Hidden("platform", Request["platform"])
-        @Html.Hidden("maxPrice", Request["maxPrice"])
+        @Html.Hidden("types", Request["types"])
+        @Html.Hidden("platform", Model.Platform)
+        @Html.Hidden("maxPrice", Model.MaxPrice)
         @Html.Hidden("name", Request["name"])
+        @Html.Hidden("sort", Model.Sort)
+        @Html.Hidden("filter", Model.Filter)
         <input id="secound" value="secound" type="hidden" />
         <ul>
-            <li class="active sort" data-sort="0">综合排序</li>
-            <li class="sort" data-sort="1">人气热销</li>
-            <li class="sort" data-sort="2">最新上架</li>
+            <li class="sort @(Model.Sort ==  Buy.Enums.CouponSort.Default ? "active" : "")" data-sort="0">综合排序</li>
+            <li class="sort @(Model.Sort == Buy.Enums.CouponSort.Sales ? "active" : "")" data-sort="1">人气热销</li>
+            <li class="sort @(Model.Sort ==  Buy.Enums.CouponSort.CreateTime ? "active" : "")" data-sort="2">最新上架</li>
         </ul>
     </div>
     <div id="coupon" class="coupon-list coupon-list-style02">

@@ -500,6 +500,7 @@
     <Content Include="Content\images\view\logo_taobao_tag%402x.png" />
     <Content Include="Content\images\view\logo_tmall_tag%402x.png" />
     <Content Include="Content\images\test\coupon-detail-pimg.png" />
+    <Content Include="Content\images\view\menu_more%402x.png" />
     <Content Include="Content\images\view\tab_00_nor%402x.png" />
     <Content Include="Content\images\view\tab_00_pre%402x.png" />
     <Content Include="Content\images\view\tab_01_nor%402x.png" />
