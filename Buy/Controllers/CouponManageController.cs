@@ -84,10 +84,15 @@ namespace Buy.Controllers
             Sidebar();
             var tptlist = db.Coupons
                 .Where(s => !s.TypeID.HasValue)
-                .GroupBy(s => s.ProductType)
-                .Select(s => new { Type = s.Key, Count = s.Count() })
-                .Select(s => new CouponNotType() { Count = s.Count, Type = s.Type })
-                .AsQueryable().OrderByDescending(s => s.Count).ToPagedList(page);
+                .GroupBy(s => new { s.ProductType, s.Platform })
+                .Select(s => new CouponNotType
+                {
+                    Type = s.Key.ProductType,
+                    Platform = s.Key.Platform,
+                    Count = s.Count(),
+                })
+                .OrderByDescending(s => s.Count)
+                .ToPagedList(page);
             return View(tptlist);
         }
 

@@ -73,6 +73,12 @@ $(".account-input input").keyup(function () {
     }
 });
 
+$("#UserName,#Password").keyup(function (e) {
+    if (e.keyCode == 13) {
+        $("#submit").click();
+    }
+ 
+});
 
 $("#btnlogin").click(function (e) {
     var data = {
