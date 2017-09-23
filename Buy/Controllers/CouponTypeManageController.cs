@@ -110,14 +110,14 @@ namespace Buy.Controllers
                 var type = new CouponType()
                 {
                     Image = model.FileUpload.Images.FirstOrDefault(),
-                    Keyword = model.Keyword,
+                    Keyword = model.Keyword.Replace(" ", ""),
                     Name = model.Name,
                     Sort = model.Sort,
                     ParentID = model.ParentID,
                     Platform = model.Platform,
                 };
                 couponType.Add(type);
-                return RedirectToAction("Index", new { pid = model.ParentID , platform =model.Platform});
+                return RedirectToAction("Index", new { pid = model.ParentID, platform = model.Platform });
             }
             Sidebar();
             return View(model);
@@ -172,7 +172,7 @@ namespace Buy.Controllers
                 var index = couponType.IndexOf(type);
 
                 type.Image = model.FileUpload.Images.FirstOrDefault();
-                type.Keyword = model.Keyword;
+                type.Keyword = model.Keyword.Replace(" ", "");
                 type.Name = model.Name;
                 type.Sort = model.Sort;
                 type.Platform = model.Platform;

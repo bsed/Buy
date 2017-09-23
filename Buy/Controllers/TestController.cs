@@ -31,11 +31,7 @@ namespace Buy.Controllers
 
         public ActionResult FixCountType()
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                
-            }
-
+            MoGuJie.Method.ReSetCidFile();
             return null;
         }
     }

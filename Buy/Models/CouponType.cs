@@ -14,6 +14,8 @@ namespace Buy.Models
         [Display(Name = "名称")]
         public string Name { get; set; }
 
+
+        [DataType(DataType.MultilineText)]
         [Display(Name = "关键字")]
         public string Keyword { get; set; }
 
@@ -36,6 +38,7 @@ namespace Buy.Models
     [NotMapped]
     public class CouponTypeViewModel : CouponType
     {
+
         public FileUpload FileUpload { get; set; }
 
         public List<CouponTypeViewModel> Childs { get; set; }

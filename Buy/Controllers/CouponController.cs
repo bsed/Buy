@@ -31,7 +31,6 @@ namespace Buy.Controllers
             IQueryable<CouponQuery> query;
             if (!string.IsNullOrWhiteSpace(userId))
             {
-                var user = db.Users.FirstOrDefault(s => s.Id == userId);
                 string couponUserID = Bll.Accounts.GetCouponUserID(userId);
                 query = from u in db.CouponUsers
                         from s in db.Coupons

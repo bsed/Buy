@@ -204,12 +204,12 @@ namespace Buy.MoGuJie
             return model;
         }
 
-        private static List<Cid> _allCategory;
+        private static List<Cid2> _allCategory;
 
         /// <summary>
         /// 解密后的分类
         /// </summary>
-        public static List<Cid> AllCategory
+        public static List<Cid2> AllCategory
         {
             get
             {
@@ -219,7 +219,7 @@ namespace Buy.MoGuJie
                     using (System.IO.StreamReader sr = new System.IO.StreamReader(path))
                     {
                         string json = sr.ReadToEnd();
-                        _allCategory = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Cid>>(json);
+                        _allCategory = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Cid2>>(json);
                     }
                 }
 
@@ -231,7 +231,7 @@ namespace Buy.MoGuJie
         {
             using (Models.ApplicationDbContext db = new Models.ApplicationDbContext())
             {
-                var cc = db.CouponTypes
+                var keys = db.CouponTypes
                   .Where(s => s.Platform == Enums.CouponPlatform.MoGuJie && s.Keyword != null)
                   .Select(s => s.Keyword).ToList()
                   .Select(s => s.SplitToArray<string>())
@@ -239,14 +239,24 @@ namespace Buy.MoGuJie
                   .ToList();
                 var path = HttpContext.Current.Request.MapPath("~/App_Data/temp.json");
                 var txt = System.IO.File.ReadAllText(path);
-                var joken = JsonConvert.DeserializeObject<List<MoGuJie.Cid>>(txt);
-                foreach (var item in joken)
-                {
-                    item.TypeID = Bll.Coupons.CheckType(item.Name);
-                }
-                var noTypeID = joken.Where(s => s.TypeID == null).ToList();
+                var model = JsonConvert.DeserializeObject<List<MoGuJie.Cid2>>(txt);
+                //var first = model.Where(s => string.IsNullOrWhiteSpace(s.ParentId)).Select(s => s.ID);
+                //var second = model.Where(s => first.Contains(s.ParentId)).Select(s => s.ID);
+                //var ids = model.Where(s => keys.Contains(s.Name))
+                //     .Select(s => s.ID)
+                //     .ToList();
+                //var pids = model.Where(s => keys.Contains(s.Name))
+                //    .Select(s => s.ParentId)
+                //    .ToList();
+                //var removedChild = model.Where(s => ids.Contains(s.ParentId)).ToList();
+                //model.RemoveAll(s => removedChild.Contains(s));
+                //var removedParent = model.Where(s => pids.Contains(s.ID)).ToList();
+                //model.RemoveAll(s => removedParent.Contains(s));
+                model = model.Where(s => keys.Contains(s.Name)).ToList();
+                //var noTypeID = model.Where(s => s.TypeID == null).Where(s => !second.Contains(s.ID)).ToList();
+                //model.RemoveAll(s => noTypeID.Contains(s));
                 var pp = HttpContext.Current.Request.MapPath("~/App_Data/mgjCids.json");
-                //System.IO.File.WriteAllText(pp, JToken.FromObject(joken).ToString(Formatting.Indented));
+                System.IO.File.WriteAllText(pp, JToken.FromObject(model).ToString(Formatting.Indented));
 
             }
         }
@@ -344,5 +354,12 @@ namespace Buy.MoGuJie
         public string ParentId { get; set; }
 
         public int? TypeID { get; set; }
+    }
+
+    public class Cid2 : Cid
+    {
+        public string DID { get; set; }
+
+        public string Count { get; set; }
     }
 }
