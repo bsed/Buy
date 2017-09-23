@@ -156,7 +156,11 @@ $("#search").keyup(function (e) {
                 if (data.State == "Success") {
                     $("#SearchResult").children().not(".demo").remove();
                     $.each(data.Result, function (i, item) {
-                        var demo = $("#SearchResult").find(".demo").clone().removeClass("demo hidden").text(item);
+                        var t = item;
+                        var val = $("#search").val();
+                        var b = "<b>" + val + "</b>";
+                        var d = t.replace(new RegExp(val, 'g'), b);
+                        var demo = $("#SearchResult").find(".demo").clone().removeClass("demo hidden").append(d);
                         $(".demo").before(demo);
                     });
                 }
@@ -252,7 +256,7 @@ $(".platform").click(function (e) {
 
     loadcoupon();
     comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
-        filter:filter,
+        filter: filter,
         sort: sort,
         platform: platform,
     }));

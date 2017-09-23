@@ -47,7 +47,7 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult GetCategory()
         {
-
+            
             var mgj = new MoGuJie.Method();
             var cids = MoGuJie.Method.AllCategory;
             foreach (var cid in cids)

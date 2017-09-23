@@ -19,24 +19,24 @@
 <div class="minHight100vh paddingT124 bg-color-grey">
     <form action="#" onsubmit="return false;">
         <div class="navigationBar bgcolor-orange">
-            <div class="navigationBar-back bgwhite" onclick="history.back(-1)"></div>
-            <div class="navigationBar-search bgwhite fl">
+            <div class="navigationBar-back" onclick="history.back(-1)"></div>
+            <div class="navigationBar-search">
                 <i></i>
-                <input id="searchConfirm" type="search" name="filterText" class="" placeholder="搜索内部券" value="@Model.Filter">
+                <input id="searchConfirm" type="search" name="filterText" class="" placeholder="搜索商品" value="@Model.Filter">
             </div>
-            <div id="searchConfirmBtn" class="navigationBar-rightText fl">搜优惠</div>
+            <div id="searchConfirmBtn" class="navigationBar-rightText">搜索</div>
         </div>
     </form>
     <div class="coupon-nav fixTop44">
         @Html.Hidden("platform", Request["platform"])
         @Html.Hidden("sort", Request["sort"])
-        <ul>
+        <ul class="platform">
             <li class="platform @((Request["platform"]=="TaoBao" || string.IsNullOrWhiteSpace(Request["platform"]))?"active":"")" data-platform="TaoBao"><div>淘宝<i></i></div></li>
             <li class="platform @(Request["platform"]=="MoGuJie" ?"active":"")" data-platform="MoGuJie"><div>蘑菇街<i></i></div></li>
             <li class="platform @(Request["platform"]=="Jd" ?"active":"")" dat data-platform="Jd"><div>京东<i></i></div></li>
         </ul>
         <ul>
-            <li class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序</li>
+            <li class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<span>∨</span></li>
             <li class="sort @(Request["sort"]=="1" ?"active":"")" data-sort="1">人气热销</li>
             <li class="sort @(Request["sort"]=="2"?"active":"")" data-sort="2">最新上架</li>
         </ul>

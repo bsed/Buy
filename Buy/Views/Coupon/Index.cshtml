@@ -38,16 +38,15 @@
 }
 @Styles.Render("~/bundles/swiper/css")
 
-<div id="couponBox" class="couponIndex paddingT80 paddingB50 bg-color-grey minHight100vh">
+<div id="couponBox" class="couponIndex paddingT88 paddingB50 bg-color-grey minHight100vh">
     @Html.Hidden("typeID", Request["typeID"])
     @Html.Hidden("platform", p)
     @Html.Hidden("sort", Request["sort"])
-    <div class="navigationBar bgcolor-orange" onclick="location.href='@Url.Action("Search","coupon")'">
+    <div class="navigationBar" onclick="location.href='@Url.Action("Search","coupon")'">
         <div class="navigationBar-search style02 fl">
             <i></i>
-            <input id="search" type="search" name="filterText" class="" placeholder="搜索内部券" value="">
+            <input id="search" type="search" name="filterText" class="" placeholder="搜索商品" value="">
         </div>
-        <div id="searchBtn" class="navigationBar-rightText fl">搜优惠</div>
     </div>
     <div class="navigationSwiper top44">
         <div class="swiper-container">
@@ -61,7 +60,7 @@
                 }
             </div>
         </div>
-        <div id="pullDown" class="pullDown">∨</div>
+        <div id="pullDown" class="pullDown"></div>
     </div>
     <div id="sortOne" class="sortList style03" style="display:none">
         <ul>
@@ -97,7 +96,7 @@
     else
     {
         <div id="index" class="">
-            <div class="couponIndex-banner banner">
+            <div class="banner couponIndex-banner">
                 <div class="swiper-container">
                     @if (banner.Count() > 1)
                     {
@@ -123,12 +122,12 @@
                         </div>
                     }
                     @*<div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <a href="#" data-code="" title="">
-                                <img src="~/Content/images/test/banner_home@2x.png" />
-                            </a>
-                        </div>
-                    </div>*@
+                            <div class="swiper-slide">
+                                <a href="#" data-code="" title="">
+                                    <img src="~/Content/images/test/banner_home@2x.png" />
+                                </a>
+                            </div>
+                        </div>*@
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
                 </div>
@@ -136,22 +135,26 @@
             </div>
 
             <div class="couponIndex-menu">
-                @foreach (var item in classify)
-                {
-                    <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
-                        <img src="@Comm.ResizeImage( item.Image)" />
-                    </a>
-                }
-                @*<img src="~/Content/images/test/img_ztihome_001@2x.png" />*@
+                <ul>
+                    @foreach (var item in classify)
+                    {
+                        <li>
+                            <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
+                                <img src="@Comm.ResizeImage( item.Image)" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+
             </div>
         </div>
     }
     <div id="couponNav" class="coupon-nav">
         <ul>
-            <li class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序</li>
+            <li class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<span>∨</span></li>
             @*<li class="sort @(Request["sort"]=="3" ?"active":"")" data-sort="3">券价</li>
-            <li class="sort @(Request["sort"]=="4"?"active":"")" data-sort="4">券后价</li>*@
-             <li class="sort @(Request["sort"]=="1" ?"active":"")" data-sort="1">人气热销</li>
+                <li class="sort @(Request["sort"]=="4"?"active":"")" data-sort="4">券后价</li>*@
+            <li class="sort @(Request["sort"]=="1" ?"active":"")" data-sort="1">人气热销</li>
             <li class="sort @(Request["sort"]=="2"?"active":"")" data-sort="2">最新上架</li>
         </ul>
     </div>

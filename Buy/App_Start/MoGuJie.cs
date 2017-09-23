@@ -109,7 +109,7 @@ namespace Buy.MoGuJie
         //    var url = GetUrl("xiaodian.cpsdata.promitem.get", p);
         //    var result = new Api.BaseApi(url, "POST", p).CreateRequestReturnJson();
         //    var model = new GetItemListResult();
-           
+
         //    model.Total = result["result"]["data"]["total"].Value<int>();
         //    model.TotalPage = (model.Total / 50) + (model.Total % 50 > 0 ? 1 : 0);
         //    model.Page = pageNo;
@@ -226,6 +226,31 @@ namespace Buy.MoGuJie
                 return _allCategory;
             }
         }
+
+        public static void ReSetCidFile()
+        {
+            using (Models.ApplicationDbContext db = new Models.ApplicationDbContext())
+            {
+                var cc = db.CouponTypes
+                  .Where(s => s.Platform == Enums.CouponPlatform.MoGuJie && s.Keyword != null)
+                  .Select(s => s.Keyword).ToList()
+                  .Select(s => s.SplitToArray<string>())
+                  .SelectMany(s => s)
+                  .ToList();
+                var path = HttpContext.Current.Request.MapPath("~/App_Data/temp.json");
+                var txt = System.IO.File.ReadAllText(path);
+                var joken = JsonConvert.DeserializeObject<List<MoGuJie.Cid>>(txt);
+                foreach (var item in joken)
+                {
+                    item.TypeID = Bll.Coupons.CheckType(item.Name);
+                }
+                var noTypeID = joken.Where(s => s.TypeID == null).ToList();
+                var pp = HttpContext.Current.Request.MapPath("~/App_Data/mgjCids.json");
+                //System.IO.File.WriteAllText(pp, JToken.FromObject(joken).ToString(Formatting.Indented));
+
+            }
+        }
+
         public string DecryptID(string id)
         {
             var p = new Dictionary<string, string>();
