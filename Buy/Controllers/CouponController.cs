@@ -550,7 +550,7 @@ namespace Buy.Controllers
         public ActionResult AutoComplate(string keyword)
         {
             var titles = db.Keywords.Where(s => s.Word.Contains(keyword))
-                .OrderBy(s => s.CouponNameCount).Take(10).Select(s => s.Word).ToList();
+                .OrderByDescending(s => s.CouponNameCount).Take(10).Select(s => s.Word).ToList();
             return Json(Comm.ToJsonResult("Success", "成功", titles), JsonRequestBehavior.AllowGet);
         }
 
