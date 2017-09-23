@@ -201,7 +201,7 @@ namespace Buy
                             Total = Convert.ToInt32(item["优惠券总量"]),
                             UserID = userID,
                             PCouponID = item["优惠券id"].ToString(),
-                            PLink = item["优惠券链接"].ToString(),
+                            PLink = $"{item["商品id"].ToString()}{item["优惠券id"].ToString()}",
 
                         };
                         try
@@ -227,6 +227,19 @@ namespace Buy
                     {
 
                     }
+                }
+                var dModels = models.GroupBy(s => new
+                {
+                    s.ProductID,
+                    s.Link
+                })
+                .Select(s => new { s.Key.ProductID, s.Key.Link, Count = s.Count() })
+                .Where(s => s.Count > 1)
+                .ToList();
+                foreach (var item in dModels)
+                {
+                    var del = models.Where(s => s.ProductID == item.ProductID && s.Link == item.Link).Skip(1).ToList();
+                    models.RemoveAll(s => del.Contains(s));
                 }
                 //分段添加到数据库
                 Bll.Coupons.DbAdd(models);
