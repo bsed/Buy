@@ -485,6 +485,7 @@
     <Content Include="Content\images\view\ic_navbar_share_bgblack%402x.png" />
     <Content Include="Content\images\view\ic_search_clear%402x.png" />
     <Content Include="Content\images\view\img_backtop%402x.png" />
+    <Content Include="Content\images\view\img_bg_profile%402x.png" />
     <Content Include="Content\images\view\img_bsk_b%402x.png" />
     <Content Include="Content\images\view\img_burgerking_b%402x.png" />
     <Content Include="Content\images\view\img_coupon_nodata.png" />
@@ -492,6 +493,7 @@
     <Content Include="Content\images\view\img_mcdonalds_b%402x.png" />
     <Content Include="Content\images\view\img_mogoodsx%402x.png" />
     <Content Include="Content\images\view\img_search_nodata%402x.png" />
+    <Content Include="Content\images\view\img_tag_qhj%402x.png" />
     <Content Include="Content\images\view\img_wechat_login_grey%402x.png" />
     <Content Include="Content\images\view\img_zgongfu_b%402x.png" />
     <Content Include="Content\images\view\loadingGif.gif" />
@@ -500,6 +502,7 @@
     <Content Include="Content\images\view\logo_taobao_tag%402x.png" />
     <Content Include="Content\images\view\logo_tmall_tag%402x.png" />
     <Content Include="Content\images\test\coupon-detail-pimg.png" />
+    <Content Include="Content\images\view\menu_more%402x.png" />
     <Content Include="Content\images\view\tab_00_nor%402x.png" />
     <Content Include="Content\images\view\tab_00_pre%402x.png" />
     <Content Include="Content\images\view\tab_01_nor%402x.png" />
@@ -510,6 +513,7 @@
     <Content Include="Content\images\view\tab_03_pre%402x.png" />
     <Content Include="Content\images\view\tab_04_nor%402x.png" />
     <Content Include="Content\images\view\tab_04_pre%402x.png" />
+    <Content Include="Content\images\view\tag_quan%402x.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css">
       <DependentUpon>Site.less</DependentUpon>

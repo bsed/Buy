@@ -10,9 +10,9 @@
 }
 
 <div class="minHight100vh bg-color-grey paddingT84">
-    <div class="navigationBar">
+    <div class="navigationBar bgcolor-grey">
         <div class="navigationBar-back" onclick="history.back(-1)"></div>
-        @name
+        <div class="navigationBar-tits">@name</div>
         <a href="@Url.Action("Search","coupon")"><div class="navigationBar-searchIcon bgblack"></div></a>
     </div>
     <div class="coupon-nav fixTop44">
@@ -22,7 +22,7 @@
         @Html.Hidden("name", Request["name"])
         <input id="secound" value="secound" type="hidden" />
         <ul>
-            <li class="active sort" data-sort="0">综合排序</li>
+            <li class="active sort" data-sort="0">综合排序<span>∨</span></li>
             <li class="sort" data-sort="1">人气热销</li>
             <li class="sort" data-sort="2">最新上架</li>
         </ul>

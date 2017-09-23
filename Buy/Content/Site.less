@@ -242,8 +242,8 @@ textarea {
     padding-top: 44rem*@resize;
 }
 
-.paddingT80 {
-    padding-top: 80rem*@resize;
+.paddingT88 {
+    padding-top: 88rem*@resize;
 }
 
 .paddingT84 {
@@ -254,8 +254,8 @@ textarea {
     padding-top: 124rem*@resize;
 }
 
-.paddingT120{
-    padding-top:120rem*@resize;
+.paddingT128 {
+    padding-top: 128rem*@resize;
 }
 
 .paddingB58 {
@@ -282,12 +282,20 @@ textarea {
     margin-top: 15rem*@resize;
 }
 
+.marginT8 {
+    margin-top: 8rem*@resize;
+}
+
 .marginT10 {
     margin-top: 10rem*@resize;
 }
 
 .marginT5 {
     margin-top: 5rem*@resize;
+}
+
+.marginR5 {
+    margin-right: 5rem*@resize;
 }
 
 .marginR8 {
@@ -320,7 +328,7 @@ textarea {
 
 .navigationBar {
     .clearfix();
-    background-color: rgba(249,249,249,0.9);
+    background-color: @bg-color-white;
     position: fixed;
     top: 0;
     width: 100%;
@@ -330,14 +338,24 @@ textarea {
     font-size: @font-size-4;
     color: @font-col-black01;
     border-bottom: @border;
+    display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box; /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox; /* 混合版本语法: IE 10 */
+    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+    display: flex;
+
+    .navigationBar-tits {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+    }
 
     .navigationBar-back {
         background: url("../content/images/view/ic_navbar_back_black@2x.png") no-repeat center;
         .square(44rem*@resize);
         background-size: contain;
-        position: absolute;
-        top: 0;
-        left: 0;
 
         &.bgwhite {
             background: url("../content/images/view/ic_navbar_back_white@2x.png") no-repeat center;
@@ -347,10 +365,13 @@ textarea {
 
     .navigationBar-search {
         .clearfix();
-        width: 70%;
         height: 44rem*@resize;
-        margin-left: 44rem*@resize;
         position: relative;
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
 
         i {
             .square(16rem*@resize);
@@ -374,7 +395,7 @@ textarea {
             line-height: 1;
             border-top-left-radius: 4rem*@resize;
             border-bottom-left-radius: 4rem*@resize;
-            background-color: @bg-color-white;
+            background-color: @bg-color-grey01;
             padding-left: 35rem*@resize;
             padding-right: 10rem*@resize;
             font-size: @font-size-2;
@@ -387,12 +408,12 @@ textarea {
         }
 
         &.style02 {
-            width: 77.3%;
             margin-left: 16rem*@resize;
+            margin-right: 16rem*@resize;
 
-            i{
+            i {
                 .block-mid(50%);
-                margin-left:-40rem*@resize;
+                margin-left: -30rem*@resize;
             }
 
             input {
@@ -417,23 +438,15 @@ textarea {
 
     .navigationBar-rightText {
         .rectangle(65rem*@resize,30rem*@resize);
-        background-color: @bg-color-black;
         font-size: @font-size-2;
-        color: @font-col-white;
+        color: @font-col-main;
         line-height: 30rem*@resize;
         text-align: center;
-        border-top-right-radius: 4rem*@resize;
-        border-bottom-right-radius: 4rem*@resize;
         margin-top: 7.5rem*@resize;
-
-        &.colorwhite {
-            color: @font-col-white;
-        }
     }
 
-    &.bgcolor-orange {
-        background-color: @bg-color-main;
-        color: @font-col-white;
+    &.bgcolor-grey {
+        background: rgba(249,249,249,0.90);
     }
 }
 
@@ -442,13 +455,13 @@ textarea {
     width: 100%;
     z-index: @z-index-mid;
     background-color: @bg-color-white;
-    .one-line-vertical-mid(36rem*@resize);
+    .one-line-vertical-mid(44rem*@resize);
     font-size: @font-size-2;
-    border-bottom: 1rem*@resize solid rgba(0,0,0,0.12);
+    border-bottom: @border;
 
     .swiper-container {
         width: 100%;
-        height: 36rem*@resize;
+        height: 44rem*@resize;
         margin: 0 auto;
         padding: 0 16rem*@resize;
 
@@ -478,23 +491,22 @@ textarea {
                     position: absolute;
                     left: 0;
                     right: 0;
-                    bottom: 4rem*@resize;
-                    height: 3rem*@resize;
+                    bottom: 0;
+                    height: 2rem*@resize;
                     background-color: @bg-color-main;
                 }
             }
         }
     }
 
-    .pullDown{
-        .rectangle(36rem*@resize,34rem*@resize);
-        background-color:@bg-color-white;
-        position:absolute;
-        top:0;
-        right:0;
-        z-index:@z-index-bottom;
-        text-align:center;
-        box-shadow:-1rem*@resize 0 5rem*@resize 0rem*@resize rgba(0,0,0,0.3);
+    .pullDown {
+        .rectangle(43rem*@resize,43rem*@resize);
+        background: url("images/view/menu_more@2x.png") no-repeat center;
+        background-size: contain;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: @z-index-bottom;
     }
 
     &.top44 {

@@ -40,11 +40,11 @@ $(window).scroll(function (e) {
     }
 
     if ($(window).scrollTop() + sTop + tTop >= navTop) {
-        $("#couponBox").addClass("paddingT120");
-        $("#couponNav").addClass("fixTop80");
+        $("#couponBox").addClass("paddingT128");
+        $("#couponNav").addClass("fixTop88");
     } else {
-        $("#couponBox").removeClass("paddingT120");
-        $("#couponNav").removeClass("fixTop80");
+        $("#couponBox").removeClass("paddingT128");
+        $("#couponNav").removeClass("fixTop88");
     }
 
     if (canLoadPage && comm.isWindowBottom()) {

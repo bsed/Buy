@@ -38,7 +38,7 @@
     <div id="detail" class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
             <div class="couponDetail-top-back fl" id="btnBack"></div>
-            <div class="couponDetail-top-share fr" id="btnShare"></div>
+            @*<div class="couponDetail-top-share fr" id="btnShare"></div>*@
         </div>
         <div class="couponDetail-pImg">
             <img src="@Comm.ResizeImage(Model.Image)" alt="" />
@@ -49,22 +49,27 @@
                 @Model.Name
             </a>
             <div class="couponDetail-info-price">
-                <div class="fl preferPrice mar"><span class="fs12">¥</span><span class="fs24">@Model.Price</span></div>
-                @if (Model.Platform != Buy.Enums.CouponPlatform.Jd)
-                {
-                    <div class="fl originalPrice color-grey fs14">在售价 ¥ @Model.OriginalPrice</div>
+                <div class="fl preferPrice"><span class="fs12 marginR5">¥</span><span class="fs24">@Model.Price</span></div>
+                <div class="tab fl"><img src="~/Content/images/view/img_tag_qhj@2x.png" /></div>
+            </div>
+
+            @if (Model.Platform != Buy.Enums.CouponPlatform.Jd)
+            {
+                <div class="clearfix marginT8">
+                    <div class="fl originalPrice color-grey fs14">原价：<span>¥ @Model.OriginalPrice</span></div>
                     <div class="fr color-grey fs14">销量：@Model.Sales</div>
-                }
-            </div>
-            <div class="clearfix marginT10">
-                <div class="coupon-tab fl marginR8">
-                    @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
-                    {
-                        <div class="coupon-tab-type fl">@item.Type</div>
-                        <div class="coupon-tab-val fl">@item.Value</div>
-                    }
                 </div>
-            </div>
+            }
+
+            @*<div class="clearfix marginT10">
+                    <div class="coupon-tab fl marginR8">
+                        @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
+                        {
+                            <div class="coupon-tab-type fl">@item.Type</div>
+                            <div class="coupon-tab-val fl">@item.Value</div>
+                        }
+                    </div>
+                </div>*@
         </div>
         <div class="marginT10">
             <div id="detailTit" class="columnModule">
@@ -76,8 +81,12 @@
         </div>
 
         <div name="clipboard" class="couponDetail-useBtn">
-            @Html.Hidden("codeMessage",(string)ViewBag.codeMessage)
-            立即领取优惠
+            @Html.Hidden("codeMessage", (string)ViewBag.codeMessage)
+            <div class="">
+                领取<span>@Buy.Bll.Coupons.GetValues(Model)[0].Value</span>券
+                <div class="border-round left"><div></div><div></div><div></div><div></div></div>
+                <div class="border-round right"><div></div><div></div><div></div><div></div></div>
+            </div>
         </div>
 
 
@@ -119,8 +128,8 @@
                             <div class="coupon-tab fl marginR8">
                                 @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
                                 {
-                                <div class="coupon-tab-type fl">@item.Type</div>
-                                <div class="coupon-tab-val fl">@item.Value</div>
+                                    <div class="coupon-tab-type fl">@item.Type</div>
+                                    <div class="coupon-tab-val fl">@item.Value</div>
                                 }
                             </div>
                         </div>
