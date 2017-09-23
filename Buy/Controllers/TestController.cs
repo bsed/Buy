@@ -28,6 +28,16 @@ namespace Buy.Controllers
             var tokens = posSeg.Cut(text).Where(s => s.Flag.IndexOf('n') == 0).Select(s => s.Word).Distinct();
             return Json(Comm.ToJsonResult("Success", "", segments3.Where(s => s.Length > 1).Distinct()), JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult FixCountType()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                
+            }
+
+            return null;
+        }
     }
 
 }
