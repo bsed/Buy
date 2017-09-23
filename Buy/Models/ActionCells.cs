@@ -62,6 +62,10 @@ namespace Buy.Models.ActionCell
                     {
                         type = ActionType.ThirdPartyTicketDetail;
                     }
+                    if (url.Contains("/coupon/second"))
+                    {
+                        type = ActionType.CouponClass;
+                    }
                     else
                     {
                         type = Enums.ActionType.Browser;
