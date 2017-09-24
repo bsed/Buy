@@ -57,30 +57,66 @@
     </div>
     @*banner*@
     <div id="index" class="">
-        <div class="banner couponIndex-banner">
-            @{
-                var banner1 = banner.FirstOrDefault();
-            }
-            <div class="banner-simple">
-                <a href="@(Url.ContentFull(banner1?.Link))">
-                    <img src="@(Url.ResizeImage(banner1?.Image,750,280))" alt="" />
-                </a>
-            </div>
-            <div class="couponIndex-shade"></div>
-        </div>
-        <div class="couponIndex-menu">
-            <ul>
-                @foreach (var item in classify)
-                {
-                    <li>
-                        <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
-                            <img src="@Comm.ResizeImage( item.Image)" />
-                        </a>
-                    </li>
+        @if (Request["platform"] == "TaoBao")
+        {
+            <div class="banner couponIndex-banner">
+                @{
+                    var banner1 = banner.FirstOrDefault();
                 }
-            </ul>
-
-        </div>
+                <div class="banner-simple">
+                    <a href="@(Url.ContentFull(banner1?.Link))">
+                        <img src="@(Url.ResizeImage(banner1?.Image, 750, 280))" alt="" />
+                    </a>
+                </div>
+                <div class="couponIndex-shade"></div>
+            </div>
+            <div class="couponIndex-menu">
+                <ul>
+                    @foreach (var item in classify)
+                    {
+                        <li>
+                            <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
+                                <img src="@Comm.ResizeImage(item.Image)" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            }
+            else
+            {
+                <div class="banner couponIndex-banner">
+                    <div class="banner-simple">
+                        <a href="#">
+                            <img src="~/Content/images/test/banner_mogujie_01@2x.png?w=750&h=280" />
+                        </a>
+                    </div>
+                </div>
+                <div class="couponIndex-menu style02">
+                    <ul>
+                        <li>
+                            <a href="#" data-code="">
+                                <img src="~/Content/images/test/img_mgjzthome_001@2x.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-code="">
+                                <img src="~/Content/images/test/img_mgjzthome_002@2x.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-code="">
+                                <img src="~/Content/images/test/img_mgjzthome_003@2x.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-code="">
+                                <img src="~/Content/images/test/img_mgjzthome_004@2x.png" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            }
     </div>
 
     <div id="couponNav" class="coupon-nav">
