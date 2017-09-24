@@ -1230,6 +1230,7 @@
   width: 100%;
 }
 .coupon-nav {
+  position: relative;
   background-color: #fff;
   margin-top: 0.30917874rem;
   border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.05);
@@ -1264,8 +1265,19 @@
   font-size: 0.5410628rem;
   position: relative;
   color: rgba(0, 0, 0, 0.54);
+  padding: 0 0.61835749rem;
+}
+.coupon-nav ul li:nth-child(1) {
+  text-align: left;
+}
+.coupon-nav ul li:nth-child(3) {
+  text-align: right;
 }
 .coupon-nav ul li > span {
+  width: 0.5410628rem;
+  height: 1.54589372rem;
+  background: url("images/view/ico_arrow_down_pre@2x.png") no-repeat center;
+  background-size: contain;
   position: absolute;
   left: 50%;
   -moz-transform: translateX(-50%);
@@ -1273,7 +1285,7 @@
   -o-transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
-  margin-left: 1.54589372rem;
+  margin-left: 0.57971014rem;
   z-index: 100;
 }
 .coupon-nav ul li.active {
@@ -1293,6 +1305,33 @@
   bottom: 0.15458937rem;
   height: 0.07729469rem;
   background-color: #FF5913;
+}
+.coupon-nav .coupon-nav-down {
+  position: absolute;
+  width: 100%;
+  top: 1.58454106rem;
+  z-index: 1000;
+  border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.05);
+}
+.coupon-nav .coupon-nav-down .sort {
+  height: 1.85507246rem;
+  line-height: 1.85507246rem;
+  background-color: #fff;
+  font-size: 0.5410628rem;
+  padding: 0 0.61835749rem;
+  color: rgba(0, 0, 0, 0.54);
+}
+.coupon-nav .coupon-nav-down .sort.active {
+  color: rgba(0, 0, 0, 0.87);
+}
+.coupon-nav .coupon-nav-down .sort.active i {
+  width: 0.5410628rem;
+  height: 0.5410628rem;
+  background: url("images/view/ico_checkright_black_m@2x.png") no-repeat center;
+  background-size: contain;
+  z-index: 100;
+  margin-left: 0.23188406rem;
+  display: inline-block;
 }
 .coupon-nav.fixTop44 {
   position: fixed;
