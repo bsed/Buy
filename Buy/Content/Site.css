@@ -584,8 +584,10 @@
 }
 .couponDetail .couponDetail-useBtn > div {
   position: relative;
-  width: 85%;
-  margin: 0.15458937rem auto 0 auto;
+  /*width: 85%;*/
+  float: right;
+  padding: 0 0.38647343rem;
+  margin: 0.15458937rem 0.15458937rem 0 0;
   height: 1.50724638rem;
   line-height: 1.50724638rem;
   background: -webkit-linear-gradient(left, #FF922B, #FF5913);
