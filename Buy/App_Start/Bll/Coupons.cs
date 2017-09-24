@@ -66,7 +66,7 @@ namespace Buy.Bll
             {
                 return;
             }
-            DateTime dtStart = DateTime.Now.Date;
+
             var userID = models.FirstOrDefault().UserID;
             var afterFilter = new List<Coupon>();
             using (ApplicationDbContext db = new ApplicationDbContext())
@@ -101,22 +101,37 @@ namespace Buy.Bll
                     }
                     afterFilter.AddRange(addTemp);
                 }
+
+                //伪造添加时间
+                //从每天8点开始总时间为16小时，分组商品数量大于100才使用该算法
+                DateTime dtStart = DateTime.Now.Date.AddHours(8);
                 var dtTS2 = DateTime.Now;
-                var perSec = (60 * 60 * 24) / Convert.ToDouble(afterFilter.Count);
-                var ii = 0;
-                var afterTotalPage = afterFilter.Count / pageSize + (afterFilter.Count % pageSize > 0 ? 1 : 0);
                 var addDbCount = 0;
+                var groupTypes = afterFilter.GroupBy(s => s.TypeID)
+                    .Select(s => new { TypeID = s.Key, Count = s.Count() })
+                    .Where(s => s.Count > 50)
+                    .ToList();
+                //重写时间的添加算法，按分类分组去算
+                foreach (var type in groupTypes)
+                {
+                    var items = afterFilter.Where(s => s.TypeID == type.TypeID).ToList();
+                    var perSec = (60 * 60 * 16) / Convert.ToDouble(type.Count);
+                    var ii = 0;
+                    foreach (var item in items)
+                    {
+                        item.CreateDateTime = dtStart.AddSeconds(ii * perSec);
+                        ii++;
+                    }
+                }
+                //分页导入数据数据
+                var afterTotalPage = afterFilter.Count / pageSize + (afterFilter.Count % pageSize > 0 ? 1 : 0);
                 for (int i = 0; i < afterTotalPage; i++)
                 {
                     try
                     {
                         int pageIndex = i * pageSize;
                         var addTemp = afterFilter.Skip(pageIndex).Take(pageSize).ToList();
-                        foreach (var item in addTemp)
-                        {
-                            item.CreateDateTime = dtStart.AddSeconds(ii * perSec);
-                            ii++;
-                        }
+
                         db.Coupons.AddRange(addTemp);
                         addDbCount += db.SaveChanges();
                         //将所有的标题压缩成一串哪去关键字分析
@@ -129,6 +144,7 @@ namespace Buy.Bll
                     }
 
                 }
+
                 Comm.WriteLog("testTime", $"重复时间：{(dtTS2 - dtTS).TotalSeconds}，添加用时：{(DateTime.Now - dtTS2).TotalSeconds}，导入数量{models.Count}，添加数量{addDbCount}，重复数{models.Count - afterFilter.Count},添加失败数{afterFilter.Count - addDbCount}", Enums.DebugLogLevel.Normal);
 
 

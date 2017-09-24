@@ -85,7 +85,7 @@ $("[name=childType]").click(function (e) {
     typeID = date_type;
     location = comm.action("Second", "Coupon",
         {
-            typeID: typeID,
+            types: typeID,
             platform: platform
         });
 });

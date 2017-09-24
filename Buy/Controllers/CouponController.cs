@@ -32,7 +32,7 @@ namespace Buy.Controllers
             IQueryable<CouponQuery> query;
             if (!string.IsNullOrWhiteSpace(couponUserID))
             {
-              
+
                 query = from u in db.CouponUsers
                         from s in db.Coupons
                         where u.CouponID == s.ID && u.UserID == couponUserID
@@ -444,7 +444,7 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
         }
 
-        public List<CouponTypeTreeNode> CouponTypes(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao)
+        public List<CouponTypeTreeNode> CouponTypes(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao, bool resizeImage = true)
         {
             var data = new List<CouponTypeTreeNode>();
             Action<List<CouponTypeTreeNode>, int> setTree = null;
@@ -457,7 +457,7 @@ namespace Buy.Controllers
                          Childs = new List<CouponTypeTreeNode>(),
                          Name = s.Name,
                          ID = s.ID,
-                         Image = Comm.ResizeImage(s.Image, image: null),
+                         Image = resizeImage ? Comm.ResizeImage(s.Image, image: null) : s.Image,
                          ParentID = s.ParentID,
                      })
                      .ToList());
@@ -485,7 +485,7 @@ namespace Buy.Controllers
                 ParentID = -1,
                 Childs = new List<CouponTypeTreeNode>()
             });
-            couponTypes.AddRange(CouponTypes(platform));
+            couponTypes.AddRange(CouponTypes(platform, false));
             ViewBag.CouponTypes = couponTypes;
             ViewBag.Banner = Bll.SystemSettings.BannerSetting.Where(s => s.Platform == platform).OrderBy(s => s.Sort).ToList();
             ViewBag.Classify = Bll.SystemSettings.ClassifySetting.Where(s => s.Platform == platform).OrderBy(s => s.Sort).ToList();
@@ -509,6 +509,7 @@ namespace Buy.Controllers
                 var typeID = types.SplitToArray<int>().FirstOrDefault();
                 ViewBag.TypeName = Bll.SystemSettings.CouponType.First(s => s.ID == typeID);
             }
+
             return View(model);
         }
 

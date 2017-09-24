@@ -202,7 +202,7 @@ namespace Buy
                             UserID = userID,
                             PCouponID = item["优惠券id"].ToString(),
                             PLink = $"{item["商品id"].ToString()}{item["优惠券id"].ToString()}",
-
+                            CreateDateTime = DateTime.Now
                         };
                         try
                         {

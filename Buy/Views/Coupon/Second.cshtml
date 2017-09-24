@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "分类";
     var name = Request["name"];
-    if (!string.IsNullOrWhiteSpace(Request["typeID"]))
+    if (!string.IsNullOrWhiteSpace(Request["types"]))
     {
         Buy.Models.CouponType type = ViewBag.TypeName;
         name = type.Name;
@@ -16,7 +16,7 @@
         <a href="@Url.Action("Search","coupon")"><div class="navigationBar-searchIcon bgblack"></div></a>
     </div>
     <div class="coupon-nav fixTop44">
-        @Html.Hidden("typeID", Request["typeID"])
+        @Html.Hidden("types", Request["types"])
         @Html.Hidden("platform", Request["platform"])
         @Html.Hidden("maxPrice", Request["maxPrice"])
         @Html.Hidden("name", Request["name"])
