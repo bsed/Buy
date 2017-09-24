@@ -2,10 +2,13 @@
 @{
     ViewBag.Title = "分类";
     var name = Request["name"];
-    if (!string.IsNullOrWhiteSpace(Request["types"]))
+    if (string.IsNullOrWhiteSpace(Request["name"]))
     {
-        Buy.Models.CouponType type = ViewBag.TypeName;
-        name = type.Name;
+        if (!string.IsNullOrWhiteSpace(Request["types"]))
+        {
+            Buy.Models.CouponType type = ViewBag.TypeName;
+            name = type.Name;
+        }
     }
 }
 

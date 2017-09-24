@@ -1073,20 +1073,20 @@
   height: 0.65700483rem;
 }
 .coupon-list ul li .couponList-ticket {
-  text-align: center;
+  text-align: left;
   position: relative;
   font-size: 0.46376812rem;
   position: absolute;
   right: 0.61835749rem;
-  bottom: 0.30917874rem;
+  bottom: 0.46376812rem;
 }
 .coupon-list ul li .couponList-ticket .lingquan {
   background: url("images/view/tag_quan@2x.png") no-repeat center;
-  width: 2.47342995rem;
-  height: 1.10144928rem;
+  width: 2.96811594rem;
+  height: 1.32173913rem;
   background-size: contain;
-  padding-left: 0.57971014rem;
-  line-height: 1.23671498rem;
+  padding-left: 1.00483092rem;
+  line-height: 1.32173913rem;
   color: #fff;
 }
 .coupon-list.coupon-list-style02 ul li:first-child {
