@@ -36,6 +36,7 @@ function loadCoupon() {
     }
     var page = $page.data("page") + 1;
     canLoadPage = false;
+    $(".nodata").addClass("hidden");
     $.ajax({
         type: "GET",
         url: comm.action("GetList", "coupon"),
@@ -58,8 +59,9 @@ function loadCoupon() {
         },
         complete: function () {
             canLoadPage = true;
-
-            nodataCheck("#coupon ul");
+            if ($coupon.find("li").length == 0) {
+                nodataCheck("#coupon ul");
+            }
         }
     });
 
