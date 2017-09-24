@@ -115,7 +115,7 @@ namespace Buy.Bll
                 foreach (var type in groupTypes)
                 {
                     var items = afterFilter.Where(s => s.TypeID == type.TypeID).ToList();
-                    var perSec = (60 * 60 * 16) / Convert.ToDouble(type.Count);
+                    var perSec = (60 * 60 * 14) / Convert.ToDouble(type.Count);
                     var ii = 0;
                     foreach (var item in items)
                     {
