@@ -1254,3 +1254,79 @@
         }
     }
 }
+
+.linkToCoupon {
+    a {
+        .clean-a();
+        display: block;
+    }
+
+    .one-line-vertical-mid(50rem*@resize);
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    font-size: @font-size-5;
+    background: rgba(16,16,16,0.6);
+    color: @font-col-white;
+    z-index: @z-index-top;
+
+    img {
+        .rectangle(35*0.5rem*@resize,31*0.5rem*@resize);
+        .block-mid(50%);
+        margin-left: 85rem*@resize;
+        -webkit-animation: arrow-r 1s infinite ease-in-out;
+        animation: arrow-r 1s infinite ease-in-out;
+    }
+
+    @keyframes arrow-r {
+        from {
+            margin-left: 85rem*@resize;
+            opacity: 0;
+        }
+
+        to {
+            margin-left: 95rem*@resize;
+            opacity: 1;
+        }
+    }
+
+    @-moz-keyframes arrow-r /* Firefox */
+    {
+       from {
+            margin-left: 85rem*@resize;
+            opacity: 0;
+        }
+
+        to {
+            margin-left: 95rem*@resize;
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes arrow-r /* Safari 和 Chrome */
+    {
+        from {
+            margin-left: 85rem*@resize;
+            opacity: 0;
+        }
+
+        to {
+            margin-left: 95rem*@resize;
+            opacity: 1;
+        }
+    }
+
+    @-o-keyframes arrow-r /* Opera */
+    {
+        from {
+            margin-left: 85rem*@resize;
+            opacity: 0;
+        }
+
+        to {
+            margin-left: 95rem*@resize;
+            opacity: 1;
+        }
+    }
+}
