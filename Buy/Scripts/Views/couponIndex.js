@@ -80,80 +80,138 @@ $(".mask.style02").click(function () {
     comm.mask3();
 });
 
-$("[name=childType]").click(function (e) {
-    var date_type = $(this).data("type");
-    typeID = date_type;
-    location = comm.action("Second", "Coupon",
-        {
-            types: typeID,
-            platform: platform
-        });
-});
+//获取分类
+function GetCouponType() {
+    $.ajax({
+        type: "GET",
+        url: comm.action("GetCouponTypes", "Coupon"),
+        data: { platform: platform },
+        dataType: "json",
+        success: function (data) {
+            $.each(data.Result.Data, function (i, item) {
+                var swiperdemo = $(".swiperDemo").clone().removeClass("hidden swiperDemo");
+                swiperdemo.attr("data-type", item.ID);
+                swiperdemo.find("span").text(item.Name);
+                $(".swiperDemo").before(swiperdemo);
 
-//1级分类切换
-var couponType = $("[name='type']");
-couponType.click(function () {
-    var date_type = $(this).data("type");
-    typeID = date_type;
+                var sortListDemo = $(".sortListDemo").clone().removeClass("hidden sortListDemo");
+                sortListDemo.attr("data-type", item.ID);
+                sortListDemo.find(".name").text(item.Name);
+                sortListDemo.find("img").attr("src", item.Image);
+                $(".sortListDemo").before(sortListDemo);
 
-    var $page = $("#coupon").find("ul li[data-page]");
-    $page.data("next", "true");
-    $page.data("page", "0");
-    $("#coupon").find("li").not("[data-page]").remove();
-    loadCoupon();
+                var childDemo = $(".childDemo").clone().removeClass("childDemo");
+                childDemo.attr("data-type", item.ID);
+                $.each(item.Childs, function (ci, citem) {
+                    var li = childDemo.find(".hidden").clone().removeClass("hidden");
+                    li.find("a").attr("data-type", citem.ID);
+                    li.find(".name").text(citem.Name);
+                    li.find("img").attr("src", citem.Image);
+                    childDemo.find(".hidden").before(li);
+                });
+                $(".childDemo").before(childDemo);
+            });
+            TypeClick();
+            
+            if (Number(typeID)!=0) {
+                $("#index").addClass("hidden");
+                $("[name='type']").removeClass("active");
+                $("[name='type'][data-type=" + typeID + "]").addClass("active");
+                $("[name=sortList]").removeClass("hidden");
+                $("[name=sortList]").children().addClass("hidden");
+                $("[name=sortList]").find("[data-type=" + typeID + "]").removeClass("hidden");
+            }
 
-    couponType.removeClass("active");
-    $(this).addClass("active");
+        }
+    });
+}
+GetCouponType();
+//分类点击事件
+function TypeClick() {
+    //1级分类切换
+    var couponType = $("[name='type']");
+    couponType.click(function () {
+        couponType.removeClass("active");
+        $(this).addClass("active");
 
-    comm.addHistory("url", comm.action("Index", "Coupon", {
-        sort: sort,
-        platform: platform,
-        typeID: typeID,
-    }));
+        var date_type = $(this).data("type");
+        typeID = date_type;
 
-    if (date_type == "0") {
-        $("#index").removeClass("hidden");
-    } else {
-        $("[name='sortList']").removeClass("hidden");
-    }
-});
+        if (date_type == "0") {
+            $("#index").removeClass("hidden");
+            $("[name=sortList]").addClass("hidden");
+        }
+        else {
+            $("#index").addClass("hidden");
+            $("[name=sortList]").removeClass("hidden");
+            $("[name=sortList]").children().addClass("hidden");
+            $("[name=sortList]").find("[data-type=" + date_type + "]").removeClass("hidden");
+        }
+        var $page = $("#coupon").find("ul li[data-page]");
+        $page.data("next", "true");
+        $page.data("page", "0");
+        $("#coupon").find("li").not("[data-page]").remove();
+        loadCoupon();
 
-var couponType2 = $("#sortOne [name='type']");
-couponType2.click(function () {
-    var date_type = $(this).data("type");
-    typeID = date_type;
-
-    var $page = $("#coupon").find("ul li[data-page]");
-    $page.data("next", "true");
-    $page.data("page", "0");
-    $("#coupon").find("li").not("[data-page]").remove();
-    loadCoupon();
-
-    couponType.removeClass("active");
-    var index=$(this).index();
-    couponType.eq(index).addClass("active");
-
-    var swiper = new Swiper('.navigationSwiper .swiper-container', {
-        slidesPerView: "auto",
-        initialSlide: index
+        comm.addHistory("url", comm.action("Index", "Coupon", {
+            sort: sort,
+            platform: platform,
+            typeID: typeID,
+        }));
     });
 
-    comm.addHistory("url", comm.action("Index", "Coupon", {
-        sort: sort,
-        platform: platform,
-        typeID: typeID,
-    }));
+    var couponType2 = $("#sortOne [name='type']");
+    couponType2.click(function () {
+        var date_type = $(this).data("type");
+        typeID = date_type;
 
-    if (date_type == "0") {
-        $("#index").removeClass("hidden");
-    } else {
-        $("[name='sortList']").removeClass("hidden");
-    }
+        var $page = $("#coupon").find("ul li[data-page]");
+        $page.data("next", "true");
+        $page.data("page", "0");
+        $("#coupon").find("li").not("[data-page]").remove();
+        loadCoupon();
 
-    $("body").css("overflow", "auto");
-    $("#sortOne").hide();
-    comm.mask3();
-});
+        couponType.removeClass("active");
+        var index = $(this).index();
+        couponType.eq(index).addClass("active");
+
+        var swiper = new Swiper('.navigationSwiper .swiper-container', {
+            slidesPerView: "auto",
+            initialSlide: index
+        });
+
+        comm.addHistory("url", comm.action("Index", "Coupon", {
+            sort: sort,
+            platform: platform,
+            typeID: typeID,
+        }));
+
+        if (date_type == "0") {
+            $("#index").removeClass("hidden");
+            $("[name=sortList]").addClass("hidden");
+        } else {
+            $("#index").addClass("hidden");
+            $("[name=sortList]").removeClass("hidden");
+            $("[name=sortList]").children().addClass("hidden");
+            $("[name=sortList]").find("[data-type=" + date_type + "]").removeClass("hidden");
+        }
+
+        $("body").css("overflow", "auto");
+        $("#sortOne").hide();
+        comm.mask3();
+    });
+
+    //二级分类点击
+    $("[name=childType]").click(function (e) {
+        var date_type = $(this).data("type");
+        typeID = date_type;
+        location = comm.action("Second", "Coupon",
+            {
+                types: typeID,
+                platform: platform
+            });
+    });
+}
 
 //加载列表
 loadCoupon()

@@ -477,16 +477,6 @@ namespace Buy.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var couponTypes = new List<CouponTypeTreeNode>();
-            couponTypes.Add(new CouponTypeTreeNode()
-            {
-                ID = 0,
-                Name = "首页",
-                ParentID = -1,
-                Childs = new List<CouponTypeTreeNode>()
-            });
-            couponTypes.AddRange(CouponTypes(platform, false));
-            ViewBag.CouponTypes = couponTypes;
             ViewBag.Banner = Bll.SystemSettings.BannerSetting.Where(s => s.Platform == platform).OrderBy(s => s.Sort).ToList();
             ViewBag.Classify = Bll.SystemSettings.ClassifySetting.Where(s => s.Platform == platform).OrderBy(s => s.Sort).ToList();
             return View();
