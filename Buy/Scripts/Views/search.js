@@ -149,7 +149,7 @@ function search(val) {
 
 //搜索提示
 $("#search").keyup(function (e) {
-    if ($("#search").val() != "") {
+    if ($("#search").val().trim() != "") {
         $.ajax({
             type: "GET",
             url: comm.action("AutoComplate", "Coupon"),
