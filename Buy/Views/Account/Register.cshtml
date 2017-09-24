@@ -8,9 +8,9 @@
     @Html.AntiForgeryToken()
 
     <div id="register" class="account paddingT44 minHight100vh">
-        <div class="navigationBar">
-            <div class="navigationBar-back" onclick="history.back(-1)"></div>
-            注册
+        <div class="navigationBar bgcolor-grey">
+            <div class="navigationBar-back" id="btnBack"></div>
+            <div class="navigationBar-tits style02">注册</div>
         </div>
         @Html.ValidationSummary("", new { @class = "text-danger hidden", @id = "errorText" })
         <div class="paddingLr16">

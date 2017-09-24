@@ -3362,6 +3362,18 @@ textarea {
   -ms-flex: 1;
   flex: 1;
 }
+.navigationBar .navigationBar-tits.style02 {
+  height: 1.70048309rem;
+  line-height: 1.70048309rem;
+  position: absolute;
+  left: 50%;
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  display: inline-block;
+}
 .navigationBar .navigationBar-back {
   background: url("images/view/ic_navbar_back_black@2x.png") no-repeat center;
   width: 1.70048309rem;
