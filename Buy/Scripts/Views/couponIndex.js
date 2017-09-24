@@ -267,6 +267,7 @@ $(".sort").click(function (e) {
     loadCoupon();
     $(".sort").removeClass("active");
     $(this).addClass("active");
+    $("#complex").removeClass("rotete");
     $("#sort-down").slideUp();
     if ($("#sort-down .sort").hasClass("active")) {
         $("#complex").addClass("active");
@@ -282,6 +283,7 @@ $(".sort").click(function (e) {
 
 $("#complex").click(function () {
     $("#sort-down").slideToggle();
+    $(this).toggleClass("rotete");
 });
 
 //tabActive
