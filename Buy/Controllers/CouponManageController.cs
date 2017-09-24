@@ -150,5 +150,25 @@ namespace Buy.Controllers
             }
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
+
+        [AllowCrossSiteJson]
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult CreateTimeAddDay()
+        {
+            int count = db.Coupons.Where(s => s.CreateDateTime.Day == DateTime.Now.Day).Count();
+            int totalPage = count / 50 + (count % 50 > 0 ? 1 : 0);
+            int changeCount = 0;
+            for (int i = 1; i <= totalPage; i++)
+            {
+                var data = db.Coupons.Where(s => s.CreateDateTime.Day == DateTime.Now.Day).OrderBy(s => s.ID).ToPagedList(i, 50);
+                foreach (var item in data)
+                {
+                    item.CreateDateTime = item.CreateDateTime.AddDays(-1);
+                }
+                changeCount += db.SaveChanges();
+            }
+            return Json(Comm.ToJsonResult("Success", "cg", changeCount));
+        }
     }
 }
