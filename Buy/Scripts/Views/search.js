@@ -238,60 +238,12 @@ function searchConfirm(val) {
 }
 
 //搜索提示
-$("#searchConfirm").keyup(function (e) {
-    if ($("#searchConfirm").val() != "") {
-        $.ajax({
-            type: "GET",
-            url: comm.action("AutoComplate", "Coupon"),
-            data: { keyword: $("#searchConfirm").val() },
-            dataType: "json",
-            success: function (data) {
-                if (data.State == "Success") {
-                    $("#SearchResult").children().not(".demo").remove();
-                    $.each(data.Result, function (i, item) {
-                        var t = item;
-                        var val = $("#searchConfirm").val();
-                        var b = "<b>" + val + "</b>";
-                        var d = t.replace(new RegExp(val, 'g'), b);
-                        var demo = $("#SearchResult").find(".demo").clone().removeClass("demo hidden").append(d);
-                        $(".demo").before(demo);
-                    });
-                    $(".keywordTips").removeClass("hidden");
-
-                    $("#SearchResult li").click(function () {
-                        var filterText = $(this).text();
-                        searchConfirm(filterText);
-                        $(".keywordTips").addClass("hidden");
-                        $("#searchConfirm").val(filterText);
-                    });
-                }
-            }
-        });
-    } else {
-        $(".keywordTips").addClass("hidden");
-    }
-});
-
-$("#searchConfirm").bind('search', function () {
-    var filterText = $("[name='filterText']").val();
-    searchConfirm(filterText);
-
-    comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
-        filter: filter,
-        sort: sort,
-        platform: platform,
-    }));
+$("#searchConfirm").click(function () {
+    window.location.href = comm.action("Search", "Coupon");
 });
 
 $("#searchConfirmBtn").click(function () {
-    var filterText = $("[name='filterText']").val();
-    searchConfirm(filterText);
-
-    comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
-        filter: filter,
-        sort: sort,
-        platform: platform,
-    }));
+    window.location.href = comm.action("Search", "Coupon");
 });
 
 //平台切换
@@ -320,6 +272,7 @@ $(".sort").click(function (e) {
     sort = $(this).data("sort");
     $(".sort").removeClass("active");
     $(this).addClass("active");
+    $("#complex").removeClass("rotete");
     clear($('#coupon ul'));
     loadcoupon();
     $("#sort-down").slideUp();
@@ -337,4 +290,5 @@ $(".sort").click(function (e) {
 
 $("#complex").click(function () {
     $("#sort-down").slideToggle();
+    $(this).toggleClass("rotete");
 });
