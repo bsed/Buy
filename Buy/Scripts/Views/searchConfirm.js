@@ -92,6 +92,7 @@ $(".sort").click(function (e) {
     sort = $(this).data("sort");
     $(".sort").removeClass("active");
     $(this).addClass("active");
+    $("#complex").removeClass("rotete");
     clear("#coupon ul");
     loadCoupon();
     $("#sort-down").slideUp();
@@ -108,4 +109,5 @@ $(".sort").click(function (e) {
 
 $("#complex").click(function () {
     $("#sort-down").slideToggle();
+    $(this).toggleClass("rotete");
 });

@@ -1289,9 +1289,28 @@
   transform: translateX(-50%);
   margin-left: 0.57971014rem;
   z-index: 100;
+  transition: 0.3s all;
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -webkit-transform: rotate(180deg);
+  /* Safari and Chrome */
+  -o-transform: rotate(180deg);
+  /* Opera */
+  -moz-transform: rotate(180deg);
 }
 .coupon-nav ul li.active {
   color: rgba(0, 0, 0, 0.87);
+}
+.coupon-nav ul li.rotete > span {
+  transform: rotate(0);
+  -ms-transform: rotate(0);
+  /* IE 9 */
+  -webkit-transform: rotate(0);
+  /* Safari and Chrome */
+  -o-transform: rotate(0);
+  /* Opera */
+  -moz-transform: rotate(0);
 }
 .coupon-nav ul.platform li.active {
   color: #FF5913;
@@ -1592,11 +1611,11 @@
   height: 1.54589372rem;
   line-height: 1.54589372rem;
   padding-left: 0.61835749rem;
-  color: rgba(0, 0, 0, 0.38);
+  color: rgba(0, 0, 0, 0.54);
 }
 .keywordTips ul li b {
   font-weight: normal;
-  color: rgba(0, 0, 0, 0.87);
+  color: #FF5913;
 }
 .find .thirdWayList:before,
 .find .thirdWayList:after {
