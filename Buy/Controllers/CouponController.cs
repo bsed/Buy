@@ -28,10 +28,11 @@ namespace Buy.Controllers
             , Enums.CouponSort sort = Enums.CouponSort.Default
             , decimal minPrice = 0, decimal maxPrice = 0, string userId = null)
         {
+            string couponUserID = Bll.Accounts.GetCouponUserID(userId);
             IQueryable<CouponQuery> query;
-            if (!string.IsNullOrWhiteSpace(userId))
+            if (!string.IsNullOrWhiteSpace(couponUserID))
             {
-                string couponUserID = Bll.Accounts.GetCouponUserID(userId);
+              
                 query = from u in db.CouponUsers
                         from s in db.Coupons
                         where u.CouponID == s.ID && u.UserID == couponUserID
