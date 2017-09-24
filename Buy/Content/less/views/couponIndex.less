@@ -311,6 +311,7 @@
 }
 
 .coupon-nav {
+    position:relative;
     .clearfix();
     background-color: @bg-color-white;
     margin-top: 8rem*@resize;
@@ -328,10 +329,22 @@
             font-size: @font-size-2;
             position: relative;
             color: @font-col-grey01;
+            padding:0 16rem*@resize;
+
+            &:nth-child(1){
+                text-align:left;
+            }
+
+            &:nth-child(3){
+                text-align:right;
+            }
 
             > span {
+                .rectangle(14rem*@resize,40rem*@resize);
+                background:url("../../images/view/ico_arrow_down_pre@2x.png") no-repeat center;
+                background-size:contain;
                 .block-horizontal-mid(50%);
-                margin-left: 40rem*@resize;
+                margin-left: 15rem*@resize;
                 z-index: @z-index-bottom;
             }
 
@@ -358,6 +371,35 @@
                             background-color: @bg-color-main;
                         }
                     }
+                }
+            }
+        }
+    }
+
+    .coupon-nav-down{
+        position:absolute;
+        width:100%;
+        top:41rem*@resize;
+        z-index:@z-index-mid;
+        border-bottom:@border;
+
+        .sort{
+            .one-line-vertical-mid(48rem*@resize);
+            background-color:@bg-color-white;
+            font-size:@font-size-2;
+            padding:0 16rem*@resize;
+            color:@font-col-grey01;
+
+            &.active{
+                color:@font-col-black01;
+
+                i{
+                    .rectangle(14rem*@resize,14rem*@resize);
+                    background:url("../../images/view/ico_checkright_black_m@2x.png") no-repeat center;
+                    background-size:contain;
+                    z-index:@z-index-bottom;
+                    margin-left:6rem*@resize;
+                    display:inline-block;
                 }
             }
         }

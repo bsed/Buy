@@ -475,6 +475,8 @@
     <Content Include="Content\images\test\img_ztihome_005%402x.png" />
     <Content Include="Content\images\test\sort.png" />
     <Content Include="Content\images\test\sort_all.png" />
+    <Content Include="Content\images\view\ico_arrow_down_pre%402x.png" />
+    <Content Include="Content\images\view\ico_checkright_black_m%402x.png" />
     <Content Include="Content\images\view\ic_navbar_back_bgblack%402x.png" />
     <Content Include="Content\images\view\ic_navbar_back_black%402x.png" />
     <Content Include="Content\images\view\ic_navbar_back_white%402x.png" />

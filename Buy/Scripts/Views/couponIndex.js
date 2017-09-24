@@ -95,12 +95,21 @@ var couponType = $("[name='type']");
 couponType.click(function () {
     var date_type = $(this).data("type");
     typeID = date_type;
-    location = comm.action("Index", "Coupon",
-        {
-            typeID: typeID,
-            platform: platform,
-            sort: sort
-        });
+
+    var $page = $("#coupon").find("ul li[data-page]");
+    $page.data("next", "true");
+    $page.data("page", "0");
+    $("#coupon").find("li").not("[data-page]").remove();
+    loadCoupon();
+
+    couponType.removeClass("active");
+    $(this).addClass("active");
+
+    comm.addHistory("url", comm.action("Index", "Coupon", {
+        sort: sort,
+        platform: platform,
+        typeID: typeID,
+    }));
 
     if (date_type == "0") {
         $("#index").removeClass("hidden");
@@ -113,12 +122,27 @@ var couponType2 = $("#sortOne [name='type']");
 couponType2.click(function () {
     var date_type = $(this).data("type");
     typeID = date_type;
-    location = comm.action("Index", "Coupon",
-        {
-            typeID: typeID,
-            platform: platform,
-            sort: sort
-        });
+
+    var $page = $("#coupon").find("ul li[data-page]");
+    $page.data("next", "true");
+    $page.data("page", "0");
+    $("#coupon").find("li").not("[data-page]").remove();
+    loadCoupon();
+
+    couponType.removeClass("active");
+    var index=$(this).index();
+    couponType.eq(index).addClass("active");
+
+    var swiper = new Swiper('.navigationSwiper .swiper-container', {
+        slidesPerView: "auto",
+        initialSlide: index
+    });
+
+    comm.addHistory("url", comm.action("Index", "Coupon", {
+        sort: sort,
+        platform: platform,
+        typeID: typeID,
+    }));
 
     if (date_type == "0") {
         $("#index").removeClass("hidden");
@@ -169,6 +193,10 @@ function loadCoupon() {
 }
 
 //排序切换
+if ($("#sort-down .sort").hasClass("active")) {
+    $("#complex").addClass("active");
+}
+
 $(".sort").click(function (e) {
     sort = $(this).data("sort");
     var $page = $("#coupon").find("ul li[data-page]");
@@ -178,11 +206,21 @@ $(".sort").click(function (e) {
     loadCoupon();
     $(".sort").removeClass("active");
     $(this).addClass("active");
+    $("#sort-down").slideUp();
+    if ($("#sort-down .sort").hasClass("active")) {
+        $("#complex").addClass("active");
+    } else {
+        $("#complex").removeClass("active");
+    }
     comm.addHistory("url", comm.action("Index", "Coupon", {
         sort: sort,
         platform: platform,
         typeID: typeID,
     }));
+});
+
+$("#complex").click(function () {
+    $("#sort-down").slideToggle();
 });
 
 //tabActive

@@ -86,11 +86,6 @@
                         </a>
                     </li>
                 }
-                <li id="sortGetAll" class="all hidden">
-                    <a>
-                        <img src="~/Content/images/test/sort_all.png" /><div>查看全部</div>
-                    </a>
-                </li>
             </ul>
         </div>
     }
@@ -153,12 +148,15 @@
                     }
     <div id="couponNav" class="coupon-nav">
         <ul>
-            <li class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<span>∨</span></li>
-            @*<li class="sort @(Request["sort"]=="3" ?"active":"")" data-sort="3">券价</li>
-                <li class="sort @(Request["sort"]=="4"?"active":"")" data-sort="4">券后价</li>*@
+            <li id="complex" class="@((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<span></span></li>
             <li class="sort @(Request["sort"]=="1" ?"active":"")" data-sort="1">人气热销</li>
             <li class="sort @(Request["sort"]=="2"?"active":"")" data-sort="2">最新上架</li>
         </ul>
+        <div id="sort-down" class="coupon-nav-down" style="display:none">
+            <div class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<i></i></div>
+            <div class="sort @(Request["sort"]=="3" ?"active":"")" data-sort="3">券后价格<i></i></div>
+            <div class="sort @(Request["sort"]=="4"?"active":"")" data-sort="4">券面额度<i></i></div>
+        </div>
     </div>
 
     <div id="coupon" class="coupon-list coupon-list-style02">
