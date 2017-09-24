@@ -1223,6 +1223,12 @@
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+.banner .banner-simple {
+  height: 5.41062802rem;
+}
+.banner .banner-simple img {
+  width: 100%;
+}
 .coupon-nav {
   background-color: #fff;
   margin-top: 0.30917874rem;

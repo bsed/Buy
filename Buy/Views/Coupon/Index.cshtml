@@ -97,41 +97,42 @@
     {
         <div id="index" class="">
             <div class="banner couponIndex-banner">
-                <div class="swiper-container">
-                    @if (banner.Count() > 1)
-                    {
-                        <div class="swiper-wrapper">
-                            @foreach (var item in banner)
-                            {
+                @*<div class="swiper-container">
+                        @if (banner.Count() > 1)
+                        {
+                            <div class="swiper-wrapper">
+                                @foreach (var item in banner)
+                                {
+                                    <div class="swiper-slide">
+                                        <a href="@Url.ContentFull(item.Link)" data-code="" title="">
+                                            <img src="@Comm.ResizeImage(item.Image)" />
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else if (banner.Count() == 1)
+                        {
+                            <div class="swiper-wrapper">
                                 <div class="swiper-slide">
-                                    <a href="@Url.ContentFull(item.Link)" data-code="" title="">
-                                        <img src="@Comm.ResizeImage(item.Image)" />
+                                    <a href="@Url.ContentFull(banner.FirstOrDefault().Link)" data-code="" title="">
+                                        <img src="@Comm.ResizeImage(banner.FirstOrDefault().Image)" />
                                     </a>
                                 </div>
-                            }
-                        </div>
-                    }
-                    else if (banner.Count() == 1)
-                    {
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <a href="@Url.ContentFull(banner.FirstOrDefault().Link)" data-code="" title="">
-                                    <img src="@Comm.ResizeImage(banner.FirstOrDefault().Image)" />
-                                </a>
                             </div>
-                        </div>
-                    }
-                    @*<div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <a href="#" data-code="" title="">
-                                    <img src="~/Content/images/test/banner_home@2x.png" />
-                                </a>
-                            </div>
-                        </div>*@
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
+                        }
+
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    <div class="couponIndex-shade"></div>*@
+                @{
+                    var banner1 = banner.FirstOrDefault();
+                }
+                <div class="banner-simple">
+                    <a href="@(Url.ContentFull(banner1?.Link))">
+                        <img src="@(Url.ResizeImage(banner1?.Image,750,280))" alt="" />
+                    </a>
                 </div>
-                <div class="couponIndex-shade"></div>
             </div>
 
             <div class="couponIndex-menu">
@@ -148,7 +149,7 @@
 
             </div>
         </div>
-    }
+                    }
     <div id="couponNav" class="coupon-nav">
         <ul>
             <li class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<span>∨</span></li>
