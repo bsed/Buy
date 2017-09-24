@@ -1576,12 +1576,6 @@
   margin-bottom: 0.30917874rem;
   line-height: 1;
 }
-.keywordTips {
-  position: absolute;
-  top: 1.70048309rem;
-  width: 100%;
-  z-index: 1100;
-}
 .keywordTips:before,
 .keywordTips:after {
   content: " ";

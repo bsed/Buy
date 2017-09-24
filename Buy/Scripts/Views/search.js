@@ -167,6 +167,7 @@ $("#search").keyup(function (e) {
                         $(".demo").before(demo);
                     });
                     $(".keywordTips").removeClass("hidden");
+                    $(".hotSearch").addClass("hidden");
 
                     $("#SearchResult li").click(function () {
                         var filterText = $(this).text();
@@ -177,6 +178,7 @@ $("#search").keyup(function (e) {
         });
     } else {
         $(".keywordTips").addClass("hidden");
+        $(".hotSearch").removeClass("hidden");
     }
 });
 
