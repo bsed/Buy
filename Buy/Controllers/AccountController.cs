@@ -261,7 +261,10 @@ namespace Buy.Controllers
                 return Json(Comm.ToJsonResult("Error", "填写注册码"));
             }
             code = code.ToUpper();
-            var registrationCodes = db.RegistrationCodes.FirstOrDefault(s => s.Code == code);
+            //允许重复码
+            var registrationCodes = db.RegistrationCodes
+                .FirstOrDefault(s => !s.UseTime.HasValue 
+                && s.Code == code);
             if (registrationCodes == null)
             {
                 return Json(Comm.ToJsonResult("Error", "没有这个注册码"));
