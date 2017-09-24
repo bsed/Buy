@@ -1,33 +1,6 @@
 ﻿
 @{
     ViewBag.Title = "优惠券";
-    var couponTypes = (List<Buy.Models.CouponTypeTreeNode>)ViewBag.CouponTypes;
-    var childType = new List<Buy.Models.CouponTypeTreeNode>();
-    int pid = 0;
-    if (!string.IsNullOrWhiteSpace(Request["typeID"]))
-    {
-        pid = int.Parse(Request["typeID"]);
-        int i = 0;
-        bool finishWhile = true;
-        while (finishWhile)
-        {
-            var item = couponTypes[i];
-            if (couponTypes[i].ID != pid)
-            {
-                var contains = item.Childs.Select(s => s.ID).Contains(pid);
-                pid = contains ? item.ID : pid;
-                finishWhile = contains ? false : true;
-            }
-            else
-            {
-                finishWhile = false;
-            }
-            i++;
-            
-        }
-        var ctype = couponTypes.FirstOrDefault(s => s.ID == pid).Childs;
-        childType = ctype == null ? childType : ctype;
-    }
     var p = Buy.Enums.CouponPlatform.TaoBao;
     if (!string.IsNullOrWhiteSpace(Request["platform"]))
     {
@@ -35,7 +8,6 @@
     }
     var banner = (List<Buy.Models.BannerSetting>)ViewBag.Banner;
     var classify = (List<Buy.Models.BannerSetting>)ViewBag.Classify;
-
 }
 @Styles.Render("~/bundles/swiper/css")
 
@@ -52,100 +24,64 @@
     <div class="navigationSwiper top44">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                @foreach (var item in couponTypes)
-                {
-                    string active = pid == item.ID ? "active" : "";
-                    <div name="type" class="swiper-slide @active" data-type="@item.ID">
-                        @item.Name<i></i>
-                    </div>
-                }
+                <div name="type" class="swiper-slide active" data-type="0">
+                    <span>精选</span><i></i>
+                </div>
+                <div name="type" class="swiper-slide hidden swiperDemo" data-type="">
+                    <span></span><i></i>
+                </div>
             </div>
         </div>
         <div id="pullDown" class="pullDown"></div>
     </div>
     <div id="sortOne" class="sortList style03" style="display:none">
         <ul>
-            @foreach (var item in couponTypes)
-            {
-                string active = pid == item.ID ? "active" : "";
-                <li name="type" class="@active" data-type="@item.ID">
-                    <img src="@Url.ResizeImage(item.Image,80,80)" /><div>@item.Name</div>
-                </li>
-            }
+            <li name="type" data-type="0">
+                <img src="@Url.ResizeImage("~/Content/images/view/img_Index.jpg",80,80)" /><div class="name">精选</div>
+            </li>
+            <li name="type" class="hidden sortListDemo" data-type="">
+                <img src="" /><div class="name"></div>
+            </li>
         </ul>
     </div>
-    @if (pid != 0)
-    {
-        <div name="sortList" class="sortList">
+    @*二级分类*@
+    <div name="sortList" class="sortList hidden">
+        <ul class="childDemo hidden" data-type="0">
+            <li class="hidden">
+                <a name="childType">
+                    <img src="" />
+                    <div class="name"></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    @*banner*@
+    <div id="index" class="">
+        <div class="banner couponIndex-banner">
+            @{
+                var banner1 = banner.FirstOrDefault();
+            }
+            <div class="banner-simple">
+                <a href="@(Url.ContentFull(banner1?.Link))">
+                    <img src="@(Url.ResizeImage(banner1?.Image,750,280))" alt="" />
+                </a>
+            </div>
+        </div>
+        <div class="couponIndex-menu">
             <ul>
-                @foreach (var item in childType)
+                @foreach (var item in classify)
                 {
                     <li>
-                        <a name="childType" data-type="@item.ID">
-                            <img src="@Url.ResizeImage(item.Image,80,80)" /><div class="name">@item.Name</div>
+                        <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
+                            <img src="@Comm.ResizeImage( item.Image)" />
                         </a>
                     </li>
                 }
             </ul>
+
         </div>
-    }
-    else
-    {
-        <div id="index" class="">
-            <div class="banner couponIndex-banner">
-                @*<div class="swiper-container">
-                        @if (banner.Count() > 1)
-                        {
-                            <div class="swiper-wrapper">
-                                @foreach (var item in banner)
-                                {
-                                    <div class="swiper-slide">
-                                        <a href="@Url.ContentFull(item.Link)" data-code="" title="">
-                                            <img src="@Comm.ResizeImage(item.Image)" />
-                                        </a>
-                                    </div>
-                                }
-                            </div>
-                        }
-                        else if (banner.Count() == 1)
-                        {
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <a href="@Url.ContentFull(banner.FirstOrDefault().Link)" data-code="" title="">
-                                        <img src="@Comm.ResizeImage(banner.FirstOrDefault().Image)" />
-                                    </a>
-                                </div>
-                            </div>
-                        }
+    </div>
 
-                        <div class="swiper-pagination"></div>
-                    </div>
-                    <div class="couponIndex-shade"></div>*@
-                @{
-                    var banner1 = banner.FirstOrDefault();
-                }
-                <div class="banner-simple">
-                    <a href="@(Url.ContentFull(banner1?.Link))">
-                        <img src="@(Url.ResizeImage(banner1?.Image,750,280))" alt="" />
-                    </a>
-                </div>
-            </div>
-
-            <div class="couponIndex-menu">
-                <ul>
-                    @foreach (var item in classify)
-                    {
-                        <li>
-                            <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
-                                <img src="@Comm.ResizeImage( item.Image)" />
-                            </a>
-                        </li>
-                    }
-                </ul>
-
-            </div>
-        </div>
-                    }
     <div id="couponNav" class="coupon-nav">
         <ul>
             <li id="complex" class="@((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<span></span></li>
