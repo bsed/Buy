@@ -7,6 +7,16 @@ var sTop = $(".navigationBar").height();
 var tTop = $(".navigationSwiper").height();
 var loopState = false;
 
+function nodataCheck(target) {
+    if ($(target).children().length == "0") {
+        $(".nodata").addClass("hidden");
+
+        if ($(".nodata").hasClass("hidden")) {
+            $(".nodata").removeClass("hidden");
+        }
+    }
+}
+
 //swiper
 function typeSwipe() {
     var slideIndexHead = $("[name='type'].active").index();
@@ -229,6 +239,7 @@ function loadCoupon() {
     }
     var page = parseInt($page.data("page")) + 1;
     canLoadPage = false;
+    $(".nodata").addClass("hidden");
     $.ajax({
         type: "GET",
         url: comm.action("GetList", "Coupon"),
@@ -249,6 +260,9 @@ function loadCoupon() {
         },
         complete: function () {
             canLoadPage = true;
+            if ($coupon.find("li").length == 0) {
+                nodataCheck("#coupon ul");
+            }
         }
     });
 }
