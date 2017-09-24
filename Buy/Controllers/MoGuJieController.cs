@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Buy.Models;
-
+using System.Data.Entity;
 namespace Buy.Controllers
 {
     public class MoGuJieController : Controller
@@ -47,7 +47,7 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult GetCategory()
         {
-            
+
             var mgj = new MoGuJie.Method();
             var cids = MoGuJie.Method.AllCategory;
             foreach (var cid in cids)
@@ -118,7 +118,9 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult Count(string userID)
         {
-            var count = db.Coupons.Count(s => s.Platform == Enums.CouponPlatform.MoGuJie);
+            var count = db.CouponUsers
+                .Include(s => s.Coupon)
+                .Count(s => s.Platform == Enums.CouponPlatform.MoGuJie && s.Coupon.CreateDateTime > DateTime.Now);
 
             return Json(Comm.ToJsonResult("Success", "成功", new { Count = count }), JsonRequestBehavior.AllowGet);
         }
