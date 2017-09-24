@@ -155,7 +155,7 @@
 
                 .lingquan {
                     background: url("../../images/view/tag_quan@2x.png") no-repeat center;
-                    @h:28.5rem*1.2*@resize;
+                    @h: 28.5rem*1.2*@resize;
                     .rectangle(64rem*1.2*@resize,@h);
                     background-size: contain;
                     padding-left: 26rem*@resize;
@@ -386,12 +386,17 @@
 
         &.platform {
             li {
+                > div {
+                    text-align: center !important;
+                }
+
                 &.active {
                     color: @font-col-main;
 
                     > div {
                         display: inline-block;
                         position: relative;
+
 
                         i {
                             position: absolute;

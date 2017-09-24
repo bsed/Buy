@@ -1325,6 +1325,9 @@
   /* Opera */
   -moz-transform: rotate(0);
 }
+.coupon-nav ul.platform li > div {
+  text-align: center !important;
+}
 .coupon-nav ul.platform li.active {
   color: #FF5913;
 }
