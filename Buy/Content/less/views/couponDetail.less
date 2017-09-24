@@ -88,8 +88,11 @@
 
         > div {
             position: relative;
-            width: 85%;
-            margin: 4rem*@resize auto 0 auto;
+            /*width: 85%;*/
+            float: right;
+            padding: 0 10rem*@resize;
+            
+            margin: 4rem*@resize  4rem*@resize 0  0;
             .one-line-vertical-mid(39rem*@resize);
             background: -webkit-linear-gradient(left, #FF922B, #FF5913); /* Safari 5.1 - 6.0 */
             background: -o-linear-gradient(right, #FF922B, #FF5913); /* Opera 11.1 - 12.0 */
@@ -99,9 +102,9 @@
 
         .border-round {
             .rectangle(7rem*@resize,39rem*@resize);
-            position:absolute;
-            top:0;
-            z-index:@z-index-bottom;
+            position: absolute;
+            top: 0;
+            z-index: @z-index-bottom;
 
             > div {
                 .square(7rem*@resize);
@@ -110,12 +113,12 @@
                 margin-top: 2rem*@resize;
             }
 
-            &.left{
-                left:-2.5rem*@resize;
+            &.left {
+                left: -2.5rem*@resize;
             }
 
-            &.right{
-                right:-2.5rem*@resize;
+            &.right {
+                right: -2.5rem*@resize;
             }
         }
     }
