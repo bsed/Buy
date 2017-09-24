@@ -465,9 +465,14 @@
     <Content Include="Content\images\home\slide_yj_bg_001.png" />
     <Content Include="Content\images\home\slide_yj_bg_001_m.png" />
     <Content Include="Content\images\test\banner_home%402x.png" />
+    <Content Include="Content\images\test\banner_mogujie_01%402x.png" />
     <Content Include="Content\images\test\coupon-detail-pimg02.png" />
     <Content Include="Content\images\test\find_banner.png" />
     <Content Include="Content\images\test\img_logo_login%402x.png" />
+    <Content Include="Content\images\test\img_mgjzthome_001%402x.png" />
+    <Content Include="Content\images\test\img_mgjzthome_002%402x.png" />
+    <Content Include="Content\images\test\img_mgjzthome_003%402x.png" />
+    <Content Include="Content\images\test\img_mgjzthome_004%402x.png" />
     <Content Include="Content\images\test\img_ztihome_001%402x.png" />
     <Content Include="Content\images\test\img_ztihome_002%402x.png" />
     <Content Include="Content\images\test\img_ztihome_003%402x.png" />

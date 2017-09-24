@@ -25,6 +25,21 @@
                 }
             }
         }
+
+        &.style02 {
+            padding: 8rem*@resize;
+
+            ul {
+
+                li {
+                    width:50%;
+                    padding:8rem*@resize;
+                    float:left;
+
+                    .img();
+                }
+            }
+        }
     }
 }
 
@@ -303,7 +318,7 @@
 
     .banner-simple {
         height: 155rem*@resize;
-        overflow:hidden;
+        overflow: hidden;
 
         img {
             width: 100%;
@@ -357,11 +372,9 @@
 
             &.active {
                 color: @font-col-black01;
-
-                
             }
 
-            &.rotete{
+            &.rotete {
                 > span {
                     transform: rotate(0);
                     -ms-transform: rotate(0); /* IE 9 */
