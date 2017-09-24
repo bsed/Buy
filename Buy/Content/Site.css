@@ -3089,6 +3089,86 @@
     opacity: 0;
   }
 }
+.linkToCoupon {
+  height: 1.93236715rem;
+  line-height: 1.93236715rem;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  font-size: 0.77294686rem;
+  background: rgba(16, 16, 16, 0.6);
+  color: #fff;
+  z-index: 10000;
+}
+.linkToCoupon a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.linkToCoupon a:hover,
+.linkToCoupon a:active,
+.linkToCoupon a:focus {
+  color: inherit;
+}
+.linkToCoupon img {
+  width: 0.6763285rem;
+  height: 0.59903382rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  margin-left: 3.28502415rem;
+  -webkit-animation: arrow-r 1s infinite ease-in-out;
+  animation: arrow-r 1s infinite ease-in-out;
+}
+@keyframes arrow-r {
+  from {
+    margin-left: 3.28502415rem;
+    opacity: 0;
+  }
+  to {
+    margin-left: 3.67149758rem;
+    opacity: 1;
+  }
+}
+@-moz-keyframes arrow-r {
+  /* Firefox */
+  from {
+    margin-left: 3.28502415rem;
+    opacity: 0;
+  }
+  to {
+    margin-left: 3.67149758rem;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes arrow-r {
+  /* Safari 和 Chrome */
+  from {
+    margin-left: 3.28502415rem;
+    opacity: 0;
+  }
+  to {
+    margin-left: 3.67149758rem;
+    opacity: 1;
+  }
+}
+@-o-keyframes arrow-r {
+  /* Opera */
+  from {
+    margin-left: 3.28502415rem;
+    opacity: 0;
+  }
+  to {
+    margin-left: 3.67149758rem;
+    opacity: 1;
+  }
+}
 body {
   color: rgba(0, 0, 0, 0.87);
   min-height: 100vh;
