@@ -32,10 +32,9 @@
             ul {
 
                 li {
-                    width:50%;
-                    padding:8rem*@resize;
-                    float:left;
-
+                    width: 50%;
+                    padding: 8rem*@resize;
+                    float: left;
                     .img();
                 }
             }
@@ -147,20 +146,20 @@
             }
 
             .couponList-ticket {
-                text-align: center;
+                text-align: left;
                 position: relative;
                 font-size: @font-size-1;
                 position: absolute;
                 right: 16rem*@resize;
-                bottom: 8rem*@resize;
-
+                bottom: 12rem*@resize;
 
                 .lingquan {
                     background: url("../../images/view/tag_quan@2x.png") no-repeat center;
-                    .rectangle(64rem*@resize,28.5rem*@resize);
+                    @h:28.5rem*1.2*@resize;
+                    .rectangle(64rem*1.2*@resize,@h);
                     background-size: contain;
-                    padding-left: 15rem*@resize;
-                    line-height: 32rem*@resize;
+                    padding-left: 26rem*@resize;
+                    line-height: @h;
                     color: @font-col-white;
                 }
             }
