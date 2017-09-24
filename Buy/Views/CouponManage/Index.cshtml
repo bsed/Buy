@@ -185,7 +185,7 @@
                 @Html.DisplayFor(modelItem => item.EndDateTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreateDateTime)
+                @item.CreateDateTime.ToString("yyyy-MM-dd HH:mm")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Sales)
