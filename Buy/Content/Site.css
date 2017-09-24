@@ -1226,7 +1226,8 @@
   transform: translateY(-50%);
 }
 .banner .banner-simple {
-  height: 5.41062802rem;
+  height: 5.99033816rem;
+  overflow: hidden;
 }
 .banner .banner-simple img {
   width: 100%;
@@ -1576,12 +1577,6 @@
   margin-right: 0.30917874rem;
   margin-bottom: 0.30917874rem;
   line-height: 1;
-}
-.keywordTips {
-  position: absolute;
-  top: 1.70048309rem;
-  width: 100%;
-  z-index: 1100;
 }
 .keywordTips:before,
 .keywordTips:after {
