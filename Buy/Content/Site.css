@@ -1333,6 +1333,9 @@
   margin-left: 0.23188406rem;
   display: inline-block;
 }
+.coupon-nav .coupon-nav-down.t81 {
+  top: 3.13043478rem;
+}
 .coupon-nav.fixTop44 {
   position: fixed;
   top: 1.70048309rem;
@@ -1557,7 +1560,7 @@
   position: absolute;
   top: 1.70048309rem;
   width: 100%;
-  z-index: 100;
+  z-index: 1100;
 }
 .keywordTips:before,
 .keywordTips:after {
@@ -3512,7 +3515,8 @@ textarea {
   width: 100%;
   height: 1.70048309rem;
   margin: 0 auto;
-  padding: 0 0.61835749rem;
+  padding-left: 0.61835749rem;
+  padding-right: 1.15942029rem;
 }
 .navigationSwiper .swiper-container .swiper-slide {
   width: auto;

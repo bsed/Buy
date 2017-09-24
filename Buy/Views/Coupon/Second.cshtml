@@ -22,15 +22,20 @@
         @Html.Hidden("name", Request["name"])
         <input id="secound" value="secound" type="hidden" />
         <ul>
-            <li class="active sort" data-sort="0">综合排序<span>∨</span></li>
-            <li class="sort" data-sort="1">人气热销</li>
-            <li class="sort" data-sort="2">最新上架</li>
+            <li id="complex" class="@((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<span></span></li>
+            <li class="sort @(Request["sort"]=="1" ?"active":"")" data-sort="1">人气热销</li>
+            <li class="sort @(Request["sort"]=="2"?"active":"")" data-sort="2">最新上架</li>
         </ul>
+        <div id="sort-down" class="coupon-nav-down" style="display:none">
+            <div class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<i></i></div>
+            <div class="sort @(Request["sort"]=="3" ?"active":"")" data-sort="3">券后价格<i></i></div>
+            <div class="sort @(Request["sort"]=="4"?"active":"")" data-sort="4">券面额度<i></i></div>
+        </div>
     </div>
     <div id="coupon" class="coupon-list coupon-list-style02">
         <ul>
             <li class="loadModule loadModule-dataIng" data-page="0" data-next="true">
-                加载中
+                <img class="marginR8" src="~/Content/images/view/loadingGif.gif" />加载中
             </li>
         </ul>
         <div class="nodata hidden nodata-style03">
@@ -39,6 +44,8 @@
     </div>
 
     <div class="setScrollTop" style="display:none"><img src="~/content/images/view/img_backtop@2x.png" /></div>
+
+    <img id="loading" class="hidden" src="~/Content/images/view/loadingGif.gif" />
 </div>
 
 

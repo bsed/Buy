@@ -8,13 +8,14 @@ var tTop = $(".navigationSwiper").height();
 var loopState = false;
 
 //swiper
-if ($(".navigationSwiper").length > 0) {
+function typeSwipe() {
     var slideIndexHead = $("[name='type'].active").index();
     var swiper = new Swiper('.navigationSwiper .swiper-container', {
         slidesPerView: "auto",
         initialSlide: slideIndexHead
     });
 }
+
 
 //主导航
 if ($(".couponIndex-banner").find(".swiper-wrapper").length > 0) {
@@ -112,8 +113,10 @@ function GetCouponType() {
                 $(".childDemo").before(childDemo);
             });
             TypeClick();
-            
-            if (Number(typeID)!=0) {
+
+            typeSwipe();
+
+            if (Number(typeID) != 0) {
                 $("#index").addClass("hidden");
                 $("[name='type']").removeClass("active");
                 $("[name='type'][data-type=" + typeID + "]").addClass("active");

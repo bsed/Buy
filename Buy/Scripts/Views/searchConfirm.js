@@ -5,10 +5,12 @@
     types = $("#types").val();
 var canLoadPage = true;
 
+var loading = $("#loading").attr("src");
+
 function clear(target) {
     $(target).children().remove();
     var html = "";
-    html += '<li class="loadModule loadModule-dataIng" data-page="0" data-next="true">加载中</li>';
+    html += '<li class="loadModule loadModule-dataIng" data-page="0" data-next="true"><img class="marginR8" src="'+loading+'" />加载中</li>';
     $(target).append(html);
 }
 
@@ -82,10 +84,28 @@ $(".setScrollTop").click(function () {
 });
 
 //排序切换
+if ($("#sort-down .sort").hasClass("active")) {
+    $("#complex").addClass("active");
+}
+
 $(".sort").click(function (e) {
     sort = $(this).data("sort");
     $(".sort").removeClass("active");
     $(this).addClass("active");
     clear("#coupon ul");
     loadCoupon();
+    $("#sort-down").slideUp();
+    if ($("#sort-down .sort").hasClass("active")) {
+        $("#complex").addClass("active");
+    } else {
+        $("#complex").removeClass("active");
+    }
+    comm.addHistory("url", comm.action("Index", "Coupon", {
+        sort: sort,
+        platform: platform
+    }));
+});
+
+$("#complex").click(function () {
+    $("#sort-down").slideToggle();
 });

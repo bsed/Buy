@@ -33,6 +33,7 @@ function loadcoupon() {
     }
     var page = $page.data("page") + 1;
     canLoadPage = false;
+    $(".nodata").addClass("hidden");
 
     $.ajax({
         type: "GET",
@@ -54,7 +55,9 @@ function loadcoupon() {
         },
         complete: function () {
             canLoadPage = true;
-            nodataCheck("#coupon ul");
+            if ($coupon.find("li").length == 0) {
+                nodataCheck("#coupon ul");
+            }
         }
     });
 
@@ -163,9 +166,17 @@ $("#search").keyup(function (e) {
                         var demo = $("#SearchResult").find(".demo").clone().removeClass("demo hidden").append(d);
                         $(".demo").before(demo);
                     });
+                    $(".keywordTips").removeClass("hidden");
+
+                    $("#SearchResult li").click(function () {
+                        var filterText = $(this).text();
+                        search(filterText);
+                    });
                 }
             }
         });
+    } else {
+        $(".keywordTips").addClass("hidden");
     }
 });
 
@@ -185,9 +196,9 @@ $("[name='hotSearchList']").click(function () {
 });
 
 //列表-搜索
-function searchConfirm() {
+function searchConfirm(val) {
     var state = true;
-    var filterText = $("[name='filterText']").val();
+    var filterText = val;
     filter = filterText;
 
     if (array[0] == "null") {
@@ -226,8 +237,44 @@ function searchConfirm() {
     }
 }
 
+//搜索提示
+$("#searchConfirm").keyup(function (e) {
+    if ($("#searchConfirm").val() != "") {
+        $.ajax({
+            type: "GET",
+            url: comm.action("AutoComplate", "Coupon"),
+            data: { keyword: $("#searchConfirm").val() },
+            dataType: "json",
+            success: function (data) {
+                if (data.State == "Success") {
+                    $("#SearchResult").children().not(".demo").remove();
+                    $.each(data.Result, function (i, item) {
+                        var t = item;
+                        var val = $("#searchConfirm").val();
+                        var b = "<b>" + val + "</b>";
+                        var d = t.replace(new RegExp(val, 'g'), b);
+                        var demo = $("#SearchResult").find(".demo").clone().removeClass("demo hidden").append(d);
+                        $(".demo").before(demo);
+                    });
+                    $(".keywordTips").removeClass("hidden");
+
+                    $("#SearchResult li").click(function () {
+                        var filterText = $(this).text();
+                        searchConfirm(filterText);
+                        $(".keywordTips").addClass("hidden");
+                        $("#searchConfirm").val(filterText);
+                    });
+                }
+            }
+        });
+    } else {
+        $(".keywordTips").addClass("hidden");
+    }
+});
+
 $("#searchConfirm").bind('search', function () {
-    searchConfirm();
+    var filterText = $("[name='filterText']").val();
+    searchConfirm(filterText);
 
     comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
         filter: filter,
@@ -237,7 +284,8 @@ $("#searchConfirm").bind('search', function () {
 });
 
 $("#searchConfirmBtn").click(function () {
-    searchConfirm();
+    var filterText = $("[name='filterText']").val();
+    searchConfirm(filterText);
 
     comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
         filter: filter,
@@ -247,8 +295,8 @@ $("#searchConfirmBtn").click(function () {
 });
 
 //平台切换
-$(".platform").click(function (e) {
-    $(".platform").removeClass("active");
+$(".platformLi").click(function (e) {
+    $(".platformLi").removeClass("active");
     $(this).addClass("active");
     platform = $(this).data("platform");
 
@@ -262,14 +310,24 @@ $(".platform").click(function (e) {
     }));
 });
 
+
 //排序切换
+if ($("#sort-down .sort").hasClass("active")) {
+    $("#complex").addClass("active");
+}
+
 $(".sort").click(function (e) {
+    sort = $(this).data("sort");
     $(".sort").removeClass("active");
     $(this).addClass("active");
-    sort = $(this).data("sort");
-
     clear($('#coupon ul'));
     loadcoupon();
+    $("#sort-down").slideUp();
+    if ($("#sort-down .sort").hasClass("active")) {
+        $("#complex").addClass("active");
+    } else {
+        $("#complex").removeClass("active");
+    }
     comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
         filter: filter,
         sort: sort,
@@ -277,3 +335,6 @@ $(".sort").click(function (e) {
     }));
 });
 
+$("#complex").click(function () {
+    $("#sort-down").slideToggle();
+});
