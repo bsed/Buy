@@ -1224,7 +1224,8 @@
   transform: translateY(-50%);
 }
 .banner .banner-simple {
-  height: 5.41062802rem;
+  height: 5.99033816rem;
+  overflow: hidden;
 }
 .banner .banner-simple img {
   width: 100%;
