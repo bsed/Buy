@@ -16,6 +16,8 @@ namespace Buy
         public const string UserManageCreate = "UserManageCreate";
         public const string UserManageEdit = "UserManageEdit";
         public const string UserManageDelete = "UserManageDelete";
+        public const string UserManageUpdate = "UserManageUpdate";
+
 
         public const string CouponTypeManageRead = "CouponTypeManageRead";
         public const string CouponTypeManageCreate = "CouponTypeManageCreate";
@@ -51,6 +53,8 @@ namespace Buy
         public const string ClassifyManageCreate = "ClassifyManageCreate";
         public const string ClassifyManageEdit = "ClassifyManageEdit";
         public const string ClassifyManageDelete = "ClassifyManageDelete";
+
+       
 
     }
 }

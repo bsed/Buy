@@ -82,6 +82,36 @@ namespace Buy.Models
         [DataType(DataType.Password)]
         [Display(Name = "密码")]
         public string Password { get; set; }
+
+        [Display(Name = "上级昵称")]
+        public string ParentUserNickName { get; set; }
+
+        [Display(Name = "上级ID")]
+        public string ParentUserID { get; set; }
+    }
+
+
+    public class RegisterChildViewModel
+    {
+        [Required]
+        [RegularExpression(Reg.MOBILE)]
+        [Display(Name = "电话号码")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "验证码")]
+        public string Code { get; set; }
+
+        [Display(Name = "用户类型")]
+        public Enums.UserType UserType { get; set; }
+
+        [Display(Name = "权限分组")]
+        public string Par { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "密码")]
+        public string Password { get; set; }
     }
 
     public class ResetPasswordViewModel

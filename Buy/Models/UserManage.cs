@@ -8,7 +8,7 @@ namespace Buy.Models
 {
     public class UserManage
     {
-        [Display(Name ="ID")]
+        [Display(Name = "ID")]
         public string Id { get; set; }
 
         [Display(Name = "用户名")]
@@ -29,5 +29,8 @@ namespace Buy.Models
 
         [Display(Name = "昵称")]
         public string NickName { get; set; }
+
+        [Display(Name = "类别")]
+        public Enums.UserType UserType { get; set; }
     }
 }

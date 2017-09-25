@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Buy.Models.UserManage>
+
+@{
+    ViewBag.Title = "子用户管理";
+    Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+    var paged = (PagedList.IPagedList<Buy.Models.UserManage>)Model;
+    Buy.Models.ApplicationUser user = ViewBag.User;
+}
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Index")">用户管理</a></li>
+    <li class="active">@($"{user.NickName}({user.UserName})")</li>
+</ol>
+<input id="hidUserID" type="hidden" value="@user.Id" />
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("添加子级代理", "Create", new { UserType = Buy.Enums.UserType.ProxySec, PID = user.Id })</li>
+                <li>@Html.ActionLink("添加子级用户", "Create", new { userType = Buy.Enums.UserType.Normal, PID = user.Id })</li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NickName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegisterDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Count)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnUseCount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.UserType.GetDisplayName()
+            </td>
+            <td>
+                @Html.HiddenFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NickName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegisterDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UseCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnUseCount)
+            </td>
+            <td>
+                @Html.ActionLink("添加注册码", "Create", "RegistrationCode", new { userId = item.Id }, null)|
+                @Html.ActionLink("查看注册码", "Index", "RegistrationCode", new { userId = item.Id }, null)|
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id })|
+                <a name="btnUpdate" href="#" data-name="@item.NickName">升级代理</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@Html.PageList(paged, Url.PageUrl())
+@Scripts.Render("~/bundles/useManageChild.js")

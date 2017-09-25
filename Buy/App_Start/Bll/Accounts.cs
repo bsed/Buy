@@ -54,8 +54,7 @@ namespace Buy.Bll
                     {
                         case Enums.UserType.Normal:
                             {
-                                var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == userId);
-                                couponUserID = code == null ? null : code.OwnUser;
+                                couponUserID = db.Users.FirstOrDefault(s => s.Id == userId).ParentUserID;
                             }
                             break;
                         case Enums.UserType.Proxy:

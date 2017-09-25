@@ -649,6 +649,7 @@
     <Content Include="Scripts\Views\roleGroup.js" />
     <Content Include="Scripts\Views\search.js" />
     <Content Include="Scripts\Views\searchConfirm.js" />
+    <Content Include="Scripts\Views\useManageChild.js" />
     <Content Include="Scripts\Views\userIndex.js" />
     <Content Include="Scripts\zepto.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -745,6 +746,7 @@
     <Content Include="Views\ClassManage\Edit.cshtml" />
     <Content Include="Views\UrlMatch\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\UrlMatchModel.cshtml" />
+    <Content Include="Views\UserManage\Child.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Banner\" />

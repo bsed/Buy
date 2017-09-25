@@ -71,12 +71,20 @@ namespace Buy.Controllers
 
         // GET: UserManage/Create
         [Authorize(Roles = SysRole.UserManageCreate)]
-        public ActionResult Create(Enums.UserType userType = Enums.UserType.Proxy)
+        public ActionResult Create(Enums.UserType userType = Enums.UserType.Proxy, string pid = null)
         {
             Sidebar();
+            Models.ApplicationUser user = null;
+            if (!string.IsNullOrWhiteSpace(pid))
+            {
+                user = db.Users.FirstOrDefault(s => s.Id == pid);
+            }
             var model = new RegisterViewModel()
             {
-                UserType = userType
+                UserType = userType,
+                ParentUserID = user?.Id,
+                ParentUserNickName = user.NickName
+
             };
             if (userType == Enums.UserType.System)
             {
@@ -115,7 +123,12 @@ namespace Buy.Controllers
                 var result = UserManager.CreateAsync(user, model.Password);
                 if (result.Result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    var returnUrl = Request["ReturnUrl"];
+                    if (string.IsNullOrWhiteSpace(returnUrl))
+                    {
+                        returnUrl = Url.Action("index");
+                    }
+                    return Redirect(returnUrl);
                 }
             }
             if (model.UserType == Enums.UserType.System)
@@ -125,6 +138,7 @@ namespace Buy.Controllers
             }
             return View(model);
         }
+
 
         // GET: UserManage/Edit/5
         [Authorize(Roles = SysRole.UserManageEdit)]
@@ -266,6 +280,71 @@ namespace Buy.Controllers
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
+
+        [HttpGet]
+        public ActionResult Child(string id, int page = 1)
+        {
+            Sidebar();
+            ViewBag.User = db.Users.FirstOrDefault(s => s.Id == id);
+            var userlist = (from u in db.Users
+                            where u.ParentUserID == id
+                            join r in db.RegistrationCodes
+                            on u.Id equals r.OwnUser
+                            into c
+                            select new UserManage()
+                            {
+                                Count = c.Count(),
+                                Id = u.Id,
+                                RegisterDateTime = u.RegisterDateTime,
+                                UnUseCount = c.Count(s => !s.UseTime.HasValue),
+                                UseCount = c.Count(s => s.UseTime.HasValue),
+                                UserName = u.UserName,
+                                NickName = u.NickName,
+                                UserType = u.UserType
+                            })
+                .OrderByDescending(s => s.RegisterDateTime)
+                .ToPagedList(page);
+            return View(userlist);
+        }
+
+        [HttpPost]
+        public ActionResult Update(string id)
+        {
+            var user = db.Users.FirstOrDefault(s => s.Id == id);
+            if (user == null)
+            {
+                return Json(Comm.ToJsonResult("NoFound", "用户不存在"));
+            }
+            else if (user.UserType == Enums.UserType.Proxy)
+            {
+                return Json(Comm.ToJsonResult("Error", "已经代理"));
+            }
+            else
+            {
+                //升级代理后把已经注册的用户移动自己下面，未注册的帐号不影响
+                user.ParentUserID = null;
+                user.UserType = Enums.UserType.Proxy;
+                var codes = db.RegistrationCodes
+                    .Where(s => s.OwnUser == user.Id)
+                    .Select(s => s.UseUser)
+                    .ToList();
+
+                var childs = db.Users.Where(s => codes.Contains(s.Id)).ToList();
+                foreach (var item in childs)
+                {
+                    item.ParentUserID = user.Id;
+                }
+                db.SaveChanges();
+                return Json(Comm.ToJsonResult("Success", $"升级成功,{codes.Count}个激活码和{childs.Count}个用户", new
+                {
+                    CodeCount = codes.Count,
+                    UserCount = childs.Count
+                }));
+            }
+
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {
