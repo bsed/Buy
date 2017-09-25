@@ -268,6 +268,7 @@ $(".platformLi").click(function (e) {
 //排序切换
 if ($("#sort-down .sort").hasClass("active")) {
     $("#complex").addClass("active");
+    $("#complex").find("t").text($("#sort-down .sort.active").text());
 }
 
 $(".sort").click(function (e) {
@@ -280,8 +281,10 @@ $(".sort").click(function (e) {
     $("#sort-down").slideUp();
     if ($("#sort-down .sort").hasClass("active")) {
         $("#complex").addClass("active");
+        $("#complex").find("t").text($("#sort-down .sort.active").text());
     } else {
         $("#complex").removeClass("active");
+        $("#complex").find("t").text("综合排序");
     }
     comm.addHistory("url", comm.action("SearchConfirm", "Coupon", {
         filter: filter,

@@ -49,7 +49,7 @@
         li {
             position: relative;
             background-color: @bg-color-white;
-            margin-top: 8rem*@resize;
+            padding-top: 8rem*@resize;
             display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
             display: -moz-box; /* 老版本语法: Firefox (buggy) */
             display: -ms-flexbox; /* 混合版本语法: IE 10 */
@@ -170,7 +170,7 @@
         ul {
             li {
                 &:first-child {
-                    margin-top: 0;
+                    padding-top: 0;
                 }
             }
         }
@@ -362,11 +362,11 @@
                 margin-left: 15rem*@resize;
                 z-index: @z-index-bottom;
                 transition: 0.3s all;
-                transform: rotate(180deg);
-                -ms-transform: rotate(180deg); /* IE 9 */
-                -webkit-transform: rotate(180deg); /* Safari and Chrome */
-                -o-transform: rotate(180deg); /* Opera */
-                -moz-transform: rotate(180deg);
+                transform: rotate(0);
+                -ms-transform: rotate(0); /* IE 9 */
+                -webkit-transform: rotate(0); /* Safari and Chrome */
+                -o-transform: rotate(0); /* Opera */
+                -moz-transform: rotate(0);
             }
 
             &.active {
@@ -375,20 +375,18 @@
 
             &.rotete {
                 > span {
-                    transform: rotate(0);
-                    -ms-transform: rotate(0); /* IE 9 */
-                    -webkit-transform: rotate(0); /* Safari and Chrome */
-                    -o-transform: rotate(0); /* Opera */
-                    -moz-transform: rotate(0);
+                    transform: rotate(180deg);
+                    -ms-transform: rotate(180deg); /* IE 9 */
+                    -webkit-transform: rotate(180deg); /* Safari and Chrome */
+                    -o-transform: rotate(180deg); /* Opera */
+                    -moz-transform: rotate(180deg);
                 }
             }
         }
 
         &.platform {
             li {
-                > div {
-                    text-align: center !important;
-                }
+                text-align: center;
 
                 &.active {
                     color: @font-col-main;

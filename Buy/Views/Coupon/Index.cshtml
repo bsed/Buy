@@ -66,7 +66,10 @@
                     <img src="@(Url.ResizeImage(banner1?.Image, 750, 280))" alt="" />
                 </a>
             </div>
-            <div class="couponIndex-shade"></div>
+            @if (p == Buy.Enums.CouponPlatform.TaoBao)
+            {
+                <div class="couponIndex-shade"></div>
+            }
         </div>
         <div class="couponIndex-menu @(p== Buy.Enums.CouponPlatform.MoGuJie?"style02":"")">
             <ul>

@@ -209,7 +209,9 @@ namespace Buy.Enums
         [Display(Name = "管理员")]
         System,
         [Display(Name = "代理")]
-        Proxy
+        Proxy,
+        [Display(Name = "二级代理")]
+        ProxySec
     }
 
     public enum ShareLogType

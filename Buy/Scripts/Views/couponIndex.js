@@ -270,6 +270,7 @@ function loadCoupon() {
 //排序切换
 if ($("#sort-down .sort").hasClass("active")) {
     $("#complex").addClass("active");
+    $("#complex").find("t").text($("#sort-down .sort.active").text());
 }
 
 $(".sort").click(function (e) {
@@ -281,24 +282,27 @@ $(".sort").click(function (e) {
     loadCoupon();
     $(".sort").removeClass("active");
     $(this).addClass("active");
+    $("#sortOne").hide();
     $("#complex").removeClass("rotete");
     $("#sort-down").slideUp();
     if ($("#sort-down .sort").hasClass("active")) {
         $("#complex").addClass("active");
+        $("#complex").find("t").text($("#sort-down .sort.active").text());
     } else {
         $("#complex").removeClass("active");
+        $("#complex").find("t").text("综合排序");
     }
     comm.addHistory("url", comm.action("Index", "Coupon", {
         sort: sort,
         platform: platform,
         typeID: typeID,
     }));
-    $("#complex").find("t").text($(this).text());
 });
 
 $("#complex").click(function () {
     $("#sort-down").slideToggle();
     $(this).toggleClass("rotete");
+    $("#sortOne").hide();
 });
 
 //tabActive
@@ -314,4 +318,5 @@ $("#pullDown").click(function () {
     comm.mask3();
     $("body").css("overflow", "hidden");
     $("#sortOne").slideDown();
+    $("#sort-down").hide();
 });

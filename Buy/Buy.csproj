@@ -387,6 +387,10 @@
     <Compile Include="Migrations\201709221856315_CouponRemoveUserIDAndLink.Designer.cs">
       <DependentUpon>201709221856315_CouponRemoveUserIDAndLink.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709250605349_UserAddParentUser.cs" />
+    <Compile Include="Migrations\201709250605349_UserAddParentUser.Designer.cs">
+      <DependentUpon>201709250605349_UserAddParentUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -482,6 +486,7 @@
     <Content Include="Content\images\test\img_ztihome_005%402x.png" />
     <Content Include="Content\images\test\sort.png" />
     <Content Include="Content\images\test\sort_all.png" />
+    <Content Include="Content\images\view\home_category_01%403x.png" />
     <Content Include="Content\images\view\ico_arrow_down_pre%402x.png" />
     <Content Include="Content\images\view\ico_checkright_black_m%402x.png" />
     <Content Include="Content\images\view\ic_navbar_back_bgblack%402x.png" />
@@ -512,16 +517,16 @@
     <Content Include="Content\images\view\logo_tmall_tag%402x.png" />
     <Content Include="Content\images\test\coupon-detail-pimg.png" />
     <Content Include="Content\images\view\menu_more%402x.png" />
-    <Content Include="Content\images\view\tab_00_nor%402x.png" />
-    <Content Include="Content\images\view\tab_00_pre%402x.png" />
-    <Content Include="Content\images\view\tab_01_nor%402x.png" />
-    <Content Include="Content\images\view\tab_01_pre%402x.png" />
-    <Content Include="Content\images\view\tab_02_nor%402x.png" />
-    <Content Include="Content\images\view\tab_02_pre%402x.png" />
-    <Content Include="Content\images\view\tab_03_nor%402x.png" />
-    <Content Include="Content\images\view\tab_03_pre%402x.png" />
-    <Content Include="Content\images\view\tab_04_nor%402x.png" />
-    <Content Include="Content\images\view\tab_04_pre%402x.png" />
+    <Content Include="Content\images\view\tab_00_nor%403x.png" />
+    <Content Include="Content\images\view\tab_00_pre%403x.png" />
+    <Content Include="Content\images\view\tab_01_nor%403x.png" />
+    <Content Include="Content\images\view\tab_01_pre%403x.png" />
+    <Content Include="Content\images\view\tab_02_nor%403x.png" />
+    <Content Include="Content\images\view\tab_02_pre%403x.png" />
+    <Content Include="Content\images\view\tab_03_nor%403x.png" />
+    <Content Include="Content\images\view\tab_03_pre%403x.png" />
+    <Content Include="Content\images\view\tab_04_nor%403x.png" />
+    <Content Include="Content\images\view\tab_04_pre%403x.png" />
     <Content Include="Content\images\view\tag_quan%402x.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css">
@@ -801,6 +806,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709221856315_CouponRemoveUserIDAndLink.resx">
       <DependentUpon>201709221856315_CouponRemoveUserIDAndLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709250605349_UserAddParentUser.resx">
+      <DependentUpon>201709250605349_UserAddParentUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

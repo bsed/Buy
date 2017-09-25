@@ -983,7 +983,7 @@
 .coupon-list ul li {
   position: relative;
   background-color: #fff;
-  margin-top: 0.30917874rem;
+  padding-top: 0.30917874rem;
   display: -webkit-box;
   /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
   display: -moz-box;
@@ -1110,7 +1110,7 @@
   color: #fff;
 }
 .coupon-list.coupon-list-style02 ul li:first-child {
-  margin-top: 0;
+  padding-top: 0;
 }
 .sortList {
   background-color: #fff;
@@ -1323,19 +1323,6 @@
   margin-left: 0.57971014rem;
   z-index: 100;
   transition: 0.3s all;
-  transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  /* IE 9 */
-  -webkit-transform: rotate(180deg);
-  /* Safari and Chrome */
-  -o-transform: rotate(180deg);
-  /* Opera */
-  -moz-transform: rotate(180deg);
-}
-.coupon-nav ul li.active {
-  color: rgba(0, 0, 0, 0.87);
-}
-.coupon-nav ul li.rotete > span {
   transform: rotate(0);
   -ms-transform: rotate(0);
   /* IE 9 */
@@ -1345,8 +1332,21 @@
   /* Opera */
   -moz-transform: rotate(0);
 }
-.coupon-nav ul.platform li > div {
-  text-align: center !important;
+.coupon-nav ul li.active {
+  color: rgba(0, 0, 0, 0.87);
+}
+.coupon-nav ul li.rotete > span {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -webkit-transform: rotate(180deg);
+  /* Safari and Chrome */
+  -o-transform: rotate(180deg);
+  /* Opera */
+  -moz-transform: rotate(180deg);
+}
+.coupon-nav ul.platform li {
+  text-align: center;
 }
 .coupon-nav ul.platform li.active {
   color: #FF5913;
@@ -3728,43 +3728,43 @@ textarea {
   color: inherit;
 }
 .navTabBottom ul li.taobao a {
-  background: url("images/view/tab_00_nor@2x.png") no-repeat center;
+  background: url("images/view/tab_00_nor@3x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.taobao.active a {
-  background: url("images/view/tab_00_pre@2x.png") no-repeat center;
+  background: url("images/view/tab_00_pre@3x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.mogujie a {
-  background: url("images/view/tab_01_nor@2x.png") no-repeat center;
+  background: url("images/view/tab_01_nor@3x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.mogujie.active a {
-  background: url("images/view/tab_01_pre@2x.png") no-repeat center;
+  background: url("images/view/tab_01_pre@3x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.jd a {
-  background: url("images/view/tab_02_nor@2x.png") no-repeat center;
+  background: url("images/view/tab_02_nor@3x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.jd.active a {
-  background: url("images/view/tab_02_pre@2x.png") no-repeat center;
+  background: url("images/view/tab_02_pre@3x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.find a {
-  background: url("images/view/tab_03_nor@2x.png") no-repeat center;
+  background: url("images/view/tab_03_nor@3x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.find.active a {
-  background: url("images/view/tab_03_pre@2x.png") no-repeat center;
+  background: url("images/view/tab_03_pre@3x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.user a {
-  background: url("images/view/tab_04_nor@2x.png") no-repeat center;
+  background: url("images/view/tab_04_nor@3x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .navTabBottom ul li.user.active a {
-  background: url("images/view/tab_04_pre@2x.png") no-repeat center;
+  background: url("images/view/tab_04_pre@3x.png") no-repeat center;
   background-size: 1.54589372rem 1.70048309rem;
 }
 .promptBox {
@@ -3847,8 +3847,8 @@ textarea {
   position: fixed;
   bottom: 2.62801932rem;
   right: 0.30917874rem;
-  width: 2.51207729rem;
-  height: 2.51207729rem;
+  width: 1.93236715rem;
+  height: 1.93236715rem;
   z-index: 100;
 }
 .setScrollTop img {
