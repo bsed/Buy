@@ -310,6 +310,7 @@
     <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\CouponManageController.cs" />
     <Compile Include="Controllers\CouponTypeManageController.cs" />
+    <Compile Include="Controllers\CustomerServiceController.cs" />
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalCouponController.cs" />
@@ -641,9 +642,11 @@
     <Content Include="Scripts\Views\localCoupon.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
+    <Content Include="Scripts\Views\resetPassword.js" />
     <Content Include="Scripts\Views\roleGroup.js" />
     <Content Include="Scripts\Views\search.js" />
     <Content Include="Scripts\Views\searchConfirm.js" />
+    <Content Include="Scripts\Views\userEdit.js" />
     <Content Include="Scripts\Views\userIndex.js" />
     <Content Include="Scripts\zepto.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -740,6 +743,10 @@
     <Content Include="Views\ClassManage\Edit.cshtml" />
     <Content Include="Views\UrlMatch\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\UrlMatchModel.cshtml" />
+    <Content Include="Views\CustomerService\Index.cshtml" />
+    <Content Include="Views\User\CustomerService.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ImageResizer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Banner\" />

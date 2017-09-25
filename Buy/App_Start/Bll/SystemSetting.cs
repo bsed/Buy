@@ -41,6 +41,11 @@ namespace Buy.Bll
                                 _classifySetting.CollectionChanged += _classifySetting_CollectionChanged;
                             }
                             break;
+                        case Enums.SystemSettingType.CustomerService:
+                            {
+                                _customerService = JsonConvert.DeserializeObject<string>(item.Value);
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -110,7 +115,7 @@ namespace Buy.Bll
 
         }
 
-     
+
         public static void Init()
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
@@ -131,6 +136,14 @@ namespace Buy.Bll
                     {
                         Key = Enums.SystemSettingType.ClassifySetting,
                         Value = JsonConvert.SerializeObject(new string[0])
+                    });
+                }
+                if (!setting.Any(s => s.Key == Enums.SystemSettingType.CustomerService))
+                {
+                    init.Add(new SystemSetting
+                    {
+                        Key = Enums.SystemSettingType.CustomerService,
+                        Value = ""
                     });
                 }
                 if (init.Count > 0)
@@ -156,7 +169,7 @@ namespace Buy.Bll
 
         //banner
 
-       public static ObservableCollection<BannerSetting> _bannerSetting;
+        public static ObservableCollection<BannerSetting> _bannerSetting;
 
         public static ObservableCollection<BannerSetting> BannerSetting
         {
@@ -196,6 +209,24 @@ namespace Buy.Bll
         {
             Update(Enums.SystemSettingType.ClassifySetting, _classifySetting);
         }
+
+        //客服设置
+        private static string _customerService;
+
+        public static string CustomerService
+        {
+            get
+            {
+                return _customerService;
+            }
+
+            set
+            {
+                _customerService = value;
+                Update(Enums.SystemSettingType.CustomerService, _customerService);
+            }
+        }
+
 
         /// <summary>
         /// 更新后Setting清空内存

@@ -263,7 +263,7 @@ namespace Buy.Controllers
             code = code.ToUpper();
             //允许重复码
             var registrationCodes = db.RegistrationCodes
-                .FirstOrDefault(s => !s.UseTime.HasValue 
+                .FirstOrDefault(s => !s.UseTime.HasValue
                 && s.Code == code);
             if (registrationCodes == null)
             {
@@ -347,36 +347,49 @@ namespace Buy.Controllers
 
         //
         // GET: /Account/ResetPassword
-        [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword()
         {
-            return code == null ? View("Error") : View();
+            var model = new ResetPasswordViewModel()
+            {
+                UserID = User.Identity.GetUserId(),
+            };
+            return View(model);
         }
 
         //
         // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public ActionResult ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+
+                var user = db.Users.FirstOrDefault(s => s.Id == model.UserID);
+                if (user == null)
+                {
+                    return Json(Comm.ToJsonResult("Error", "用户不存在"));
+                }
+                var result = SignInManager.PasswordSignIn(user.UserName, model.OldPassword, false, false);
+                if (result == SignInStatus.Success)
+                {
+                    UserManager.RemovePassword(user.Id);
+                    var r = UserManager.AddPassword(user.Id, model.NewPassword);
+                    if (r.Succeeded)
+                    {
+                        return Json(Comm.ToJsonResult("Success", "设置成功"));
+                    }
+                    else
+                    {
+                        return Json(Comm.ToJsonResult("Error", r.Errors.FirstOrDefault()));
+                    }
+                }
+                else
+                {
+                    return Json(Comm.ToJsonResult("Error", "原密码不正确"));
+                }
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
-            {
-                // 请不要显示该用户不存在
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            AddErrors(result);
-            return View();
+            return Json(Comm.ToJsonResult("Error", ModelState.FirstErrorMessage()));
         }
 
 

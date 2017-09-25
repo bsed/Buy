@@ -1,0 +1,45 @@
+﻿@model Buy.Models.SystemSetting
+
+@{
+    ViewBag.Title = "客服设置";
+    Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+    var fileUpload = new Buy.Models.FileUpload();
+    fileUpload.UseByCkEdit();
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="保存" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@Html.EditorFor(model => fileUpload)
+@section Scripts {
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script>
+        var editor = CKEDITOR.replace('Value', { height: 250 });
+        editor.on("instanceReady", function () {
+            $(".cke_button__maximize").click(function (e) {
+                $(".alertList").toggleClass("fixed-ckeditor-max");
+            });
+        })
+    </script>
+}

@@ -340,6 +340,7 @@ namespace Buy.Enums
     {
         BannerSetting,
         ClassifySetting,
+        CustomerService
     }
 
     public enum CompanyRankCellTag
