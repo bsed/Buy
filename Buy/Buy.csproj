@@ -386,6 +386,10 @@
     <Compile Include="Migrations\201709221856315_CouponRemoveUserIDAndLink.Designer.cs">
       <DependentUpon>201709221856315_CouponRemoveUserIDAndLink.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709250605349_UserAddParentUser.cs" />
+    <Compile Include="Migrations\201709250605349_UserAddParentUser.Designer.cs">
+      <DependentUpon>201709250605349_UserAddParentUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -795,6 +799,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709221856315_CouponRemoveUserIDAndLink.resx">
       <DependentUpon>201709221856315_CouponRemoveUserIDAndLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709250605349_UserAddParentUser.resx">
+      <DependentUpon>201709250605349_UserAddParentUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
