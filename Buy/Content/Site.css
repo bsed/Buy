@@ -584,10 +584,9 @@
 }
 .couponDetail .couponDetail-useBtn > div {
   position: relative;
-  /*width: 85%;*/
-  float: right;
+  width: 85%;
   padding: 0 0.38647343rem;
-  margin: 0.15458937rem 0.15458937rem 0 0;
+  margin: 0.15458937rem auto 0 auto;
   height: 1.50724638rem;
   line-height: 1.50724638rem;
   background: -webkit-linear-gradient(left, #FF922B, #FF5913);
@@ -788,6 +787,11 @@
   border-radius: 0.15458937rem 0.15458937rem 0 0;
   background-image: linear-gradient(90deg, #F8B628 0%, #FD3920 100%, #E13607 100%);
 }
+.pwdMask .pwdMask-error {
+  color: red;
+  font-size: 0.5410628rem;
+  padding: 0 0.61835749rem;
+}
 .pwdMask .pwdMask-tip {
   position: absolute;
   margin-left: auto;
@@ -813,6 +817,22 @@
 .pwdMask .pwdMask-remark {
   color: rgba(0, 0, 0, 0.54);
   padding: 0 0.61835749rem;
+}
+.pwdMask .pwdMask-remark:before,
+.pwdMask .pwdMask-remark:after {
+  content: " ";
+  display: table;
+}
+.pwdMask .pwdMask-remark:after {
+  clear: both;
+}
+.pwdMask .pwdMask-remark:before,
+.pwdMask .pwdMask-remark:after {
+  content: " ";
+  display: table;
+}
+.pwdMask .pwdMask-remark:after {
+  clear: both;
 }
 .pwdMask .pwdMask-remark p {
   float: left;
@@ -3827,8 +3847,8 @@ textarea {
   position: fixed;
   bottom: 2.62801932rem;
   right: 0.30917874rem;
-  width: 1.93236715rem;
-  height: 1.93236715rem;
+  width: 2.51207729rem;
+  height: 2.51207729rem;
   z-index: 100;
 }
 .setScrollTop img {

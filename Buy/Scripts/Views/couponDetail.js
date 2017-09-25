@@ -124,6 +124,19 @@ $("[name='clipboard']").click(function (e) {
     }
 });
 
+function selectText(containerid) {
+    if (document.selection) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(document.getElementById(containerid));
+        range.select();
+    } else if (window.getSelection) {
+        var range = document.createRange();
+        range.selectNode(document.getElementById(containerid));
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+    }
+}
+
 //复制粘贴板
 var clipboard = new Clipboard('.pwdMask');
 clipboard.on('success', function (e) {
@@ -133,13 +146,12 @@ clipboard.on('success', function (e) {
     comm.promptBox("复制成功,请打开淘宝APP查看");
 });
 clipboard.on('error', function (e) {
-    comm.promptBox("长按口令复制");
+    selectText("pwdMask-text");
+    $("#pwd-error").text("*无法复制，请长按复制，要选¥");
     $(".pwdMask").removeClass("hidden");
     $("body").css("overflow", "hidden");
     comm.mask2.show();
 });
-
-
 
 
 $("#btnShare").click(function (e) {
