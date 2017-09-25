@@ -293,6 +293,7 @@ $(".sort").click(function (e) {
         platform: platform,
         typeID: typeID,
     }));
+    $("#complex").find("t").text($(this).text());
 });
 
 $("#complex").click(function () {

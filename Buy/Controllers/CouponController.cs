@@ -555,7 +555,8 @@ namespace Buy.Controllers
 
         public ActionResult Search()
         {
-            return View();
+            var keywords = db.Keywords.OrderByDescending(s => s.SearchCount).Take(4).ToList();
+            return View(keywords);
         }
 
         [HttpGet]

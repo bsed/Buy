@@ -25,7 +25,7 @@
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div name="type" class="swiper-slide active" data-type="0">
-                    <span>精选</span><i></i>
+                    <span>首页</span><i></i>
                 </div>
                 <div name="type" class="swiper-slide hidden swiperDemo" data-type="">
                     <span></span><i></i>
@@ -37,7 +37,7 @@
     <div id="sortOne" class="sortList style03" style="display:none">
         <ul>
             <li name="type" data-type="0">
-                <img src="@Url.ResizeImage("~/Content/images/view/home_category_01@3x.png",80,80)" /><div class="name">精选</div>
+                <img src="@Url.ResizeImage("~/Content/images/view/home_category_01@3x.png",80,80)" /><div class="name">首页</div>
             </li>
             <li name="type" class="hidden sortListDemo" data-type="">
                 <img src="" /><div class="name"></div>
@@ -116,7 +116,7 @@
 
     <div id="couponNav" class="coupon-nav">
         <ul>
-            <li id="complex" class="@((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<span></span></li>
+            <li id="complex" class="@((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0"><t>综合排序</t><span></span></li>
             <li class="sort @(Request["sort"]=="1" ?"active":"")" data-sort="1">人气热销</li>
             <li class="sort @(Request["sort"]=="2"?"active":"")" data-sort="2">最新上架</li>
         </ul>
