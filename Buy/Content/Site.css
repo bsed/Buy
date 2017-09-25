@@ -975,9 +975,6 @@
   width: 100%;
   height: auto;
 }
-.coupon-list {
-  background-color: #fff;
-}
 .coupon-list ul {
   list-style: none;
   padding: 0;
@@ -986,7 +983,7 @@
 .coupon-list ul li {
   position: relative;
   background-color: #fff;
-  margin-top: 0.30917874rem;
+  padding-top: 0.30917874rem;
   display: -webkit-box;
   /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
   display: -moz-box;
@@ -1113,7 +1110,7 @@
   color: #fff;
 }
 .coupon-list.coupon-list-style02 ul li:first-child {
-  margin-top: 0;
+  padding-top: 0;
 }
 .sortList {
   background-color: #fff;

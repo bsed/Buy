@@ -43,14 +43,13 @@
 }
 
 .coupon-list {
-    background-color:@bg-color-white;
     ul {
         .clean-ul();
 
         li {
             position: relative;
             background-color: @bg-color-white;
-            margin-top: 8rem*@resize;
+            padding-top: 8rem*@resize;
             display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
             display: -moz-box; /* 老版本语法: Firefox (buggy) */
             display: -ms-flexbox; /* 混合版本语法: IE 10 */
@@ -171,7 +170,7 @@
         ul {
             li {
                 &:first-child {
-                    margin-top: 0;
+                    padding-top: 0;
                 }
             }
         }

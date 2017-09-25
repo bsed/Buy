@@ -25,7 +25,7 @@
         @Html.Hidden("name", Request["name"])
         <input id="secound" value="secound" type="hidden" />
         <ul>
-            <li id="complex" class="@((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<span></span></li>
+            <li id="complex" class="@((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0"><t>综合排序</t><span></span></li>
             <li class="sort @(Request["sort"]=="1" ?"active":"")" data-sort="1">人气热销</li>
             <li class="sort @(Request["sort"]=="2"?"active":"")" data-sort="2">最新上架</li>
         </ul>
