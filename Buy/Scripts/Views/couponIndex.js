@@ -281,6 +281,7 @@ $(".sort").click(function (e) {
     loadCoupon();
     $(".sort").removeClass("active");
     $(this).addClass("active");
+    $("#sortOne").hide();
     $("#complex").removeClass("rotete");
     $("#sort-down").slideUp();
     if ($("#sort-down .sort").hasClass("active")) {
@@ -299,6 +300,7 @@ $(".sort").click(function (e) {
 $("#complex").click(function () {
     $("#sort-down").slideToggle();
     $(this).toggleClass("rotete");
+    $("#sortOne").hide();
 });
 
 //tabActive
@@ -314,4 +316,5 @@ $("#pullDown").click(function () {
     comm.mask3();
     $("body").css("overflow", "hidden");
     $("#sortOne").slideDown();
+    $("#sort-down").hide();
 });
