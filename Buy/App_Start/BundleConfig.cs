@@ -118,6 +118,8 @@ namespace Buy
             addViewScripts("roleGroup", new string[] { "roleGroup.js" });
             addViewScripts("localCoupon", new string[] { "localCoupon.js" });
             addViewScripts("home", new string[] { "home.js" });
+            addViewScripts("resetPassword", new[] { "resetPassword.js" });
+            addViewScripts("userEdit", new[] { "userEdit.js" });
             addViewScripts("useManageChild", new string[] { "useManageChild.js" });
         }
     }

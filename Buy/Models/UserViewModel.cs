@@ -120,5 +120,24 @@ namespace Buy.Models
 
         public string PhoneNumber { get; set; }
     }
+
+    public class UserSetting
+    {
+        public UserSetting(ApplicationUser u)
+        {
+            Avatar = new ImageResizer("Avatar", 150, 150, u.Avatar, 150, 150);
+            NickName = u.NickName;
+            Avatar.AutoInit = false;
+
+        }
+
+        public string ID { get; set; }
+
+        [Display(Name = "头像")]
+        public ImageResizer Avatar { get; set; }
+
+        [Display(Name ="昵称")]
+        public string NickName { get; set; }
+    }
     
 }
