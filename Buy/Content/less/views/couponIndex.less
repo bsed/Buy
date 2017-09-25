@@ -43,6 +43,7 @@
 }
 
 .coupon-list {
+    background-color:@bg-color-white;
     ul {
         .clean-ul();
 
@@ -362,11 +363,11 @@
                 margin-left: 15rem*@resize;
                 z-index: @z-index-bottom;
                 transition: 0.3s all;
-                transform: rotate(180deg);
-                -ms-transform: rotate(180deg); /* IE 9 */
-                -webkit-transform: rotate(180deg); /* Safari and Chrome */
-                -o-transform: rotate(180deg); /* Opera */
-                -moz-transform: rotate(180deg);
+                transform: rotate(0);
+                -ms-transform: rotate(0); /* IE 9 */
+                -webkit-transform: rotate(0); /* Safari and Chrome */
+                -o-transform: rotate(0); /* Opera */
+                -moz-transform: rotate(0);
             }
 
             &.active {
@@ -375,20 +376,18 @@
 
             &.rotete {
                 > span {
-                    transform: rotate(0);
-                    -ms-transform: rotate(0); /* IE 9 */
-                    -webkit-transform: rotate(0); /* Safari and Chrome */
-                    -o-transform: rotate(0); /* Opera */
-                    -moz-transform: rotate(0);
+                    transform: rotate(180deg);
+                    -ms-transform: rotate(180deg); /* IE 9 */
+                    -webkit-transform: rotate(180deg); /* Safari and Chrome */
+                    -o-transform: rotate(180deg); /* Opera */
+                    -moz-transform: rotate(180deg);
                 }
             }
         }
 
         &.platform {
             li {
-                > div {
-                    text-align: center !important;
-                }
+                text-align: center;
 
                 &.active {
                     color: @font-col-main;
