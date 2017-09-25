@@ -40,6 +40,14 @@ namespace Buy.Models
 
         public Enums.UserType UserType { get; set; }
 
+        [Display(Name = "上级")]
+        public string ParentUserID { get; set; }
+
+        [Display(Name = "激活状态")]
+        public bool IsActive { get; set; }
+
+        [Display(Name = "有效日期")]
+        public DateTime? EndDateTime { get; set; }
 
         public bool IsLocked()
         {
