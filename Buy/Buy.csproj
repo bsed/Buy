@@ -390,6 +390,10 @@
     <Compile Include="Migrations\201709250605349_UserAddParentUser.Designer.cs">
       <DependentUpon>201709250605349_UserAddParentUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709260053464_RegistraionCodeAddEndDateTime.cs" />
+    <Compile Include="Migrations\201709260053464_RegistraionCodeAddEndDateTime.Designer.cs">
+      <DependentUpon>201709260053464_RegistraionCodeAddEndDateTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -802,6 +806,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709250605349_UserAddParentUser.resx">
       <DependentUpon>201709250605349_UserAddParentUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709260053464_RegistraionCodeAddEndDateTime.resx">
+      <DependentUpon>201709260053464_RegistraionCodeAddEndDateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
