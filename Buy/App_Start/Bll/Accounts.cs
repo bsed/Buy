@@ -54,7 +54,13 @@ namespace Buy.Bll
                     {
                         case Enums.UserType.Normal:
                             {
-                                couponUserID = db.Users.FirstOrDefault(s => s.Id == userId).ParentUserID;
+                                couponUserID = user.ParentUserID;
+                                var pUser = db.Users.FirstOrDefault(s => s.Id == user.ParentUserID);
+                                //如果父级是一个普通用户就拿父级的上一级
+                                if (pUser.UserType == Enums.UserType.Normal)
+                                {
+                                    couponUserID = pUser.ParentUserID;
+                                }
                             }
                             break;
                         case Enums.UserType.Proxy:
