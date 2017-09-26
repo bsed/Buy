@@ -103,7 +103,7 @@ namespace Buy
                 js = js.Select(s => s.Contains("~") ? s : $"~/Scripts/Views/{s}").ToArray();
                 bundles.Add(new ScriptBundle($"~/bundles/{name}").Include(js));
             };
-            
+
             addViewScripts("login", new string[] { "login.js" });
             addViewScripts("register", new string[] { "register.js" });
             addViewScripts("couponManage", new string[] { "couponManage.js" });
@@ -121,6 +121,7 @@ namespace Buy
             addViewScripts("resetPassword", new[] { "resetPassword.js" });
             addViewScripts("userEdit", new[] { "userEdit.js" });
             addViewScripts("useManageChild", new string[] { "useManageChild.js" });
+            addViewScripts("registrationCodeCreate", new string[] { "registrationCodeCreate.js" });
         }
     }
 }

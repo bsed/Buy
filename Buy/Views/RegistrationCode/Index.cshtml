@@ -52,30 +52,43 @@
             <th>
                 @Html.DisplayNameFor(model => model.UseUser)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActiveEndDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseEndDateTime)
+            </th>
         </tr>
     </thead>
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Own.UserName)
-        <td>
-            @Html.DisplayFor(modelItem => item.Code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Create.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UseTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Use.UserName)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Own.UserName)
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Create.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UseTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Use.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ActiveEndDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.UseEndDateTime)
+            </td>
+        </tr>
+    }
 
 </table>
 
-@Html.PageList(paged,Url.PageUrl())
+@Html.PageList(paged, Url.PageUrl())

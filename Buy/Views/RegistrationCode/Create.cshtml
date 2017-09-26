@@ -18,49 +18,80 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.OwnUser, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10 form-control-static">
+            <div class="col-md-10">
                 @if (string.IsNullOrWhiteSpace(Model.OwnUser))
                 {
                     @Html.DropDownListFor(model => model.OwnUser, (List<SelectListItem>)ViewBag.UserList, new { @class = "form-control" })
                 }
                 else
                 {
-                    @Model.Own.UserName
+                    <div class="form-control-static">@Model.Own.UserName</div>
+                    
                     @Html.HiddenFor(model => Model.OwnUser)
                 }
                 @Html.ValidationMessageFor(model => model.OwnUser, "", new { @class = "text-danger" })
             </div>
         </div>
-        @if (Model.CodeCount == null)
+
+        @if (Model.CodeCount != null)
         {
-            <div class="form-group">
-                @Html.LabelFor(model => model.CodeCount, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10 form-control-static">
-                    没有可用的注册码
-                </div>
-            </div>
-        }
-        @if (Model.CodeCount?.Count > 0)
-        {
-            <div class="form-group">
+            //如果是给子添加帐号
+            <div class="form-group" data-code>
                 @Html.LabelFor(model => model.CodeCount, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.CodeCount)
-                    @Html.ValidationMessageFor(model => model.CodeCount, "", new { @class = "text-danger" })
+                    @if (Model.CodeCount.Count > 0)
+                    {
+                        <table class="table table-hover table-striped table-autowidth" >
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>使用期限</th>
+                                    <th>激活期限</th>
+                                    <th>数量</th>
+                                </tr>
+                            </thead>
+                            @Html.EditorFor(model => model.CodeCount)
+                        </table>
+                       
+                    }
+                    else
+                    {
+                        <div class="form-control-static">@Html.Raw("父代理没有可用注册码")</div>
+                    }
+                    <div>
+                        @Html.ValidationMessageFor(model => model.CodeCount, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
         }
         <div class="form-group">
             @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control", @min = "1" } })
+                @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @if (Model.CodeCount == null)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.UseEndDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UseEndDateTime, new { htmlAttributes = new { @class = "form-control", placeholder = "无期限留空" } })
+                    @Html.ValidationMessageFor(model => model.UseEndDateTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ActiveDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ActiveDateTime, new { htmlAttributes = new { @class = "form-control", placeholder = "无期限留空" } })
+                    @Html.ValidationMessageFor(model => model.ActiveDateTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+      
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="添加" class="btn btn-default" />
+                <input id="btnSubmit" type="submit" value="添加" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -68,4 +99,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/registrationCodeCreate")
 }

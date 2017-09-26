@@ -990,6 +990,7 @@
     <Content Include="Scripts\Views\localCoupon.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
+    <Content Include="Scripts\Views\registrationCodeCreate.js" />
     <Content Include="Scripts\Views\resetPassword.js" />
     <Content Include="Scripts\Views\roleGroup.js" />
     <Content Include="Scripts\Views\search.js" />
