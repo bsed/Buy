@@ -12,10 +12,12 @@
         @Html.ActionLink("编辑", "Edit")
     </div>
     <div class="moduleOptions">
-        <div class="fl">@Html.ActionLink("修改密码", "ResetPassword", "Account", null, null)</div>
+        @Html.ActionLink("修改密码", "ResetPassword", "Account", null, null)
     </div>
     <div class="moduleOptions">
-        <div class="fl">@Html.ActionLink("联系客服", "CustomerService")</div>
+        <a href="@Url.Action("CustomerService")">
+            联系客服
+        </a>
     </div>
     <div class="moduleOptions marginT10">
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
