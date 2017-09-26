@@ -66,7 +66,8 @@
             <td>
                 @Html.ActionLink("添加注册码", "Create", "RegistrationCode", new { userId = item.Id }, null)|
                 @Html.ActionLink("查看注册码", "Index", "RegistrationCode", new { userId = item.Id }, null)|
-                @Html.ActionLink("编辑", "Edit", new { id = item.Id })
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id })|
+                @Html.ActionLink("子用户", "Child", new { id = item.Id })
             </td>
         </tr>
     }

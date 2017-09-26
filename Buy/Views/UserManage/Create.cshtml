@@ -1,23 +1,28 @@
 ﻿@model Buy.Models.RegisterViewModel
 
 @{
-    var name = Model.UserType == Buy.Enums.UserType.Proxy ? "代理" : "管理员";
-    ViewBag.Title = $"添加{name}";
+    var name = Model.UserType.GetDisplayName();
+    string title = $"添加{name}";
+    if (!string.IsNullOrWhiteSpace(Model.ParentUserID))
+    {
+        title = $"添加“{Model.ParentUserNickName}”的子级“{name}”";
+    }
+    ViewBag.Title = title;
     Layout = "~/Views/Shared/_LayoutBackground.cshtml";
 }
 
 <ol class="breadcrumb">
     <li>@Html.ActionLink("用户管理", "Index", "UserManage")</li>
-    <li class="active">添加 @name</li>
+    <li class="active">@title</li>
 </ol>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model=>Model.UserType)
+        @Html.HiddenFor(model => Model.UserType)
         <div class="form-group">
             @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -25,7 +30,17 @@
                 @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @if (!string.IsNullOrWhiteSpace(Model.ParentUserID))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.ParentUserID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 form-control-static">
+                    @Html.DisplayFor(model => model.ParentUserNickName)
+                    @Html.HiddenFor(model => model.ParentUserID)
+                    @Html.ValidationMessageFor(model => model.RoleGroupID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
         @if (Model.UserType == Buy.Enums.UserType.System)
         {
             <div class="form-group">
