@@ -99,9 +99,22 @@ namespace Buy.Controllers
         public ActionResult Create(RegisterViewModel model)
         {
             var user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
+
             if (user != null)
             {
-                ModelState.AddModelError("UserName", "用户名已存在");
+                ModelState.AddModelError("PhoneNumber", "手机号已被使用");
+            }
+            if (!string.IsNullOrWhiteSpace(model.ParentUserID))
+            {
+                var pUser = db.Users.FirstOrDefault(s => s.Id == model.ParentUserID);
+                if (pUser == null)
+                {
+                    ModelState.AddModelError("ParentUserID", "不存在父用户");
+                }
+                if (pUser.UserType != Enums.UserType.Proxy)
+                {
+                    ModelState.AddModelError("ParentUserID", $"用户“{pUser.NickName}”不是代理");
+                }
             }
             if (model.UserType == Enums.UserType.System)
             {
@@ -118,8 +131,13 @@ namespace Buy.Controllers
                     PhoneNumber = model.PhoneNumber,
                     UserType = model.UserType,
                     RegisterDateTime = DateTime.Now,
-                    LastLoginDateTime = DateTime.Now
+                    LastLoginDateTime = DateTime.Now,
+                    NickName = model.NickName
                 };
+                if (!string.IsNullOrWhiteSpace(model.ParentUserID))
+                {
+                    user.ParentUserID = model.ParentUserID;
+                }
                 var result = UserManager.CreateAsync(user, model.Password);
                 if (result.Result.Succeeded)
                 {

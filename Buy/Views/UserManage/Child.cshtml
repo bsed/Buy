@@ -15,8 +15,8 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("添加子级代理", "Create", new { UserType = Buy.Enums.UserType.ProxySec, PID = user.Id })</li>
-                <li>@Html.ActionLink("添加子级用户", "Create", new { userType = Buy.Enums.UserType.Normal, PID = user.Id })</li>
+                <li>@Html.ActionLink("添加子级代理", "Create", new { UserType = Buy.Enums.UserType.ProxySec, PID = user.Id, ReturnUrl = Url.Action("Child") })</li>
+                <li>@Html.ActionLink("添加子级用户", "Create", new { userType = Buy.Enums.UserType.Normal, PID = user.Id, ReturnUrl = Url.Action("Child") })</li>
             </ul>
         </div>
     </div>
