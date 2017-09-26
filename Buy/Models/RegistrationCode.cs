@@ -11,12 +11,12 @@ namespace Buy.Models
     {
         public int ID { get; set; }
 
-        [Display(Name ="注册码")]
+        [Display(Name = "注册码")]
         public string Code { get; set; }
 
         [Display(Name = "创建时间")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
-        public DateTime CreateTime { get;set; }
+        public DateTime CreateTime { get; set; }
 
         [Display(Name = "创建用户")]
         public string CreateUser { get; set; }
@@ -30,6 +30,12 @@ namespace Buy.Models
 
         [Display(Name = "使用用户")]
         public string UseUser { get; set; }
+
+        [Display(Name = "激活期限")]
+        public DateTime? ActiveEndDateTime { get; set; }
+
+        [Display(Name = "使用期限")]
+        public DateTime? UseEndDateTime { get; set; }
     }
 
     public class RegistrationCodeCreate
@@ -41,12 +47,12 @@ namespace Buy.Models
         public ApplicationUser Own { get; set; }
 
         [Display(Name = "数量")]
-        [Range(1,int.MaxValue,ErrorMessage ="{0}不能小于{1}")]
+        [Range(1, int.MaxValue, ErrorMessage = "{0}不能小于{1}")]
         public int Count { get; set; }
     }
 
     [NotMapped]
-    public class RegistrationCodeViewModel: RegistrationCode
+    public class RegistrationCodeViewModel : RegistrationCode
     {
         public ApplicationUser Create { get; set; }
 
