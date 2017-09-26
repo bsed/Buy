@@ -23,7 +23,8 @@ namespace Buy.Controllers
             }
         }
 
-        private IQueryable<CouponUserViewModel> QueryCoupon(string filter = null, List<int> type = null
+        private IQueryable<CouponUserViewModel> QueryCoupon(DateTime time, string filter = null
+            , List<int> type = null
             , List<Enums.CouponPlatform> platform = null, bool orderByTime = false
             , Enums.CouponSort sort = Enums.CouponSort.Default
             , decimal minPrice = 0, decimal maxPrice = 0, string userId = null)
@@ -99,7 +100,7 @@ namespace Buy.Controllers
             //不显示创建时间是未来的和过期的
             if (orderByTime)
             {
-                query = query.Where(s => s.CreateDateTime < DateTime.Now && s.EndDateTime > DateTime.Now);
+                query = query.Where(s => s.CreateDateTime < time && s.EndDateTime > time);
             }
             if (type != null && type.Count > 0 && type.Contains(0))
             {
@@ -168,12 +169,14 @@ namespace Buy.Controllers
 
         // GET: Coupon
         [AllowCrossSiteJson]
-        public ActionResult GetAll(string filter, int page = 1, string types = null, string platforms = null
+        public ActionResult GetAll(string filter, DateTime? time, int page = 1, string types = null, string platforms = null
           , bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0, string userId = null)
         {
-            var paged = QueryCoupon(filter, types.SplitToArray<int>()
-                , platforms.SplitToArray<Enums.CouponPlatform>(), orderByTime, sort, minPrice, maxPrice, userId)
+            time = time.HasValue ? time : DateTime.Now;
+            var paged = QueryCoupon(time.Value, filter, types.SplitToArray<int>()
+                , platforms.SplitToArray<Enums.CouponPlatform>()
+                , orderByTime, sort, minPrice, maxPrice, userId)
                 .ToPagedList(page, 20);
             var models = paged.Select(s => new Models.ActionCell.CouponCell(s)).ToList();
             return Json(Comm.ToJsonResultForPagedList(paged, models), JsonRequestBehavior.AllowGet);
@@ -503,13 +506,16 @@ namespace Buy.Controllers
             return View(model);
         }
 
-        public ActionResult GetList(string filter, int page = 1,
+        public ActionResult GetList(string filter, DateTime? time, int page = 1,
             string types = null, string platforms = null,
             bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0)
         {
-            var paged = QueryCoupon(filter, types.SplitToArray<int>()
-               , platforms.SplitToArray<Enums.CouponPlatform>(), orderByTime, sort, minPrice, maxPrice, User.Identity.GetUserId())
+            time = time.HasValue ? time : DateTime.Now;
+            var paged = QueryCoupon(time.Value, filter, types.SplitToArray<int>()
+               , platforms.SplitToArray<Enums.CouponPlatform>()
+               , orderByTime, sort, minPrice, maxPrice
+               , User.Identity.GetUserId())
                .ToPagedList(page, 20);
             return View(paged);
         }

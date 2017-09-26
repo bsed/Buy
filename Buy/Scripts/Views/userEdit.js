@@ -7,18 +7,24 @@ var avatar = new imageResizeUpload("#Avatar", {
 });
 
 $("#submit").click(function (e) {
-    var model = {
+    var data = {
         ID: $("#ID").val(),
-        NickName: $("[name=NickName]").val(),
+        NickName: $("#NickName").val(),
         Avatar: $("[name='Avatar.ImageUrl']").val()
-    }
+    };
+    console.log(data);
     $.ajax({
         type: "POST",
         url: comm.action("Edit", "User"),
         data: data,
         dataType: "json",
         success: function (data) {
-            comm.promptBox(data.Message)
+            comm.promptBox(data.Message);
+            if (data.State == "Success") {
+                setTimeout(function () {
+                    location = comm.action("Index", "User")
+                }, 3000);
+            }
         }
     });
 });

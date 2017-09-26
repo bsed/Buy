@@ -364,7 +364,6 @@ namespace Buy.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var user = db.Users.FirstOrDefault(s => s.Id == model.UserID);
                 if (user == null)
                 {

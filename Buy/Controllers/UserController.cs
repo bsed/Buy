@@ -34,18 +34,6 @@ namespace Buy.Controllers
             return View(new UserSetting(user));
         }
 
-        [AllowCrossSiteJson]
-        [AllowAnonymous]
-        [HttpPost]
-        public ActionResult Edit(UserSetting model)
-        {
-            var user = db.Users.FirstOrDefault(s => s.Id == model.ID);
-            user.NickName = model.NickName;
-            user.Avatar = model.Avatar.ImageUrl;
-            db.SaveChanges();
-            return Json(Comm.ToJsonResult("Success", "成功"));
-        }
-
         public ActionResult CustomerService()
         {
             var model = new SystemSetting()
@@ -54,6 +42,20 @@ namespace Buy.Controllers
             };
             return View(model);
         }
+
+        [AllowCrossSiteJson]
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Edit(ApplicationUser model)
+        {
+            var user = db.Users.FirstOrDefault(s => s.Id == model.Id);
+            user.NickName = model.NickName;
+            user.Avatar = model.Avatar;
+            db.SaveChanges();
+            return Json(Comm.ToJsonResult("Success", "修改成功"));
+        }
+
+        
 
         public string GetService()
         {

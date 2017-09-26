@@ -2,6 +2,7 @@
     sort = $("#sort").val(),
     filter = $("#searchConfirm").val();
 var canLoadPage = true;
+var time = new Date();
 var loading = $("#loading").attr("src");
 
 function clear(target) {
@@ -43,6 +44,7 @@ function loadcoupon() {
             sort: sort,
             platforms: platform,
             filter: filter,
+            time:time,
             orderByTime: true
         },
         dataType: "html",

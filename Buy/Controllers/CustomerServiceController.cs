@@ -26,10 +26,11 @@ namespace Buy.Controllers
         }
 
         // GET: CustomerService
+        [Authorize(Roles = SysRole.CustomerServiceManageRead)]
         public ActionResult Index()
         {
             Sidebar();
-            var model = new SystemSetting()
+            var model = new CustomerViewModel()
             {
                 Value = Bll.SystemSettings.CustomerService,
             };
@@ -37,10 +38,12 @@ namespace Buy.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(SystemSetting model)
+        [Authorize(Roles = SysRole.CustomerServiceManageEdit)]
+        public ActionResult Index(CustomerViewModel model)
         {
             Bll.SystemSettings.CustomerService = model.Value;
-            return View(model);
+            return RedirectToAction("Index");
         }
+        
     }
 }

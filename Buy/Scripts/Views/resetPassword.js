@@ -11,7 +11,12 @@ $("#submit").click(function (e) {
         data: data,
         dataType: "json",
         success: function (data) {
-            comm.promptBox(data.Message)
+            comm.promptBox(data.Message);
+            if (data.State == "Success") {
+                setTimeout(function () {
+                    location = comm.action("Index", "User")
+                }, 3000);
+            }
         }
     });
 });

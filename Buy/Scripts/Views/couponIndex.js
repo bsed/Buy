@@ -1,5 +1,9 @@
-﻿var typeID = $("#typeID").val(),
+﻿var date = new Date();
+var typeID = $("#typeID").val(),
     platform = $("#platform").val(),
+    time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
+     + date.getDate() + " " + date.getHours() + ":"
+     + date.getMinutes() + ":" + date.getSeconds(),
     sort = $("[data-sort].active").data("sort");
 var canLoadPage = true;
 var navTop = $("#couponNav").offset().top;
@@ -248,6 +252,7 @@ function loadCoupon() {
             sort: sort,
             types: typeID,
             platforms: platform,
+            time: time,
             orderByTime: true
         },
         dataType: "html",

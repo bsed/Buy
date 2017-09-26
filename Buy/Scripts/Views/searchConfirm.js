@@ -2,6 +2,7 @@
     sort = $("[data-sort].active").data("sort"),
     maxPrice = $("#maxPrice").val(),
     filter = $("#filter").val(),
+    time = new Date(),
     types = $("#types").val();
 var canLoadPage = true;
 
@@ -10,7 +11,7 @@ var loading = $("#loading").attr("src");
 function clear(target) {
     $(target).children().remove();
     var html = "";
-    html += '<li class="loadModule loadModule-dataIng" data-page="0" data-next="true"><img class="marginR8" src="'+loading+'" />加载中</li>';
+    html += '<li class="loadModule loadModule-dataIng" data-page="0" data-next="true"><img class="marginR8" src="' + loading + '" />加载中</li>';
     $(target).append(html);
 }
 
@@ -46,7 +47,8 @@ function loadCoupon() {
             platforms: platform,
             types: types,
             maxPrice: maxPrice,
-            filter:filter,
+            filter: filter,
+            time: time,
             orderByTime: $("#secound").val() == "secound" ? true : false,
         },
         dataType: "html",

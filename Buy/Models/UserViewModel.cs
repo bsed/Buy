@@ -128,7 +128,7 @@ namespace Buy.Models
             Avatar = new ImageResizer("Avatar", 150, 150, u.Avatar, 150, 150);
             NickName = u.NickName;
             Avatar.AutoInit = false;
-
+            ID = u.Id;
         }
 
         public string ID { get; set; }
