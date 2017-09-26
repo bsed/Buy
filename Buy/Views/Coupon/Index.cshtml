@@ -43,6 +43,7 @@
                 <img src="" /><div class="name"></div>
             </li>
         </ul>
+        <div id="sortList_closed" class="sortList-closed"></div>
     </div>
     @*二级分类*@
     <div name="sortList" class="sortList hidden">
@@ -93,8 +94,8 @@
         </ul>
         <div id="sort-down" class="coupon-nav-down" style="display:none">
             <div class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<i></i></div>
-            <div class="sort @(Request["sort"]=="3" ?"active":"")" data-sort="3">券后价格<i></i></div>
-            <div class="sort @(Request["sort"]=="4"?"active":"")" data-sort="4">券面额度<i></i></div>
+            <div class="sort @(Request["sort"]=="3" ?"active":"")" data-sort="4">券后价格<i></i></div>
+            <div class="sort @(Request["sort"]=="4"?"active":"")" data-sort="3">券面额度<i></i></div>
         </div>
     </div>
 
