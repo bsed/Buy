@@ -43,6 +43,7 @@
                 <img src="" /><div class="name"></div>
             </li>
         </ul>
+        <div id="sortList_closed" class="sortList-closed"></div>
     </div>
     @*二级分类*@
     <div name="sortList" class="sortList hidden">
@@ -83,38 +84,6 @@
                 }
             </ul>
         </div>
-        @*<div class="banner couponIndex-banner">
-                <div class="banner-simple">
-                    <a href="#">
-                        <img src="~/Content/images/test/banner_mogujie_01@2x.png?w=750&h=280" />
-                    </a>
-                </div>
-            </div>
-            <div class="couponIndex-menu style02">
-                <ul>
-                    <li>
-                        <a href="#" data-code="">
-                            <img src="~/Content/images/test/img_mgjzthome_001@2x.png" />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-code="">
-                            <img src="~/Content/images/test/img_mgjzthome_002@2x.png" />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-code="">
-                            <img src="~/Content/images/test/img_mgjzthome_003@2x.png" />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-code="">
-                            <img src="~/Content/images/test/img_mgjzthome_004@2x.png" />
-                        </a>
-                    </li>
-                </ul>
-            </div>*@
-
     </div>
 
     <div id="couponNav" class="coupon-nav">
@@ -125,8 +94,8 @@
         </ul>
         <div id="sort-down" class="coupon-nav-down" style="display:none">
             <div class="sort @((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0">综合排序<i></i></div>
-            <div class="sort @(Request["sort"]=="3" ?"active":"")" data-sort="3">券后价格<i></i></div>
-            <div class="sort @(Request["sort"]=="4"?"active":"")" data-sort="4">券面额度<i></i></div>
+            <div class="sort @(Request["sort"]=="3" ?"active":"")" data-sort="4">券后价格<i></i></div>
+            <div class="sort @(Request["sort"]=="4"?"active":"")" data-sort="3">券面额度<i></i></div>
         </div>
     </div>
 
@@ -144,6 +113,7 @@
     <div class="setScrollTop" style="display:none"><img src="~/Content/images/view/img_backtop@2x.png" /></div>
 
     @Html.Partial("_navTabBottomPartial")
+
 </div>
 
 

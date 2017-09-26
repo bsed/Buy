@@ -1137,6 +1137,23 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  border-bottom: 0.03864734rem solid rgba(0, 0, 0, 0.05);
+}
+.sortList ul:before,
+.sortList ul:after {
+  content: " ";
+  display: table;
+}
+.sortList ul:after {
+  clear: both;
+}
+.sortList ul:before,
+.sortList ul:after {
+  content: " ";
+  display: table;
+}
+.sortList ul:after {
+  clear: both;
 }
 .sortList ul li {
   float: left;
@@ -1173,6 +1190,13 @@
   bottom: 0;
   right: 0;
   z-index: 90;
+}
+.sortList .sortList-closed {
+  width: 100%;
+  height: 1.54589372rem;
+  background: url("images/view/ic_navbar_closed_black@2x.png") no-repeat center;
+  background-size: contain;
+  background-color: #f2f2f2;
 }
 .sortList.style02 {
   height: 6.18357488rem;

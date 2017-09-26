@@ -55,7 +55,7 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", "修改成功"));
         }
 
-        
+
 
         public string GetService()
         {
@@ -67,7 +67,7 @@ namespace Buy.Controllers
         [HttpGet]
         public ActionResult GetCustomerService()
         {
-            return Json(Comm.ToJsonResult("Success", "成功", GetService()), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功", new { Data = GetService() }), JsonRequestBehavior.AllowGet);
         }
 
     }

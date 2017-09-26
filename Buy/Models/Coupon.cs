@@ -115,4 +115,63 @@ namespace Buy.Models
         [Display(Name = "平台")]
         public Enums.CouponPlatform Platform { get; set; }
     }
+
+
+    public class CouponSearchModel
+    {
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        public DateTime? UpdateTime { get; set; }
+
+        /// <summary>
+        /// 加载时间
+        /// </summary>
+        public DateTime LoadTime { get; set; }
+
+        /// <summary>
+        /// 关键字
+        /// </summary>
+        public string Filter { get; set; }
+
+        /// <summary>
+        /// 类型列表
+        /// </summary>
+        public List<int> Type { get; set; }
+
+        /// <summary>
+        /// 平台列表
+        /// </summary>
+        public List<Enums.CouponPlatform> Platform { get; set; }
+
+        /// <summary>
+        /// 是否按时间排序
+        /// </summary>
+        public bool OrderByTime { get; set; } = false;
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public Enums.CouponSort Sort { get; set; } = Enums.CouponSort.Default;
+
+        /// <summary>
+        /// 最低价格
+        /// </summary>
+        public decimal MinPrice { get; set; } = 0;
+
+        /// <summary>
+        /// 最高价格
+        /// </summary>
+        public decimal MaxPrice { get; set; } = 0;
+
+        /// <summary>
+        /// 用户ID
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// 是否刷新
+        /// </summary>
+        public bool IsUpdate { get; set; } = false;
+    }
 }

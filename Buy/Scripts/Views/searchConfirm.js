@@ -1,8 +1,12 @@
-﻿var platform = $("#platform").val(),
+﻿
+var date = new Date();
+var platform = $("#platform").val(),
     sort = $("[data-sort].active").data("sort"),
     maxPrice = $("#maxPrice").val(),
     filter = $("#filter").val(),
-    time = new Date(),
+    time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
+     + date.getDate() + " " + date.getHours() + ":"
+     + date.getMinutes() + ":" + date.getSeconds(),
     types = $("#types").val();
 var canLoadPage = true;
 
@@ -48,7 +52,7 @@ function loadCoupon() {
             types: types,
             maxPrice: maxPrice,
             filter: filter,
-            time: time,
+            loadTime: time,
             orderByTime: $("#secound").val() == "secound" ? true : false,
         },
         dataType: "html",

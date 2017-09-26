@@ -359,6 +359,7 @@ namespace Buy.Controllers
         //
         // POST: /Account/ResetPassword
         [HttpPost]
+        [AllowCrossSiteJson]
         [AllowAnonymous]
         public ActionResult ResetPassword(ResetPasswordViewModel model)
         {
