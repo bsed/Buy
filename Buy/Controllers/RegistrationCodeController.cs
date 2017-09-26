@@ -74,6 +74,8 @@ namespace Buy.Controllers
         public ActionResult Create(string userId)
         {
             Sidebar();
+
+
             var model = new RegistrationCodeCreate()
             {
                 OwnUser = userId,
@@ -92,6 +94,21 @@ namespace Buy.Controllers
             {
                 var user = db.Users.FirstOrDefault(s => s.Id == userId);
                 model.Own = user;
+                if (!string.IsNullOrWhiteSpace(user.ParentUserID))
+                {
+                    var gCode = db.RegistrationCodes
+                          .Where(s => s.OwnUser == user.ParentUserID
+                              && !s.UseTime.HasValue)
+                          .GroupBy(s => new { s.ActiveEndDateTime, s.UseEndDateTime })
+                          .Select(s => new RegistrationCodeCountViewModel
+                          {
+                              ActiveEndDateTime = s.Key.ActiveEndDateTime,
+                              Max = s.Count(),
+                              UseEndDateTime = s.Key.UseEndDateTime
+                          }).ToList();
+                    model.CodeCount.AddRange(gCode);
+
+                }
             }
             return View(model);
         }
@@ -131,6 +148,10 @@ namespace Buy.Controllers
                 }
                 db.RegistrationCodes.AddRange(list);
                 db.SaveChanges();
+                if (this.GetReturnUrl() != null)
+                {
+                    return Redirect(this.GetReturnUrl());
+                }
                 return RedirectToAction("Index", "UserManage", null);
             }
             if (string.IsNullOrWhiteSpace(model.OwnUser))

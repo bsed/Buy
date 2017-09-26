@@ -49,6 +49,9 @@ namespace Buy.Models
         [Display(Name = "数量")]
         [Range(1, int.MaxValue, ErrorMessage = "{0}不能小于{1}")]
         public int Count { get; set; }
+
+        [Display(Name = "批次")]
+        public List<RegistrationCodeCountViewModel> CodeCount { get; set; } = new List<RegistrationCodeCountViewModel>();
     }
 
     [NotMapped]
@@ -59,5 +62,40 @@ namespace Buy.Models
         public ApplicationUser Own { get; set; }
 
         public ApplicationUser Use { get; set; }
+
+    }
+
+    public class RegistrationCodeCountViewModel
+    {
+        public int Max { get; set; }
+
+        public bool Checked { get; set; }
+
+        public DateTime? UseEndDateTime { get; set; }
+
+        public DateTime? ActiveEndDateTime { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                if (!UseEndDateTime.HasValue && !ActiveEndDateTime.HasValue)
+                {
+                    return "普通";
+                }
+                else if (UseEndDateTime.HasValue && ActiveEndDateTime.HasValue)
+                {
+                    return $"使用期限{UseEndDateTime:yyyy-MM-dd},激活期限{ActiveEndDateTime:yyyy-MM-dd}";
+                }
+                else if (UseEndDateTime.HasValue)
+                {
+                    return $"使用期限{UseEndDateTime:yyyy-MM-dd}";
+                }
+                else
+                {
+                    return $"激活期限{ActiveEndDateTime:yyyy-MM-dd}";
+                }
+            }
+        }
     }
 }

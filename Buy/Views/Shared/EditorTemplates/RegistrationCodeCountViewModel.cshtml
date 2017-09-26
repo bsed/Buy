@@ -1,0 +1,7 @@
+﻿@model Buy.Models.RegistrationCodeCountViewModel
+<label class="radio-inline">
+    <input type="radio" name="Checked" id="Checked" value="@Model.Checked">@Model.Name (@Model.Max)
+    @Html.HiddenFor(model => model.ActiveEndDateTime)
+    @Html.HiddenFor(model => model.UseEndDateTime)
+    @Html.HiddenFor(model => model.Max)
+</label>

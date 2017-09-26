@@ -758,6 +758,7 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ImageResizer.cshtml" />
     <Content Include="Views\UserManage\Child.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\RegistrationCodeCountViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Banner\" />

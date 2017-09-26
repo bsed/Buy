@@ -26,12 +26,30 @@
                 else
                 {
                     @Model.Own.UserName
-                    @Html.HiddenFor(model=>Model.OwnUser)
+                    @Html.HiddenFor(model => Model.OwnUser)
                 }
                 @Html.ValidationMessageFor(model => model.OwnUser, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @if (Model.CodeCount == null)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.CodeCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 form-control-static">
+                    没有可用的注册码
+                </div>
+            </div>
+        }
+        @if (Model.CodeCount?.Count > 0)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.CodeCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CodeCount)
+                    @Html.ValidationMessageFor(model => model.CodeCount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
         <div class="form-group">
             @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
