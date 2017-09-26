@@ -88,8 +88,7 @@ sortGetAll.click(function () {
     comm.mask3();
 });
 
-$(".mask.style02").click(function () {
-    sortList.removeClass("getAll");
+$("#sortList_closed").click(function () {
     $("#sortOne").slideUp();
     $("body").css("overflow", "auto");
     comm.mask3();
