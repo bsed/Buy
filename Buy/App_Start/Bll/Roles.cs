@@ -132,9 +132,14 @@ namespace Buy.Bll
             addSystemRole(SysRole.ClassifyManageCreate, "分类管理", "分类管理创建");
             addSystemRole(SysRole.ClassifyManageEdit, "分类管理", "分类管理编辑");
             addSystemRole(SysRole.ClassifyManageDelete, "分类管理", "分类管理删除");
+
+            addSystemRole(SysRole.CustomerServiceManageRead, "客服设置", "客服管理查看");
+            addSystemRole(SysRole.CustomerServiceManageCreate, "客服设置", "客服管理创建");
+            addSystemRole(SysRole.CustomerServiceManageEdit, "客服设置", "客服管理编辑");
+            addSystemRole(SysRole.CustomerServiceManageDelete, "客服设置", "客服管理删除");
+
             #endregion
-
-
+            
             foreach (var item in roles)
             {
                 if (_appRoleManager.FindByName(item.Name) == null)

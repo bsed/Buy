@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Buy.Models
 {
@@ -175,5 +176,13 @@ namespace Buy.Models
 
         [Display(Name = "二维码")]
         public FileUpload File { get; set; }
+    }
+
+    public class CustomerViewModel
+    {
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "内容")]
+        [AllowHtml]
+        public string Value { get; set; }
     }
 }

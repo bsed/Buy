@@ -52,5 +52,10 @@ namespace Buy
         public const string ClassifyManageEdit = "ClassifyManageEdit";
         public const string ClassifyManageDelete = "ClassifyManageDelete";
 
+        public const string CustomerServiceManageRead = "CustomerServiceManageRead";
+        public const string CustomerServiceManageCreate = "CustomerServiceManageCreate";
+        public const string CustomerServiceManageEdit = "CustomerServiceManageEdit";
+        public const string CustomerServiceManageDelete = "CustomerServiceManageDelete";
+
     }
 }
