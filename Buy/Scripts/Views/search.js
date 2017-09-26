@@ -1,8 +1,12 @@
-﻿var platform = $("#platform").val(),
+﻿
+var date = new Date();
+var platform = $("#platform").val(),
     sort = $("#sort").val(),
     filter = $("#searchConfirm").val();
 var canLoadPage = true;
-var time = new Date();
+var time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
+     + date.getDate() + " " + date.getHours() + ":"
+     + date.getMinutes() + ":" + date.getSeconds();
 var loading = $("#loading").attr("src");
 
 function clear(target) {
@@ -44,7 +48,7 @@ function loadcoupon() {
             sort: sort,
             platforms: platform,
             filter: filter,
-            time:time,
+            loadTime: time,
             orderByTime: true
         },
         dataType: "html",
