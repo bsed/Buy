@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Buy.Models.RegistrationCodeViewModel>
+
+@{
+    Layout = "~/Views/Shared/_LayoutExport.cshtml";
+}
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActiveEndDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseEndDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UseTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UseUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActiveEndDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UseEndDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+        </tr>
+    }
+</table>

@@ -247,5 +247,38 @@ namespace Buy.Controllers
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
+
+        public ActionResult Export(string userId)
+        {
+            var query = from code in db.RegistrationCodes
+                        from owner in db.Users
+                        join uu in db.Users on code.UseUser equals uu.Id into u1
+                        from use in u1.DefaultIfEmpty()
+                        where code.OwnUser == owner.Id && (userId == null || code.OwnUser == userId)
+                        orderby code.ID
+                        select new RegistrationCodeViewModel()
+                        {
+                            Code = code.Code,
+                            CreateTime = code.CreateTime,
+                            ID = code.ID,
+                            OwnUser = owner.PhoneNumber,
+                            UseTime = code.UseTime,
+                            UseUser = use.PhoneNumber,
+                            ActiveEndDateTime = code.ActiveEndDateTime,
+                            UseEndDateTime = code.UseEndDateTime
+                        };
+            this.AddExcelExportHead($"注册码");
+            return View(query.ToList());
+        }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
