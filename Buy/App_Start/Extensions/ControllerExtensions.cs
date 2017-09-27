@@ -269,5 +269,12 @@ namespace Buy
                 return Comm.IsMobileDrive;
             }
         }
+
+        public static FileContentResult Excel(this Controller controller, System.Data.DataTable dt)
+        {
+            var result = new FileContentResult(ExcelHelper.CreateExcelFromDataTable(dt).ToArray(), "application/ms-excel");
+            controller.Response.AddHeader("Content-Disposition", $"attachment; filename={dt.TableName}.xlsx");
+            return result;
+        }
     }
 }

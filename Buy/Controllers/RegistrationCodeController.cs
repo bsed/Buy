@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Buy.Models;
+using System.Data;
 
 namespace Buy.Controllers
 {
@@ -256,19 +257,59 @@ namespace Buy.Controllers
                         from use in u1.DefaultIfEmpty()
                         where code.OwnUser == owner.Id && (userId == null || code.OwnUser == userId)
                         orderby code.ID
-                        select new RegistrationCodeViewModel()
+                        select new
                         {
                             Code = code.Code,
                             CreateTime = code.CreateTime,
                             ID = code.ID,
-                            OwnUser = owner.PhoneNumber,
+                            OwnUserName = owner.NickName,
+                            OwnUserPhone = owner.PhoneNumber,
                             UseTime = code.UseTime,
-                            UseUser = use.PhoneNumber,
+                            UseUserName = use.NickName,
+                            UseUserPhone = use.PhoneNumber,
                             ActiveEndDateTime = code.ActiveEndDateTime,
                             UseEndDateTime = code.UseEndDateTime
                         };
-            this.AddExcelExportHead($"注册码");
-            return View(query.ToList());
+            DataTable dt = new DataTable("注册码");
+            dt.Columns.Add("注册码");
+            dt.Columns.Add("创建时间", typeof(DateTime));
+            dt.Columns.Add("拥有人");
+            dt.Columns.Add("拥有人手机");
+            dt.Columns.Add("使用人");
+            dt.Columns.Add("使用人手机");
+            dt.Columns.Add("使用时间", typeof(DateTime));
+            dt.Columns.Add("使用期限", typeof(DateTime));
+            dt.Columns.Add("激活期限", typeof(DateTime));
+            var model = query.ToList();
+            Action<DataRow, string, object> newColumn = (row, name, data) =>
+              {
+                  if (data == null)
+                  {
+                      row[name] = DBNull.Value;
+                  }
+                  else
+                  {
+                      row[name] = data;
+                  }
+
+
+              };
+
+            foreach (var item in query.ToList())
+            {
+                var row = dt.NewRow();
+                newColumn(row, "注册码", item.Code);
+                newColumn(row, "拥有人", item.OwnUserName);
+                newColumn(row, "拥有人手机", item.OwnUserPhone);
+                newColumn(row, "使用人", item.UseUserName);
+                newColumn(row, "使用人手机", item.UseUserPhone);
+                newColumn(row, "使用时间", item.UseTime);
+                newColumn(row, "创建时间", item.CreateTime);
+                newColumn(row, "使用期限", item.UseEndDateTime);
+                newColumn(row, "激活期限", item.ActiveEndDateTime);
+                dt.Rows.Add(row);
+            }
+            return this.Excel(dt);
         }
 
 

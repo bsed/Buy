@@ -172,23 +172,35 @@ namespace Buy
         }
 
 
-        public static Stream CreateExcelFromDataTable(DataTable dt)
+        public static MemoryStream CreateExcelFromDataTable(DataTable dt)
         {
-            MemoryStream stream = new MemoryStream();
-            IWorkbook wb = new XSSFWorkbook();
-            ISheet sheet = wb.CreateSheet("Sheet1");
-            ICreationHelper cH = wb.GetCreationHelper();
-            for (int i = 0; i < dt.Rows.Count; i++)
+            using (var stream = new MemoryStream())
             {
-                IRow row = sheet.CreateRow(i);
-                for (int j = 0; j < 3; j++)
+                IWorkbook wb = new XSSFWorkbook();
+                ISheet sheet = wb.CreateSheet("Sheet1");
+                ICreationHelper cH = wb.GetCreationHelper();
+                IRow header = sheet.CreateRow(0);
+                for (int h = 0; h < dt.Columns.Count; h++)
                 {
-                    ICell cell = row.CreateCell(j);
-                    cell.SetCellValue(cH.CreateRichTextString(dt.Rows[i].ItemArray[j].ToString()));
+                    ICell cell = header.CreateCell(h);
+                    cell.SetCellValue(cH.CreateRichTextString(dt.Columns[h].ColumnName));
                 }
+                for (int i = 1; i < dt.Rows.Count; i++)
+                {
+                    IRow row = sheet.CreateRow(i);
+                    for (int j = 0; j < dt.Columns.Count; j++)
+                    {
+                        ICell cell = row.CreateCell(j);
+                        cell.SetCellValue(cH.CreateRichTextString(dt.Rows[i - 1].ItemArray[j].ToString()));
+                    }
+                }
+                for (int i = 0; i < dt.Columns.Count; i++)
+                {
+                    sheet.AutoSizeColumn(i);
+                }
+                wb.Write(stream);
+                return stream;
             }
-            wb.Write(stream);
-            return stream;
         }
 
         public void Dispose()
