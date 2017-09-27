@@ -22,6 +22,11 @@ function nodataCheck(target) {
     }
 }
 
+function cleanUpdate() {
+    $("#update1").hide();
+    $("#update1 img").hide();
+}
+
 //swiper
 function typeSwipe() {
     var slideIndexHead = $("[name='type'].active").index();
@@ -372,6 +377,8 @@ $(".sort").click(function (e) {
     $(this).addClass("active");
     $("#sortOne").hide();
     $("#complex").removeClass("rotete");
+    cleanUpdate();
+
     $("#sort-down").slideUp();
     if ($("#sort-down .sort").hasClass("active")) {
         $("#complex").addClass("active");
@@ -391,6 +398,7 @@ $("#complex").click(function () {
     $("#sort-down").slideToggle();
     $(this).toggleClass("rotete");
     $("#sortOne").hide();
+    cleanUpdate();
 });
 
 //tabActive
