@@ -68,6 +68,27 @@ namespace Buy.Models
         [Display(Name = "电话号码")]
         public string PhoneNumber { get; set; }
 
+        [Required]
+        [Display(Name = "验证码")]
+        public string Code { get; set; }
+
+
+        [Required]
+        [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "密码")]
+        public string Password { get; set; }
+
+    }
+
+
+    public class UserMangeCreateUserViewModel
+    {
+        [Required]
+        [RegularExpression(Reg.MOBILE, ErrorMessage = "{0} 格式有误")]
+        [Display(Name = "电话号码")]
+        public string PhoneNumber { get; set; }
+
         [Display(Name = "验证码")]
         public string Code { get; set; }
 

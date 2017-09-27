@@ -451,6 +451,7 @@
     <Content Include="Content\images\home\slide_bg_qr.png" />
     <Content Include="Content\images\home\slide_coupon_bg_001.png" />
     <Content Include="Content\images\home\slide_coupon_bg_002.png" />
+    <Content Include="Content\images\home\slide_coupon_bg_003.png" />
     <Content Include="Content\images\home\slide_coupon_bg_jd.png" />
     <Content Include="Content\images\home\slide_coupon_bg_mogu.png" />
     <Content Include="Content\images\home\slide_coupon_bg_taobao.png" />

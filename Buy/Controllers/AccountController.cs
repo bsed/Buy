@@ -280,6 +280,8 @@ namespace Buy.Controllers
             }
             registrationCodes.UseTime = DateTime.Now;
             registrationCodes.UseUser = userId;
+            var user = db.Users.FirstOrDefault(s => s.Id == userId);
+            user.ParentUserID = registrationCodes.OwnUser;
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "成功"));
         }

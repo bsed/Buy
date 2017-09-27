@@ -291,3 +291,5 @@ __pycache__/
 
 #custom
 /Buy/bin/Buy.*
+Site.css
+Site.min.css
