@@ -1,25 +1,73 @@
 ﻿@import "../base";
 
-.userIndex{
-    .userIndex-info{
-        height:125rem*@resize;
-        background:url("../../images/view/img_bg_profile@2x.png") repeat center;
-        background-size:contain;
-        color:@font-col-white;
-        padding:24rem*@resize 16rem*@resize 16rem*@resize 16rem*@resize;
+.userIndex {
+    .userIndex-info {
+        background-color: @bg-color-white;
+        padding: 25rem*@resize 16rem*@resize;
+        color: @font-col-black01;
+        display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+        display: -moz-box; /* 老版本语法: Firefox (buggy) */
+        display: -ms-flexbox; /* 混合版本语法: IE 10 */
+        display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+        display: flex;
+
+        img {
+            .square(75rem*@resize);
+            border-radius:50%;
+        }
+
+        > div {
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            padding-left:16rem*@resize;
+            padding-top:7rem*@resize;
+
+            img{
+                .square(16rem*@resize);
+            }
+        }
+    }
+
+    .userIndex-g-space{
+        background-color:@bg-color-grey01;
+        height:8rem*@resize;
     }
 }
 
-.moduleOptions{
+.moduleOptions {
     .clearfix();
     .one-line-vertical-mid(44rem*@resize);
-    background-color:@bg-color-white;
-    border-bottom:@border;
-    padding:0 16rem*@resize;
-    font-size:@font-size-2;
+    background-color: @bg-color-white;
+    border-bottom: @border;
+    padding-left:16px;
+    font-size: @font-size-2;
 
-    a{
-        display:block;
+    a {
+        display: block;
         .clean-a();
+        .clearfix();
+    }
+
+    .arrow-r{
+        .square(44rem*@resize);
+        float:right;
+    }
+
+    .editImg{
+        .square(44rem*@resize);
+        float:right;
+
+        img{
+            width:32rem*@resize !important;
+            height:32rem*@resize !important;
+            border-radius:50%;
+        }
+    }
+
+    &.style02{
+        padding-left:0;
     }
 }

@@ -171,6 +171,26 @@ namespace Buy
             }
         }
 
+
+        public static Stream CreateExcelFromDataTable(DataTable dt)
+        {
+            MemoryStream stream = new MemoryStream();
+            IWorkbook wb = new XSSFWorkbook();
+            ISheet sheet = wb.CreateSheet("Sheet1");
+            ICreationHelper cH = wb.GetCreationHelper();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                IRow row = sheet.CreateRow(i);
+                for (int j = 0; j < 3; j++)
+                {
+                    ICell cell = row.CreateCell(j);
+                    cell.SetCellValue(cH.CreateRichTextString(dt.Rows[i].ItemArray[j].ToString()));
+                }
+            }
+            wb.Write(stream);
+            return stream;
+        }
+
         public void Dispose()
         {
             Dispose(true);

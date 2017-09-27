@@ -4,29 +4,41 @@
     ViewBag.Title = "我的";
 }
 
-<div class="userIndex minHight100vh bg-color-grey">
+<div class="userIndex minHight100vh">
     <div class="userIndex-info">
-        <img src="@Url.ResizeImage(Model.Avatar,h:50,img: Buy.Enums.DummyImage.Avatar)" />
-        <div class="fs24 marginB5">@Model.NickName</div>
-        <div class="fs14">手机号：@Model.PhoneNumber</div>
+        <img src="@Url.ResizeImage(Model.Avatar,h:100,img: Buy.Enums.DummyImage.Avatar)" />
+        <div>
+            <div class="fs24 marginB5">@Model.NickName</div>
+            <div class="fs14"><img src="~/Content/images/view/ico_iphone_blue_m@3x.png"/>手机号：@Model.PhoneNumber</div>
+        </div>
     </div>
-    <div class="moduleOptions">
-        @Html.ActionLink("修改信息", "Edit")
-    </div>
-    <div class="moduleOptions">
-        @Html.ActionLink("修改密码", "ResetPassword", "Account", null, null)
-    </div>
-    <div class="moduleOptions">
-        <a href="@Url.Action("CustomerService")">
-            联系客服
-        </a>
-    </div>
-    <div class="moduleOptions marginT10">
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-        {
-            @Html.AntiForgeryToken()
-        }
-        <a href="javascript:document.getElementById('logoutForm').submit()">退出登录</a>
+    <div class="userIndex-g-space"></div>
+    <div>
+        <div class="moduleOptions">
+            <a href="@Url.Action("Edit","User")">
+                修改昵称 / 头像
+                <img class="arrow-r" src="~/Content/images/view/arrow_right_grey_m@3x.png"/>
+            </a>
+        </div>
+        <div class="moduleOptions">
+            <a href="@Url.Action("ResetPassword","Account")">
+                修改密码
+                <img class="arrow-r" src="~/Content/images/view/arrow_right_grey_m@3x.png" />
+            </a>
+        </div>
+        <div class="moduleOptions marginT20">
+            <a href="@Url.Action("CustomerService")">
+                联系客服
+                <img class="arrow-r" src="~/Content/images/view/ico_kefu_blue@3x.png" />
+            </a>
+        </div>
+        <div class="moduleOptions marginT20">
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
+            }
+            <a href="javascript:document.getElementById('logoutForm').submit()">退出登录</a>
+        </div>
     </div>
 
     @Html.Partial("_navTabBottomPartial")
