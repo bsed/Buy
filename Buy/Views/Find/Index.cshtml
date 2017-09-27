@@ -4,10 +4,43 @@
     ViewBag.Title = "本地券";
 }
 @Styles.Render("~/bundles/swiper/css")
-<div class="find minHight100vh paddingT44">
+
+@Html.Hidden("shopId", Request["shopId"])
+
+<img id="loading" class="hidden" src="~/Content/images/view/loadingGif.gif" />
+<div class="find bg-color-grey minHight100vh paddingT88">
     <div class="navigationBar"><div class="navigationBar-tits">本地券</div></div>
 
-    <div class="banner find-banner">
+    <div class="navigationSwiper top44">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div name="type" class="swiper-slide active" data-type="">
+                    <span>首页</span><i></i>
+                </div>
+                <div name="type" class="swiper-slide hidden swiperDemo" data-type="">
+                    <span></span><i></i>
+                </div>
+            </div>
+        </div>
+        <div id="pullDown" class="pullDown"></div>
+    </div>
+    <div id="sortOne" class="sortList style03" style="display:none">
+        <ul>
+            <li name="type" class="hidden sortListDemo" data-type="">
+                <img src="" /><div class="name"></div>
+            </li>
+        </ul>
+        <div id="sortList_closed" class="sortList-closed"></div>
+    </div>
+
+    <div id="localCoupon" class="coupon-list coupon-list-style02">
+        <ul>
+            <li class="loadModule loadModule-dataIng" data-next="true" data-page="0">
+                <img class="marginR8" src="~/Content/images/view/loadingGif.gif" />加载中
+            </li>
+        </ul>
+    </div>
+    @*<div class="banner find-banner">
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
@@ -26,12 +59,11 @@
                     </a>
                 </div>
             </div>
-            <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
         </div>
-    </div>
+    </div>*@
 
-    <div class="thirdWayList">
+    @*<div class="thirdWayList">
         <ul>
             @foreach (var item in Model)
             {
@@ -43,7 +75,7 @@
                 </li>
             }
         </ul>
-    </div>
+    </div>*@
 
     @Html.Partial("_navTabBottomPartial")
 </div>
