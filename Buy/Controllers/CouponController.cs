@@ -181,7 +181,7 @@ namespace Buy.Controllers
             bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0, string userId = null)
         {
-            loadTime = loadTime.HasValue ? loadTime : loadTime.Value;
+            loadTime = loadTime.HasValue ? loadTime : DateTime.Now;
             var model = new CouponSearchModel()
             {
                 Platform = platforms.SplitToArray<Enums.CouponPlatform>(),
