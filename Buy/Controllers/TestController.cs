@@ -19,7 +19,7 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult Index(string text)
         {
-            
+
 
             return Json(Comm.ToJsonResult("Success", ""), JsonRequestBehavior.AllowGet);
         }
@@ -28,6 +28,10 @@ namespace Buy.Controllers
         {
             MoGuJie.Method.ReSetCidFile();
             return null;
+        }
+        public ActionResult T()
+        {
+            return View();
         }
     }
 

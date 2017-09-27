@@ -4,12 +4,14 @@
     ViewBag.Title = "我的";
 }
 
-
 <div class="userIndex minHight100vh bg-color-grey">
     <div class="userIndex-info">
+        <img src="@Url.ResizeImage(Model.Avatar,h:50,img: Buy.Enums.DummyImage.Avatar)" />
         <div class="fs24 marginB5">@Model.NickName</div>
         <div class="fs14">手机号：@Model.PhoneNumber</div>
-        @Html.ActionLink("编辑", "Edit")
+    </div>
+    <div class="moduleOptions">
+        @Html.ActionLink("修改信息", "Edit")
     </div>
     <div class="moduleOptions">
         @Html.ActionLink("修改密码", "ResetPassword", "Account", null, null)

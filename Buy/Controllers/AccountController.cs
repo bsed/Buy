@@ -12,6 +12,8 @@ using Buy.Models;
 using System.Drawing;
 using System.Text;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Buy.Controllers
 {
@@ -514,6 +516,15 @@ namespace Buy.Controllers
                 }
                 else
                 {
+                    try
+                    {
+                        JObject ja = (JObject)JsonConvert.DeserializeObject(verCode.Message);
+                        verCode.Message = ja["msg"].ToString();
+                    }
+                    catch (Exception)
+                    {
+                        return Json(Comm.ToJsonResult("Error", "发送失败"));
+                    }
                     return Json(Comm.ToJsonResult("Error", verCode.Message));
                 }
             }

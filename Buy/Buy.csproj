@@ -574,6 +574,7 @@
     <Content Include="Content\less\views\localcoupon.less" />
     <Content Include="Content\less\views\homeIndex.less" />
     <Content Include="Content\less\urlMatch.less" />
+    <Content Include="Content\less\imageResizeUploader.less" />
     <None Include="Properties\PublishProfiles\BuyPublish.pubxml" />
     <Content Include="Resources\char_state_tab.json" />
     <Content Include="Resources\pos_prob_emit.json" />
@@ -1099,12 +1100,12 @@
     <Content Include="Views\Shared\EditorTemplates\ImageResizer.cshtml" />
     <Content Include="Views\UserManage\Child.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\RegistrationCodeCountViewModel.cshtml" />
+    <Content Include="Views\Test\T.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Banner\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Taobao\" />
-    <Folder Include="Views\Test\" />
     <Folder Include="Views\Uploader\" />
   </ItemGroup>
   <ItemGroup>
