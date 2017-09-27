@@ -112,6 +112,7 @@ function kt_touch(contentId, way) {
         if (_end <= 0) {
             update1.find("img").show();
             update1.find("span").text("刷新中");
+            $("#update1").animate({ height: '50' }, 150);
             Update();
         }
     }
