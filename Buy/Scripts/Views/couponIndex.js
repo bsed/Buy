@@ -5,6 +5,7 @@ var typeID = $("#typeID").val(),
      + date.getDate() + " " + date.getHours() + ":"
      + date.getMinutes() + ":" + date.getSeconds(),
     sort = $("[data-sort].active").data("sort");
+var updateLoadTime = time;
 var canLoadPage = true;
 var navTop = $("#couponNav").offset().top;
 var sTop = $(".navigationBar").height();
@@ -30,7 +31,6 @@ function typeSwipe() {
     });
 }
 
-
 //主导航
 if ($(".couponIndex-banner").find(".swiper-wrapper").length > 0) {
     if ($(".couponIndex-banner").find(".swiper-slide").length > 1) {
@@ -47,7 +47,7 @@ if ($(".couponIndex-banner").find(".swiper-wrapper").length > 0) {
     });
 }
 
-//下加载
+//滑动
 $(window).scroll(function (e) {
     if ($(window).scrollTop() > 0) {
         $(".setScrollTop").fadeIn();
@@ -62,20 +62,71 @@ $(window).scroll(function (e) {
         $("#couponBox").removeClass("paddingT128");
         $("#couponNav").removeClass("fixTop88");
     }
-
+    //下加载
     if (canLoadPage && comm.isWindowBottom()) {
         loadCoupon();
     }
+
 });
+
 //上刷新事件
+function kt_touch(contentId, way) {
+    var update1 = $("#update1"), update2 = $("#update2");
+    var _start = 0,
+        _end = 0,
+        _content = document.getElementById(contentId);
+    if (_content) {
+        _content.addEventListener("touchstart", touchStart, false);
+        _content.addEventListener("touchmove", touchMove, false);
+        _content.addEventListener("touchend", touchEnd, false);
+    }
+    function touchStart(event) {
+        event.preventDefault();
+        if (!event.touches.length) return;
+        var touch = event.touches[0];
+        if (way == "x") {
+            _start = touch.pageX;
+        } else {
+            _start = touch.pageY;
+        }
+    }
+
+    function touchMove(event) {
+        event.preventDefault();
+        if (!event.touches.length) return;
+        var touch = event.touches[0];
+
+        if (way == "x") {
+            _end = (_start - touch.pageX);
+        } else {
+            _end = (_start - touch.pageY);
+            if (_end < 0) {
+                update2.css("display", "none");
+                update1.css("display", "block")
+                update1.css("height", 1 - parseInt(_end) + "px");
+            }
+        }
+    }
+
+    function touchEnd(event) {
+        if (_end <= 0) {
+            update1.css("display", "none");
+            update1.css("height", "20px");
+            update2.css("display", "block");
+            Update();
+        }
+    }
+}
+//kt_touch('coupon', 'y');
 function Update() {
     if (!canLoadPage) {
         return;
     }
     canLoadPage = false;
-    var updateTime=date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
-     + date.getDate() + " " + date.getHours() + ":"
-     + date.getMinutes() + ":" + date.getSeconds();
+    var datetime = new Date();
+    var updateTime = datetime.getFullYear() + "-" + (datetime.getMonth() + 1) + "-"
+     + datetime.getDate() + " " + datetime.getHours() + ":"
+     + datetime.getMinutes() + ":" + datetime.getSeconds();
     $.ajax({
         type: "GET",
         url: comm.action("GetList", "Coupon"),
@@ -83,15 +134,18 @@ function Update() {
             sort: sort,
             types: typeID,
             platforms: platform,
-            isUpdate:true,
-            loadTime: time,
+            isUpdate: true,
+            loadTime: updateLoadTime,
             updateTime: updateTime,
             orderByTime: true
         },
         dataType: "html",
         success: function (data) {
+            $("#update1").css("display", "none");
+            $("#update2").css("display", "none");
+            updateLoadTime = updateTime;
             var $data = $(data);
-            $coupon.find("ul").prepend($data);
+            $("#coupon").find("ul").prepend($data);
             comm.lazyloadALL();
         },
         complete: function () {

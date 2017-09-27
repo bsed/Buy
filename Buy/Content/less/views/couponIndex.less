@@ -175,6 +175,26 @@
             }
         }
     }
+
+    .update {
+        margin-top: 0;
+        width: 100%;
+        .update1, .update2 {
+            height: 20px;
+            width: 100%;
+            height: 70px;
+            background: #fff;
+            display: none;
+
+            p {
+                margin: 20px auto;
+                padding-top: 8px;
+                text-align: center;
+                font-size: 14px;
+                color: #37bbf5;
+            }
+        }
+    }
 }
 
 .sortList {
@@ -186,7 +206,7 @@
     ul {
         .clean-ul();
         .clearfix();
-        border-bottom:@border;
+        border-bottom: @border;
 
         li {
             float: left;
@@ -223,11 +243,11 @@
         }
     }
 
-    .sortList-closed{
+    .sortList-closed {
         .rectangle(100%,40rem*@resize);
-        background:url("../../images/view/ic_navbar_closed_black@2x.png") no-repeat center;
-        background-size:contain;
-        background-color:@bg-color-grey01;
+        background: url("../../images/view/ic_navbar_closed_black@2x.png") no-repeat center;
+        background-size: contain;
+        background-color: @bg-color-grey01;
     }
 
     &.style02 {

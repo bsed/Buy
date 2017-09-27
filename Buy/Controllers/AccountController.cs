@@ -72,6 +72,7 @@ namespace Buy.Controllers
                 user.PhoneNumber,
                 IsActivation = user.UserType == Enums.UserType.Proxy ? true : IsActivation(user.Id),
                 user.UserType,
+                a = Comm.ResizeImage(user.Avatar, image: null)
             };
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
         }

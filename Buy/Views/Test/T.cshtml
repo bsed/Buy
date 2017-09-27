@@ -2,41 +2,23 @@
 @{
     ViewBag.Title = "T";
 }
-<style>
-    #sd, #ud {
-        margin-top: 0;
-        width: 100%;
-    }
-
-    #sd1, #sd2, #ud1, #ud2 {
-        width: 100%;
-        height: 70px;
-        background: #e9f4f7;
-        display: none;
-    }
-
-    #sd1, #ud2 {
-        height: 20px;
-    }
-
-        #sd1 > p, #sd2 > p, #ud1 > p, #ud2 > p {
-            margin: 20px auto;
-            padding-top: 8px;
-            text-align: center;
-            font-size: 14px;
-            color: #37bbf5;
-        }
-</style>
-
 
 <h2>T</h2>
 <div id="asdsad">
-    <div id="sd">
-        <div id="sd1">
-            <p>松开后刷新最新回复</p>
+    <div id="update" style="margin-top: 0;width: 100%;">
+        <div id="update1" style="height: 20px; width: 100%; height: 70px;background: #e9f4f7; display: none;">
+            <p style="margin: 20px auto;
+            padding-top: 8px;
+            text-align: center;
+            font-size: 14px;
+            color: #37bbf5;">松开后刷新</p>
         </div>
-        <div id="sd2">
-            <p><img src="/images/loading.gif" alt="玩命加载中.." /></p>
+        <div id="update2" style="height: 20px; width: 100%; height: 70px;background: #e9f4f7; display: none;">
+            <p style="margin: 20px auto;
+            padding-top: 8px;
+            text-align: center;
+            font-size: 14px;
+            color: #37bbf5;">玩命加载中..</p>
         </div>
     </div>
     <div>
@@ -51,7 +33,7 @@
 @section Scripts {
     <script>
         function kt_touch(contentId, way) {
-            var sd1 = $("#sd1"), sd2 = $("#sd2");
+            var update1 = $("#update1"), update2 = $("#update2");
             var _start = 0,
                 _end = 0,
                 _content = document.getElementById(contentId);
@@ -81,28 +63,25 @@
                 } else {
                     _end = (_start - touch.pageY);
                     if (_end < 0) {
-
-                        sd2.css("display", "none");
-                        sd1.css("display", "block")
-                        sd1.css("height", 1 - parseInt(_end) + "px");
+                        update2.css("display", "none");
+                        update1.css("display", "block")
+                        update1.css("height", 1 - parseInt(_end) + "px");
                     }
                 }
             }
 
             function touchEnd(event) {
-
                 if (_end <= 0) {
-                    sd1.css("display", "none");
-                    sd1.css("height", "20px");
-                    sd2.css("display", "block");
-                    sd1.css("display", "none");
-                    sd2.css("display", "none");
+                    update1.css("display", "none");
+                    update1.css("height", "20px");
+                    update2.css("display", "block");
+                    update1.css("display", "none");
+                    update2.css("display", "none");
                     var sds = $("#sdsdsdsdsd").children().clone();
                     $("#sdsdsdsdsd").append(sds);
                 }
             }
         }
-
         kt_touch('asdsad', 'y');
     </script>
 }
