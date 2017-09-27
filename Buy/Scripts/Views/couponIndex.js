@@ -22,6 +22,11 @@ function nodataCheck(target) {
     }
 }
 
+function cleanUpdate() {
+    $("#update1").hide();
+    $("#update1 img").hide();
+}
+
 //swiper
 function typeSwipe() {
     var slideIndexHead = $("[name='type'].active").index();
@@ -70,8 +75,8 @@ $(window).scroll(function (e) {
 });
 
 //上刷新事件
-function kt_touch(contentId, way) {
-    var update1 = $("#update1"), update2 = $("#update2");
+function kt_touch(contentId) {
+    var update1 = $("#update1");
     var _start = 0,
         _end = 0,
         _content = document.getElementById(contentId);
@@ -81,43 +86,40 @@ function kt_touch(contentId, way) {
         _content.addEventListener("touchend", touchEnd, false);
     }
     function touchStart(event) {
-        event.preventDefault();
+        //event.preventDefault();
         if (!event.touches.length) return;
         var touch = event.touches[0];
-        if (way == "x") {
-            _start = touch.pageX;
-        } else {
-            _start = touch.pageY;
-        }
+        _start = touch.pageY;
     }
 
     function touchMove(event) {
-        event.preventDefault();
-        if (!event.touches.length) return;
-        var touch = event.touches[0];
+        // event.preventDefault();
+        if (sort == "2") {
+            if (!event.touches.length) return;
+            var touch = event.touches[0];
 
-        if (way == "x") {
-            _end = (_start - touch.pageX);
-        } else {
             _end = (_start - touch.pageY);
             if (_end < 0) {
-                update2.css("display", "none");
-                update1.css("display", "block")
+                update1.show();
+                update1.find("span").text("松开刷新");
                 update1.css("height", 1 - parseInt(_end) + "px");
+
             }
         }
     }
 
     function touchEnd(event) {
-        if (_end <= 0) {
-            update1.css("display", "none");
-            update1.css("height", "20px");
-            update2.css("display", "block");
-            Update();
+        if (sort == "2") {
+            if (_end <= 0) {
+                update1.find("img").show();
+                update1.find("span").text("刷新中");
+                $("#update1").animate({ height: '50' }, 150);
+                Update();
+            }
         }
     }
 }
-//kt_touch('coupon', 'y');
+kt_touch('coupon');
 function Update() {
     if (!canLoadPage) {
         return;
@@ -141,8 +143,8 @@ function Update() {
         },
         dataType: "html",
         success: function (data) {
-            $("#update1").css("display", "none");
-            $("#update2").css("display", "none");
+            $("#update1").animate({ height: '0' }, 150);
+            $("#update1").find("img").hide();
             updateLoadTime = updateTime;
             var $data = $(data);
             $("#coupon").find("ul").prepend($data);
@@ -375,6 +377,8 @@ $(".sort").click(function (e) {
     $(this).addClass("active");
     $("#sortOne").hide();
     $("#complex").removeClass("rotete");
+    cleanUpdate();
+
     $("#sort-down").slideUp();
     if ($("#sort-down .sort").hasClass("active")) {
         $("#complex").addClass("active");
@@ -394,6 +398,7 @@ $("#complex").click(function () {
     $("#sort-down").slideToggle();
     $(this).toggleClass("rotete");
     $("#sortOne").hide();
+    cleanUpdate();
 });
 
 //tabActive

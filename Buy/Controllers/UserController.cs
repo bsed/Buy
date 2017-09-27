@@ -49,6 +49,10 @@ namespace Buy.Controllers
         public ActionResult Edit(string userID,string nickName,string avatar)
         {
             var user = db.Users.FirstOrDefault(s => s.Id == userID);
+            if (user == null)
+            {
+                return Json(Comm.ToJsonResult("Erroe", "没有这个用户"));
+            }
             user.NickName = nickName;
             user.Avatar = avatar;
             db.SaveChanges();

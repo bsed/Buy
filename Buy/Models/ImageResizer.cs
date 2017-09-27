@@ -29,7 +29,7 @@ namespace Buy.Models
                 if (pPreviewUrl == null)
                 {
                     pPreviewUrl = string.IsNullOrWhiteSpace(ImageUrl) 
-                        ? $"~/Content/Images/phone.jpg?w={PreviewWidth}&h={PreviewHeight}&scale=canvas&Bgcolor=f6f6f6" 
+                        ? $"~/Content/Images/view/avatar_m@3x.png?w={PreviewWidth}&h={PreviewHeight}&scale=canvas&Bgcolor=f6f6f6" 
                         : Comm.ResizeImage(ImageUrl, PreviewWidth, PreviewHeight);
                 }
                 return pPreviewUrl;

@@ -9,6 +9,7 @@ var platform = $("#platform").val(),
      + date.getMinutes() + ":" + date.getSeconds(),
     types = $("#types").val();
 var canLoadPage = true;
+var updateLoadTime = time;
 
 var loading = $("#loading").attr("src");
 
@@ -70,9 +71,7 @@ function loadCoupon() {
             }
         }
     });
-
 }
-
 loadCoupon();
 
 $(window).scroll(function () {
@@ -105,6 +104,7 @@ $(".sort").click(function (e) {
     clear("#coupon ul");
     loadCoupon();
     $("#sort-down").slideUp();
+    cleanUpdate();
     if ($("#sort-down .sort").hasClass("active")) {
         $("#complex").addClass("active");
         $("#complex").find("t").text($("#sort-down .sort.active").text());
@@ -121,4 +121,92 @@ $(".sort").click(function (e) {
 $("#complex").click(function () {
     $("#sort-down").slideToggle();
     $(this).toggleClass("rotete");
+    cleanUpdate()
 });
+
+//下拉刷新
+function cleanUpdate() {
+    $("#update1").hide();
+    $("#update1 img").hide();
+}
+
+function kt_touch(contentId) {
+    var update1 = $("#update1");
+    var _start = 0,
+        _end = 0,
+        _content = document.getElementById(contentId);
+    if (_content) {
+        _content.addEventListener("touchstart", touchStart, false);
+        _content.addEventListener("touchmove", touchMove, false);
+        _content.addEventListener("touchend", touchEnd, false);
+    }
+    function touchStart(event) {
+        //event.preventDefault();
+        if (!event.touches.length) return;
+        var touch = event.touches[0];
+        _start = touch.pageY;
+    }
+
+    function touchMove(event) {
+        // event.preventDefault();
+        if (sort == "2") {
+            if (!event.touches.length) return;
+            var touch = event.touches[0];
+
+            _end = (_start - touch.pageY);
+            if (_end < 0) {
+                update1.show();
+                update1.find("span").text("松开刷新");
+                update1.css("height", 1 - parseInt(_end) + "px");
+
+            }
+        }
+    }
+
+    function touchEnd(event) {
+        if (sort == "2") {
+            if (_end <= 0) {
+                update1.find("img").show();
+                update1.find("span").text("刷新中");
+                $("#update1").animate({ height: '50' }, 150);
+                Update();
+            }
+        }
+    }
+}
+kt_touch('coupon');
+function Update() {
+    if (!canLoadPage) {
+        return;
+    }
+    canLoadPage = false;
+    var datetime = new Date();
+    var updateTime = datetime.getFullYear() + "-" + (datetime.getMonth() + 1) + "-"
+     + datetime.getDate() + " " + datetime.getHours() + ":"
+     + datetime.getMinutes() + ":" + datetime.getSeconds();
+    $.ajax({
+        type: "GET",
+        url: comm.action("GetList", "Coupon"),
+        data: {
+            sort: sort,
+            types: types,
+            platforms: platform,
+            isUpdate: true,
+            loadTime: updateLoadTime,
+            updateTime: updateTime,
+            orderByTime: true
+        },
+        dataType: "html",
+        success: function (data) {
+            $("#update1").animate({ height: '0' }, 150);
+            $("#update1").find("img").hide();
+            updateLoadTime = updateTime;
+            var $data = $(data);
+            $("#coupon").find("ul").prepend($data);
+            comm.lazyloadALL();
+        },
+        complete: function () {
+            canLoadPage = true;
+        }
+    });
+}
