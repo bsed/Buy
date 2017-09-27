@@ -534,6 +534,12 @@
     <Content Include="Content\images\view\tab_04_pre%403x.png" />
     <Content Include="Content\images\view\tag_quan%402x.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Site.css">
+      <DependentUpon>Site.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
