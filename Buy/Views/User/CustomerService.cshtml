@@ -5,12 +5,12 @@
 }
 
 
-<div>
-    <dl class="dl-horizontal">
-
-        <dd>
-            @Html.Raw(Model.Value)
-        </dd>
-
-    </dl>
+<div class="userService minHight100vh paddingT44">
+    <div class="navigationBar">
+        <div class="navigationBar-back" onclick="history.back(-1)"></div>
+        <div class="navigationBar-tits style02">联系客服</div>
+    </div>
+    <div class="paddingLr16 marginT15">
+        @Html.Raw(Model.Value)
+    </div>
 </div>

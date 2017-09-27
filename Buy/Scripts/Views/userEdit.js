@@ -23,10 +23,22 @@ $("#submit").click(function (e) {
             if (data.State == "Success") {
                 setTimeout(function () {
                     location = comm.action("Index", "User")
-                }, 3000);
+                }, 1500);
             }
         }
     });
 });
 
+//清除val
+$("[name='clearVal']").click(function () {
+    $(this).addClass("hidden");
+    $(this).parent().find("input").val(null);
+});
 
+$(".account-input input").keyup(function () {
+    if ($(this).val() == "") {
+        $(this).parent().find("[name='clearVal']").addClass("hidden");
+    } else {
+        $(this).parent().find("[name='clearVal']").removeClass("hidden");
+    }
+});
