@@ -79,7 +79,7 @@ namespace Buy.Controllers
             {
                 user = db.Users.FirstOrDefault(s => s.Id == pid);
             }
-            var model = new RegisterViewModel()
+            var model = new UserMangeCreateUserViewModel()
             {
                 UserType = userType,
                 ParentUserID = user?.Id,
@@ -96,7 +96,7 @@ namespace Buy.Controllers
 
         [HttpPost]
         [Authorize(Roles = SysRole.UserManageCreate)]
-        public ActionResult Create(RegisterViewModel model)
+        public ActionResult Create(UserMangeCreateUserViewModel model)
         {
             var user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
 
