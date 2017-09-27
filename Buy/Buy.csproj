@@ -1106,6 +1106,9 @@
     <Content Include="Views\UserManage\Child.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\RegistrationCodeCountViewModel.cshtml" />
     <Content Include="Views\Test\T.cshtml" />
+    <Content Include="Views\RegistrationCode\Export.cshtml" />
+    <Content Include="Views\Shared\_LayoutExport.cshtml" />
+    <Content Include="Views\Shared\_LayoutExportPreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Banner\" />
