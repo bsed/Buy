@@ -79,11 +79,11 @@ namespace Buy.Controllers
             {
                 user = db.Users.FirstOrDefault(s => s.Id == pid);
             }
-            var model = new RegisterViewModel()
+            var model = new UserMangeCreateUserViewModel()
             {
                 UserType = userType,
                 ParentUserID = user?.Id,
-                ParentUserNickName = user.NickName
+                ParentUserNickName = user?.NickName
 
             };
             if (userType == Enums.UserType.System)
@@ -96,12 +96,25 @@ namespace Buy.Controllers
 
         [HttpPost]
         [Authorize(Roles = SysRole.UserManageCreate)]
-        public ActionResult Create(RegisterViewModel model)
+        public ActionResult Create(UserMangeCreateUserViewModel model)
         {
             var user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
+
             if (user != null)
             {
-                ModelState.AddModelError("UserName", "用户名已存在");
+                ModelState.AddModelError("PhoneNumber", "手机号已被使用");
+            }
+            if (!string.IsNullOrWhiteSpace(model.ParentUserID))
+            {
+                var pUser = db.Users.FirstOrDefault(s => s.Id == model.ParentUserID);
+                if (pUser == null)
+                {
+                    ModelState.AddModelError("ParentUserID", "不存在父用户");
+                }
+                if (pUser.UserType != Enums.UserType.Proxy)
+                {
+                    ModelState.AddModelError("ParentUserID", $"用户“{pUser.NickName}”不是代理");
+                }
             }
             if (model.UserType == Enums.UserType.System)
             {
@@ -118,8 +131,13 @@ namespace Buy.Controllers
                     PhoneNumber = model.PhoneNumber,
                     UserType = model.UserType,
                     RegisterDateTime = DateTime.Now,
-                    LastLoginDateTime = DateTime.Now
+                    LastLoginDateTime = DateTime.Now,
+                    NickName = model.NickName
                 };
+                if (!string.IsNullOrWhiteSpace(model.ParentUserID))
+                {
+                    user.ParentUserID = model.ParentUserID;
+                }
                 var result = UserManager.CreateAsync(user, model.Password);
                 if (result.Result.Succeeded)
                 {
@@ -183,7 +201,12 @@ namespace Buy.Controllers
                 _roles.EditUserRoleByGroupID(user.Id, model.RoleGroupID.Value);
             }
             db.SaveChanges();
-            return RedirectToAction("Index");
+            string returnUrl = Url.Action("index");
+            if (string.IsNullOrWhiteSpace(returnUrl))
+            {
+                returnUrl = Url.Action("Child");
+            }
+            return Redirect(returnUrl);
         }
 
         [HttpPost]
@@ -307,6 +330,11 @@ namespace Buy.Controllers
             return View(userlist);
         }
 
+        /// <summary>
+        /// 把用户升级到一级代理
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Update(string id)
         {
@@ -317,28 +345,30 @@ namespace Buy.Controllers
             }
             else if (user.UserType == Enums.UserType.Proxy)
             {
-                return Json(Comm.ToJsonResult("Error", "已经代理"));
+                return Json(Comm.ToJsonResult("Error", "已经是代理"));
             }
             else
             {
-                //升级代理后把已经注册的用户移动自己下面，未注册的帐号不影响
                 user.ParentUserID = null;
                 user.UserType = Enums.UserType.Proxy;
                 var codes = db.RegistrationCodes
                     .Where(s => s.OwnUser == user.Id)
-                    .Select(s => s.UseUser)
+                    .Select(s => s.UseTime.HasValue)
+                    .GroupBy(s => s)
+                    .Select(s => new
+                    {
+                        CodeType = s.Key ? "已使用" : "未使用",
+                        Count = s.Count()
+                    })
                     .ToList();
 
-                var childs = db.Users.Where(s => codes.Contains(s.Id)).ToList();
-                foreach (var item in childs)
-                {
-                    item.ParentUserID = user.Id;
-                }
                 db.SaveChanges();
-                return Json(Comm.ToJsonResult("Success", $"升级成功,{codes.Count}个激活码和{childs.Count}个用户", new
+                var code1 = codes.FirstOrDefault(s => s.CodeType == "未使用")?.Count ?? 0;
+                var code2 = codes.FirstOrDefault(s => s.CodeType == "已使用")?.Count ?? 0;
+                return Json(Comm.ToJsonResult("Success", $"升级成功,{code1}个激活码和{code2}个用户", new
                 {
-                    CodeCount = codes.Count,
-                    UserCount = childs.Count
+                    CodeCount = code1,
+                    UserCount = code2
                 }));
             }
 

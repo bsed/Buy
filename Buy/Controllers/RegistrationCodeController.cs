@@ -38,7 +38,9 @@ namespace Buy.Controllers
             {
                 registrationCodes = registrationCodes.Where(s => s.OwnUser == userId);
             }
-            var list = registrationCodes.OrderBy(s => s.ID).ToPagedList(page);
+            var list = registrationCodes
+                .OrderByDescending(s => s.ID)
+                .ToPagedList(page);
 
             var userids = list.Select(s => s.OwnUser).ToList();
             userids.AddRange(list.Select(s => s.CreateUser).ToList());
@@ -62,7 +64,9 @@ namespace Buy.Controllers
                     OwnUser = s.OwnUser,
                     Use = use,
                     UseTime = s.UseTime,
-                    UseUser = s.UseUser
+                    UseUser = s.UseUser,
+                    ActiveEndDateTime = s.ActiveEndDateTime,
+                    UseEndDateTime = s.UseEndDateTime
                 };
                 return item;
             });
@@ -92,6 +96,25 @@ namespace Buy.Controllers
             {
                 var user = db.Users.FirstOrDefault(s => s.Id == userId);
                 model.Own = user;
+                if (!string.IsNullOrWhiteSpace(user.ParentUserID))
+                {
+                    var gCode = db.RegistrationCodes
+                          .Where(s => s.OwnUser == user.ParentUserID
+                              && !s.UseTime.HasValue
+                              && ((!s.ActiveEndDateTime.HasValue && !s.UseEndDateTime.HasValue)
+                              || (s.ActiveEndDateTime > DateTime.Now
+                              && s.UseEndDateTime > DateTime.Now)))
+                          .GroupBy(s => new { s.ActiveEndDateTime, s.UseEndDateTime })
+                          .Select(s => new RegistrationCodeCountViewModel
+                          {
+                              ActiveEndDateTime = s.Key.ActiveEndDateTime,
+                              Max = s.Count(),
+                              UseEndDateTime = s.Key.UseEndDateTime
+                          }).ToList();
+                    model.CodeCount = new List<RegistrationCodeCountViewModel>();
+                    model.CodeCount.AddRange(gCode);
+
+                }
             }
             return View(model);
         }
@@ -100,6 +123,16 @@ namespace Buy.Controllers
         [Authorize(Roles = SysRole.RegistrationCodeManageCreate)]
         public ActionResult Create(RegistrationCodeCreate model, int length = 10)
         {
+
+            Func<IQueryable<RegistrationCode>> queryCode = () =>
+            {
+                var checkCode = model.CodeCount.FirstOrDefault(s => s.Checked);
+                return db.RegistrationCodes
+                  .Where(s => s.ActiveEndDateTime == checkCode.ActiveEndDateTime
+                      && s.UseEndDateTime == checkCode.UseEndDateTime);
+            };
+
+
             if (model.Count < 1)
             {
                 ModelState.AddModelError("Count", "数量不可小于1");
@@ -108,31 +141,64 @@ namespace Buy.Controllers
             {
                 ModelState.AddModelError("OwnUser", "请选择拥有用户");
             }
+            if (!model.CodeCount?.Any(s => s.Checked) ?? false)
+            {
+                ModelState.AddModelError("CodeCount", "请选择批次");
+            }
+            if (model.CodeCount != null)
+            {
+                var max = queryCode().Count();
+                if (model.Count > max)
+                {
+                    ModelState.AddModelError("Count", $"数量已超过批次的最大值{max}");
+                }
+            }
             if (ModelState.IsValid)
             {
-                var codelist = db.RegistrationCodes.Select(s => s.Code).ToList();
-                var list = new List<RegistrationCode>();
-                while (list.Count < model.Count)
+                if (model.CodeCount == null)//普通的添加激活
                 {
-                    var code = CreateCode(length);
-                    if (list.Where(s => s.Code == code).Count() <= 0)
+                    var codelist = db.RegistrationCodes.Select(s => s.Code).ToList();
+                    var list = new List<RegistrationCode>();
+                    var creteDateTime = DateTime.Now;
+                    while (list.Count < model.Count)
                     {
-                        if (!codelist.Contains(code))
+                        var code = CreateCode(length);
+                        if (list.Where(s => s.Code == code).Count() <= 0)
                         {
-                            list.Add(new RegistrationCode()
+                            if (!codelist.Contains(code))
                             {
-                                Code = code,
-                                CreateTime = DateTime.Now,
-                                CreateUser = UserID,
-                                OwnUser = model.OwnUser,
-                            });
+                                list.Add(new RegistrationCode()
+                                {
+                                    Code = code,
+                                    CreateTime = creteDateTime,
+                                    CreateUser = UserID,
+                                    OwnUser = model.OwnUser,
+                                    ActiveEndDateTime = model.ActiveDateTime?.AddHours(24).AddSeconds(-1),
+                                    UseEndDateTime = model.UseEndDateTime?.AddHours(24).AddSeconds(-1),
+                                });
+                            }
                         }
                     }
+                    db.RegistrationCodes.AddRange(list);
+                    db.SaveChanges();
                 }
-                db.RegistrationCodes.AddRange(list);
-                db.SaveChanges();
+                else//从父级买激活码
+                {
+                    var list = queryCode().Take(model.Count).ToList();
+                    foreach (var item in list)
+                    {
+                        item.OwnUser = model.OwnUser;
+                    }
+
+                    db.SaveChanges();
+                }
+                if (this.GetReturnUrl() != null)
+                {
+                    return Redirect(this.GetReturnUrl());
+                }
                 return RedirectToAction("Index", "UserManage", null);
             }
+
             if (string.IsNullOrWhiteSpace(model.OwnUser))
             {
                 var userlist = db.Users.Where(s => s.UserType == Enums.UserType.Proxy)

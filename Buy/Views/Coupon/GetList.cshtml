@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Buy.Models.Coupon>
 @{
     Layout = null;
-    var paged = (PagedList.IPagedList<Buy.Models.Coupon>)Model;
+    bool isUpdate = (bool)ViewBag.IsUpdate;
 }
 @if (Model.Count() > 0)
 {
@@ -24,9 +24,6 @@
             case Buy.Enums.CouponPlatform.Jd:
                 platformLogo = "/Content/images/view/logo_jd_tag@2x.png";
                 break;
-            //case Buy.Enums.CouponPlatform.Vip:
-            //    platformLogo = "/Content/images/view/logo_taobao_tag@2x.png";
-            //    break;
             case Buy.Enums.CouponPlatform.MoGuJie:
                 platformLogo = "/Content/images/view/logo_mogujie_tag@2x.png";
                 break;
@@ -62,14 +59,14 @@
                         <span class="yuan">￥</span>@item.Price
                     </div>
                     @*<div class="marginT15">
-                        <div class="coupon-tab">
-                            @foreach (var value in Buy.Bll.Coupons.GetValues(item))
-                            {
-                                <div class="coupon-tab-type fl">@value.Type</div>
-                                <div class="coupon-tab-val fl">@value.Value</div>
-                            }
-                        </div>
-                    </div>*@
+                            <div class="coupon-tab">
+                                @foreach (var value in Buy.Bll.Coupons.GetValues(item))
+                                {
+                                    <div class="coupon-tab-type fl">@value.Type</div>
+                                    <div class="coupon-tab-val fl">@value.Value</div>
+                                }
+                            </div>
+                        </div>*@
                 </a>
             </div>
 
@@ -81,22 +78,26 @@
             <div style="clear:both;"></div>
         </li>
     }
-    if (paged.HasNextPage)
+    if (!isUpdate)
     {
-        <li class="loadModule loadModule-dataIng" data-next="true" data-page="@paged.PageNumber">
-            <img class="marginR8" src="~/Content/images/view/loadingGif.gif"/>加载中
-        </li>
-    }
-    else
-    {
-        <li class="loadModule loadModule-dataIng" data-next="false" data-page="0">
-            已经到底了
-        </li>
+        var paged = (PagedList.IPagedList<Buy.Models.Coupon>)Model;
+        if (paged.HasNextPage)
+        {
+            <li class="loadModule loadModule-dataIng" data-next="true" data-page="@paged.PageNumber">
+                <img class="marginR8" src="~/Content/images/view/loadingGif.gif" />加载中
+            </li>
+        }
+        else
+        {
+            <li class="loadModule loadModule-dataIng" data-next="false" data-page="0">
+                已经到底了
+            </li>
+        }
     }
 }
 else
 {
     @*<li class="loadModule loadModule-dataIng" data-next="false" data-page="0">
-        已经到底了
-    </li>*@
+            已经到底了
+        </li>*@
 }

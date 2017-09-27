@@ -1,0 +1,12 @@
+﻿@model Buy.Models.RegistrationCodeCountViewModel
+<tr>
+    <td>
+        @Html.EditorFor(model => model.Checked)
+        @Html.HiddenFor(model => model.UseEndDateTime)
+        @Html.HiddenFor(model => model.ActiveEndDateTime)
+        @Html.HiddenFor(model => model.Max)
+    </td>
+    <td>@Html.DisplayFor(model=> model.UseEndDateTime)</td>
+    <td>@Html.DisplayFor(model => model.ActiveEndDateTime)</td>
+    <td>@Html.DisplayFor(model => model.Max)</td>
+</tr>

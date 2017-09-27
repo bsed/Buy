@@ -15,8 +15,8 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("添加子级代理", "Create", new { UserType = Buy.Enums.UserType.ProxySec, PID = user.Id })</li>
-                <li>@Html.ActionLink("添加子级用户", "Create", new { userType = Buy.Enums.UserType.Normal, PID = user.Id })</li>
+                <li>@Html.ActionLink("添加子级代理", "Create", new { UserType = Buy.Enums.UserType.ProxySec, PID = user.Id, ReturnUrl = Url.Action("Child") })</li>
+                <li>@Html.ActionLink("添加子级用户", "Create", new { userType = Buy.Enums.UserType.Normal, PID = user.Id, ReturnUrl = Url.Action("Child") })</li>
             </ul>
         </div>
     </div>
@@ -75,10 +75,10 @@
                 @Html.DisplayFor(modelItem => item.UnUseCount)
             </td>
             <td>
-                @Html.ActionLink("添加注册码", "Create", "RegistrationCode", new { userId = item.Id }, null)|
-                @Html.ActionLink("查看注册码", "Index", "RegistrationCode", new { userId = item.Id }, null)|
-                @Html.ActionLink("编辑", "Edit", new { id = item.Id })|
-                <a name="btnUpdate" href="#" data-name="@item.NickName">升级代理</a>
+                @Html.ActionLink("转让注册码", "Create", "RegistrationCode", new { userId = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) }, null)|
+                @Html.ActionLink("查看注册码", "Index", "RegistrationCode", new { userId = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) }, null)|
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) }) |
+                <a name="btnUpdate" href="#" data-name="@item.NickName" data-id="@item.Id">升级代理</a>
             </td>
         </tr>
     }
@@ -87,4 +87,6 @@
 
 
 @Html.PageList(paged, Url.PageUrl())
-@Scripts.Render("~/bundles/useManageChild.js")
+@section Scripts{
+    @Scripts.Render("~/bundles/useManageChild")
+}

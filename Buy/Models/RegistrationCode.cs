@@ -32,15 +32,17 @@ namespace Buy.Models
         public string UseUser { get; set; }
 
         [Display(Name = "激活期限")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", NullDisplayText = "无")]
         public DateTime? ActiveEndDateTime { get; set; }
 
         [Display(Name = "使用期限")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", NullDisplayText = "无")]
         public DateTime? UseEndDateTime { get; set; }
     }
 
     public class RegistrationCodeCreate
     {
-        [Display(Name = "拥有用户")]
+        [Display(Name = "添加到")]
         [Required(ErrorMessage = "请选择{0}")]
         public string OwnUser { get; set; }
 
@@ -49,6 +51,15 @@ namespace Buy.Models
         [Display(Name = "数量")]
         [Range(1, int.MaxValue, ErrorMessage = "{0}不能小于{1}")]
         public int Count { get; set; }
+
+        [Display(Name = "批次")]
+        public List<RegistrationCodeCountViewModel> CodeCount { get; set; }
+
+        [Display(Name = "激活期限")]
+        public DateTime? ActiveDateTime { get; set; }
+
+        [Display(Name = "使用期限")]
+        public DateTime? UseEndDateTime { get; set; }
     }
 
     [NotMapped]
@@ -59,5 +70,43 @@ namespace Buy.Models
         public ApplicationUser Own { get; set; }
 
         public ApplicationUser Use { get; set; }
+
+    }
+
+    public class RegistrationCodeCountViewModel
+    {
+        public int Max { get; set; }
+
+
+        public bool Checked { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", NullDisplayText ="无")]
+        public DateTime? UseEndDateTime { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", NullDisplayText = "无")]
+        public DateTime? ActiveEndDateTime { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                if (!UseEndDateTime.HasValue && !ActiveEndDateTime.HasValue)
+                {
+                    return "普通";
+                }
+                else if (UseEndDateTime.HasValue && ActiveEndDateTime.HasValue)
+                {
+                    return $"使用期限{UseEndDateTime:yyyy-MM-dd},激活期限{ActiveEndDateTime:yyyy-MM-dd}";
+                }
+                else if (UseEndDateTime.HasValue)
+                {
+                    return $"使用期限{UseEndDateTime:yyyy-MM-dd}";
+                }
+                else
+                {
+                    return $"激活期限{ActiveEndDateTime:yyyy-MM-dd}";
+                }
+            }
+        }
     }
 }

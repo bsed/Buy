@@ -245,6 +245,21 @@ namespace Buy
         }
 
         /// <summary>
+        /// 返回链接
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <returns></returns>
+        public static string GetReturnUrl(this Controller controller)
+        {
+            string url = controller.Request["ReturnUrl"];
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                url = null;
+            }
+            return url;
+        }
+
+        /// <summary>
         /// 是否是移动端的请求
         /// </summary>
         public static bool IsMobileDrive

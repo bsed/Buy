@@ -451,6 +451,7 @@
     <Content Include="Content\images\home\slide_bg_qr.png" />
     <Content Include="Content\images\home\slide_coupon_bg_001.png" />
     <Content Include="Content\images\home\slide_coupon_bg_002.png" />
+    <Content Include="Content\images\home\slide_coupon_bg_003.png" />
     <Content Include="Content\images\home\slide_coupon_bg_jd.png" />
     <Content Include="Content\images\home\slide_coupon_bg_mogu.png" />
     <Content Include="Content\images\home\slide_coupon_bg_taobao.png" />
@@ -990,6 +991,7 @@
     <Content Include="Scripts\Views\localCoupon.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\register.js" />
+    <Content Include="Scripts\Views\registrationCodeCreate.js" />
     <Content Include="Scripts\Views\resetPassword.js" />
     <Content Include="Scripts\Views\roleGroup.js" />
     <Content Include="Scripts\Views\search.js" />
@@ -1097,6 +1099,7 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ImageResizer.cshtml" />
     <Content Include="Views\UserManage\Child.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\RegistrationCodeCountViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Banner\" />

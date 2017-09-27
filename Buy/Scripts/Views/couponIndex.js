@@ -47,6 +47,7 @@ if ($(".couponIndex-banner").find(".swiper-wrapper").length > 0) {
     });
 }
 
+//下加载
 $(window).scroll(function (e) {
     if ($(window).scrollTop() > 0) {
         $(".setScrollTop").fadeIn();
@@ -66,7 +67,40 @@ $(window).scroll(function (e) {
         loadCoupon();
     }
 });
+//上刷新事件
+function Update() {
+    if (!canLoadPage) {
+        return;
+    }
+    canLoadPage = false;
+    var updateTime=date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
+     + date.getDate() + " " + date.getHours() + ":"
+     + date.getMinutes() + ":" + date.getSeconds();
+    $.ajax({
+        type: "GET",
+        url: comm.action("GetList", "Coupon"),
+        data: {
+            sort: sort,
+            types: typeID,
+            platforms: platform,
+            isUpdate:true,
+            loadTime: time,
+            updateTime: updateTime,
+            orderByTime: true
+        },
+        dataType: "html",
+        success: function (data) {
+            var $data = $(data);
+            $coupon.find("ul").prepend($data);
+            comm.lazyloadALL();
+        },
+        complete: function () {
+            canLoadPage = true;
+        }
+    });
+}
 
+//返回顶部
 $(".setScrollTop").click(function () {
     $('body').animate({ scrollTop: '0' }, 500);
 });
@@ -251,7 +285,7 @@ function loadCoupon() {
             sort: sort,
             types: typeID,
             platforms: platform,
-            time: time,
+            loadTime: time,
             orderByTime: true
         },
         dataType: "html",
@@ -259,7 +293,6 @@ function loadCoupon() {
             $page.remove();
             var $data = $(data);
             $coupon.find("ul").append($data);
-            sort = null;
             comm.lazyloadALL();
         },
         complete: function () {

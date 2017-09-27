@@ -23,13 +23,9 @@ namespace Buy.Controllers
             }
         }
 
-        private IQueryable<CouponUserViewModel> QueryCoupon(DateTime time, string filter = null
-            , List<int> type = null
-            , List<Enums.CouponPlatform> platform = null, bool orderByTime = false
-            , Enums.CouponSort sort = Enums.CouponSort.Default
-            , decimal minPrice = 0, decimal maxPrice = 0, string userId = null)
+        private IQueryable<CouponUserViewModel> QueryCoupon(CouponSearchModel model)
         {
-            string couponUserID = Bll.Accounts.GetCouponUserID(userId);
+            string couponUserID = Bll.Accounts.GetCouponUserID(model.UserId);
             IQueryable<CouponQuery> query;
             if (!string.IsNullOrWhiteSpace(couponUserID))
             {
@@ -98,44 +94,53 @@ namespace Buy.Controllers
             }
 
             //不显示创建时间是未来的和过期的
-            if (orderByTime)
+            if (model.OrderByTime)
             {
-                query = query.Where(s => s.CreateDateTime < time && s.EndDateTime > time);
-            }
-            if (type != null && type.Count > 0 && type.Contains(0))
-            {
-                type.Remove(0);
-            }
-            if (type != null && type.Count > 0)
-            {
-                query = query.Where(s => s.TypeID.HasValue && (type.Contains(s.Type.ID) || type.Contains(s.Type.ParentID)));
-            }
-            if (platform != null && platform.Count > 0)
-            {
-                if (platform.Contains(Enums.CouponPlatform.TaoBao) || platform.Contains(Enums.CouponPlatform.TMall))
+                if (!model.IsUpdate)
                 {
-                    platform.Add(Enums.CouponPlatform.TaoBao);
-                    platform.Add(Enums.CouponPlatform.TMall);
+                    query = query.Where(s => s.CreateDateTime < model.LoadTime && s.EndDateTime > model.LoadTime);
                 }
-                query = query.Where(s => platform.Contains(s.Platform));
+                else
+                {
+                    query = query.Where(s => s.CreateDateTime < model.UpdateTime && s.CreateDateTime >= model.LoadTime && s.EndDateTime > model.LoadTime);
+                }
             }
-            if (!string.IsNullOrWhiteSpace(filter))
+            if (model.Type != null && model.Type.Count > 0 && model.Type.Contains(0))
             {
-                var filterList = filter.SplitToArray<string>(' ');
+                model.Type.Remove(0);
+            }
+            if (model.Type != null && model.Type.Count > 0)
+            {
+                query = query.Where(s => s.TypeID.HasValue && (model.Type.Contains(s.Type.ID)
+                || model.Type.Contains(s.Type.ParentID)));
+            }
+            if (model.Platform != null && model.Platform.Count > 0)
+            {
+                if (model.Platform.Contains(Enums.CouponPlatform.TaoBao)
+                    || model.Platform.Contains(Enums.CouponPlatform.TMall))
+                {
+                    model.Platform.Add(Enums.CouponPlatform.TaoBao);
+                    model.Platform.Add(Enums.CouponPlatform.TMall);
+                }
+                query = query.Where(s => model.Platform.Contains(s.Platform));
+            }
+            if (!string.IsNullOrWhiteSpace(model.Filter))
+            {
+                var filterList = model.Filter.SplitToArray<string>(' ');
                 foreach (var item in filterList)
                 {
                     query = query.Where(s => s.Name.Contains(item) || s.ProductType.Contains(item) || s.ShopName.Contains(item));
                 }
             }
-            if (minPrice > 0)
+            if (model.MinPrice > 0)
             {
-                query = query.Where(s => s.Price >= minPrice);
+                query = query.Where(s => s.Price >= model.MinPrice);
             }
-            if (maxPrice > 0)
+            if (model.MaxPrice > 0)
             {
-                query = query.Where(s => s.Price <= maxPrice);
+                query = query.Where(s => s.Price <= model.MaxPrice);
             }
-            switch (sort)
+            switch (model.Sort)
             {
                 case Enums.CouponSort.Sales:
                     {
@@ -169,17 +174,38 @@ namespace Buy.Controllers
 
         // GET: Coupon
         [AllowCrossSiteJson]
-        public ActionResult GetAll(string filter, DateTime? time, int page = 1, string types = null, string platforms = null
-          , bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
+        public ActionResult GetAll(string filter,
+            DateTime loadTime, DateTime? updateTime, bool isUpdate = false,
+            int page = 1, string types = null,
+            string platforms = null,
+            bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0, string userId = null)
         {
-            time = time.HasValue ? time : DateTime.Now;
-            var paged = QueryCoupon(time.Value, filter, types.SplitToArray<int>()
-                , platforms.SplitToArray<Enums.CouponPlatform>()
-                , orderByTime, sort, minPrice, maxPrice, userId)
-                .ToPagedList(page, 20);
-            var models = paged.Select(s => new Models.ActionCell.CouponCell(s)).ToList();
-            return Json(Comm.ToJsonResultForPagedList(paged, models), JsonRequestBehavior.AllowGet);
+            var model = new CouponSearchModel()
+            {
+                Platform = platforms.SplitToArray<Enums.CouponPlatform>(),
+                UserId = userId,
+                Type = types.SplitToArray<int>(),
+                Filter = filter,
+                LoadTime = loadTime,
+                UpdateTime = updateTime,
+                OrderByTime = orderByTime,
+                IsUpdate = isUpdate,
+                MaxPrice = maxPrice,
+                MinPrice = minPrice,
+                Sort = sort,
+            };
+            if (isUpdate)
+            {
+                var models = QueryCoupon(model).Select(s => new Models.ActionCell.CouponCell(s)).ToList();
+                return Json(Comm.ToJsonResult("Success", "成功", models), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var paged = QueryCoupon(model).ToPagedList(page, 20);
+                var models = paged.Select(s => new Models.ActionCell.CouponCell(s)).ToList();
+                return Json(Comm.ToJsonResultForPagedList(paged, models), JsonRequestBehavior.AllowGet);
+            }
         }
 
         [AllowCrossSiteJson]
@@ -506,18 +532,36 @@ namespace Buy.Controllers
             return View(model);
         }
 
-        public ActionResult GetList(string filter, DateTime? time, int page = 1,
-            string types = null, string platforms = null,
+        public ActionResult GetList(string filter, DateTime loadTime, DateTime? updateTime, int page = 1,
+            string types = null, string platforms = null, bool isUpdate = false,
             bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0)
         {
-            time = time.HasValue ? time : DateTime.Now;
-            var paged = QueryCoupon(time.Value, filter, types.SplitToArray<int>()
-               , platforms.SplitToArray<Enums.CouponPlatform>()
-               , orderByTime, sort, minPrice, maxPrice
-               , User.Identity.GetUserId())
-               .ToPagedList(page, 20);
-            return View(paged);
+            var model = new CouponSearchModel()
+            {
+                Platform = platforms.SplitToArray<Enums.CouponPlatform>(),
+                UserId = User.Identity.GetUserId(),
+                Type = types.SplitToArray<int>(),
+                Filter = filter,
+                LoadTime = loadTime,
+                UpdateTime = updateTime,
+                OrderByTime = orderByTime,
+                IsUpdate = isUpdate,
+                MaxPrice = maxPrice,
+                MinPrice = minPrice,
+                Sort = sort
+            };
+            ViewBag.IsUpdate = isUpdate;
+            if (isUpdate)
+            {
+                var list = QueryCoupon(model);
+                return View(list);
+            }
+            else
+            {
+                var paged = QueryCoupon(model).ToPagedList(page, 20);
+                return View(paged);
+            }
         }
 
         public ActionResult Details(int? id)

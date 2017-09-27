@@ -1,4 +1,4 @@
-﻿@model Buy.Models.RegisterViewModel
+﻿@model Buy.Models.UserMangeCreateUserViewModel
 
 @{
     var name = Model.UserType.GetDisplayName();
@@ -13,7 +13,7 @@
 
 <ol class="breadcrumb">
     <li>@Html.ActionLink("用户管理", "Index", "UserManage")</li>
-    <li class="active">@title</li>
+    <li class="active">添加用户</li>
 </ol>
 
 @using (Html.BeginForm())
@@ -23,11 +23,26 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => Model.UserType)
+        @Html.HiddenFor(model => model.ParentUserNickName)
+        @Html.HiddenFor(model => model.ParentUserID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 form-control-static">
+                @Model.UserType.GetDisplayName()
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.NickName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NickName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NickName, "", new { @class = "text-danger" })
             </div>
         </div>
         @if (!string.IsNullOrWhiteSpace(Model.ParentUserID))
@@ -36,8 +51,7 @@
                 @Html.LabelFor(model => model.ParentUserID, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10 form-control-static">
                     @Html.DisplayFor(model => model.ParentUserNickName)
-                    @Html.HiddenFor(model => model.ParentUserID)
-                    @Html.ValidationMessageFor(model => model.RoleGroupID, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.ParentUserID, "", new { @class = "text-danger" })
                 </div>
             </div>
         }
