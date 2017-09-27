@@ -46,11 +46,11 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Edit(ApplicationUser model)
+        public ActionResult Edit(string userID,string nickName,string avatar)
         {
-            var user = db.Users.FirstOrDefault(s => s.Id == model.Id);
-            user.NickName = model.NickName;
-            user.Avatar = model.Avatar;
+            var user = db.Users.FirstOrDefault(s => s.Id == userID);
+            user.NickName = nickName;
+            user.Avatar = avatar;
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "修改成功"));
         }

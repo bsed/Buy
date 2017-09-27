@@ -175,19 +175,20 @@ namespace Buy.Controllers
         // GET: Coupon
         [AllowCrossSiteJson]
         public ActionResult GetAll(string filter,
-            DateTime loadTime, DateTime? updateTime, bool isUpdate = false,
+            DateTime? loadTime, DateTime? updateTime, bool isUpdate = false,
             int page = 1, string types = null,
             string platforms = null,
             bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0, string userId = null)
         {
+            loadTime = loadTime.HasValue ? loadTime : DateTime.Now;
             var model = new CouponSearchModel()
             {
                 Platform = platforms.SplitToArray<Enums.CouponPlatform>(),
                 UserId = userId,
                 Type = types.SplitToArray<int>(),
                 Filter = filter,
-                LoadTime = loadTime,
+                LoadTime = loadTime.Value,
                 UpdateTime = updateTime,
                 OrderByTime = orderByTime,
                 IsUpdate = isUpdate,

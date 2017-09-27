@@ -8,9 +8,9 @@ var avatar = new imageResizeUpload("#Avatar", {
 
 $("#submit").click(function (e) {
     var data = {
-        ID: $("#ID").val(),
-        NickName: $("#NickName").val(),
-        Avatar: $("[name='Avatar.ImageUrl']").val()
+        userID: $("#ID").val(),
+        nickName: $("#NickName").val(),
+        avatar: $("[name='Avatar.ImageUrl']").val()
     };
     console.log(data);
     $.ajax({
