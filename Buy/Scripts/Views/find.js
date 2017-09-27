@@ -54,13 +54,18 @@ function GetCouponType() {
             TypeClick();
             typeSwipe();
 
-            if (Number(shopId) != 0) {
+            if (Number(shopId) != "") {
                 $("[name='type']").removeClass("active");
                 $("[name='type'][data-type=" + shopId + "]").addClass("active");
                 $("[name=sortList]").removeClass("hidden");
                 $("[name=sortList]").children().addClass("hidden");
                 $("[name=sortList]").find("[data-type=" + shopId + "]").removeClass("hidden");
+            } else {
+                $("[name='type']").first().addClass("active");
+                shopId = $("[name='type']").first().data("type");
             }
+
+            loadCoupon();
 
         }
     });
@@ -110,7 +115,6 @@ function TypeClick() {
 }
 
 //加载列表
-loadCoupon()
 function loadCoupon() {
     if (!canLoadPage) {
         return;
