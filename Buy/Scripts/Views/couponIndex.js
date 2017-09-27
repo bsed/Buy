@@ -70,7 +70,7 @@ $(window).scroll(function (e) {
 });
 
 //上刷新事件
-function kt_touch(contentId, way) {
+function kt_touch(contentId) {
     var update1 = $("#update1");
     var _start = 0,
         _end = 0,
@@ -81,43 +81,40 @@ function kt_touch(contentId, way) {
         _content.addEventListener("touchend", touchEnd, false);
     }
     function touchStart(event) {
-        event.preventDefault();
+        //event.preventDefault();
         if (!event.touches.length) return;
         var touch = event.touches[0];
-        if (way == "x") {
-            _start = touch.pageX;
-        } else {
-            _start = touch.pageY;
-        }
+        _start = touch.pageY;
     }
 
     function touchMove(event) {
-        event.preventDefault();
-        if (!event.touches.length) return;
-        var touch = event.touches[0];
+        // event.preventDefault();
+        if (sort == "2") {
+            if (!event.touches.length) return;
+            var touch = event.touches[0];
 
-        if (way == "x") {
-            _end = (_start - touch.pageX);
-        } else {
             _end = (_start - touch.pageY);
             if (_end < 0) {
                 update1.show();
                 update1.find("span").text("松开刷新");
                 update1.css("height", 1 - parseInt(_end) + "px");
+
             }
         }
     }
 
     function touchEnd(event) {
-        if (_end <= 0) {
-            update1.find("img").show();
-            update1.find("span").text("刷新中");
-            $("#update1").animate({ height: '50' }, 150);
-            Update();
+        if (sort == "2") {
+            if (_end <= 0) {
+                update1.find("img").show();
+                update1.find("span").text("刷新中");
+                $("#update1").animate({ height: '50' }, 150);
+                Update();
+            }
         }
     }
 }
-kt_touch('coupon', 'y');
+kt_touch('coupon');
 function Update() {
     if (!canLoadPage) {
         return;

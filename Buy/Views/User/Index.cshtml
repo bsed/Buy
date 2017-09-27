@@ -6,10 +6,17 @@
 
 <div class="userIndex minHight100vh">
     <div class="userIndex-info">
-        <img src="@Url.ResizeImage(Model.Avatar,h:100,img: Buy.Enums.DummyImage.Avatar)" />
+        @if (string.IsNullOrWhiteSpace(Model.Avatar))
+        {
+            <img src="@Url.ResizeImage("~/Content/images/view/avatar_m@3x.png", h: 100, img: Buy.Enums.DummyImage.Avatar)" />
+        }
+        else
+        {
+            <img src="@Url.ResizeImage(Model.Avatar, h: 100, img: Buy.Enums.DummyImage.Avatar)" />
+        }
         <div>
             <div class="fs24 marginB5">@Model.NickName</div>
-            <div class="fs14"><img src="~/Content/images/view/ico_iphone_blue_m@3x.png"/>手机号：@Model.PhoneNumber</div>
+            <div class="fs14"><img src="~/Content/images/view/ico_iphone_blue_m@3x.png" />手机号：@Model.PhoneNumber</div>
         </div>
     </div>
     <div class="userIndex-g-space"></div>
@@ -17,7 +24,7 @@
         <div class="moduleOptions">
             <a href="@Url.Action("Edit","User")">
                 修改昵称 / 头像
-                <img class="arrow-r" src="~/Content/images/view/arrow_right_grey_m@3x.png"/>
+                <img class="arrow-r" src="~/Content/images/view/arrow_right_grey_m@3x.png" />
             </a>
         </div>
         <div class="moduleOptions">

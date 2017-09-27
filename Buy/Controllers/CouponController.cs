@@ -102,10 +102,7 @@ namespace Buy.Controllers
                 }
                 else
                 {
-                    if (model.Sort != Enums.CouponSort.CreateTime)
-                    {
-                        query = query.Where(s => s.CreateDateTime < model.UpdateTime && s.CreateDateTime >= model.LoadTime && s.EndDateTime > model.LoadTime);
-                    }
+                    query = query.Where(s => s.CreateDateTime < model.UpdateTime && s.CreateDateTime >= model.LoadTime && s.EndDateTime > model.LoadTime);
                 }
             }
             if (model.Type != null && model.Type.Count > 0 && model.Type.Contains(0))
