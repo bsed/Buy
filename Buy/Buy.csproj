@@ -1101,12 +1101,12 @@
     <Content Include="Views\Shared\EditorTemplates\ImageResizer.cshtml" />
     <Content Include="Views\UserManage\Child.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\RegistrationCodeCountViewModel.cshtml" />
-    <Content Include="Views\Test\T.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Banner\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Taobao\" />
+    <Folder Include="Views\Test\" />
     <Folder Include="Views\Uploader\" />
   </ItemGroup>
   <ItemGroup>

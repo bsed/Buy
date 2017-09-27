@@ -29,10 +29,6 @@ namespace Buy.Controllers
             MoGuJie.Method.ReSetCidFile();
             return null;
         }
-        public ActionResult T()
-        {
-            return View();
-        }
     }
 
 }
