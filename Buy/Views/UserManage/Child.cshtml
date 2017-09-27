@@ -77,8 +77,8 @@
             <td>
                 @Html.ActionLink("转让注册码", "Create", "RegistrationCode", new { userId = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) }, null)|
                 @Html.ActionLink("查看注册码", "Index", "RegistrationCode", new { userId = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) }, null)|
-                @Html.ActionLink("编辑", "Edit", new { id = item.Id })|
-                <a name="btnUpdate" href="#" data-name="@item.NickName">升级代理</a>
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) }) |
+                <a name="btnUpdate" href="#" data-name="@item.NickName" data-id="@item.Id">升级代理</a>
             </td>
         </tr>
     }
@@ -87,4 +87,6 @@
 
 
 @Html.PageList(paged, Url.PageUrl())
-@Scripts.Render("~/bundles/useManageChild.js")
+@section Scripts{
+    @Scripts.Render("~/bundles/useManageChild")
+}
