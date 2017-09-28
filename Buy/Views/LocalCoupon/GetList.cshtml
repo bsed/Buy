@@ -11,28 +11,17 @@
     foreach (var item in Model)
     {
         <li>
-            <div class="couponList-head style02">
+            <div class="localcoupon-img">
                 <a href="@Url.Action("Details", "LocalCoupon", new {id=item.ID })">
-                    <img src="~/content/images/404/placeholder_image.png?w=150&h=150" data-original="@Comm.ResizeImage(item.Image,w:150,h:150)" />
+                    <img src="~/content/images/404/placeholder_image.png?w=480&h=245" data-original="@Comm.ResizeImage(item.Image,w:343,h:175)" />
                 </a>
             </div>
-            <div class="couponList-details">
+            <div class="localcoupon-details">
                 <a href="@Url.Action("Details", "LocalCoupon", new {id=item.ID })">
-                    <div class="couponList-title">
-                        <img src="@Comm.ResizeImage(item.Shop.Logo,w:15,h:15)" />
-                        @item.Name
-                    </div>
-                    <div class="couponList-afterPrice marginT10">
-                        <span class="yuan">￥</span>@item.Price
-                    </div>
+                    <div class="localcoupon-title">@item.Name</div>
                     <div class="color-main fs12">有效期至：@item.EndDateTime.ToString("yyyy-MM-dd")</div>
                 </a>
             </div>
-            <a href="@Url.Action("Details", "LocalCoupon", new {id=item.ID })">
-                <div class="couponList-ticket" data-href="">
-                    <div class="lingquan">立即领取</div>
-                </div>
-            </a>
         </li>
     }
     if (paged.HasNextPage)

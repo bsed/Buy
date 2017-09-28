@@ -493,6 +493,7 @@
     <Content Include="Content\images\404\avatar.png" />
     <Content Include="Content\images\view\arrow_right_grey_m%403x.png" />
     <Content Include="Content\images\view\avatar_m%403x.png" />
+    <Content Include="Content\images\view\bg_profile_lightday%403x.png" />
     <Content Include="Content\images\view\home_category_01%403x.png" />
     <Content Include="Content\images\view\ico_arrow_down_pre%402x.png" />
     <Content Include="Content\images\view\ico_checkright_black_m%402x.png" />

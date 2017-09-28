@@ -34,3 +34,45 @@
         }
     }
 }
+
+.localcoupon-list{
+    .clearfix();
+
+    ul{
+        .clean-ul();
+        .clearfix();
+
+        li{
+            background-color:@bg-color-white;
+            padding:16rem*@resize;
+
+            a{
+                .clean-a();
+                display:block;
+            }
+
+            .localcoupon-img{
+                height:175rem*@resize;
+
+                img{
+                    .rectangle(100%,175rem*@resize);
+                }
+            }
+
+            .localcoupon-details{
+                margin-top:8rem*@resize;
+
+                .localcoupon-title{
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    line-height: 20rem*@resize;
+                    font-size: @font-size-2;
+                    margin-bottom:8rem*@resize;
+                }
+            }
+        }
+    }
+}
