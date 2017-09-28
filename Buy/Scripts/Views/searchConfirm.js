@@ -87,7 +87,7 @@ $(window).scroll(function () {
 });
 
 $(".setScrollTop").click(function () {
-    $('body').animate({ scrollTop: '0' }, 500);
+    $('body,html').animate({ scrollTop: 0 }, 500);
 });
 
 //排序切换
