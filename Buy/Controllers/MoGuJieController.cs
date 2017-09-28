@@ -118,9 +118,10 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult Count(string userID)
         {
+            var date = DateTime.Now.Date;
             var count = db.CouponUsers
                 .Include(s => s.Coupon)
-                .Count(s => s.Platform == Enums.CouponPlatform.MoGuJie && s.Coupon.CreateDateTime > DateTime.Now);
+                .Count(s => s.Platform == Enums.CouponPlatform.MoGuJie && s.Coupon.CreateDateTime > date);
 
             return Json(Comm.ToJsonResult("Success", "成功", new { Count = count }), JsonRequestBehavior.AllowGet);
         }
