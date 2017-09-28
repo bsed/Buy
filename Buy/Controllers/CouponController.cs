@@ -571,7 +571,18 @@ namespace Buy.Controllers
         {
             var coupons = db.CouponUsers.Include(s => s.Coupon)
                 .Where(s => s.CouponID == id.Value);
-            var coupon = coupons.FirstOrDefault();
+            CouponUser coupon;
+            var couponUserID = Bll.Accounts.GetCouponUserID(UserID);
+            if (couponUserID == null)
+            {
+                coupon = coupons.FirstOrDefault();
+            }
+            else
+            {
+                coupon = coupons.FirstOrDefault(s => s.UserID == couponUserID);
+            }
+
+
             string codeMessage = null, link = null;
             if (string.IsNullOrWhiteSpace(UserID))
             {
@@ -605,7 +616,7 @@ namespace Buy.Controllers
                         }
                     }
                 }
-                link = !string.IsNullOrWhiteSpace(codeMessage) ? null : coupons.FirstOrDefault(s => s.UserID == user.Id).Link;
+                link = !string.IsNullOrWhiteSpace(codeMessage) ? null : coupons.FirstOrDefault(s => s.UserID == user.Id)?.Link;
             }
             ViewBag.codeMessage = codeMessage;
             ViewBag.Link = link;
