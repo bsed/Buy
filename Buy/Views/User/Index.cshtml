@@ -23,9 +23,15 @@
     <div>
         <div class="moduleOptions">
             <a href="@Url.Action("Edit","User")">
-                修改昵称 / 头像
+                修改昵称
                 <img class="arrow-r" src="~/Content/images/view/arrow_right_grey_m@3x.png" />
+                <div class="fr">@Model.NickName</div>
             </a>
+        </div>
+        <div class="moduleOptions">
+            修改头像
+            <img class="arrow-r" src="~/Content/images/view/arrow_right_grey_m@3x.png" />
+            <div class="editImg fr">@Html.EditorFor(model => model.Avatar)</div>
         </div>
         <div class="moduleOptions">
             <a href="@Url.Action("ResetPassword","Account")">
