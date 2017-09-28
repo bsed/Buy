@@ -31,7 +31,7 @@ namespace Buy.Controllers
         public ActionResult Edit()
         {
             var user = db.Users.FirstOrDefault(s => s.Id == UserID);
-            return View(new UserSetting(user));
+            return View(user);
         }
 
         public ActionResult CustomerService()

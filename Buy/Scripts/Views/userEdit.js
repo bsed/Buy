@@ -1,16 +1,9 @@
-﻿var avatar = new imageResizeUpload("#Avatar", {
-    uploaded: function (state, message, result) {
-        $("[name='Avatar.ImageUrl']").val(result.url);
-    }
-});
-
-$("#submit").click(function (e) {
+﻿$("#submit").click(function (e) {
     var data = {
-        userID: $("#ID").val(),
+        userID: $("#Id").val(),
         nickName: $("#NickName").val(),
-        avatar: $("[name='Avatar.ImageUrl']").val()
+        avatar: $("#Avatar").val()
     };
-    console.log(data);
     $.ajax({
         type: "POST",
         url: comm.action("Edit", "User"),

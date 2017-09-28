@@ -204,7 +204,8 @@ namespace Buy.Controllers
             else
             {
                 var paged = QueryCoupon(model).ToPagedList(page, 20);
-                var models = paged.Select(s => new Models.ActionCell.CouponCell(s)).ToList();
+                var models = paged.Distinct(new CouponUserViewModelComparer())
+                    .Select(s => new Models.ActionCell.CouponCell(s)).ToList();
                 return Json(Comm.ToJsonResultForPagedList(paged, models), JsonRequestBehavior.AllowGet);
             }
         }
@@ -561,7 +562,9 @@ namespace Buy.Controllers
             else
             {
                 var paged = QueryCoupon(model).ToPagedList(page, 20);
-                return View(paged);
+                var models = paged.Distinct(new CouponUserViewModelComparer());
+                ViewBag.Paged = paged;
+                return View(models);
             }
         }
 

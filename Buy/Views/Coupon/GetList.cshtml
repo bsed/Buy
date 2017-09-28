@@ -80,7 +80,7 @@
     }
     if (!isUpdate)
     {
-        var paged = (PagedList.IPagedList<Buy.Models.Coupon>)Model;
+        var paged = (PagedList.IPagedList<Buy.Models.Coupon>)ViewBag.Paged;
         if (paged.HasNextPage)
         {
             <li class="loadModule loadModule-dataIng" data-next="true" data-page="@paged.PageNumber">

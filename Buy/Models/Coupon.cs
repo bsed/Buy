@@ -174,4 +174,17 @@ namespace Buy.Models
         /// </summary>
         public bool IsUpdate { get; set; } = false;
     }
+
+
+    public class CouponUserViewModelComparer : EqualityComparer<CouponUserViewModel>
+    {
+        public override bool Equals(CouponUserViewModel x, CouponUserViewModel y)
+        {
+            return x.ProductID == y.ProductID;
+        }
+        public override int GetHashCode(CouponUserViewModel obj)
+        {
+            return obj.ProductID.GetHashCode();
+        }
+    }
 }
