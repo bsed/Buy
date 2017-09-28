@@ -158,7 +158,7 @@ function Update() {
 
 //返回顶部
 $(".setScrollTop").click(function () {
-    $('body').animate({ scrollTop: '0' }, 500);
+    $('body,html').animate({ scrollTop: 0 }, 500);
 });
 
 //2级分类查看全部
