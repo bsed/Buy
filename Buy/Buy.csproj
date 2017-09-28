@@ -1105,7 +1105,6 @@
     <Content Include="Views\Shared\EditorTemplates\ImageResizer.cshtml" />
     <Content Include="Views\UserManage\Child.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\RegistrationCodeCountViewModel.cshtml" />
-    <Content Include="Views\Test\T.cshtml" />
     <Content Include="Views\RegistrationCode\Export.cshtml" />
     <Content Include="Views\Shared\_LayoutExport.cshtml" />
     <Content Include="Views\Shared\_LayoutExportPreview.cshtml" />
@@ -1114,6 +1113,7 @@
     <Folder Include="Views\Banner\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Taobao\" />
+    <Folder Include="Views\Test\" />
     <Folder Include="Views\Uploader\" />
   </ItemGroup>
   <ItemGroup>
