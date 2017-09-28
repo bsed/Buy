@@ -46,7 +46,7 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Edit(string userID,string nickName,string avatar)
+        public ActionResult Edit(string userID, string nickName, string avatar)
         {
             var user = db.Users.FirstOrDefault(s => s.Id == userID);
             if (user == null)
@@ -71,7 +71,19 @@ namespace Buy.Controllers
         [HttpGet]
         public ActionResult GetCustomerService()
         {
-            return Json(Comm.ToJsonResult("Success", "成功", new { Data = GetService() }), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功", new
+            {
+                Data = Url.ContentFull(Url.Action("Customer", "User", routeValues: null))
+            }), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Customer()
+        {
+            var model = new SystemSetting()
+            {
+                Value = GetService(),
+            };
+            return View(model);
         }
 
     }
