@@ -153,12 +153,12 @@ namespace Buy.Controllers
                     break;
                 case Enums.CouponSort.CouponValue:
                     {
-                        query = query.OrderByDescending(s => s.Discount);
+                        query = query.OrderByDescending(s => s.Discount).ThenByDescending(s => s.Sales);
                     }
                     break;
                 case Enums.CouponSort.CouponPrice:
                     {
-                        query = query.OrderBy(s => s.Price);
+                        query = query.OrderBy(s => s.Price).ThenByDescending(s => s.Sales); ;
                     }
                     break;
                 case Enums.CouponSort.Default:
