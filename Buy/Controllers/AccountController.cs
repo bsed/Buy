@@ -70,7 +70,7 @@ namespace Buy.Controllers
                 user.UserName,
                 user.NickName,
                 user.PhoneNumber,
-                IsActivation = user.UserType == Enums.UserType.Proxy ? true : IsActivation(user.Id),
+                IsActivation = user.IsActive,
                 user.UserType,
                 Avatar = Comm.ResizeImage(user.Avatar, image: null)
             };
@@ -114,7 +114,7 @@ namespace Buy.Controllers
                             user.UserName,
                             user.NickName,
                             user.PhoneNumber,
-                            IsActivation = user.UserType == Enums.UserType.Proxy ? true : IsActivation(user.Id),
+                            IsActivation = user.IsActive,
                             user.UserType,
                         }));
                     }
@@ -227,7 +227,7 @@ namespace Buy.Controllers
                         user.UserName,
                         user.NickName,
                         user.PhoneNumber,
-                        IsActivation = user.UserType == Enums.UserType.Proxy ? true : IsActivation(user.Id),
+                        IsActivation = user.IsActive,
                         user.UserType,
                     }));
                 }
@@ -241,17 +241,6 @@ namespace Buy.Controllers
             var id = User.Identity.GetUserId();
             var u = db.Users.FirstOrDefault(s => s.Id == id);
             return View(u);
-        }
-
-        public bool IsActivation(string id)
-        {
-            var isActivation = true;
-            var registrationCodes = db.RegistrationCodes.Where(s => s.UseUser == id);
-            if (registrationCodes.Count() <= 0)
-            {
-                isActivation = false;
-            }
-            return isActivation;
         }
 
         [HttpPost]
