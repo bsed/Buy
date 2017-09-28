@@ -7,7 +7,7 @@
     avatar.AutoInit = false;
 }
 
-<div class="userIndex minHight100vh">
+<div class="userIndex minHight100vh bg-color-grey">
     <div class="userIndex-info">
         <img class="avatav" src="@Url.ResizeImage(Model.Avatar, h: 100, img: Buy.Enums.DummyImage.Avatar)" />
         <div>
@@ -15,7 +15,6 @@
             <div class="fs14"><img src="~/Content/images/view/ico_iphone_blue_m@3x.png" />手机号：@Model.PhoneNumber</div>
         </div>
     </div>
-    <div class="userIndex-g-space"></div>
     <div>
         <div class="moduleOptions">
             <a href="@Url.Action("Edit","User")">
