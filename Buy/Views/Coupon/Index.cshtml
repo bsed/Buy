@@ -72,18 +72,47 @@
                 <div class="couponIndex-shade"></div>
             }
         </div>
-        <div class="couponIndex-menu @(p== Buy.Enums.CouponPlatform.MoGuJie?"style02":"")">
-            <ul>
-                @foreach (var item in classify)
+        @switch (p)
+        {
+            case Buy.Enums.CouponPlatform.TaoBao:
+            case Buy.Enums.CouponPlatform.TMall:
                 {
-                    <li>
-                        <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
-                            <img src="@Comm.ResizeImage(item.Image)" />
-                        </a>
-                    </li>
+                    <div class="couponIndex-menu">
+                        <ul>
+                            @foreach (var item in classify)
+                            {
+                                <li>
+                                    <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
+                                        <img src="@Comm.ResizeImage(item.Image,124,124)" />
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
                 }
-            </ul>
-        </div>
+                break;
+            case Buy.Enums.CouponPlatform.Jd:
+                break;
+            case Buy.Enums.CouponPlatform.MoGuJie:
+                {
+                    <div class="couponIndex-menu style02">
+                        <ul>
+                            @foreach (var item in classify)
+                            {
+                                <li>
+                                    <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
+                                        <img src="@Comm.ResizeImage(item.Image,326, 120)" />
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                break;
+            default:
+                break;
+        }
+
     </div>
 
     <div id="couponNav" class="coupon-nav">
@@ -103,7 +132,7 @@
 
         <div id="update" class="update">
             <div id="update1" class="update1" style="display:none">
-                <img src="~/Content/images/view/loadingGif.gif" style="display:none"/><span>松开刷新</span>
+                <img src="~/Content/images/view/loadingGif.gif" style="display:none" /><span>松开刷新</span>
             </div>
         </div>
 
