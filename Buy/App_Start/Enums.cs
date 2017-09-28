@@ -403,8 +403,14 @@ namespace Buy.Enums
         Sales,
         [Display(Name = "最新上架")]
         CreateTime,
+        /// <summary>
+        /// 券额
+        /// </summary>
         [Display(Name = "券额")]
         CouponValue,
+        /// <summary>
+        /// 券后价
+        /// </summary>
         [Display(Name = "券后价")]
         CouponPrice,
     }

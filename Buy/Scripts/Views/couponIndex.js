@@ -180,7 +180,7 @@ sortGetAll.click(function () {
 
 $("#sortList_closed").click(function () {
     $("#sortOne").slideUp();
-    $("body").css("overflow", "auto");
+    //$("body").css("overflow", "auto");
     comm.mask3();
 });
 
@@ -412,7 +412,7 @@ if (platform == "" || platform == "0" || platform == "TaoBao") {
 
 $("#pullDown").click(function () {
     comm.mask3();
-    $("body").css("overflow", "hidden");
+    //$("body").css("overflow", "hidden");
     $("#sortOne").slideDown();
     $("#sort-down").hide();
 });
