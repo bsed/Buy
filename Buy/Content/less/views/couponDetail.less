@@ -27,7 +27,13 @@
     }
 
     .couponDetail-pImg {
-        .img();
+        /*.img();*/
+        text-align: center;
+        background-color: #fff;
+
+        img {
+            max-height: 360rem*@resize;
+        }
     }
 
     .couponDetail-info {
@@ -91,8 +97,7 @@
             width: 85%;
             //float: right;
             padding: 0 10rem*@resize;
-            
-            margin: 4rem*@resize  auto 0  auto;
+            margin: 4rem*@resize auto 0 auto;
             .one-line-vertical-mid(39rem*@resize);
             background: -webkit-linear-gradient(left, #FF922B, #FF5913); /* Safari 5.1 - 6.0 */
             background: -o-linear-gradient(right, #FF922B, #FF5913); /* Opera 11.1 - 12.0 */
@@ -254,9 +259,9 @@
         background-image: linear-gradient(90deg, #F8B628 0%, #FD3920 100%, #E13607 100%);
     }
 
-    .pwdMask-error{
-        color:red;
-        font-size:@font-size-2;
+    .pwdMask-error {
+        color: red;
+        font-size: @font-size-2;
         padding: 0 16rem*@resize;
     }
 
