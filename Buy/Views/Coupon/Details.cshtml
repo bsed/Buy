@@ -75,7 +75,7 @@
             <div id="detailTit" class="columnModule">
                 <div class="columnModule-title"><span>商品详情</span></div>
             </div>
-            <div id="pullUpLoad" class="couponDetail-scroll"><span>↑</span><div class="loading hidden"></div>上拉查看商品详情</div>
+            <div id="pullUpLoad" class="couponDetail-scroll"><span style="transform:rotate(0)">↑</span><div class="loading hidden"></div>上拉查看商品详情</div>
             <div name="poductDetail" class="couponDetail-detailImg">
             </div>
         </div>
@@ -94,6 +94,8 @@
 
         @Html.Partial("_TaobaoPassPartial")
     </div>
+
+    <div class="setScrollTop" style="display:none"><img src="~/Content/images/view/img_backtop@2x.png" /></div>
 
     <div id="share" class="couponDetail paddingT44 minHight100vh hidden">
         <div class="navigationBar">

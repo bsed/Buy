@@ -32,38 +32,6 @@
                 @Html.ValidationMessageFor(model => model.OwnUser, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        @if (Model.CodeCount != null)
-        {
-            //如果是给子添加帐号
-            <div class="form-group" data-code>
-                @Html.LabelFor(model => model.CodeCount, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @if (Model.CodeCount.Count > 0)
-                    {
-                        <table class="table table-hover table-striped table-autowidth" >
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>使用期限</th>
-                                    <th>激活期限</th>
-                                    <th>数量</th>
-                                </tr>
-                            </thead>
-                            @Html.EditorFor(model => model.CodeCount)
-                        </table>
-                       
-                    }
-                    else
-                    {
-                        <div class="form-control-static">@Html.Raw("父代理没有可用注册码")</div>
-                    }
-                    <div>
-                        @Html.ValidationMessageFor(model => model.CodeCount, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-        }
         <div class="form-group">
             @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

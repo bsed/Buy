@@ -21,11 +21,12 @@ if ($("#ID").length > 0) {
                         comm.lazyloadALL();
 
                         if ($("[name='poductDetail'] img").length > 0) {
-                            setTimeout(function () {
-                                $('body').animate({ scrollTop: Math.floor(dttop + dth) }, 600);
-                                $("#pullUpLoad").addClass("style02").text("收回商品详情");
-                                scState = true;
-                            }, 700)
+                            $("#pullUpLoad").hide();
+                            //setTimeout(function () {
+                            //    $('body').animate({ scrollTop: Math.floor(dttop + dth) }, 600);
+                            //    $("#pullUpLoad").addClass("style02").text("收回商品详情");
+                            //    scState = true;
+                            //}, 700)
                         }
                     }
                 }
@@ -48,39 +49,85 @@ $(window).scroll(function (e) {
     if ($(window).scrollTop() == dVal && dVal != 0) {
         pState = true;
     }
-    if ($(window).scrollTop() >= Math.floor(poffSetTop + pHeight)) {
-        pState = false;
-        scState = true;
-        $("#pullUpLoad").fadeIn();
+
+    if ($(window).scrollTop() > 0) {
+        $(".setScrollTop").fadeIn();
     } else {
-        if (scState) {
-            $("#pullUpLoad").fadeOut();
-            pState = false;
+        $(".setScrollTop").fadeOut();
+    }
+    //if ($(window).scrollTop() >= Math.floor(poffSetTop + pHeight)) {
+    //    pState = false;
+    //    scState = true;
+    //    $("#pullUpLoad").fadeIn();
+    //} else {
+    //    if (scState) {
+    //        $("#pullUpLoad").fadeOut();
+    //        pState = false;
+    //    }
+    //}
+});
+
+//返回顶部
+$(".setScrollTop").click(function () {
+    $('body,html').animate({ scrollTop: 0 }, 500);
+});
+
+//上刷新事件
+function kt_touch(contentId) {
+    var update1 = $("#pullUpLoad");
+    var _start = 0,
+        _end = 0,
+        _content = document.getElementById(contentId);
+    if (_content) {
+        _content.addEventListener("touchstart", touchStart, false);
+        _content.addEventListener("touchmove", touchMove, false);
+        _content.addEventListener("touchend", touchEnd, false);
+    }
+    function touchStart(event) {
+        //event.preventDefault();
+        if (!event.touches.length) return;
+        var touch = event.touches[0];
+        _start = touch.pageY;
+    }
+
+    function touchMove(event) {
+        // event.preventDefault();
+        if (!event.touches.length) return;
+        var touch = event.touches[0];
+
+        _end = (_start - touch.pageY);
+        if (_end > 0 && _end<=180) {
+            update1.find("span").css("transform", "rotate("+parseInt(_end)+"deg)");
         }
     }
-});
 
-$("#pullUpLoad").click(function () {
-    if (scState) {
-        $('body').animate({ scrollTop: 0 }, 600);
+    function touchEnd(event) {
+        if (_end >= 180) {
+            update1.find(".loading").removeClass("hidden");
+            update1.find("span").hide();
+            GetDetailImgs();
+        } else {
+            update1.find("span").css("transform", "rotate(0deg)");
+        }
     }
-});
+}
+kt_touch('detail');
 
-$("#detail").rhuiSwipe('swipeUp', function (event) {
-    if (pState) {
-        $("#pullUpLoad span").addClass("active");
-        setTimeout(function () {
-            $("#pullUpLoad span").addClass("hidden");
-            $("#pullUpLoad .loading").removeClass("hidden");
-        }, 300)
-        GetDetailImgs();
-    }
-}, {
-    // 可选参数
-    isStopPropagation: false,
-    isPreventDefault: false,
-    triggerOnMove: false
-});
+//$("#detail").rhuiSwipe('swipeUp', function (event) {
+//    if (pState) {
+//        $("#pullUpLoad span").addClass("active");
+//        setTimeout(function () {
+//            $("#pullUpLoad span").addClass("hidden");
+//            $("#pullUpLoad .loading").removeClass("hidden");
+//        }, 300)
+//        GetDetailImgs();
+//    }
+//}, {
+//    // 可选参数
+//    isStopPropagation: false,
+//    isPreventDefault: false,
+//    triggerOnMove: false
+//});
 
 //淘口令
 $(".mask").click(function (e) {
