@@ -137,39 +137,33 @@ $(".mask").click(function (e) {
 });
 
 $("[name='clipboard']").click(function (e) {
-    var codeMessage = $("#codeMessage").val();
-    if (codeMessage == "NotLogin") {
-        location = comm.action("Login", "Account");
-        return false;
-    }
-    if (codeMessage == "NotActivation") {
-        location = comm.action("Activation", "Account");
-        return false;
-    }
-
-    if (codeMessage == "NotOwnUser") {
-        location = comm.action("Index", "Coupon");
-        return false;
-    }
-    if ($("#Platform").val() == "TaoBao" || $("#Platform").val() == "TMall") {
-        $.ajax({
-            type: "GET",
-            url: comm.action("GetPwd", "Coupon"),
-            data: { id: $("#ID").val() },
-            dataType: "json",
-            success: function (data) {
-                if (data.State == "Success") {
+    $.ajax({
+        type: "GET",
+        url: comm.action("GetPwd", "Coupon"),
+        data: { id: $("#ID").val() },
+        dataType: "json",
+        success: function (data) {
+            if (data.State == "Success") {
+                if ($("#Platform").val() == "TaoBao" || $("#Platform").val() == "TMall") {
                     $("#pwdMask-text").text(data.Result.Data);
                     $(".pwdMask").attrdata("clipboard-text", data.Result.Data);
                     $(".pwdMask").removeClass("hidden");
-                    //$("body").css("overflow", "hidden");
                     comm.mask2.show();
+                } else {
+                    location = data.Result.Data;
                 }
             }
-        });
-    } else {
-        location = $("#link").val();
-    }
+            else {
+                if (data.Message == "用户没有激活") {
+                    location = comm.action("Activation", "Account");
+                } else if (data.Message == "用户没有登录") {
+                    location = comm.action("Login", "Account");
+                } else {
+                    location = comm.action("Index", "Coupon");
+                }
+            }
+        }
+    });
 });
 
 function selectText(containerid) {

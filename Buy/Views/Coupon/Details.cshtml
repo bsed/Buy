@@ -81,8 +81,6 @@
         </div>
 
         <div name="clipboard" class="couponDetail-useBtn">
-            @Html.Hidden("codeMessage", (string)ViewBag.codeMessage)
-            @Html.Hidden("link", (string)ViewBag.Link)
             @Html.HiddenFor(model => model.Platform)
             <div class="">
                 领取<span>@Buy.Bll.Coupons.GetValues(Model)[0].Value</span>券
