@@ -29,7 +29,6 @@ namespace Buy.Controllers
             IQueryable<CouponQuery> query;
             if (!string.IsNullOrWhiteSpace(couponUserID))
             {
-
                 query = from u in db.CouponUsers
                         from s in db.Coupons
                         where u.CouponID == s.ID && u.UserID == couponUserID
@@ -581,7 +580,7 @@ namespace Buy.Controllers
             else
             {
                 var user = db.Users.FirstOrDefault(s => s.Id == UserID);
-                if (user.UserType != Enums.UserType.Proxy)
+                if (user.UserType == Enums.UserType.Normal)
                 {
                     var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == UserID);
                     if (code == null)
@@ -590,17 +589,23 @@ namespace Buy.Controllers
                     }
                     else
                     {
-                        if (code.OwnUser != coupon.UserID)
+                        user.Id = user.ParentUserID;
+                        var pUser = db.Users.FirstOrDefault(s => s.Id == user.ParentUserID);
+                        //如果父级是一个普通用户就拿父级的上一级
+                        if (pUser.UserType == Enums.UserType.Normal)
                         {
-                            codeMessage = "NotOwnUser";
-                        }
-                        else
-                        {
-                            link = coupons.FirstOrDefault(s => s.UserID == code.OwnUser).Link;
+                            if (pUser.ParentUserID != coupon.UserID)
+                            {
+                                codeMessage = "NotOwnUser";
+                            }
+                            else
+                            {
+                                user.Id = pUser.ParentUserID;
+                            }
                         }
                     }
                 }
-
+                link = !string.IsNullOrWhiteSpace(codeMessage) ? null : coupons.FirstOrDefault(s => s.UserID == user.Id).Link;
             }
             ViewBag.codeMessage = codeMessage;
             ViewBag.Link = link;

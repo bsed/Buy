@@ -96,8 +96,8 @@ function kt_touch(contentId) {
         var touch = event.touches[0];
 
         _end = (_start - touch.pageY);
-        if (_end > 0 && _end<=180) {
-            update1.find("span").css("transform", "rotate("+parseInt(_end)+"deg)");
+        if (_end > 0 && _end <= 180) {
+            update1.find("span").css("transform", "rotate(" + parseInt(_end) + "deg)");
         }
     }
 
@@ -146,6 +146,7 @@ $("[name='clipboard']").click(function (e) {
         location = comm.action("Activation", "Account");
         return false;
     }
+
     if (codeMessage == "NotOwnUser") {
         location = comm.action("Index", "Coupon");
         return false;
