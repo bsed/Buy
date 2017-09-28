@@ -1108,6 +1108,7 @@
     <Content Include="Views\RegistrationCode\Export.cshtml" />
     <Content Include="Views\Shared\_LayoutExport.cshtml" />
     <Content Include="Views\Shared\_LayoutExportPreview.cshtml" />
+    <Content Include="Views\RegistrationCode\Transfer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Banner\" />
