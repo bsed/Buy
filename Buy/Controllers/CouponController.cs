@@ -449,18 +449,31 @@ namespace Buy.Controllers
         public ActionResult GetPwd(int id, string userID)
         {
             userID = UserID == null ? userID : UserID;
-            var couponUserID = Bll.Accounts.GetCouponUserID(userID);
-            var tpt = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.CouponID == id && s.UserID == couponUserID);
-            if (tpt == null)
+            if (!string.IsNullOrWhiteSpace(userID))
             {
-                return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+                var user = db.Users.FirstOrDefault(s => s.Id == userID);
+                if (string.IsNullOrWhiteSpace(user.ParentUserID) && user.UserType == Enums.UserType.Normal)
+                {
+                    return Json(Comm.ToJsonResult("Error", "用户没有激活"), JsonRequestBehavior.AllowGet);
+                }
+                var couponUserID = Bll.Accounts.GetCouponUserID(userID);
+                var tpt = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.CouponID == id && s.UserID == couponUserID);
+                if (tpt == null)
+                {
+                    return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+                }
+                string pwd = "";
+                if (tpt.Platform == Enums.CouponPlatform.TaoBao || tpt.Platform == Enums.CouponPlatform.TMall)
+                {
+                    pwd = new Taobao().GetWirelessShareTpwd(tpt.Coupon.Image, tpt.Link, tpt.Coupon.Name, 0);
+                }
+                else
+                {
+                    pwd = tpt.Link;
+                }
+                return Json(Comm.ToJsonResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
             }
-            string pwd = "";
-            if (tpt.Platform == Enums.CouponPlatform.TaoBao || tpt.Platform == Enums.CouponPlatform.TMall)
-            {
-                pwd = new Taobao().GetWirelessShareTpwd(tpt.Coupon.Image, tpt.Link, tpt.Coupon.Name, 0);
-            }
-            return Json(Comm.ToJsonResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Error", "用户没有登录"), JsonRequestBehavior.AllowGet);
         }
 
         [AllowCrossSiteJson]
@@ -581,45 +594,6 @@ namespace Buy.Controllers
             {
                 coupon = coupons.FirstOrDefault(s => s.UserID == couponUserID);
             }
-
-
-            string codeMessage = null, link = null;
-            if (string.IsNullOrWhiteSpace(UserID))
-            {
-                codeMessage = "NotLogin";
-            }
-            else
-            {
-                var user = db.Users.FirstOrDefault(s => s.Id == UserID);
-                if (user.UserType == Enums.UserType.Normal)
-                {
-                    var code = db.RegistrationCodes.FirstOrDefault(s => s.UseUser == UserID);
-                    if (code == null)
-                    {
-                        codeMessage = "NotActivation";
-                    }
-                    else
-                    {
-                        user.Id = user.ParentUserID;
-                        var pUser = db.Users.FirstOrDefault(s => s.Id == user.ParentUserID);
-                        //如果父级是一个普通用户就拿父级的上一级
-                        if (pUser.UserType == Enums.UserType.Normal)
-                        {
-                            if (pUser.ParentUserID != coupon.UserID)
-                            {
-                                codeMessage = "NotOwnUser";
-                            }
-                            else
-                            {
-                                user.Id = pUser.ParentUserID;
-                            }
-                        }
-                    }
-                }
-                link = !string.IsNullOrWhiteSpace(codeMessage) ? null : coupons.FirstOrDefault(s => s.UserID == user.Id)?.Link;
-            }
-            ViewBag.codeMessage = codeMessage;
-            ViewBag.Link = link;
             return View(coupon.Coupon);
         }
 
