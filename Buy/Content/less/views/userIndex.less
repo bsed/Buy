@@ -13,7 +13,7 @@
 
         img {
             .square(75rem*@resize);
-            border-radius:50%;
+            border-radius: 50%;
         }
 
         > div {
@@ -22,18 +22,18 @@
             -webkit-flex: 1;
             -ms-flex: 1;
             flex: 1;
-            padding-left:16rem*@resize;
-            padding-top:7rem*@resize;
+            padding-left: 16rem*@resize;
+            padding-top: 7rem*@resize;
 
-            img{
+            img {
                 .square(16rem*@resize);
             }
         }
     }
 
-    .userIndex-g-space{
-        background-color:@bg-color-grey01;
-        height:8rem*@resize;
+    .userIndex-g-space {
+        background-color: @bg-color-grey01;
+        height: 8rem*@resize;
     }
 }
 
@@ -42,7 +42,7 @@
     .one-line-vertical-mid(44rem*@resize);
     background-color: @bg-color-white;
     border-bottom: @border;
-    padding-left:16px;
+    padding-left: 16px;
     font-size: @font-size-2;
 
     a {
@@ -51,23 +51,25 @@
         .clearfix();
     }
 
-    .arrow-r{
+    .arrow-r {
         .square(44rem*@resize);
-        float:right;
+        float: right;
     }
 
-    .editImg{
+    .editImg {
         .square(44rem*@resize);
-        float:right;
+        float: right;
 
-        img{
-            width:32rem*@resize !important;
-            height:32rem*@resize !important;
-            border-radius:50%;
+        .imageResizeUpload {
+            > img {
+                width: 32rem*@resize !important;
+                height: 32rem*@resize !important;
+                border-radius: 50%;
+            }
         }
     }
 
-    &.style02{
-        padding-left:0;
+    &.style02 {
+        padding-left: 0;
     }
 }

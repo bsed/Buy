@@ -1,6 +1,4 @@
-﻿
-
-var avatar = new imageResizeUpload("#Avatar", {
+﻿var avatar = new imageResizeUpload("#Avatar", {
     uploaded: function (state, message, result) {
         $("[name='Avatar.ImageUrl']").val(result.url);
     }
