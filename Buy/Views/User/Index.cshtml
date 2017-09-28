@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "我的";
-    Model.Avatar = string.IsNullOrWhiteSpace(Model.Avatar) ? "~/Content/images/view/avatar_m@3x.png" : Model.Avatar;
+    Model.Avatar = string.IsNullOrWhiteSpace(Model.Avatar) ? Url.ResizeImage("~/Content/images/view/avatar_m@3x.png", img: Buy.Enums.DummyImage.Avatar) : Model.Avatar;
     var avatar = new Buy.Models.ImageResizer("Avatar", 150, 150, Model.Avatar, 150, 150);
     avatar.AutoInit = false;
 }
