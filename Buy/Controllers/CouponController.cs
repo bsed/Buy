@@ -452,11 +452,15 @@ namespace Buy.Controllers
             if (!string.IsNullOrWhiteSpace(userID))
             {
                 var user = db.Users.FirstOrDefault(s => s.Id == userID);
-                if (string.IsNullOrWhiteSpace(user.ParentUserID) && user.UserType == Enums.UserType.Normal)
+                if (!user.IsActive)
                 {
                     return Json(Comm.ToJsonResult("Error", "用户没有激活"), JsonRequestBehavior.AllowGet);
                 }
                 var couponUserID = Bll.Accounts.GetCouponUserID(userID);
+                if (couponUserID == null)
+                {
+                    return Json(Comm.ToJsonResult("Error", "当前用户没法领取"), JsonRequestBehavior.AllowGet);
+                }
                 var tpt = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.CouponID == id && s.UserID == couponUserID);
                 if (tpt == null)
                 {
@@ -582,19 +586,9 @@ namespace Buy.Controllers
 
         public ActionResult Details(int? id)
         {
-            var coupons = db.CouponUsers.Include(s => s.Coupon)
-                .Where(s => s.CouponID == id.Value);
-            CouponUser coupon;
-            var couponUserID = Bll.Accounts.GetCouponUserID(UserID);
-            if (couponUserID == null)
-            {
-                coupon = coupons.FirstOrDefault();
-            }
-            else
-            {
-                coupon = coupons.FirstOrDefault(s => s.UserID == couponUserID);
-            }
-            return View(coupon.Coupon);
+            var coupon = db.Coupons
+                .FirstOrDefault(s => s.ID == id);
+            return View(coupon);
         }
 
         public ActionResult Search()
