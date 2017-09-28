@@ -75,6 +75,8 @@ namespace Buy.Controllers
             return View(model);
         }
 
+        
+
         [Authorize(Roles = SysRole.RegistrationCodeManageCreate)]
         public ActionResult Create(string userId)
         {
@@ -102,9 +104,8 @@ namespace Buy.Controllers
                     var gCode = db.RegistrationCodes
                           .Where(s => s.OwnUser == user.ParentUserID
                               && !s.UseTime.HasValue
-                              && ((!s.ActiveEndDateTime.HasValue && !s.UseEndDateTime.HasValue)
-                              || (s.ActiveEndDateTime > DateTime.Now
-                              && s.UseEndDateTime > DateTime.Now)))
+                              && ((!s.ActiveEndDateTime.HasValue || s.ActiveEndDateTime > DateTime.Now)
+                                 && (!s.UseEndDateTime.HasValue || s.UseEndDateTime > DateTime.Now)))
                           .GroupBy(s => new { s.ActiveEndDateTime, s.UseEndDateTime })
                           .Select(s => new RegistrationCodeCountViewModel
                           {
@@ -124,14 +125,13 @@ namespace Buy.Controllers
         [Authorize(Roles = SysRole.RegistrationCodeManageCreate)]
         public ActionResult Create(RegistrationCodeCreate model, int length = 10)
         {
-
-            Func<IQueryable<RegistrationCode>> queryCode = () =>
-            {
-                var checkCode = model.CodeCount.FirstOrDefault(s => s.Checked);
-                return db.RegistrationCodes
-                  .Where(s => s.ActiveEndDateTime == checkCode.ActiveEndDateTime
+            var user = db.Users.FirstOrDefault(s => s.Id == model.OwnUser);
+            var checkCode = model.CodeCount.FirstOrDefault(s => s.Checked);
+            var queryCode = db.RegistrationCodes
+                  .Where(s => s.OwnUser == user.ParentUserID
+                    && !s.UseTime.HasValue
+                    && s.ActiveEndDateTime == checkCode.ActiveEndDateTime
                       && s.UseEndDateTime == checkCode.UseEndDateTime);
-            };
 
 
             if (model.Count < 1)
@@ -148,7 +148,7 @@ namespace Buy.Controllers
             }
             if (model.CodeCount != null)
             {
-                var max = queryCode().Count();
+                var max = queryCode.Count();
                 if (model.Count > max)
                 {
                     ModelState.AddModelError("Count", $"数量已超过批次的最大值{max}");
@@ -185,13 +185,13 @@ namespace Buy.Controllers
                 }
                 else//从父级买激活码
                 {
-                    var list = queryCode().Take(model.Count).ToList();
+                    var list = queryCode.Take(model.Count).ToList();
                     foreach (var item in list)
                     {
                         item.OwnUser = model.OwnUser;
                     }
 
-                    db.SaveChanges();
+                    var tCount = db.SaveChanges();
                 }
                 if (this.GetReturnUrl() != null)
                 {
@@ -212,7 +212,6 @@ namespace Buy.Controllers
             }
             else
             {
-                var user = db.Users.FirstOrDefault(s => s.Id == model.OwnUser);
                 model.Own = user;
             }
             return View(model);
