@@ -132,7 +132,7 @@ kt_touch('detail');
 //淘口令
 $(".mask").click(function (e) {
     $(".pwdMask").addClass("hidden");
-    $("body").css("overflow", "auto");
+    //$("body").css("overflow", "auto");
     comm.mask2.hide();
 });
 
@@ -162,7 +162,7 @@ $("[name='clipboard']").click(function (e) {
                     $("#pwdMask-text").text(data.Result.Data);
                     $(".pwdMask").attrdata("clipboard-text", data.Result.Data);
                     $(".pwdMask").removeClass("hidden");
-                    $("body").css("overflow", "hidden");
+                    //$("body").css("overflow", "hidden");
                     comm.mask2.show();
                 }
             }
