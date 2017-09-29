@@ -1,6 +1,7 @@
 ﻿var shopId = $("#shopId").val();
 var canLoadPage = true;
 var loading = $("#loading").attr("src");
+var canLoadPage = true;
 
 
 $(".navTabBottom li.find").addClass("active");
@@ -140,7 +141,7 @@ function loadCoupon() {
             
             var $data = $(data);
             if ($data.length > 0) {
-                $("#localCoupon li").remove();
+                $("#localCoupon li[data-page]").remove();
             }
             $coupon.find("ul").append($data);
             comm.lazyloadALL();
@@ -165,4 +166,12 @@ $("#sortList_closed").click(function () {
     $("#sortOne").slideUp();
     $("body").css("overflow", "auto");
     comm.mask3();
+});
+
+//滑动
+$(window).scroll(function (e) {
+    if (canLoadPage && comm.isWindowBottom()) {
+        loadCoupon();
+    }
+
 });
