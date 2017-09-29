@@ -2,14 +2,23 @@
 
 @{
     ViewBag.Title = "客服";
+    bool layout = true, bLayout;
+    if (bool.TryParse(Request["layout"], out bLayout))
+    {
+        layout = bLayout;
+    }
+    string style = layout ? "paddingT44" : "";
 }
 
 
-<div class="userService minHight100vh paddingT44">
+<div class="userService minHight100vh @style">
+    @if (layout)
+    {
     <div class="navigationBar">
         <div class="navigationBar-back" onclick="history.back(-1)"></div>
         <div class="navigationBar-tits style02">联系客服</div>
     </div>
+    }
     <div class="paddingLr16 marginT15">
         @Html.Raw(Model.Value)
     </div>

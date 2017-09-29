@@ -38,7 +38,7 @@ namespace Buy.Controllers
         {
             var model = new SystemSetting()
             {
-                Value = GetService(),
+                Value = Bll.SystemSettings.CustomerService,
             };
             return View(model);
         }
@@ -59,13 +59,6 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", "修改成功"));
         }
 
-
-
-        public string GetService()
-        {
-            return Bll.SystemSettings.CustomerService;
-        }
-
         [AllowCrossSiteJson]
         [AllowAnonymous]
         [HttpGet]
@@ -73,18 +66,8 @@ namespace Buy.Controllers
         {
             return Json(Comm.ToJsonResult("Success", "成功", new
             {
-                Data = Url.ContentFull(Url.Action("Customer", "User", routeValues: null))
+                Data = Url.ContentFull(Url.Action("CustomerService", "User", new { layout = false })),
             }), JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult Customer()
-        {
-            var model = new SystemSetting()
-            {
-                Value = GetService(),
-            };
-            return View(model);
-        }
-
     }
 }
