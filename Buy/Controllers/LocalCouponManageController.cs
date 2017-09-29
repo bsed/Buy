@@ -28,7 +28,7 @@ namespace Buy.Controllers
             {
                 lc = lc.Where(s => s.ShopID == shopId.Value);
             }
-            var model = lc.OrderBy(s => s.CreateDateTime).ToPagedList(page);
+            var model = lc.OrderByDescending(s => s.ID).ToPagedList(page);
             return View(model);
         }
 
@@ -80,7 +80,7 @@ namespace Buy.Controllers
                     Image = model.FileUpload.Images.FirstOrDefault(),
                     Name = model.Name,
                     Price = model.Price,
-                    Commission=model.Commission
+                    Commission = model.Commission
                 };
                 db.LocalCoupons.Add(lc);
                 db.SaveChanges();

@@ -322,6 +322,7 @@
     <Compile Include="Controllers\RoleManageController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\ShopManageController.cs" />
+    <Compile Include="Controllers\SystemSettingController.cs" />
     <Compile Include="Controllers\TaobaoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UploaderController.cs" />
@@ -1072,7 +1073,7 @@
     <Content Include="Views\Account\Activation.cshtml" />
     <Content Include="Views\Shared\_TaobaoPassPartial.cshtml" />
     <Content Include="Views\Account\LoginSystem.cshtml" />
-    <Content Include="Views\CouponTypeManage\Clean.cshtml" />
+    <Content Include="Views\SystemSetting\Clean.cshtml" />
     <Content Include="Views\MoGuJie\LoginSuccess.cshtml" />
     <Content Include="Views\ShopManage\Index.cshtml" />
     <Content Include="Views\ShopManage\Create.cshtml" />

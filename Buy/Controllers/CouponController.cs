@@ -454,12 +454,12 @@ namespace Buy.Controllers
                 var user = db.Users.FirstOrDefault(s => s.Id == userID);
                 if (!user.IsActive)
                 {
-                    return Json(Comm.ToJsonResult("Error", "用户没有激活"), JsonRequestBehavior.AllowGet);
+                    return Json(Comm.ToJsonResult("NotActive", "用户没有激活"), JsonRequestBehavior.AllowGet);
                 }
                 var couponUserID = Bll.Accounts.GetCouponUserID(userID);
                 if (couponUserID == null)
                 {
-                    return Json(Comm.ToJsonResult("Error", "当前用户没法领取"), JsonRequestBehavior.AllowGet);
+                    return Json(Comm.ToJsonResult("NotReceive", "当前用户没法领取"), JsonRequestBehavior.AllowGet);
                 }
                 var tpt = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.CouponID == id && s.UserID == couponUserID);
                 if (tpt == null)
@@ -477,7 +477,7 @@ namespace Buy.Controllers
                 }
                 return Json(Comm.ToJsonResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
             }
-            return Json(Comm.ToJsonResult("Error", "用户没有登录"), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("NotLogin", "用户没有登录"), JsonRequestBehavior.AllowGet);
         }
 
         [AllowCrossSiteJson]
@@ -546,7 +546,6 @@ namespace Buy.Controllers
                 var typeID = types.SplitToArray<int>().FirstOrDefault();
                 ViewBag.TypeName = Bll.SystemSettings.CouponType.First(s => s.ID == typeID);
             }
-
             return View(model);
         }
 

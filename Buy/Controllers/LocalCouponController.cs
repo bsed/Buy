@@ -13,7 +13,8 @@ namespace Buy.Controllers
 
         private IQueryable<LocalCoupon> QueryShops(List<int> typeIds = null)
         {
-            var query = db.LocalCoupons.AsQueryable();
+            var query = db.LocalCoupons
+                .Where(s => s.CreateDateTime < DateTime.Now && s.EndDateTime > DateTime.Now);
             if (typeIds != null && typeIds.Count > 0)
             {
                 query = query.Where(s => typeIds.Contains(s.ShopID));

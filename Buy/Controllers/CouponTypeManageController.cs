@@ -285,13 +285,7 @@ namespace Buy.Controllers
             }
             return Json(Comm.ToJsonResult("Error", "没有选择类型"));
         }
-
-        public ActionResult Clean()
-        {
-            Bll.SystemSettings.Clean();
-            return View();
-        }
-
+        
         public ActionResult MGJType()
         {
             Sidebar();

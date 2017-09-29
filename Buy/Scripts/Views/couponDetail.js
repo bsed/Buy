@@ -22,11 +22,6 @@ if ($("#ID").length > 0) {
 
                         if ($("[name='poductDetail'] img").length > 0) {
                             $("#pullUpLoad").hide();
-                            //setTimeout(function () {
-                            //    $('body').animate({ scrollTop: Math.floor(dttop + dth) }, 600);
-                            //    $("#pullUpLoad").addClass("style02").text("收回商品详情");
-                            //    scState = true;
-                            //}, 700)
                         }
                     }
                 }
@@ -113,22 +108,6 @@ function kt_touch(contentId) {
 }
 kt_touch('detail');
 
-//$("#detail").rhuiSwipe('swipeUp', function (event) {
-//    if (pState) {
-//        $("#pullUpLoad span").addClass("active");
-//        setTimeout(function () {
-//            $("#pullUpLoad span").addClass("hidden");
-//            $("#pullUpLoad .loading").removeClass("hidden");
-//        }, 300)
-//        GetDetailImgs();
-//    }
-//}, {
-//    // 可选参数
-//    isStopPropagation: false,
-//    isPreventDefault: false,
-//    triggerOnMove: false
-//});
-
 //淘口令
 $(".mask").click(function (e) {
     $(".pwdMask").addClass("hidden");
@@ -143,24 +122,37 @@ $("[name='clipboard']").click(function (e) {
         data: { id: $("#ID").val() },
         dataType: "json",
         success: function (data) {
-            if (data.State == "Success") {
-                if ($("#Platform").val() == "TaoBao" || $("#Platform").val() == "TMall") {
-                    $("#pwdMask-text").text(data.Result.Data);
-                    $(".pwdMask").attrdata("clipboard-text", data.Result.Data);
-                    $(".pwdMask").removeClass("hidden");
-                    comm.mask2.show();
-                } else {
-                    location = data.Result.Data;
-                }
-            }
-            else {
-                if (data.Message == "用户没有激活") {
-                    location = comm.action("Activation", "Account");
-                } else if (data.Message == "用户没有登录") {
-                    location = comm.action("Login", "Account");
-                } else {
-                    location = comm.action("Index", "Coupon");
-                }
+            switch (data.State) {
+                case "Success":
+                    {
+                        if ($("#Platform").val() == "TaoBao" || $("#Platform").val() == "TMall") {
+                            $("#pwdMask-text").text(data.Result.Data);
+                            $(".pwdMask").attrdata("clipboard-text", data.Result.Data);
+                            $(".pwdMask").removeClass("hidden");
+                            comm.mask2.show();
+                        } else {
+                            location = data.Result.Data;
+                        }
+                    }
+                    break;
+                case "NotActive":
+                    {
+                        location = comm.action("Activation", "Account");
+                    }
+                    break;
+                case "NotReceive":
+                    {
+                        location = comm.action("Index", "Coupon");
+                    }
+                    break;
+                case "NotLogin":
+                    {
+                        location = comm.action("Login", "Account");
+                    }
+                    break;
+                default:
+                    comm.promptBox(data.Message);
+                    break;
             }
         }
     });
@@ -185,7 +177,7 @@ clipboard.on('success', function (e) {
     $(".pwdMask").addClass("hidden");
     $("body").css("overflow", "auto");
     comm.mask2.hide();
-    comm.promptBox("复制成功,请打开淘宝APP查看");
+    alert("复制成功,请打开淘宝APP查看");
 });
 clipboard.on('error', function (e) {
     selectText("pwdMask-text");
@@ -194,7 +186,6 @@ clipboard.on('error', function (e) {
     $("body").css("overflow", "hidden");
     comm.mask2.show();
 });
-
 
 $("#btnShare").click(function (e) {
     $("#detail").addClass("hidden");
