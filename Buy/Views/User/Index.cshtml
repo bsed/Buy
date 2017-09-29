@@ -18,12 +18,14 @@
     <div>
         <div class="moduleOptions">
             <a href="@Url.Action("Edit","User")">
+                <img class="icon" src="~/Content/images/view/ic_border_color_black_24px@3x.png" />
                 修改昵称
                 <img class="arrow-r" src="~/Content/images/view/arrow_right_grey_m@3x.png" />
                 <div class="fr">@Model.NickName</div>
             </a>
         </div>
         <div class="moduleOptions">
+            <img class="icon" src="~/Content/images/view/ic_person_add_black_24px@3x.png" />
             修改头像
             @Html.HiddenFor(model => model.Id)
             @Html.HiddenFor(model => model.NickName)
@@ -32,12 +34,14 @@
         </div>
         <div class="moduleOptions">
             <a href="@Url.Action("ResetPassword","Account")">
+                <img class="icon" src="~/Content/images/view/ic_lock_black_24px@3x.png" />
                 修改密码
                 <img class="arrow-r" src="~/Content/images/view/arrow_right_grey_m@3x.png" />
             </a>
         </div>
         <div class="moduleOptions marginT20">
             <a href="@Url.Action("CustomerService")">
+                <img class="icon" src="~/Content/images/view/ic_headset_black_24px@3x.png" />
                 联系客服
                 <img class="arrow-r" src="~/Content/images/view/ico_kefu_blue@3x.png" />
             </a>
@@ -47,7 +51,7 @@
             {
                 @Html.AntiForgeryToken()
             }
-            <a href="javascript:document.getElementById('logoutForm').submit()">退出登录</a>
+            <a href="javascript:document.getElementById('logoutForm').submit()"><img class="icon" src="~/Content/images/view/ic_clear_all_black_24px@3x.png" />退出登录</a>
         </div>
     </div>
 
