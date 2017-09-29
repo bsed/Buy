@@ -272,6 +272,7 @@ namespace Buy.Controllers
             registrationCodes.UseUser = userId;
             var user = db.Users.FirstOrDefault(s => s.Id == userId);
             user.ParentUserID = registrationCodes.OwnUser;
+            user.IsActive = true;
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "成功"));
         }

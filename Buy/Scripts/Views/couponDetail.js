@@ -186,6 +186,8 @@ clipboard.on('error', function (e) {
     $("body").css("overflow", "hidden");
     comm.mask2.show();
 });
+$(".pwdMask").click(function (e) {
+});
 
 $("#btnShare").click(function (e) {
     $("#detail").addClass("hidden");
