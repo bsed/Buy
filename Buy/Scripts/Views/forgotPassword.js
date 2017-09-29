@@ -58,7 +58,7 @@ $("#btnGetCode").click(function () {
         dataType: "json",
         success: function (data) {
             if (data.State == "Success") {
-                //codeCountDown(60);
+                codeCountDown(60);
             } else {
                 comm.promptBox(data.Message);
             }
