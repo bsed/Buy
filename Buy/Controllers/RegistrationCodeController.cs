@@ -74,9 +74,7 @@ namespace Buy.Controllers
             ViewBag.Paged = list;
             return View(model);
         }
-
-
-
+        
         [Authorize(Roles = SysRole.RegistrationCodeManageCreate)]
         public ActionResult Create(string userId)
         {
@@ -167,7 +165,7 @@ namespace Buy.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = SysRole.RegistrationCodeManageCreate)]
+        [Authorize(Roles = SysRole.RegistrationCodeManageEdit)]
         public ActionResult Transfer(string userId)
         {
             Sidebar();
@@ -200,7 +198,7 @@ namespace Buy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = SysRole.RegistrationCodeManageCreate)]
+        [Authorize(Roles = SysRole.RegistrationCodeManageEdit)]
         public ActionResult Transfer(RegistrationCodeCreate model)
         {
             var user = db.Users.FirstOrDefault(s => s.Id == model.OwnUser);
@@ -210,8 +208,6 @@ namespace Buy.Controllers
                     && !s.UseTime.HasValue
                     && s.ActiveEndDateTime == checkCode.ActiveEndDateTime
                       && s.UseEndDateTime == checkCode.UseEndDateTime);
-
-
             if (model.Count < 1)
             {
                 ModelState.AddModelError("Count", "数量不可小于1");
@@ -230,14 +226,11 @@ namespace Buy.Controllers
             }
             if (ModelState.IsValid)
             {
-
-
                 var list = queryCode.Take(model.Count).ToList();
                 foreach (var item in list)
                 {
                     item.OwnUser = model.OwnUser;
                 }
-
                 var tCount = db.SaveChanges();
 
                 if (this.GetReturnUrl() != null)
@@ -343,8 +336,7 @@ namespace Buy.Controllers
             }
             return this.Excel(dt);
         }
-
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
