@@ -209,6 +209,81 @@ namespace Buy.Controllers
             return Redirect(returnUrl);
         }
 
+        [HttpGet]
+        [Authorize(Roles = SysRole.UserManageRead)]
+        public ActionResult Child(string id, int page = 1)
+        {
+            Sidebar();
+            ViewBag.User = db.Users.FirstOrDefault(s => s.Id == id);
+            var userlist = (from u in db.Users
+                            where u.ParentUserID == id
+                            join r in db.RegistrationCodes
+                            on u.Id equals r.OwnUser
+                            into c
+                            select new UserManage()
+                            {
+                                Count = c.Count(),
+                                Id = u.Id,
+                                RegisterDateTime = u.RegisterDateTime,
+                                UnUseCount = c.Count(s => !s.UseTime.HasValue),
+                                UseCount = c.Count(s => s.UseTime.HasValue),
+                                UserName = u.UserName,
+                                NickName = u.NickName,
+                                UserType = u.UserType
+                            })
+                .OrderByDescending(s => s.RegisterDateTime)
+                .ToPagedList(page);
+            return View(userlist);
+        }
+
+        /// <summary>
+        /// 把用户升级到一级代理
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Update(string id)
+        {
+            if (!User.IsInRole(SysRole.UserManageUpdate))
+            {
+                return Json(Comm.ToJsonResult("NoRole", "没有权限"));
+            }
+            var user = db.Users.FirstOrDefault(s => s.Id == id);
+            if (user == null)
+            {
+                return Json(Comm.ToJsonResult("NoFound", "用户不存在"));
+            }
+            else if (user.UserType == Enums.UserType.Proxy)
+            {
+                return Json(Comm.ToJsonResult("Error", "已经是代理"));
+            }
+            else
+            {
+                user.ParentUserID = null;
+                user.UserType = Enums.UserType.Proxy;
+                var codes = db.RegistrationCodes
+                    .Where(s => s.OwnUser == user.Id)
+                    .Select(s => s.UseTime.HasValue)
+                    .GroupBy(s => s)
+                    .Select(s => new
+                    {
+                        CodeType = s.Key ? "已使用" : "未使用",
+                        Count = s.Count()
+                    })
+                    .ToList();
+
+                db.SaveChanges();
+                var code1 = codes.FirstOrDefault(s => s.CodeType == "未使用")?.Count ?? 0;
+                var code2 = codes.FirstOrDefault(s => s.CodeType == "已使用")?.Count ?? 0;
+                return Json(Comm.ToJsonResult("Success", $"升级成功,{code1}个激活码和{code2}个用户", new
+                {
+                    CodeCount = code1,
+                    UserCount = code2
+                }));
+            }
+
+        }
+
         [HttpPost]
         [AllowCrossSiteJson]
         [AllowAnonymous]
@@ -303,78 +378,6 @@ namespace Buy.Controllers
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
-
-        [HttpGet]
-        public ActionResult Child(string id, int page = 1)
-        {
-            Sidebar();
-            ViewBag.User = db.Users.FirstOrDefault(s => s.Id == id);
-            var userlist = (from u in db.Users
-                            where u.ParentUserID == id
-                            join r in db.RegistrationCodes
-                            on u.Id equals r.OwnUser
-                            into c
-                            select new UserManage()
-                            {
-                                Count = c.Count(),
-                                Id = u.Id,
-                                RegisterDateTime = u.RegisterDateTime,
-                                UnUseCount = c.Count(s => !s.UseTime.HasValue),
-                                UseCount = c.Count(s => s.UseTime.HasValue),
-                                UserName = u.UserName,
-                                NickName = u.NickName,
-                                UserType = u.UserType
-                            })
-                .OrderByDescending(s => s.RegisterDateTime)
-                .ToPagedList(page);
-            return View(userlist);
-        }
-
-        /// <summary>
-        /// 把用户升级到一级代理
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult Update(string id)
-        {
-            var user = db.Users.FirstOrDefault(s => s.Id == id);
-            if (user == null)
-            {
-                return Json(Comm.ToJsonResult("NoFound", "用户不存在"));
-            }
-            else if (user.UserType == Enums.UserType.Proxy)
-            {
-                return Json(Comm.ToJsonResult("Error", "已经是代理"));
-            }
-            else
-            {
-                user.ParentUserID = null;
-                user.UserType = Enums.UserType.Proxy;
-                var codes = db.RegistrationCodes
-                    .Where(s => s.OwnUser == user.Id)
-                    .Select(s => s.UseTime.HasValue)
-                    .GroupBy(s => s)
-                    .Select(s => new
-                    {
-                        CodeType = s.Key ? "已使用" : "未使用",
-                        Count = s.Count()
-                    })
-                    .ToList();
-
-                db.SaveChanges();
-                var code1 = codes.FirstOrDefault(s => s.CodeType == "未使用")?.Count ?? 0;
-                var code2 = codes.FirstOrDefault(s => s.CodeType == "已使用")?.Count ?? 0;
-                return Json(Comm.ToJsonResult("Success", $"升级成功,{code1}个激活码和{code2}个用户", new
-                {
-                    CodeCount = code1,
-                    UserCount = code2
-                }));
-            }
-
-        }
-
-
 
         protected override void Dispose(bool disposing)
         {

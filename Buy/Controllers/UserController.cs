@@ -71,5 +71,51 @@ namespace Buy.Controllers
                 Data = Url.ContentFull(Url.Action("CustomerService", "User", new { layout = false })),
             }), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [AllowCrossSiteJson]
+        public ActionResult GetChild(string userId, int page = 1)
+        {
+            var users = db.Users.Where(s => s.ParentUserID == userId).OrderBy(s => s.RegisterDateTime).ToPagedList(page);
+            var data = users.Select(s => new
+            {
+                s.NickName,
+                s.Id,
+                s.PhoneNumber,
+                s.UserName,
+                s.UserType,
+                Avatar = Comm.ResizeImage(s.Avatar, image: null),
+            });
+            return Json(Comm.ToJsonResultForPagedList(users, data), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [AllowCrossSiteJson]
+        public ActionResult GetCode(string userId, int page = 1)
+        {
+            var codes = (from r in db.RegistrationCodes
+                         where r.OwnUser == userId
+                         join u in db.Users
+                         on r.UseUser equals u.Id
+                         into c
+                         select new { code = r, user = c.FirstOrDefault() })
+                         .OrderBy(s => s.code.CreateTime)
+                         .ToPagedList(page);
+            var data = codes.Select(s => new
+            {
+                s.code.ID,
+                s.code.Code,
+                CreateTime = s.code.CreateTime.ToString("yyyy-MM-dd"),
+                UseTime = s.code.UseTime.HasValue ? s.code.UseTime.Value.ToString("yyyy-MM-dd") : null,
+                s.code.UseUser,
+                User = s.user,
+                UseEndDateTime = s.code.UseEndDateTime.HasValue ? s.code.UseEndDateTime.Value.ToString("yyyy-MM-dd") : null,
+                ActiveEndDateTime = s.code.ActiveEndDateTime.HasValue ? s.code.ActiveEndDateTime.Value.ToString("yyyy-MM-dd") : null,
+            });
+            return Json(Comm.ToJsonResultForPagedList(codes, data), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

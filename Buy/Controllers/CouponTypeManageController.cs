@@ -184,9 +184,12 @@ namespace Buy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = SysRole.CouponTypeManageEdit)]
         public ActionResult Move(int pid, List<int> ids)
         {
+            if (!User.IsInRole(SysRole.CouponTypeManageEdit))
+            {
+                return Json(Comm.ToJsonResult("NoRole", "没有权限"));
+            }
             var items = couponType.Where(s => ids.Contains(s.ID)).ToList();
             foreach (var id in ids)
             {
@@ -263,12 +266,14 @@ namespace Buy.Controllers
             };
             return View(model);
         }
-
-
+        
         [HttpPost]
-        [Authorize(Roles = SysRole.CouponTypeManageDelete)]
         public ActionResult DeleteAll(string ids)
         {
+            if (!User.IsInRole(SysRole.CouponTypeManageDelete))
+            {
+                return Json(Comm.ToJsonResult("NoRole", "没有权限"));
+            }
             var idList = ids.SplitToIntArray();
             if (idList != null && idList.Count > 0)
             {
@@ -285,7 +290,8 @@ namespace Buy.Controllers
             }
             return Json(Comm.ToJsonResult("Error", "没有选择类型"));
         }
-        
+
+        [Authorize(Roles = SysRole.CouponTypeManageRead)]
         public ActionResult MGJType()
         {
             Sidebar();

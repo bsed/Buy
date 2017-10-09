@@ -55,6 +55,10 @@ namespace Buy.Controllers
         [Authorize(Roles = SysRole.CouponManageDelete)]
         public ActionResult Delete(DateTime date, List<Enums.CouponPlatform> types)
         {
+            if (!User.IsInRole(SysRole.CouponManageDelete))
+            {
+                return Json(Comm.ToJsonResult("NoRole", "没有权限"));
+            }
             var delOld = db.Coupons
                 .Where(s => types.Contains(s.Platform)
                             && s.CreateDateTime < date)
@@ -68,6 +72,10 @@ namespace Buy.Controllers
         [Authorize(Roles = SysRole.CouponManageDelete)]
         public ActionResult DeleteTicket(string ids)
         {
+            if (!User.IsInRole(SysRole.CouponManageDelete))
+            {
+                return Json(Comm.ToJsonResult("NoRole", "没有权限"));
+            }
             var idList = ids.SplitToIntArray();
             if (ids.Count() <= 0)
             {
@@ -79,6 +87,7 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", "删除成功"));
         }
 
+        [Authorize(Roles = SysRole.CouponManageRead)]
         public ActionResult NoProductType(int page = 1)
         {
             Sidebar();
@@ -99,7 +108,10 @@ namespace Buy.Controllers
         [HttpPost]
         public ActionResult CheckTypes()
         {
-
+            if (!User.IsInRole(SysRole.CouponManageEdit))
+            {
+                return Json(Comm.ToJsonResult("NoRole", "没有权限"));
+            }
             var groupProductType = db.Coupons
                 .Where(s => !s.TypeID.HasValue && s.ProductType != null)
                 .GroupBy(s => s.ProductType)
@@ -126,6 +138,8 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", "成功", new { Count = changeCount }));
         }
 
+
+        //方法
         [AllowCrossSiteJson]
         [HttpPost]
         [AllowAnonymous]
