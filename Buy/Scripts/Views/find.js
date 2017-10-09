@@ -93,7 +93,7 @@ function TypeClick() {
     var couponType2 = $("#sortOne [name='type']");
     couponType2.click(function () {
         couponType.removeClass("active");
-        var index = $(this).index()+1;
+        var index = $(this).index();
         couponType.eq(index).addClass("active");
         var date_type = $(this).data("type");
         shopId = date_type;
