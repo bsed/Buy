@@ -528,6 +528,7 @@
     <Content Include="Content\images\view\img_wechat_login_grey%402x.png" />
     <Content Include="Content\images\view\img_zgongfu_b%402x.png" />
     <Content Include="Content\images\view\loadingGif.gif" />
+    <Content Include="Content\images\view\logo.png" />
     <Content Include="Content\images\view\logo_jd_tag%402x.png" />
     <Content Include="Content\images\view\logo_mogujie_tag%402x.png" />
     <Content Include="Content\images\view\logo_taobao_tag%402x.png" />
