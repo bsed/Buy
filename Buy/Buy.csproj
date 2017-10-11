@@ -1003,6 +1003,7 @@
     <Content Include="Scripts\Views\home.js" />
     <Content Include="Scripts\Views\localCoupon.js" />
     <Content Include="Scripts\Views\login.js" />
+    <Content Include="Scripts\Views\userMange.js" />
     <Content Include="Scripts\Views\register.js" />
     <Content Include="Scripts\Views\registrationCodeCreate.js" />
     <Content Include="Scripts\Views\resetPassword.js" />
