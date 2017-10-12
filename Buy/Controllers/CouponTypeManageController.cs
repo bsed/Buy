@@ -110,7 +110,7 @@ namespace Buy.Controllers
                 var type = new CouponType()
                 {
                     Image = model.FileUpload.Images.FirstOrDefault(),
-                    Keyword = model.Keyword.Replace(" ", ""),
+                    Keyword = model.Keyword?.Replace(" ", "") ?? "",
                     Name = model.Name,
                     Sort = model.Sort,
                     ParentID = model.ParentID,
@@ -266,7 +266,7 @@ namespace Buy.Controllers
             };
             return View(model);
         }
-        
+
         [HttpPost]
         public ActionResult DeleteAll(string ids)
         {
