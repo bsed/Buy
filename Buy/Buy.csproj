@@ -197,8 +197,9 @@
       <HintPath>..\packages\ThoughtWorks.QRCode.1.1.0\lib\ThoughtWorks.QRCode.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="TopSdk">
-      <HintPath>..\..\Octopus\Octopus\Octopus\bin\TopSdk.dll</HintPath>
+    <Reference Include="TopSdk, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Administrator\Downloads\TopSdk.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.WebDriver.3.5.2\lib\net40\WebDriver.dll</HintPath>
