@@ -164,6 +164,7 @@ namespace Buy.Controllers
                 case Enums.CouponSort.Default:
                 default:
                     {
+                        query = query.Where(s => s.OriginalPrice > 19.99m && s.OriginalPrice < 150.01m);
                         query = query.OrderByDescending(s => s.Commission);
                     }
                     break;
