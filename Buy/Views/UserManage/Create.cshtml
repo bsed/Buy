@@ -22,6 +22,7 @@
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Hidden("returnUrl", Request["returnUrl"])
         @Html.HiddenFor(model => Model.UserType)
         @Html.HiddenFor(model => model.ParentUserNickName)
         @Html.HiddenFor(model => model.ParentUserID)
@@ -79,7 +80,7 @@
         {
             <div class="form-group">
                 <div class="col-md-2">
-                    <input type="checkbox" class="pull-right" id="productProxy_ck"/>
+                    <input type="checkbox" class="pull-right" id="productProxy_ck" />
                 </div>
                 <div class="col-md-10">
                     参加活动？
@@ -89,7 +90,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">商品</label>
                     <div class="col-md-10">
-                        <select id="productProxy_sel" class = "form-control">
+                        <select id="productProxy_sel" class="form-control">
                             <option class="demo" value=""></option>
                         </select>
                     </div>

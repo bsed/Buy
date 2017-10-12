@@ -65,6 +65,7 @@ $("#creat").click(function (e) {
         PhoneNumber: $("#PhoneNumber").val(),
         NickName: $("#NickName").val(),
         Password: $("#Password").val(),
+        returnUrl: $("#returnUrl").val(),
     };
 
     if ($(".productProxy").length > 0 && $("#productProxy_ck").is(":checked")) {

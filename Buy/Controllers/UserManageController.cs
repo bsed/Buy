@@ -96,7 +96,7 @@ namespace Buy.Controllers
 
         [HttpPost]
         [Authorize(Roles = SysRole.UserManageCreate)]
-        public ActionResult Create(UserMangeCreateUserViewModel model)
+        public ActionResult Create(UserMangeCreateUserViewModel model,string returnUrl)
         {
             if (!User.IsInRole(SysRole.UserManageCreate))
             {
@@ -149,7 +149,7 @@ namespace Buy.Controllers
             if (result.Result.Succeeded)
             {
                 user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
-                var returnUrl = Request["ReturnUrl"];
+                //var returnUrl = Request["ReturnUrl"];
                 if (string.IsNullOrWhiteSpace(returnUrl))
                 {
                     returnUrl = Url.Action("index");
@@ -208,10 +208,10 @@ namespace Buy.Controllers
                 _roles.EditUserRoleByGroupID(user.Id, model.RoleGroupID.Value);
             }
             db.SaveChanges();
-            string returnUrl = Url.Action("index");
+            var returnUrl = Request["ReturnUrl"];
             if (string.IsNullOrWhiteSpace(returnUrl))
             {
-                returnUrl = Url.Action("Child");
+                returnUrl = Url.Action("Index");
             }
             return Redirect(returnUrl);
         }
