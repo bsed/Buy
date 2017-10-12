@@ -37,18 +37,6 @@ namespace Buy
 
         public string GetWirelessShareTpwd(string logo, string url, string title, long userID, object ext = null)
         {
-            //WirelessShareTpwdCreateRequest req = new WirelessShareTpwdCreateRequest();
-            //WirelessShareTpwdCreateRequest.GenPwdIsvParamDtoDomain obj1 = new WirelessShareTpwdCreateRequest.GenPwdIsvParamDtoDomain();
-
-            //if (ext != null)
-            //{
-            //    obj1.Ext = JsonConvert.SerializeObject(ext);
-            //}
-            //obj1.Logo = logo;
-            //obj1.Url = url;
-            //obj1.Text = title;
-            //obj1.UserId = userID;
-            //req.TpwdParam_ = obj1;
             TbkTpwdCreateRequest req = new TbkTpwdCreateRequest();
             req.UserId = userID.ToString();
             req.Text = title;
