@@ -172,7 +172,7 @@ namespace Buy.Controllers
                 var index = couponType.IndexOf(type);
 
                 type.Image = model.FileUpload.Images.FirstOrDefault();
-                type.Keyword = model.Keyword.Replace(" ", "");
+                type.Keyword = model.Keyword?.Replace(" ", "") ?? "";
                 type.Name = model.Name;
                 type.Sort = model.Sort;
                 type.Platform = model.Platform;
