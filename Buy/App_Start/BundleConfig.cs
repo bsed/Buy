@@ -122,6 +122,7 @@ namespace Buy
             addViewScripts("userEdit", new[] { "userEdit.js" });
             addViewScripts("useManageChild", new string[] { "useManageChild.js" });
             addViewScripts("registrationCodeCreate", new string[] { "registrationCodeCreate.js" });
+            addViewScripts("userMange", new string[] { "userMange.js" });
         }
     }
 }
