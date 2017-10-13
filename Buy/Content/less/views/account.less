@@ -13,6 +13,7 @@
             top: 0;
             line-height: 35rem*@resize;
             font-size: @font-size-2;
+            transition: .3s ease all;
         }
 
         .identifyCode {
@@ -27,8 +28,8 @@
             background: none;
             border: none;
 
-            &:disabled{
-                color:@font-col-grey01;
+            &:disabled {
+                color: @font-col-grey01;
             }
         }
 
@@ -68,6 +69,51 @@
                 padding-right: 16rem*@resize;
             }
         }
+
+        &.style02 {
+            .account-input-tits {
+                font-size: @font-size-4;
+                color: @font-col-grey01;
+                top: 7rem*@resize;
+            }
+
+            input {
+                padding-right: 16rem*@resize;
+                border-bottom: none;
+                background-image: linear-gradient(@bg-color-main,@bg-color-main),linear-gradient(@border-color,@border-color);
+                background-size: 0 2px,100% 1px;
+                background-repeat: no-repeat;
+                background-position: center bottom;
+                background-color: rgba(0,0,0,0);
+                transition: background 0s ease-out;
+                height: 44rem*@resize;
+                padding-left: 10rem*@resize;
+                padding-top: 9rem*@resize;
+                padding-bottom: 9rem*@resize;
+                margin-bottom:9rem*@resize;
+                font-size:@font-size-4;
+            }
+
+            &.is-focused {
+                .account-input-tits{
+                    font-size:@font-size-2;
+                    top:-25rem*@resize;
+                }
+
+                input {
+                    background-image: linear-gradient(@bg-color-main,@bg-color-main),linear-gradient(@border-color,@border-color);
+                    background-size: 100% 2px,100% 1px;
+                    transition-duration: 0.3s;
+                }
+            }
+
+            &:not(.is-empty){
+                .account-input-tits{
+                    font-size:@font-size-2;
+                    top:-25rem*@resize;
+                }
+            }
+        }
     }
 
     .account-button {
@@ -101,7 +147,7 @@
         padding: 70rem*@resize 0 40rem*@resize 0;
 
         img {
-            height:68*0.6rem*@resize;
+            height: 68*0.6rem*@resize;
         }
     }
 
