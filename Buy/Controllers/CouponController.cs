@@ -169,8 +169,8 @@ namespace Buy.Controllers
                     }
                     break;
             }
-            DateTime limit = DateTime.Now.Date.AddDays(-3);
-            query = query.Where(s => s.CreateDateTime >= limit);
+            //DateTime limit = DateTime.Now.Date.AddDays(-3);
+            //query = query.Where(s => s.CreateDateTime >= limit);
             return query;
         }
 
