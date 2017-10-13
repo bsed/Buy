@@ -165,10 +165,12 @@ namespace Buy.Controllers
                 default:
                     {
                         query = query.Where(s => s.OriginalPrice > 19.99m && s.OriginalPrice < 150.01m);
-                        query = query.OrderByDescending(s => s.Commission);
+                        query = query.OrderByDescending(s => s.Sales);
                     }
                     break;
             }
+            DateTime limit = DateTime.Now.Date.AddDays(-3);
+            query = query.Where(s => s.CreateDateTime >= limit);
             return query;
         }
 

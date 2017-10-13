@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.IO;
 namespace Buy.Controllers
 {
     public class TaobaoController : Controller
@@ -18,6 +18,11 @@ namespace Buy.Controllers
             }
             string path = Request.MapPath(url);
             Taobao.Import(userID, path);
+            var fileInfo = new FileInfo(path);
+            if (fileInfo.Exists)
+            {
+                fileInfo.Delete();
+            }
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
     }

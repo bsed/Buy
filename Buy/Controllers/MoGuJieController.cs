@@ -87,6 +87,7 @@ namespace Buy.Controllers
                 models.RemoveAll(s => dModels.Contains(s));
             }
             Bll.Coupons.DbAdd(models);
+            fileInfo.Delete();
             return Json(Comm.ToJsonResult("Success", "成功"), JsonRequestBehavior.AllowGet);
         }
 
