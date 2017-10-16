@@ -207,6 +207,8 @@ namespace Buy.Models.ActionCell
             Subtitle = coupon.Subtitle;
             ShareUrl = Comm.ResizeImage($"~/Coupon/Details?id={coupon.ID}", image: null);
             ProductUrl = productUrl;
+            Commission = coupon.Commission;
+            CommissionRate = coupon.CommissionRate;
         }
 
         public override CellStyle Style
@@ -246,6 +248,12 @@ namespace Buy.Models.ActionCell
         public string ShareUrl { get; set; }
 
         public string ProductUrl { get; set; }
+
+
+        public decimal Commission { get; set; }
+
+
+        public decimal CommissionRate { get; set; }
 
         public List<CouponValue> Values { get; set; }
     }
