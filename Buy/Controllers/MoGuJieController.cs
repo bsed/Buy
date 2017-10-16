@@ -73,6 +73,7 @@ namespace Buy.Controllers
             }
             string text = System.IO.File.ReadAllText(path);
             var models = JsonConvert.DeserializeObject<List<Models.CouponUserViewModel>>(text);
+            models = models.Where(s => s.Commission > 0).ToList();
             var dLinks = models.GroupBy(s => s.Link).Select(s => new
             {
                 Link = s.Key,

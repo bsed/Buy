@@ -413,6 +413,10 @@ namespace Buy.Enums
         /// </summary>
         [Display(Name = "券后价")]
         CouponPrice,
+        [Display(Name = "佣金")]
+        Commission,
+        [Display(Name = "券后价降序")]
+        CouponPriceDesc,
     }
 
 

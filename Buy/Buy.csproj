@@ -445,6 +445,8 @@
     <Content Include="Content\images\404\placeholder_image.png" />
     <Content Include="Content\images\home\arrow-right.png" />
     <Content Include="Content\images\home\arrow_up.png" />
+    <Content Include="Content\images\home\logo_color.png" />
+    <Content Include="Content\images\home\logo_white.png" />
     <Content Include="Content\images\home\slide_android_qr.png" />
     <Content Include="Content\images\home\slide_bg_001.png" />
     <Content Include="Content\images\home\slide_bg_android.png" />
