@@ -533,10 +533,6 @@ namespace Buy.Controllers
         public ActionResult Index(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
             Enums.CouponSort sort = Enums.CouponSort.Default, int? typeID = null)
         {
-            if (!Comm.IsMobileDrive)
-            {
-                return RedirectToAction("Index", "Home");
-            }
             ViewBag.Banner = Bll.SystemSettings.BannerSetting.Where(s => s.Platform == platform).OrderBy(s => s.Sort).ToList();
             ViewBag.Classify = Bll.SystemSettings.ClassifySetting.Where(s => s.Platform == platform).OrderBy(s => s.Sort).ToList();
             return View();
