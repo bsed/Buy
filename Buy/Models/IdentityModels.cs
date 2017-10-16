@@ -116,5 +116,7 @@ namespace Buy.Models
         public virtual DbSet<Keyword> Keywords { get; set; }
 
         public virtual DbSet<CouponUser> CouponUsers { get; set; }
+
+        public virtual DbSet<ChildProxyApply> ChildProxyApplys { get; set; }
     }
 }

@@ -443,4 +443,15 @@ namespace Buy.Enums
         [Display(Name = "年")]
         Year
     }
+
+
+    public enum ChildProxyApplyState
+    {
+        [Display(Name = "审核中")]
+        NoCheck,
+        [Display(Name = "已通过")]
+        Pass,
+        [Display(Name = "未通过")]
+        NoPass
+    }
 }

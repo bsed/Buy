@@ -124,19 +124,13 @@ namespace Buy.Models.ActionCell
 
         public AvatarCell(UserViewModel user)
         {
-
-            ID = user.ID;
+            ID = user.Id;
             Title = user.NickName;
-
-            Image = user.AvatarFull;
+            Image = user.Avatar;
             UserName = user.UserName;
-            QRCode = user.QRCode;
-
         }
 
         public string UserName { get; set; }
-
-        public string QRCode { get; set; }
 
         public override CellStyle Style
         {
@@ -157,7 +151,6 @@ namespace Buy.Models.ActionCell
             Type = Enums.ActionType.None;
             Image = Comm.ResizeImage("~/Content/Images/SystemAvatar_x144.jpg", image: null);
             UserName = null;
-            QRCode = null;
         }
     }
 
