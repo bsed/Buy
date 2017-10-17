@@ -39,7 +39,7 @@ namespace Buy.Models
         {
             get
             {
-                string url = string.IsNullOrWhiteSpace(Avatar) ? "~/Content/Images/DefaultAvatar.png" : Avatar;
+                string url = string.IsNullOrWhiteSpace(AvatarRel) ? "~/Content/Images/DefaultAvatar.png" : Avatar;
                 return Comm.ResizeImage(url, image: null);
             }
         }

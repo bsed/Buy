@@ -18,11 +18,19 @@ namespace Buy.Controllers
             }
             string path = Request.MapPath(url);
             Taobao.Import(userID, path);
-            var fileInfo = new FileInfo(path);
-            if (fileInfo.Exists)
+            try
             {
-                fileInfo.Delete();
+                var fileInfo = new FileInfo(path);
+                if (fileInfo.Exists)
+                {
+                    fileInfo.Delete();
+                }
             }
+            catch (Exception ex)
+            {
+                Comm.WriteLog("TaoBaoImort", $"删除缓存失败：{ex.Message}", Enums.DebugLogLevel.Error, Url.Action(), ex);
+            }
+          
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
     }
