@@ -117,5 +117,35 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResultForPagedList(codes, data), JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        [AllowCrossSiteJson]
+        public ActionResult GetParentUserID(string userId)
+        {
+            var user = db.Users.FirstOrDefault(s => s.Id == userId);
+            string pid = null;
+            string cid = null;
+            if (user == null)
+            {
+                return Json(Comm.ToJsonResult("Error", "没有这个用户"));
+            }
+            if (user.UserType != Enums.UserType.Normal)
+            {
+                return Json(Comm.ToJsonResult("Error", "这个不是用户"));
+            }
+            var pUser = db.Users.FirstOrDefault(s => s.Id == user.ParentUserID);
+            pid = pUser.Id;
+            if (pUser.UserType == Enums.UserType.ProxySec)
+            {
+                cid = pUser.Id;
+                pid = pUser.ParentUserID;
+            }
+            return Json(Comm.ToJsonResult("Success", "成功", new
+            {
+                ProxyID = pid,
+                ChildProxyID = cid
+            }), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
