@@ -808,7 +808,11 @@ namespace Buy.Controllers
 
         }
 
-
+        [AllowCrossSiteJson]
+        public ActionResult LoginByWeiXinUnionID(string unionID, string avatar = null, string nickname = null)
+        {
+            return Json(Comm.ToJsonResult("Success","成功"));
+        }
 
         private ApplicationUser CreateByWeChat(WeChat.UserInfoResult model)
         {
@@ -866,7 +870,7 @@ namespace Buy.Controllers
             }
             return user;
         }
-        
+
 
 
         #endregion
