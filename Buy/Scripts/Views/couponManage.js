@@ -46,7 +46,7 @@ $("#btnDelTicket").click(function (e) {
     var ids = check.selectedValuesString(",");
     $.ajax({
         type: "POST",
-        url: comm.action("DeleteTicket", "CouponManage"),
+        url: comm.action("DeleteByID", "CouponManage"),
         data: { ids: ids },
         dataType: "json",
         success: function (data) {
@@ -98,7 +98,7 @@ var modDel = function () {
         }
         $.ajax({
             type: "POST",
-            url: comm.action("Delete", "ThirdPartyTicketManage"),
+            url: comm.action("Delete", "CouponManage"),
             data: {
                 date: dete,
                 types: items

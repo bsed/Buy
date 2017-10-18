@@ -197,8 +197,9 @@
       <HintPath>..\packages\ThoughtWorks.QRCode.1.1.0\lib\ThoughtWorks.QRCode.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="TopSdk">
-      <HintPath>..\..\Octopus\Octopus\Octopus\bin\TopSdk.dll</HintPath>
+    <Reference Include="TopSdk, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Administrator\Downloads\TopSdk.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.WebDriver.3.5.2\lib\net40\WebDriver.dll</HintPath>
@@ -317,6 +318,7 @@
     <Compile Include="Controllers\LocalCouponManageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoGuJieController.cs" />
+    <Compile Include="Controllers\ProxyController.cs" />
     <Compile Include="Controllers\QrCodeController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
     <Compile Include="Controllers\RoleManageController.cs" />
@@ -396,10 +398,15 @@
     <Compile Include="Migrations\201709260053464_RegistraionCodeAddEndDateTime.Designer.cs">
       <DependentUpon>201709260053464_RegistraionCodeAddEndDateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710160947578_AddChildProxyApply.cs" />
+    <Compile Include="Migrations\201710160947578_AddChildProxyApply.Designer.cs">
+      <DependentUpon>201710160947578_AddChildProxyApply.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActionCells.cs" />
+    <Compile Include="Models\ChildProxyApply.cs" />
     <Compile Include="Models\ClientAccessLog.cs" />
     <Compile Include="Models\CloudFile.cs" />
     <Compile Include="Models\CloudFileControl.cs" />
@@ -444,6 +451,8 @@
     <Content Include="Content\images\404\placeholder_image.png" />
     <Content Include="Content\images\home\arrow-right.png" />
     <Content Include="Content\images\home\arrow_up.png" />
+    <Content Include="Content\images\home\logo_color.png" />
+    <Content Include="Content\images\home\logo_white.png" />
     <Content Include="Content\images\home\slide_android_qr.png" />
     <Content Include="Content\images\home\slide_bg_001.png" />
     <Content Include="Content\images\home\slide_bg_android.png" />
@@ -1122,6 +1131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Banner\" />
+    <Folder Include="Views\Proxy\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Taobao\" />
     <Folder Include="Views\Test\" />
@@ -1179,6 +1189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709260053464_RegistraionCodeAddEndDateTime.resx">
       <DependentUpon>201709260053464_RegistraionCodeAddEndDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710160947578_AddChildProxyApply.resx">
+      <DependentUpon>201710160947578_AddChildProxyApply.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

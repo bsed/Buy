@@ -10,10 +10,10 @@ namespace Buy.Controllers
     {
         public ActionResult Index()
         {
-            //if (Comm.IsMobileDrive)
-            //{
-            //    return RedirectToAction("Index", "Coupon");
-            //}
+            if (Comm.IsMobileDrive)
+            {
+                return RedirectToAction("Index", "Coupon");
+            }
             return View();
         }
 

@@ -70,7 +70,7 @@ namespace Buy.Controllers
 
         [HttpPost]
         [Authorize(Roles = SysRole.CouponManageDelete)]
-        public ActionResult DeleteTicket(string ids)
+        public ActionResult DeleteByID(string ids)
         {
             if (!User.IsInRole(SysRole.CouponManageDelete))
             {

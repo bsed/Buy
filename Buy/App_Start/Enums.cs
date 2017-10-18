@@ -413,6 +413,10 @@ namespace Buy.Enums
         /// </summary>
         [Display(Name = "券后价")]
         CouponPrice,
+        [Display(Name = "佣金")]
+        Commission,
+        [Display(Name = "券后价降序")]
+        CouponPriceDesc,
     }
 
 
@@ -438,5 +442,16 @@ namespace Buy.Enums
         Month,
         [Display(Name = "年")]
         Year
+    }
+
+
+    public enum ChildProxyApplyState
+    {
+        [Display(Name = "审核中")]
+        NoCheck,
+        [Display(Name = "已通过")]
+        Pass,
+        [Display(Name = "未通过")]
+        NoPass
     }
 }

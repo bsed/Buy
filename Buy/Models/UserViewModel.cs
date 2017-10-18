@@ -19,25 +19,27 @@ namespace Buy.Models
 
         private void SetBaseInfo(ApplicationUser user)
         {
-            ID = user.Id;
-            Avatar = user.Avatar;
+            Id = user.Id;
+            AvatarRel = user.Avatar;
             PhoneNumber = user.PhoneNumber;
-            Email = user.Email;
             NickName = user.NickName;
             UserName = user.UserName;
             IsFrozen = user.LockoutEndDateUtc.HasValue ? (user.LockoutEndDateUtc.Value - DateTime.Now).TotalDays > 365 : false;
+            IsActivation = user.IsActive;
+            UserType = user.UserType;
+            ParentUserID = user.ParentUserID;
         }
 
 
-        public string ID { get; set; }
+        public string Id { get; set; }
 
-        public string Avatar { get; set; }
+        public string AvatarRel { get; set; }
 
-        public string AvatarFull
+        public string Avatar
         {
             get
             {
-                string url = string.IsNullOrWhiteSpace(Avatar) ? "~/Content/Images/DefaultAvatar.png" : Avatar;
+                string url = string.IsNullOrWhiteSpace(AvatarRel) ? "~/Content/Images/DefaultAvatar.png" : AvatarRel;
                 return Comm.ResizeImage(url, image: null);
             }
         }
@@ -48,23 +50,15 @@ namespace Buy.Models
 
         public string UserName { get; set; }
 
-        public string QRCode { get; set; }
-
-        public string Email { get; set; }
-        
-        public List<string> Roles { get; set; }
-
         public bool IsFrozen { get; set; }
 
-        public bool IsFollow { get; set; }
-
-        public int Fan { get; set; }
-
-        public int Follow { get; set; }
-
-        public string ShareUrl { get; set; }
 
         public bool IsActivation { get; set; }
+
+        public Enums.UserType UserType { get; set; }
+
+
+        public string ParentUserID { get; set; }
 
 
     }
@@ -136,8 +130,8 @@ namespace Buy.Models
         [Display(Name = "头像")]
         public ImageResizer Avatar { get; set; }
 
-        [Display(Name ="昵称")]
+        [Display(Name = "昵称")]
         public string NickName { get; set; }
     }
-    
+
 }

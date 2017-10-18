@@ -64,16 +64,7 @@ namespace Buy.Controllers
         public ActionResult GetUserInfo(string userId)
         {
             var user = db.Users.FirstOrDefault(s => s.Id == userId);
-            var data = new
-            {
-                user.Id,
-                user.UserName,
-                user.NickName,
-                user.PhoneNumber,
-                IsActivation = user.IsActive,
-                user.UserType,
-                Avatar = Comm.ResizeImage(user.Avatar, image: null)
-            };
+            var data = new UserViewModel(user);
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
         }
 
@@ -108,15 +99,7 @@ namespace Buy.Controllers
                 case SignInStatus.Success:
                     {
                         var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName || s.PhoneNumber == model.UserName);
-                        return Json(Comm.ToJsonResult("Success", "登录成功", new
-                        {
-                            user.Id,
-                            user.UserName,
-                            user.NickName,
-                            user.PhoneNumber,
-                            IsActivation = user.IsActive,
-                            user.UserType,
-                        }));
+                        return Json(Comm.ToJsonResult("Success", "登录成功", new UserViewModel(user)));
                     }
                 case SignInStatus.LockedOut:
                     {
@@ -221,15 +204,7 @@ namespace Buy.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
-                    return Json(Comm.ToJsonResult("Success", "成功", new
-                    {
-                        user.Id,
-                        user.UserName,
-                        user.NickName,
-                        user.PhoneNumber,
-                        IsActivation = user.IsActive,
-                        user.UserType,
-                    }));
+                    return Json(Comm.ToJsonResult("Success", "成功", new UserViewModel(user)));
                 }
                 return Json(Comm.ToJsonResult("Error", result.Errors.FirstOrDefault()));
             }

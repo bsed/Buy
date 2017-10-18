@@ -40,7 +40,7 @@ namespace Buy.Controllers
                             DiscountRate = (s.OriginalPrice - s.Price) / s.OriginalPrice,
                             EndDateTime = s.EndDateTime,
                             Commission = s.Commission,
-                            CommissionRate = s.Commission,
+                            CommissionRate = s.CommissionRate,
                             ID = s.ID,
                             Image = s.Image,
                             Link = u.Link,
@@ -71,7 +71,7 @@ namespace Buy.Controllers
                              DiscountRate = (s.OriginalPrice - s.Price) / s.OriginalPrice,
                              EndDateTime = s.EndDateTime,
                              Commission = s.Commission,
-                             CommissionRate = s.Commission,
+                             CommissionRate = s.CommissionRate,
                              ID = s.ID,
                              Image = s.Image,
                              Link = null,
@@ -158,17 +158,29 @@ namespace Buy.Controllers
                     break;
                 case Enums.CouponSort.CouponPrice:
                     {
-                        query = query.OrderBy(s => s.Price).ThenByDescending(s => s.Sales); ;
+                        query = query.OrderBy(s => s.Price).ThenByDescending(s => s.Sales);
+                    }
+                    break;
+                case Enums.CouponSort.CouponPriceDesc:
+                    {
+                        query = query.OrderByDescending(s => s.Price).ThenByDescending(s => s.Sales);
+                    }
+                    break;
+                case Enums.CouponSort.Commission:
+                    {
+                        query = query.OrderByDescending(s => s.Commission).ThenByDescending(s => s.Sales);
                     }
                     break;
                 case Enums.CouponSort.Default:
                 default:
                     {
                         query = query.Where(s => s.OriginalPrice > 19.99m && s.OriginalPrice < 150.01m);
-                        query = query.OrderByDescending(s => s.Commission);
+                        query = query.OrderByDescending(s => s.Sales);
                     }
                     break;
             }
+            //DateTime limit = DateTime.Now.Date.AddDays(-3);
+            //query = query.Where(s => s.CreateDateTime >= limit);
             return query;
         }
 
@@ -203,7 +215,7 @@ namespace Buy.Controllers
             }
             else
             {
-                var paged = QueryCoupon(model).ToPagedList(page, 20);
+                var paged = QueryCoupon(model).ToPagedList(page, 50);
                 var models = paged.Distinct(new CouponUserViewModelComparer())
                     .Select(s => new Models.ActionCell.CouponCell(s)).ToList();
                 return Json(Comm.ToJsonResultForPagedList(paged, models), JsonRequestBehavior.AllowGet);
@@ -521,10 +533,6 @@ namespace Buy.Controllers
         public ActionResult Index(Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
             Enums.CouponSort sort = Enums.CouponSort.Default, int? typeID = null)
         {
-            if (!Comm.IsMobileDrive)
-            {
-                return RedirectToAction("Index", "Home");
-            }
             ViewBag.Banner = Bll.SystemSettings.BannerSetting.Where(s => s.Platform == platform).OrderBy(s => s.Sort).ToList();
             ViewBag.Classify = Bll.SystemSettings.ClassifySetting.Where(s => s.Platform == platform).OrderBy(s => s.Sort).ToList();
             return View();
@@ -577,7 +585,7 @@ namespace Buy.Controllers
             }
             else
             {
-                var paged = QueryCoupon(model).ToPagedList(page, 20);
+                var paged = QueryCoupon(model).ToPagedList(page, 50);
                 var models = paged.Distinct(new CouponUserViewModelComparer());
                 ViewBag.Paged = paged;
                 return View(models);
