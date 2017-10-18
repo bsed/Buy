@@ -736,8 +736,6 @@ namespace Buy.Controllers
                 return this.ToError("错误", "获取微信用户失败", Url.Action("Login"));
             }
 
-
-
             var openID = result.OpenID;
             if (state == "openid")
             {
@@ -746,50 +744,18 @@ namespace Buy.Controllers
             }
             var accessToken = result.AccessToken;
             var unionid = result.UnionID;
-            var user = db.Users.FirstOrDefault(s => s.WeChatID == unionid);
+
+            //var user = db.Users.FirstOrDefault(s => s.WeChatID == unionid);
 
             try
             {
-                if (user != null)
-                {
-                    if (user.UserName == user.NickName)
-                    {
-                        var userInfo = wechat.GetUserInfoSns(openID, accessToken);
-                        string avart;
-                        try
-                        {
-                            avart = this.Download(userInfo.HeadImgUrl);
-                        }
-                        catch (Exception)
-                        {
-                            avart = "~/Content/Images/404/avatar.png";
-                        }
-                        user.NickName = userInfo.NickName;
-                        user.Avatar = avart;
-                    }
-                    user.LastLoginDateTime = DateTime.Now;
-                    db.SaveChanges();
-                }
-                else
-                {
-                    try
-                    {
-                        var userInfo = wechat.GetUserInfoSns(openID, accessToken);
-                        user = CreateByWeChat(userInfo);
-                    }
-                    catch (Exception)
-                    {
-                        user = CreateByWeChat(new WeChat.UserInfoResult { UnionID = unionid });
-                    }
+                var userInfo = wechat.GetUserInfoSns(openID, accessToken);
 
-
-
-                }
+                var user = LoginByWeiXinInfo(unionid, userInfo.HeadImgUrl, userInfo.NickName);
                 if (app > 0)
                 {
                     return Json(Comm.ToJsonResult("Success", "成功", new UserViewModel(user)));
                 }
-                SignInManager.SignIn(user, true, true);
                 switch (state.ToLower())
                 {
                     case null:
@@ -797,10 +763,43 @@ namespace Buy.Controllers
                     case "ticketindex":
                         return RedirectToAction("Index", "Coupons");
                     default:
-                        return Redirect(state); ;
+                        return Redirect(state);
                 }
+                //if (user != null)
+                //{
+                //    if (user.UserName == user.NickName)
+                //    {
+                //        var userInfo = wechat.GetUserInfoSns(openID, accessToken);
+                //        string avart;
+                //        try
+                //        {
+                //            avart = this.Download(userInfo.HeadImgUrl);
+                //        }
+                //        catch (Exception)
+                //        {
+                //            avart = "~/Content/Images/404/avatar.png";
+                //        }
+                //        user.NickName = userInfo.NickName;
+                //        user.Avatar = avart;
+                //    }
+                //    user.LastLoginDateTime = DateTime.Now;
+                //    db.SaveChanges();
+                //}
+                //else
+                //{
+                //    try
+                //    {
+                //        var userInfo = wechat.GetUserInfoSns(openID, accessToken);
+                //        user = CreateByWeChat(userInfo);
+                //    }
+                //    catch (Exception)
+                //    {
+                //        user = CreateByWeChat(new WeChat.UserInfoResult { UnionID = unionid });
+                //    }
+                //}
+                //SignInManager.SignIn(user, true, true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return error("请求有误");
             }
@@ -811,12 +810,46 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult LoginByWeiXinUnionID(string unionID, string avatar = null, string nickname = null)
         {
-            return Json(Comm.ToJsonResult("Success","成功"));
+            try
+            {
+                var user = LoginByWeiXinInfo(unionID, avatar, nickname);
+                return Json(Comm.ToJsonResult("Success", "成功", new UserViewModel(user)));
+            }
+            catch (Exception ex)
+            {
+                return Json(Comm.ToJsonResult("Error", ex.Message));
+            }
+        }
+
+        public ApplicationUser LoginByWeiXinInfo(string unionID, string avatar = null, string nickname = null)
+        {
+            if (string.IsNullOrWhiteSpace(unionID))
+            {
+                new Exception("unionID不可为空");
+            }
+            var user = db.Users.FirstOrDefault(s => s.WeChatID == unionID);
+            try
+            {
+                if (user == null)
+                {
+                    user = CreateByWeChat(new WeChat.UserInfoResult()
+                    {
+                        HeadImgUrl = avatar,
+                        NickName = nickname,
+                        UnionID = unionID
+                    });
+                }
+                SignInManager.SignIn(user, true, true);
+            }
+            catch (Exception)
+            {
+                new Exception("请求有误");
+            }
+            return user;
         }
 
         private ApplicationUser CreateByWeChat(WeChat.UserInfoResult model)
         {
-
             string username, nickname, avart, unionId = model.UnionID;
 
             nickname = model.NickName;
@@ -834,9 +867,7 @@ namespace Buy.Controllers
                 }
             }
 
-
             unionId = model.UnionID;
-
 
             ApplicationUser user = db.Users.FirstOrDefault(s => s.WeChatID == unionId);
             if (user == null)
@@ -859,7 +890,6 @@ namespace Buy.Controllers
                     LastLoginDateTime = DateTime.Now,
                 };
                 var r = UserManager.Create(user);
-
 
                 user = db.Users.FirstOrDefault(s => s.WeChatID == unionId);
                 db.SaveChanges();
