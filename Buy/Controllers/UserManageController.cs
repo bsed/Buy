@@ -96,65 +96,72 @@ namespace Buy.Controllers
 
         [HttpPost]
         [Authorize(Roles = SysRole.UserManageCreate)]
-        public ActionResult Create(UserMangeCreateUserViewModel model)
+        public ActionResult Create(UserMangeCreateUserViewModel model,string returnUrl)
         {
+            if (!User.IsInRole(SysRole.UserManageCreate))
+            {
+                return Json(Comm.ToJsonResult("NoRole", "没有权限"));
+            }
             var user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
 
             if (user != null)
             {
-                ModelState.AddModelError("PhoneNumber", "手机号已被使用");
+                return Json(Comm.ToJsonResult("Error", "手机号已被使用"));
+                //ModelState.AddModelError("PhoneNumber", "手机号已被使用");
             }
             if (!string.IsNullOrWhiteSpace(model.ParentUserID))
             {
                 var pUser = db.Users.FirstOrDefault(s => s.Id == model.ParentUserID);
                 if (pUser == null)
                 {
-                    ModelState.AddModelError("ParentUserID", "不存在父用户");
+                    return Json(Comm.ToJsonResult("Error", "不存在父用户"));
+                    //ModelState.AddModelError("ParentUserID", "不存在父用户");
                 }
                 if (pUser.UserType != Enums.UserType.Proxy)
                 {
-                    ModelState.AddModelError("ParentUserID", $"用户“{pUser.NickName}”不是代理");
+                    return Json(Comm.ToJsonResult("Error", $"用户“{pUser.NickName}”不是代理"));
+                    //ModelState.AddModelError("ParentUserID", $"用户“{pUser.NickName}”不是代理");
                 }
             }
             if (model.UserType == Enums.UserType.System)
             {
                 if (!model.RoleGroupID.HasValue)
                 {
-                    ModelState.AddModelError("RoleGroupID", "选择权限分组");
+                    return Json(Comm.ToJsonResult("Error", $"选择权限分组"));
+                    //ModelState.AddModelError("RoleGroupID", "选择权限分组");
                 }
             }
-            if (ModelState.IsValid)
+
+            user = new ApplicationUser
             {
-                user = new ApplicationUser
-                {
-                    UserName = model.PhoneNumber,
-                    PhoneNumber = model.PhoneNumber,
-                    UserType = model.UserType,
-                    RegisterDateTime = DateTime.Now,
-                    LastLoginDateTime = DateTime.Now,
-                    NickName = model.NickName
-                };
-                if (!string.IsNullOrWhiteSpace(model.ParentUserID))
-                {
-                    user.ParentUserID = model.ParentUserID;
-                }
-                var result = UserManager.CreateAsync(user, model.Password);
-                if (result.Result.Succeeded)
-                {
-                    var returnUrl = Request["ReturnUrl"];
-                    if (string.IsNullOrWhiteSpace(returnUrl))
-                    {
-                        returnUrl = Url.Action("index");
-                    }
-                    return Redirect(returnUrl);
-                }
-            }
-            if (model.UserType == Enums.UserType.System)
+                UserName = model.PhoneNumber,
+                PhoneNumber = model.PhoneNumber,
+                UserType = model.UserType,
+                RegisterDateTime = DateTime.Now,
+                LastLoginDateTime = DateTime.Now,
+                NickName = model.NickName
+            };
+            if (!string.IsNullOrWhiteSpace(model.ParentUserID))
             {
-                var roles = db.RoleGroups.ToList();
-                ViewBag.SelRole = new SelectList(roles, "ID", "Name");
+                user.ParentUserID = model.ParentUserID;
             }
-            return View(model);
+            var result = UserManager.CreateAsync(user, model.Password);
+            if (result.Result.Succeeded)
+            {
+                user = db.Users.FirstOrDefault(s => s.UserName == model.PhoneNumber);
+                //var returnUrl = Request["ReturnUrl"];
+                if (string.IsNullOrWhiteSpace(returnUrl))
+                {
+                    returnUrl = Url.Action("index");
+                }
+                //return Redirect(returnUrl);
+                return Json(Comm.ToJsonResult("Success", "添加成功", new
+                {
+                    ReturnUrl = returnUrl,
+                    Id = user.Id
+                }));
+            }
+            return Json(Comm.ToJsonResult("Error", result.Result.Errors.FirstOrDefault()));
         }
 
 
@@ -201,10 +208,10 @@ namespace Buy.Controllers
                 _roles.EditUserRoleByGroupID(user.Id, model.RoleGroupID.Value);
             }
             db.SaveChanges();
-            string returnUrl = Url.Action("index");
+            var returnUrl = Request["ReturnUrl"];
             if (string.IsNullOrWhiteSpace(returnUrl))
             {
-                returnUrl = Url.Action("Child");
+                returnUrl = Url.Action("Index");
             }
             return Redirect(returnUrl);
         }
