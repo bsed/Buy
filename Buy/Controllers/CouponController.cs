@@ -466,29 +466,33 @@ namespace Buy.Controllers
             userID = UserID == null ? userID : UserID;
             if (!string.IsNullOrWhiteSpace(userID))
             {
-                var user = db.Users.FirstOrDefault(s => s.Id == userID);
-                if (!user.IsActive)
+                var cu = db.CouponUsers.FirstOrDefault(s => s.CouponID == id && s.UserID == userID);
+                if (cu == null)
                 {
-                    return Json(Comm.ToJsonResult("NotActive", "用户没有激活"), JsonRequestBehavior.AllowGet);
-                }
-                var couponUserID = Bll.Accounts.GetCouponUserID(userID);
-                if (couponUserID == null)
-                {
-                    return Json(Comm.ToJsonResult("NotReceive", "当前用户没法领取"), JsonRequestBehavior.AllowGet);
-                }
-                var tpt = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.CouponID == id && s.UserID == couponUserID);
-                if (tpt == null)
-                {
-                    return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+                    var user = db.Users.FirstOrDefault(s => s.Id == userID);
+                    if (!user.IsActive)
+                    {
+                        return Json(Comm.ToJsonResult("NotActive", "用户没有激活"), JsonRequestBehavior.AllowGet);
+                    }
+                    var couponUserID = Bll.Accounts.GetCouponUserID(userID);
+                    if (couponUserID == null)
+                    {
+                        return Json(Comm.ToJsonResult("NotReceive", "当前用户没法领取"), JsonRequestBehavior.AllowGet);
+                    }
+                    cu = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.CouponID == id && s.UserID == couponUserID);
+                    if (cu == null)
+                    {
+                        return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+                    }
                 }
                 string pwd = "";
-                if (tpt.Platform == Enums.CouponPlatform.TaoBao || tpt.Platform == Enums.CouponPlatform.TMall)
+                if (cu.Platform == Enums.CouponPlatform.TaoBao || cu.Platform == Enums.CouponPlatform.TMall)
                 {
-                    pwd = new Taobao().GetWirelessShareTpwd(tpt.Coupon.Image, tpt.Link, tpt.Coupon.Name, 0);
+                    pwd = new Taobao().GetWirelessShareTpwd(cu.Coupon.Image, cu.Link, cu.Coupon.Name, 0);
                 }
                 else
                 {
-                    pwd = tpt.Link;
+                    pwd = cu.Link;
                 }
                 return Json(Comm.ToJsonResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
             }
