@@ -328,6 +328,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoGuJieController.cs" />
     <Compile Include="Controllers\ProxyController.cs" />
+    <Compile Include="Controllers\ProxyRegCodeController.cs" />
     <Compile Include="Controllers\QrCodeController.cs" />
     <Compile Include="Controllers\RegistrationCodeController.cs" />
     <Compile Include="Controllers\RoleManageController.cs" />
@@ -1145,6 +1146,7 @@
   <ItemGroup>
     <Folder Include="Views\Apply\" />
     <Folder Include="Views\Banner\" />
+    <Folder Include="Views\ProxyRegCode\" />
     <Folder Include="Views\Proxy\" />
     <Folder Include="Views\RegCode\" />
     <Folder Include="Views\Security\" />

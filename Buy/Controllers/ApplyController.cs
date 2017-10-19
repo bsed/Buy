@@ -29,6 +29,7 @@ namespace Buy.Controllers
                              UserName = u.UserName,
                              State = a.State,
                              CreateDateTime = a.CreateDateTime,
+                             Remark = a.Remark
                          });
             query = query.OrderByDescending(s => s.CreateDateTime);
             var paged = query.ToPagedList(page, pageSize);
@@ -36,14 +37,14 @@ namespace Buy.Controllers
             {
                 item.Avatar = Comm.ResizeImage(item.Avatar, image: null);
             }
-            return Json(Comm.ToJsonResultForPagedList(paged, paged));
+            return Json(Comm.ToJsonResultForPagedList(paged, paged), JsonRequestBehavior.AllowGet);
         }
 
-       
+
 
         [HttpPost]
         [AllowCrossSiteJson]
-        public ActionResult Create(string userID, string proxyID)
+        public ActionResult Create(string userID, string proxyID, string remark)
         {
             var user = db.Users.FirstOrDefault(s => s.Id == userID);
             if (user == null)
@@ -67,7 +68,8 @@ namespace Buy.Controllers
                     CreateDateTime = DateTime.Now,
                     ProxyID = proxyID,
                     State = Enums.ChildProxyApplyState.NoCheck,
-                    UserID = userID
+                    UserID = userID,
+                    Remark = remark
                 };
                 db.ChildProxyApplys.Add(apply);
                 db.SaveChanges();
