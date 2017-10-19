@@ -54,6 +54,12 @@ namespace Buy.Controllers
             {
                 item.OwnUser = phoneNumber;
             }
+            db.SaveChanges();
+            var tLog = new RegistrationCodeLog { Count = count, CreateDateTime = DateTime.Now, From = userID, UserID = tUser.Id };
+            var fLog = new RegistrationCodeLog { Count = -count, CreateDateTime = DateTime.Now, From = tUser.Id, UserID = userID };
+            db.RegistrationCodeLogs.Add(tLog);
+            db.RegistrationCodeLogs.Add(fLog);
+            db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", $"转码成功", new { Lave = codes.Count }));
         }
 

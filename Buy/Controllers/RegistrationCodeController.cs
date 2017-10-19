@@ -74,7 +74,7 @@ namespace Buy.Controllers
             ViewBag.Paged = list;
             return View(model);
         }
-        
+
         [Authorize(Roles = SysRole.RegistrationCodeManageCreate)]
         public ActionResult Create(string userId)
         {
@@ -106,7 +106,7 @@ namespace Buy.Controllers
         public ActionResult Create(RegistrationCodeCreate model, int length = 10)
         {
             var user = db.Users.FirstOrDefault(s => s.Id == model.OwnUser);
-         
+
             if (model.Count < 1)
             {
                 ModelState.AddModelError("Count", "数量不可小于1");
@@ -141,6 +141,18 @@ namespace Buy.Controllers
                 }
                 db.RegistrationCodes.AddRange(list);
                 db.SaveChanges();
+
+                var codeLog = new RegistrationCodeLog
+                {
+                    Count = list.Count,
+                    CreateDateTime = DateTime.Now,
+                    From = null,
+                    Remark = "",
+                    UserID = model.OwnUser,
+                };
+                db.RegistrationCodeLogs.Add(codeLog);
+                db.SaveChanges();
+
                 if (this.GetReturnUrl() != null)
                 {
                     return Redirect(this.GetReturnUrl());
@@ -336,7 +348,7 @@ namespace Buy.Controllers
             }
             return this.Excel(dt);
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
