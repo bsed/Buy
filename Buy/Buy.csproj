@@ -112,8 +112,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
@@ -143,12 +143,22 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -161,8 +171,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
@@ -305,6 +313,7 @@
     <Compile Include="App_Start\WeChat\Config.cs" />
     <Compile Include="App_Start\yuntongxun\CCPRestSDK.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApplyController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\BannerManageController.cs" />
     <Compile Include="Controllers\ClassManageController.cs" />
@@ -402,11 +411,16 @@
     <Compile Include="Migrations\201710160947578_AddChildProxyApply.Designer.cs">
       <DependentUpon>201710160947578_AddChildProxyApply.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710190143193_ChildProxyApplyAddRemark.cs" />
+    <Compile Include="Migrations\201710190143193_ChildProxyApplyAddRemark.Designer.cs">
+      <DependentUpon>201710190143193_ChildProxyApplyAddRemark.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActionCells.cs" />
     <Compile Include="Models\ChildProxyApply.cs" />
+    <Compile Include="Models\ChildProxyApplyViewModels.cs" />
     <Compile Include="Models\ClientAccessLog.cs" />
     <Compile Include="Models\CloudFile.cs" />
     <Compile Include="Models\CloudFileControl.cs" />
@@ -1129,8 +1143,10 @@
     <Content Include="Views\RegistrationCode\Transfer.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Apply\" />
     <Folder Include="Views\Banner\" />
     <Folder Include="Views\Proxy\" />
+    <Folder Include="Views\RegCode\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Taobao\" />
     <Folder Include="Views\Test\" />
@@ -1191,6 +1207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710160947578_AddChildProxyApply.resx">
       <DependentUpon>201710160947578_AddChildProxyApply.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710190143193_ChildProxyApplyAddRemark.resx">
+      <DependentUpon>201710190143193_ChildProxyApplyAddRemark.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

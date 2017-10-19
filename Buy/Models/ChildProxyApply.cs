@@ -24,5 +24,8 @@ namespace Buy.Models
 
         [Display(Name = "审核时间")]
         public DateTime? CheckDateTime { get; set; }
+
+        [Display(Name = "备注")]
+        public string Remark { get; set; }
     }
 }
