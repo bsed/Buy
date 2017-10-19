@@ -416,6 +416,10 @@
     <Compile Include="Migrations\201710190143193_ChildProxyApplyAddRemark.Designer.cs">
       <DependentUpon>201710190143193_ChildProxyApplyAddRemark.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710190809583_UesrAddWeChatCode.cs" />
+    <Compile Include="Migrations\201710190809583_UesrAddWeChatCode.Designer.cs">
+      <DependentUpon>201710190809583_UesrAddWeChatCode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1212,6 +1216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710190143193_ChildProxyApplyAddRemark.resx">
       <DependentUpon>201710190143193_ChildProxyApplyAddRemark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710190809583_UesrAddWeChatCode.resx">
+      <DependentUpon>201710190809583_UesrAddWeChatCode.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
