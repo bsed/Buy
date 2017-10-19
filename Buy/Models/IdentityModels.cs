@@ -25,6 +25,8 @@ namespace Buy.Models
         [Display(Name = "昵称")]
         public string NickName { get; set; }
 
+        [Display(Name = "微信号")]
+        public string WeChatCode { get; set; }
 
         public string WeChatID { get; set; }
 
@@ -118,5 +120,10 @@ namespace Buy.Models
         public virtual DbSet<CouponUser> CouponUsers { get; set; }
 
         public virtual DbSet<ChildProxyApply> ChildProxyApplys { get; set; }
+
+        public virtual DbSet<RegistrationCodeLog> RegistrationCodeLogs { get; set; }
+
+
+        public virtual DbSet<UserRemark> UserRemarks { get; set; }
     }
 }

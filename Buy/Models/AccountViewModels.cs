@@ -174,4 +174,23 @@ namespace Buy.Models
         [Display(Name = "密码")]
         public string Password { get; set; }
     }
+
+
+    public class UserViewModelForProxy
+    {
+        public string Id { get; set; }
+
+        public string Avatar { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public bool CanAddChild { get; set; }
+
+        public string WeChatCode { get; set; }
+
+
+        public string UserName { get; set; }
+
+        public string NickName { get; set; }
+    }
 }

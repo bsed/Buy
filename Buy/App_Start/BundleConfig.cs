@@ -32,7 +32,7 @@ namespace Buy
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/dotdotdot").Include(
                       "~/Scripts/jquery.dotdotdot.min.js"));

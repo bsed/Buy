@@ -13,32 +13,23 @@ namespace Buy.WeChat
         /// <summary>
         /// 网页
         /// </summary>
-        public const string AppID = "wx2dc3b9081bffcb72";
+        public const string AppID = "";
 
         /// <summary>
         /// 网页
         /// </summary>
-        public const string AppSecret = "2abd36c74172e007066f969897a0aab7";
+        public const string AppSecret = "";
 
         /// <summary>
-        /// APP
+        /// IOS
         /// </summary>
-        public const string AppID2 = "wxfad3a6c671290f70";
+        public const string AppID2 = "wx85525eaae70512da";
 
         /// <summary>
-        /// APP
+        /// IOS
         /// </summary>
-        public const string AppSecret2 = "37cf7b2810468af175f2997e0b46fb83";
-
-        /// <summary>
-        /// 小程序
-        /// </summary>
-        public const string AppID3 = "wx403e6919cb2ca7eb";
-
-        /// <summary>
-        /// 小程序
-        /// </summary>
-        public const string AppSecret3 = "2c712ad0236b39ba88c1ff3393ec65aa";
+        public const string AppSecret2 = "5d30686583f3e3ca985dee737e3f7012";
+        
 
         public const string JsapiTimeStamp = "1414587457";
 
