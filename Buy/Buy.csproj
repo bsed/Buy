@@ -420,6 +420,10 @@
     <Compile Include="Migrations\201710190809583_UesrAddWeChatCode.Designer.cs">
       <DependentUpon>201710190809583_UesrAddWeChatCode.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710190826442_AddRegistrationCodeLogAndUserRemark.cs" />
+    <Compile Include="Migrations\201710190826442_AddRegistrationCodeLogAndUserRemark.Designer.cs">
+      <DependentUpon>201710190826442_AddRegistrationCodeLogAndUserRemark.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -439,6 +443,7 @@
     <Compile Include="Models\LocalCoupon.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RegistrationCode.cs" />
+    <Compile Include="Models\RegistrationCodeLog.cs" />
     <Compile Include="Models\RoleGroup.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\ShopMember.cs" />
@@ -452,6 +457,7 @@
     <Compile Include="Models\UpdateLog.cs" />
     <Compile Include="Models\UrlMatch.cs" />
     <Compile Include="Models\UserManage.cs" />
+    <Compile Include="Models\UserRemark.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\VerificationCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1219,6 +1225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710190809583_UesrAddWeChatCode.resx">
       <DependentUpon>201710190809583_UesrAddWeChatCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710190826442_AddRegistrationCodeLogAndUserRemark.resx">
+      <DependentUpon>201710190826442_AddRegistrationCodeLogAndUserRemark.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

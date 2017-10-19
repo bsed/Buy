@@ -120,5 +120,10 @@ namespace Buy.Models
         public virtual DbSet<CouponUser> CouponUsers { get; set; }
 
         public virtual DbSet<ChildProxyApply> ChildProxyApplys { get; set; }
+
+        public virtual DbSet<RegistrationCodeLog> RegistrationCodeLogs { get; set; }
+
+
+        public virtual DbSet<UserRemark> UserRemarks { get; set; }
     }
 }
