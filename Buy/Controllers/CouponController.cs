@@ -168,7 +168,9 @@ namespace Buy.Controllers
                     break;
                 case Enums.CouponSort.Commission:
                     {
-                        query = query.OrderByDescending(s => s.Commission).ThenByDescending(s => s.Sales);
+                        query = query.OrderByDescending(s => s.CommissionRate)
+                            .ThenByDescending(s => s.Commission)
+                            .ThenByDescending(s => s.Sales);
                     }
                     break;
                 case Enums.CouponSort.Default:

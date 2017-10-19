@@ -14,6 +14,7 @@ using System.Text;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace Buy.Controllers
 {
@@ -675,6 +676,235 @@ namespace Buy.Controllers
 
             base.Dispose(disposing);
         }
+
+
+        #region 微信对接
+
+        [HttpGet]
+        public ActionResult LoginByWeiXinSilence(string state)
+        {
+            var p = new Dictionary<string, string>();
+            p.Add("appid", WeChat.Config.AppID);
+            p.Add("redirect_uri", "http://www.yumy.me/Account/LoginByWeiXin");
+            p.Add("response_type", "code");
+            p.Add("scope", "snsapi_base");
+            p.Add("state", state);
+            return Redirect($"https://open.weixin.qq.com/connect/oauth2/authorize{p.ToParam("?")}#wechat_redirect");
+        }
+
+
+        [AllowCrossSiteJson]
+        public ActionResult LoginByWeiXin(string code, string state = null, int app = 0)
+        {
+            Func<string, ActionResult> error = content =>
+            {
+                if (app > 0)
+                {
+                    return Json(Comm.ToJsonResult("Error", content));
+                }
+                else
+                {
+                    return this.ToError("错误", content, Url.Action("Login", "Account"));
+                }
+            };
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                return error("请求有误");
+            }
+            WeChat.WeChatApi wechat;
+            switch (app)
+            {
+                case 1:
+                    {
+                        wechat = new WeChat.WeChatApi(WeChat.Config.AppID2, WeChat.Config.AppSecret2);
+                    }
+                    break;
+                case 0:
+                default:
+                    {
+                        wechat = new WeChat.WeChatApi(WeChat.Config.AppID, WeChat.Config.AppSecret);
+                    }
+                    break;
+            }
+            WeChat.AccessTokenResult result;
+            try
+            {
+                result = wechat.GetAccessTokenSns(code);
+            }
+            catch (Exception ex)
+            {
+                return this.ToError("错误", "获取微信用户失败", Url.Action("Login"));
+            }
+
+            var openID = result.OpenID;
+            if (state == "openid")
+            {
+                Response.Cookies["WeChatOpenID"].Value = openID;
+                return Json(Comm.ToJsonResult("Success", "成功", new { OpenID = openID }));
+            }
+            var accessToken = result.AccessToken;
+            var unionid = result.UnionID;
+
+            //var user = db.Users.FirstOrDefault(s => s.WeChatID == unionid);
+
+            try
+            {
+                var userInfo = wechat.GetUserInfoSns(openID, accessToken);
+
+                var user = LoginByWeiXinInfo(unionid, userInfo.HeadImgUrl, userInfo.NickName);
+                if (app > 0)
+                {
+                    return Json(Comm.ToJsonResult("Success", "成功", new UserViewModel(user)));
+                }
+                switch (state.ToLower())
+                {
+                    case null:
+                    case "":
+                    case "ticketindex":
+                        return RedirectToAction("Index", "Coupons");
+                    default:
+                        return Redirect(state);
+                }
+                //if (user != null)
+                //{
+                //    if (user.UserName == user.NickName)
+                //    {
+                //        var userInfo = wechat.GetUserInfoSns(openID, accessToken);
+                //        string avart;
+                //        try
+                //        {
+                //            avart = this.Download(userInfo.HeadImgUrl);
+                //        }
+                //        catch (Exception)
+                //        {
+                //            avart = "~/Content/Images/404/avatar.png";
+                //        }
+                //        user.NickName = userInfo.NickName;
+                //        user.Avatar = avart;
+                //    }
+                //    user.LastLoginDateTime = DateTime.Now;
+                //    db.SaveChanges();
+                //}
+                //else
+                //{
+                //    try
+                //    {
+                //        var userInfo = wechat.GetUserInfoSns(openID, accessToken);
+                //        user = CreateByWeChat(userInfo);
+                //    }
+                //    catch (Exception)
+                //    {
+                //        user = CreateByWeChat(new WeChat.UserInfoResult { UnionID = unionid });
+                //    }
+                //}
+                //SignInManager.SignIn(user, true, true);
+            }
+            catch (Exception)
+            {
+                return error("请求有误");
+            }
+
+
+        }
+
+        [AllowCrossSiteJson]
+        public ActionResult LoginByWeiXinUnionID(string unionID, string avatar = null, string nickname = null)
+        {
+            try
+            {
+                var user = LoginByWeiXinInfo(unionID, avatar, nickname);
+                return Json(Comm.ToJsonResult("Success", "成功", new UserViewModel(user)));
+            }
+            catch (Exception ex)
+            {
+                return Json(Comm.ToJsonResult("Error", ex.Message));
+            }
+        }
+
+        public ApplicationUser LoginByWeiXinInfo(string unionID, string avatar = null, string nickname = null)
+        {
+            if (string.IsNullOrWhiteSpace(unionID))
+            {
+                new Exception("unionID不可为空");
+            }
+            var user = db.Users.FirstOrDefault(s => s.WeChatID == unionID);
+            try
+            {
+                if (user == null)
+                {
+                    user = CreateByWeChat(new WeChat.UserInfoResult()
+                    {
+                        HeadImgUrl = avatar,
+                        NickName = nickname,
+                        UnionID = unionID
+                    });
+                }
+                SignInManager.SignIn(user, true, true);
+            }
+            catch (Exception)
+            {
+                new Exception("请求有误");
+            }
+            return user;
+        }
+
+        private ApplicationUser CreateByWeChat(WeChat.UserInfoResult model)
+        {
+            string username, nickname, avart, unionId = model.UnionID;
+
+            nickname = model.NickName;
+
+            avart = model.HeadImgUrl;
+            if (!string.IsNullOrWhiteSpace(avart))
+            {
+                try
+                {
+                    avart = this.Download(avart);
+                }
+                catch (Exception)
+                {
+                    avart = "~/Content/Images/404/avatar.png";
+                }
+            }
+
+            unionId = model.UnionID;
+
+            ApplicationUser user = db.Users.FirstOrDefault(s => s.WeChatID == unionId);
+            if (user == null)
+            {
+                do
+                {
+                    username = $"wc{DateTime.Now:yyyyMMddHHmmss}{Comm.Random.Next(1000, 9999)}";
+                } while (db.Users.Any(s => s.UserName == username));
+                if (string.IsNullOrWhiteSpace(nickname))
+                {
+                    nickname = username;
+                }
+                user = new ApplicationUser
+                {
+                    WeChatID = unionId,
+                    UserName = username,
+                    NickName = nickname,
+                    Avatar = avart,
+                    RegisterDateTime = DateTime.Now,
+                    LastLoginDateTime = DateTime.Now,
+                };
+                var r = UserManager.Create(user);
+
+                user = db.Users.FirstOrDefault(s => s.WeChatID == unionId);
+                db.SaveChanges();
+                if (!r.Succeeded)
+                {
+                    throw new Exception(r.Errors.FirstOrDefault());
+                }
+            }
+            return user;
+        }
+
+
+
+        #endregion
+
 
         #region 帮助程序
         // 用于在添加外部登录名时提供 XSRF 保护
