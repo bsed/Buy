@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using OpenQA.Selenium.PhantomJS;
+using CsQuery;
 
 namespace Buy.Controllers
 {
@@ -184,5 +187,78 @@ namespace Buy.Controllers
             }
             return Json(Comm.ToJsonResult("Success", "cg", changeCount));
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [AllowCrossSiteJson]
+        public ActionResult DelInvalidCoupon()
+        {
+            System.Diagnostics.Stopwatch oTime = new System.Diagnostics.Stopwatch();
+            oTime.Start();
+
+            var datetime = DateTime.Now.AddDays(-5);
+            var count = db.CouponUsers.Include(s => s.Coupon)
+                .Where(s => s.Coupon.CreateDateTime.Day <= datetime.Day && s.Coupon.EndDateTime >= DateTime.Now &&
+                (s.Platform == Enums.CouponPlatform.TaoBao || s.Platform == Enums.CouponPlatform.TMall)).Take(10).Count();
+            int totalPage = count / 50 + (count % 50 > 0 ? 1 : 0);
+            int hasCounpon = 0, noCounpon = 0, changeCount = 0; ;
+            //var msg = new List<SmsResult>();
+            for (int i = 1; i <= totalPage; i++)
+            {
+                var data = db.CouponUsers.Include(s => s.Coupon)
+                    .Where(s => s.Coupon.CreateDateTime.Day <= datetime.Day && s.Coupon.EndDateTime >= DateTime.Now &&
+                    (s.Platform == Enums.CouponPlatform.TaoBao || s.Platform == Enums.CouponPlatform.TMall))
+                    .OrderBy(s => s.ID).ToPagedList(i, 10);
+                foreach (var item in data)
+                {
+                    using (var driver = new PhantomJSDriver())
+                    {
+                        driver.Url = $"{item.Link}";
+                        driver.Navigate();
+                        var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                        try
+                        {
+                            wait.Until(s => s.FindElement(OpenQA.Selenium.By.ClassName("coupons-wrap")));
+                        }
+                        catch (Exception)
+                        {
+                            driver.Quit();
+                            return Json(Comm.ToJsonResult("Error", "超时"), JsonRequestBehavior.AllowGet);
+                        }
+                        var source = driver.PageSource;
+                        var dom = CQ.CreateDocument(source);
+                        if (dom.Select(".coupons-price").Select(s => s.ClassName).ToList().Count > 0)
+                        {
+                            hasCounpon++;
+                        }
+                        else
+                        {
+                            noCounpon++;
+                            //修改券结束时间
+                            item.Coupon.EndDateTime = datetime;
+                        }
+                        //msg.Add(new SmsResult()
+                        //{
+                        //    IsSuccess = sdsd.Count > 0 ? true : false,
+                        //    Message = item.ID.ToString(),
+                        //});
+                        driver.Quit();
+                    }
+                }
+                changeCount += db.SaveChanges();
+            }
+
+            oTime.Stop();
+            return Json(Comm.ToJsonResult("Success", "成功",
+                new
+                {
+                    //msg,
+                    HasCounpon = hasCounpon,
+                    NoCounpon = noCounpon,
+                    ChangeCount= changeCount,
+                    Time = oTime.Elapsed.TotalSeconds,
+                }), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
