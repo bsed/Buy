@@ -91,19 +91,20 @@ namespace Buy.Controllers
                              UserID = null,
                          });
             }
-
+            query = query.Where(s => s.EndDateTime > DateTime.Now);
             //不显示创建时间是未来的和过期的
             if (model.OrderByTime)
             {
                 if (!model.IsUpdate)
                 {
-                    query = query.Where(s => s.CreateDateTime < model.LoadTime && s.EndDateTime > model.LoadTime);
+                    query = query.Where(s => s.CreateDateTime < model.LoadTime);
                 }
                 else
                 {
-                    query = query.Where(s => s.CreateDateTime < model.UpdateTime && s.CreateDateTime >= model.LoadTime && s.EndDateTime > model.LoadTime);
+                    query = query.Where(s => s.CreateDateTime < model.UpdateTime && s.CreateDateTime >= model.LoadTime);
                 }
             }
+
             if (model.Type != null && model.Type.Count > 0 && model.Type.Contains(0))
             {
                 model.Type.Remove(0);
