@@ -143,12 +143,13 @@ namespace Buy.Controllers
                     RemarkUser = remarkUserID,
                     UserID = userID
                 });
-                db.SaveChanges();
+               
             }
             else
             {
                 model.Remark = remark;
             }
+            db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
 
