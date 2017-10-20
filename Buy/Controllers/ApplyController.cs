@@ -14,30 +14,27 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult GetAll(string userID, int page = 1, int pageSize = 20)
         {
-            var query = (from u in db.Users
+            var query = (from u in db.Users.Select(s => new { s.Id, s.Avatar, s.NickName, s.PhoneNumber, s.UserName })
                          from a in db.ChildProxyApplys
                          where u.Id == a.UserID && a.ProxyID == userID
-                         select new ChildProxyApplyViewModel
-                         {
-                             Avatar = u.Avatar,
-                             CheckDateTime = a.CheckDateTime,
-                             NickName = u.NickName,
-                             PhoneNumber = u.PhoneNumber,
-                             ProxyID = a.ProxyID,
-                             ID = a.ID,
-                             UserID = a.UserID,
-                             UserName = u.UserName,
-                             State = a.State,
-                             CreateDateTime = a.CreateDateTime,
-                             Remark = a.Remark
-                         });
-            query = query.OrderByDescending(s => s.CreateDateTime);
-            var paged = query.ToPagedList(page, pageSize);
-            foreach (var item in paged)
+                         select new { User = u, Apply = a }
+                         );
+            var paged = query.OrderByDescending(s => s.Apply.CreateDateTime).ToPagedList(page, pageSize);
+            var models = paged.Select(s => new ChildProxyApplyViewModel
             {
-                item.Avatar = Comm.ResizeImage(item.Avatar, image: null);
-            }
-            return Json(Comm.ToJsonResultForPagedList(paged, paged), JsonRequestBehavior.AllowGet);
+                Avatar = Comm.ResizeImage(s.User.Avatar, image: null),
+                CheckDateTime = s.Apply.CheckDateTime?.ToString("yyyy-MM-dd HH:mm:ss"),
+                NickName = s.User.NickName,
+                PhoneNumber = s.User.PhoneNumber,
+                ProxyID = s.Apply.ProxyID,
+                ID = s.Apply.ID,
+                UserID = s.User.Id,
+                UserName = s.User.UserName,
+                State = s.Apply.State,
+                CreateDateTime = s.Apply.CreateDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                Remark = s.Apply.Remark
+            });
+            return Json(Comm.ToJsonResultForPagedList(paged, models), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -69,7 +66,7 @@ namespace Buy.Controllers
                     ProxyID = proxyID,
                     State = Enums.ChildProxyApplyState.NoCheck,
                     UserID = userID,
-                    Remark = remark
+                    Remark = remark,
                 };
                 db.ChildProxyApplys.Add(apply);
                 db.SaveChanges();

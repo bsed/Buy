@@ -173,6 +173,14 @@ namespace Buy.Controllers
                             .ThenByDescending(s => s.Sales);
                     }
                     break;
+                case Enums.CouponSort.TodayTop:
+                    {
+                        query = query.Where(s => s.OriginalPrice > 19.99m
+                              && s.OriginalPrice < 150.01m
+                              && s.CommissionRate > 0.3m)
+                              .OrderByDescending(s => s.CommissionRate);
+                    }
+                    break;
                 case Enums.CouponSort.Default:
                 default:
                     {

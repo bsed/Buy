@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using JiebaNet.Segmenter;
 using JiebaNet.Analyser;
 using JiebaNet.Segmenter.PosSeg;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 
 namespace Buy.Controllers
 {
@@ -19,11 +21,38 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult Index(string text)
         {
-
-
             return Json(Comm.ToJsonResult("Success", ""), JsonRequestBehavior.AllowGet);
         }
 
+
+        public ActionResult ReAddCodeLog()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var codes = db.RegistrationCodes.GroupBy(s => new
+                {
+                    s.OwnUser,
+                    Date = DbFunctions.TruncateTime(s.CreateTime)
+                })
+                    .Select(s => new
+                    {
+                        s.Key.OwnUser,
+                        s.Key.Date,
+                        Count = s.Count()
+                    }).ToList()
+                    .Select(s => new RegistrationCodeLog
+                    {
+                        Count = s.Count,
+                        CreateDateTime = s.Date.Value,
+                        UserID = s.OwnUser,
+
+                    });
+                //db.RegistrationCodeLogs.AddRange(codes);
+                //db.SaveChanges();
+                return Json("1", JsonRequestBehavior.AllowGet);
+            };
+
+        }
 
         public ActionResult DeletTempFile()
         {
