@@ -210,6 +210,7 @@ namespace Buy.Controllers
             bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0, string userId = null)
         {
+
             loadTime = loadTime.HasValue ? loadTime : DateTime.Now;
             var model = new CouponSearchModel()
             {
@@ -237,6 +238,7 @@ namespace Buy.Controllers
                     .Select(s => new Models.ActionCell.CouponCell(s)).ToList();
                 return Json(Comm.ToJsonResultForPagedList(paged, models), JsonRequestBehavior.AllowGet);
             }
+
         }
 
         [AllowCrossSiteJson]
@@ -584,6 +586,7 @@ namespace Buy.Controllers
             bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
             decimal minPrice = 0, decimal maxPrice = 0)
         {
+
             var model = new CouponSearchModel()
             {
                 Platform = platforms.SplitToArray<Enums.CouponPlatform>(),
@@ -622,7 +625,7 @@ namespace Buy.Controllers
 
         public ActionResult Search()
         {
-            var keywords = db.Keywords.OrderByDescending(s => s.SearchCount).Take(4).ToList();
+            var keywords = Bll.Keywords.HotKeyword();
             return View(keywords);
         }
 
@@ -633,6 +636,22 @@ namespace Buy.Controllers
             var titles = db.Keywords.Where(s => s.Word.Contains(keyword))
                 .OrderByDescending(s => s.CouponNameCount).Take(10).Select(s => s.Word).ToList();
             return Json(Comm.ToJsonResult("Success", "成功", titles), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [AllowCrossSiteJson]
+        public ActionResult HotKeyword()
+        {
+            var keywords = Bll.Keywords.HotKeyword().Select(s => s.Word);
+            return Json(Comm.ToJsonResult("Success", "成功", keywords), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [AllowCrossSiteJson]
+        public ActionResult UpdateKeywordCount(string keyword)
+        {
+            Bll.Keywords.UpdateSearchCount(keyword);
+            return Json(Comm.ToJsonResult("Success", "成功"));
         }
 
         public ActionResult SearchConfirm(string filter, int page = 1, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,

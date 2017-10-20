@@ -122,7 +122,15 @@ function search(val) {
     if (array[0] == "null") {
         array.length = 0;
     }
+    $.ajax({
+        type: "POST",
+        url: comm.action("UpdateKeywordCount", "Coupon"),
+        data: { keyword: filterText },
+        dataType: "json",
+        success: function (data) {
 
+        }
+    });
     if (array.length > 0) {
         for (var i = 0; i < array.length; i++) {
             if (array[i] == filter) {
@@ -147,7 +155,7 @@ function search(val) {
         $.cookie("searchHistory", array.join(","), {
             path: "/", expires: 1
         });
-
+       
         window.location.href = comm.webPath + "/coupon/SearchConfirm?filter=" + filter;
     }
 
@@ -194,7 +202,8 @@ $("#search").bind('search', function () {
 });
 
 $("#searchBtn").click(function () {
-    var filterText = $("[name='filterText']").val();
+    var filterText = $("[name='filterText']").val().trim();
+   
     search(filterText);
 });
 

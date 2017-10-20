@@ -35,5 +35,39 @@ namespace Buy.Bll
             }
 
         }
+
+        public static void UpdateSearchCount(string text)
+        {
+            var segmenter = new JiebaSegmenter();
+            var result = segmenter.CutForSearch(text)
+                .GroupBy(s => s)
+                .Where(s => s.Key.Length > 1)
+                .Select(s => new { Key = s.Key, Count = s.Count() })
+                .ToList();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var temp = result.Select(s => s.Key).ToList();
+                var keys = db.Keywords.Where(s => temp.Contains(s.Word)).ToList();
+                foreach (var item in keys)
+                {
+                    item.SearchCount += result.FirstOrDefault(s => s.Key == item.Word).Count;
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public static List<Keyword> HotKeyword()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var keys = db.Keywords.OrderByDescending(s => s.SearchCount)
+                    .ThenByDescending(s => s.CouponNameCount)
+                    .Take(10)
+                    .ToList();
+                return keys;
+            }
+        }
     }
+
+
 }
