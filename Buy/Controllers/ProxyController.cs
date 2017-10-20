@@ -131,7 +131,8 @@ namespace Buy.Controllers
         //}
 
         [HttpPost]
-        private ActionResult SetRemark(string userID, string remarkUserID, string remark)
+        [AllowCrossSiteJson]
+        public ActionResult SetRemark(string userID, string remarkUserID, string remark)
         {
             var model = db.UserRemarks.FirstOrDefault(s => s.UserID == userID && s.RemarkUser == remarkUserID);
             if (model == null)
