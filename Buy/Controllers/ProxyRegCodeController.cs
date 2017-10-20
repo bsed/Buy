@@ -46,7 +46,7 @@ namespace Buy.Controllers
                 ID = s.Log.ID,
                 NickName = s.User?.NickName ?? "系统",
                 PhoneNumber = s.User?.PhoneNumber,
-                Remark = string.IsNullOrWhiteSpace(s.Log.Remark) ? (s.Log.Count > 0 ? "给你装码" : "收到你的转码") : s.Log.Remark,
+                Remark = string.IsNullOrWhiteSpace(s.Log.Remark) ? (s.Log.Count > 0 ? "给你转码" : "收到你的转码") : s.Log.Remark,
                 UserID = s.Log.UserID,
                 UserName = s.User?.UserName ?? "系统"
             }).Select(s => new
@@ -116,7 +116,8 @@ namespace Buy.Controllers
             db.RegistrationCodeLogs.Add(tLog);
             db.RegistrationCodeLogs.Add(fLog);
             db.SaveChanges();
-            return Json(Comm.ToJsonResult("Success", $"转码成功", new { Lave = codes.Count }));
+            var lave = db.RegistrationCodes.Where(s => s.OwnUser == userID && s.UseTime == null).Count();
+            return Json(Comm.ToJsonResult("Success", $"转码成功", new { Lave = lave }));
         }
 
         protected override void Dispose(bool disposing)
