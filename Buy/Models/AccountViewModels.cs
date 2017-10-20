@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System;
 namespace Buy.Models
 {
     public class ExternalLoginConfirmationViewModel
@@ -176,7 +176,7 @@ namespace Buy.Models
     }
 
 
-    public class UserViewModelForProxy
+    public class UserQueryModelForProxy
     {
         public string Id { get; set; }
 
@@ -199,5 +199,17 @@ namespace Buy.Models
         public int LastMonthCount { get; set; }
 
         public int TotalCount { get; set; }
+
+
+        public string Remark { get; set; }
+
+
+        public Enums.UserType UserType { get; set; }
+
+
+        public DateTime RegisterDateTime { get; set; }
+
+
+        public string ParentID { get; set; }
     }
 }

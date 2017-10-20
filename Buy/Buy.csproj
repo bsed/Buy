@@ -1169,6 +1169,7 @@
     <Folder Include="Views\Taobao\" />
     <Folder Include="Views\Test\" />
     <Folder Include="Views\Uploader\" />
+    <Folder Include="Views\UserRemark\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

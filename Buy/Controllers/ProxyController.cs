@@ -9,42 +9,66 @@ namespace Buy.Controllers
 {
     public class ProxyController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
+
+
         [HttpGet]
         [AllowCrossSiteJson]
-        public ActionResult Search(string filter)
+        public ActionResult Search(string filter, string userID)
         {
-            var query = db.Users
-                 .Where(s => (s.UserType == Enums.UserType.Proxy
-                     || s.UserType == Enums.UserType.ProxySec)
-                     && (s.NickName.Contains(filter)
-                     || s.PhoneNumber.Contains(filter)))
-                 .OrderBy(s => s.NickName)
-                 .Select(s => new UserViewModelForProxy
-                 {
-                     UserName = s.UserName,
-                     PhoneNumber = s.PhoneNumber,
-                     Avatar = s.Avatar,
-                     Id = s.Id,
-                     NickName = s.NickName,
-                     CanAddChild = true
-                 })
-                 .ToList();
-            foreach (var item in query)
-            {
-                item.Avatar = Comm.ResizeImage(item.Avatar, image: null);
-            }
-            CountRegCode(query);
+            var query = QueryUser(userID);
+            query = query.Where(s => (s.UserType == Enums.UserType.Proxy
+                                || s.UserType == Enums.UserType.ProxySec)
+                                && (s.NickName.Contains(filter)
+                                || s.PhoneNumber.Contains(filter)));
+
             return Json(Comm.ToJsonResult("Success", "成功", query), JsonRequestBehavior.AllowGet);
         }
 
-        ApplicationDbContext db = new ApplicationDbContext();
+
+        public IQueryable<UserQueryModelForProxy> QueryUser(string userID)
+        {
+            var date1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var date2 = date1.AddDays(-1);
+            date2 = new DateTime(date2.Year, date2.Month, 1);
+            var query = from u in db.Users
+                        join r in db.UserRemarks.Where(s => s.UserID == userID)
+                            on u.Id equals r.RemarkUser into ur
+                        from urr in ur.DefaultIfEmpty()
+                        join m1 in db.RegistrationCodes.Where(s => s.UseTime >= date1)
+                            on u.Id equals m1.OwnUser into m1g
+                        join m2 in db.RegistrationCodes.Where(s => s.UseTime >= date2 && s.UseTime < date1)
+                            on u.Id equals m2.OwnUser into m2g
+                        join t in db.RegistrationCodes.Where(s => s.UseTime.HasValue)
+                            on u.Id equals t.OwnUser into tg
+                        select new UserQueryModelForProxy
+                        {
+                            UserName = u.UserName,
+                            PhoneNumber = u.PhoneNumber,
+                            Avatar = u.Avatar,
+                            Id = u.Id,
+                            NickName = u.NickName,
+                            CanAddChild = true,
+                            Remark = urr == null ? null : urr.Remark,
+                            ThisMonthCount = m1g.Count(),
+                            LastMonthCount = m2g.Count(),
+                            TotalCount = tg.Count(),
+                            UserType = u.UserType,
+                            RegisterDateTime = u.RegisterDateTime,
+                            WeChatCode = u.WeChatCode,
+                            ParentID = u.ParentUserID
+                        };
+
+            return query;
+        }
+
 
         [HttpGet]
         [AllowCrossSiteJson]
         public ActionResult GetChild(string userID, int page = 1, int pageSize = 20, Enums.UserType? type = null)
         {
-            var query = db.Users
-                .Where(s => s.ParentUserID == userID);
+            var query = QueryUser(userID).Where(s => s.ParentID == userID);
+
             if (type.HasValue)
             {
                 query = query.Where(s => s.UserType == type);
@@ -52,56 +76,80 @@ namespace Buy.Controllers
             var paged = query
                 .OrderByDescending(s => s.RegisterDateTime)
                 .ToPagedList(page, pageSize);
-            var model = paged
-                .Select(s => new UserViewModelForProxy
-                {
-                    UserName = s.UserName,
-                    PhoneNumber = s.PhoneNumber,
-                    Avatar = s.Avatar,
-                    Id = s.Id,
-                    NickName = s.NickName,
-                    CanAddChild = true
-                })
-                .ToList();
-            CountRegCode(model);
-            return Json(Comm.ToJsonResultForPagedList(paged, model), JsonRequestBehavior.AllowGet); ;
+            //var model = paged
+            //    .Select(s => new UserQueryModelForProxy
+            //    {
+            //        UserName = s.UserName,
+            //        PhoneNumber = s.PhoneNumber,
+            //        Avatar = s.Avatar,
+            //        Id = s.Id,
+            //        NickName = s.NickName,
+            //        CanAddChild = true
+            //    })
+            //    .ToList();
+            return Json(Comm.ToJsonResultForPagedList(paged, paged), JsonRequestBehavior.AllowGet); ;
         }
 
-        private void CountRegCode(List<UserViewModelForProxy> users)
+        //private void GetProxyUserDetail(List<UserViewModelForProxy> users)
+        //{
+        //    var date1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+        //    var date2 = date1.AddDays(-1);
+        //    date2 = new DateTime(date2.Year, date2.Month, 1);
+        //    var userIds = users.Select(s => s.Id).ToList();
+        //    var codes = db.RegistrationCodes
+        //            .Where(s => s.UseTime > date2 && userIds.Contains(s.OwnUser))
+        //            .GroupBy(s => new
+        //            {
+        //                s.OwnUser,
+        //                UseTime = s.UseTime.Value.Month
+        //            })
+        //            .Select(s => new
+        //            {
+        //                s.Key.OwnUser,
+        //                s.Key.UseTime,
+        //                Count = s.Count()
+        //            }).ToList();
+
+        //    var codesTotal = db.RegistrationCodes
+        //        .Where(s => s.UseTime.HasValue
+        //            && userIds.Contains(s.OwnUser))
+        //        .GroupBy(s => s.OwnUser)
+        //        .Select(s => new
+        //        {
+        //            OwnUser = s.Key,
+        //            Count = s.Count()
+        //        })
+        //        .ToList();
+        //    foreach (var item in users)
+        //    {
+        //        var userCodes = codes.Where(s => s.OwnUser == item.Id).ToList();
+        //        item.ThisMonthCount = userCodes.FirstOrDefault(s => s.UseTime == date1.Month)?.Count ?? 0;
+        //        item.LastMonthCount = userCodes.FirstOrDefault(s => s.UseTime == date2.Month)?.Count ?? 0;
+        //        item.TotalCount = codesTotal.FirstOrDefault(s => s.OwnUser == item.Id)?.Count ?? 0;
+        //    }
+        //    return;
+        //}
+
+        [HttpPost]
+        private ActionResult SetRemark(string userID, string remarkUserID, string remark)
         {
-            var date1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var date2 = date1.AddDays(-1);
-            date2 = new DateTime(date2.Year, date2.Month, 1);
-            var userIds = users.Select(s => s.Id).ToList();
-            var codes = db.RegistrationCodes
-                    .Where(s => s.UseTime > date2 && userIds.Contains(s.OwnUser))
-                    .GroupBy(s => new
-                    {
-                        s.OwnUser,
-                        UseTime = s.UseTime.Value.Month
-                    })
-                    .Select(s => new
-                    {
-                        s.Key.OwnUser,
-                        s.Key.UseTime,
-                        Count = s.Count()
-                    }).ToList();
-
-            var codesTotal = db.RegistrationCodes
-                .Where(s => s.UseTime.HasValue && userIds.Contains(s.OwnUser))
-                .GroupBy(s => s.OwnUser)
-                .Select(s => new { OwnUser = s.Key, Count = s.Count() })
-                .ToList();
-            foreach (var item in users)
+            var model = db.UserRemarks.FirstOrDefault(s => s.UserID == userID && s.RemarkUser == remarkUserID);
+            if (model == null)
             {
-                var userCodes = codes.Where(s => s.OwnUser == item.Id).ToList();
-                item.ThisMonthCount = userCodes.FirstOrDefault(s => s.UseTime == date1.Month)?.Count ?? 0;
-                item.LastMonthCount = userCodes.FirstOrDefault(s => s.UseTime == date2.Month)?.Count ?? 0;
-                item.TotalCount = codesTotal.FirstOrDefault(s => s.OwnUser == item.Id)?.Count ?? 0;
+                db.UserRemarks.Add(new UserRemark
+                {
+                    Remark = remark,
+                    RemarkUser = remarkUserID,
+                    UserID = userID
+                });
+                db.SaveChanges();
             }
-            return;
+            else
+            {
+                model.Remark = remark;
+            }
+            return Json(Comm.ToJsonResult("Success", "成功"));
         }
-
 
         protected override void Dispose(bool disposing)
         {

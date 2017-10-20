@@ -175,17 +175,23 @@ namespace Buy.Controllers
                     break;
                 case Enums.CouponSort.TodayTop:
                     {
+                        var date = query.Max(s => s.CreateDateTime).Date;
                         query = query.Where(s => s.OriginalPrice > 19.99m
                               && s.OriginalPrice < 150.01m
-                              && s.CommissionRate > 0.3m)
+                              && s.CommissionRate > 0.3m
+                              && s.CreateDateTime > date)
                               .OrderByDescending(s => s.CommissionRate);
                     }
                     break;
                 case Enums.CouponSort.Default:
                 default:
                     {
-                        query = query.Where(s => s.OriginalPrice > 19.99m && s.OriginalPrice < 150.01m);
-                        query = query.OrderByDescending(s => s.Sales);
+                        var date = query.Max(s => s.CreateDateTime).Date;
+                        query = query.Where(s => s.CreateDateTime > date
+                            && s.OriginalPrice > 19.99m
+                            && s.OriginalPrice < 150.01m);
+                        query = query.OrderByDescending(s => s.CommissionRate)
+                                .ThenByDescending(s => s.Sales);
                     }
                     break;
             }
