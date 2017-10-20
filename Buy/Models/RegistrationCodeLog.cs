@@ -15,6 +15,7 @@ namespace Buy.Models
 
         public int Count { get; set; }
 
+        public string UserID { get; set; }
 
         public string Remark { get; set; }
     }

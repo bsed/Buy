@@ -10,6 +10,44 @@ namespace Buy.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
+        [HttpGet]
+        [AllowCrossSiteJson]
+        public ActionResult GetLog(string userID, int page = 1, int pageSize = 1)
+        {
+            var paged =
+                (from l in db.RegistrationCodeLogs
+                 join u in db.Users.Select(s => new
+                 {
+                     s.Id,
+                     s.Avatar,
+                     s.PhoneNumber,
+                     s.NickName,
+                     s.UserName,
+                 }) on l.From equals u.Id into ug
+                 from ugg in ug.DefaultIfEmpty()
+                 where l.UserID == userID
+                 orderby l.CreateDateTime descending
+                 select new
+                 {
+                     User = ugg,
+                     Log = l
+                 })
+                .ToPagedList(page, pageSize);
+            var model = paged.Select(s => new RegistrationCodeLogViewModel
+            {
+                Avatar = Comm.ResizeImage(s.User?.Avatar, image: null),
+                Count = s.Log.Count,
+                CreateDateTime = s.Log.CreateDateTime,
+                From = s.Log.From,
+                ID = s.Log.ID,
+                NickName = s.User?.NickName ?? "系统",
+                PhoneNumber = s.User?.PhoneNumber,
+                Remark = s.Log.Remark,
+                UserID = s.Log.UserID,
+                UserName = s.User?.UserName ?? "系统"
+            });
+            return Json(Comm.ToJsonResultForPagedList(paged, model), JsonRequestBehavior.AllowGet);
+        }
 
         [HttpGet]
         [AllowCrossSiteJson]
@@ -54,6 +92,12 @@ namespace Buy.Controllers
             {
                 item.OwnUser = phoneNumber;
             }
+            db.SaveChanges();
+            var tLog = new RegistrationCodeLog { Count = count, CreateDateTime = DateTime.Now, From = userID, UserID = tUser.Id };
+            var fLog = new RegistrationCodeLog { Count = -count, CreateDateTime = DateTime.Now, From = tUser.Id, UserID = userID };
+            db.RegistrationCodeLogs.Add(tLog);
+            db.RegistrationCodeLogs.Add(fLog);
+            db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", $"转码成功", new { Lave = codes.Count }));
         }
 

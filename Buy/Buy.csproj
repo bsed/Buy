@@ -424,6 +424,10 @@
     <Compile Include="Migrations\201710190826442_AddRegistrationCodeLogAndUserRemark.Designer.cs">
       <DependentUpon>201710190826442_AddRegistrationCodeLogAndUserRemark.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710191052293_RegistrationCodeLogAddUserID.cs" />
+    <Compile Include="Migrations\201710191052293_RegistrationCodeLogAddUserID.Designer.cs">
+      <DependentUpon>201710191052293_RegistrationCodeLogAddUserID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -444,6 +448,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RegistrationCode.cs" />
     <Compile Include="Models\RegistrationCodeLog.cs" />
+    <Compile Include="Models\RegistrationCodeLogViewModels.cs" />
     <Compile Include="Models\RoleGroup.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\ShopMember.cs" />
@@ -1229,6 +1234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710190826442_AddRegistrationCodeLogAndUserRemark.resx">
       <DependentUpon>201710190826442_AddRegistrationCodeLogAndUserRemark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710191052293_RegistrationCodeLogAddUserID.resx">
+      <DependentUpon>201710191052293_RegistrationCodeLogAddUserID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

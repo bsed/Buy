@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Buy.Models
 {
     [NotMapped]
-    public class ChildProxyApplyViewModel : ChildProxyApply
+    public class RegistrationCodeLogViewModel : RegistrationCodeLog
     {
         public string Avatar { get; set; }
 
@@ -14,13 +14,10 @@ namespace Buy.Models
 
         public string PhoneNumber { get; set; }
 
+
         public string UserName { get; set; }
 
 
-        public new string CheckDateTime { get; set; }
-
-
-        public new string CreateDateTime { get; set; }
 
     }
 }

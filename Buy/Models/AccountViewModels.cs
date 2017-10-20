@@ -192,5 +192,12 @@ namespace Buy.Models
         public string UserName { get; set; }
 
         public string NickName { get; set; }
+
+
+        public int ThisMonthCount { get; set; }
+
+        public int LastMonthCount { get; set; }
+
+        public int TotalCount { get; set; }
     }
 }

@@ -417,6 +417,8 @@ namespace Buy.Enums
         Commission,
         [Display(Name = "券后价降序")]
         CouponPriceDesc,
+        [Display(Name = "今日精选")]
+        TodayTop
     }
 
 
