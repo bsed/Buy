@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Buy.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 namespace Buy.Controllers
 {
     public class ProxyRegCodeController : Controller
@@ -12,39 +14,51 @@ namespace Buy.Controllers
 
         [HttpGet]
         [AllowCrossSiteJson]
-        public ActionResult GetLog(string userID, int page = 1, int pageSize = 1)
+        public ActionResult GetLog(string userID, string from, int page = 1, int pageSize = 1)
         {
-            var paged =
-                (from l in db.RegistrationCodeLogs
-                 join u in db.Users.Select(s => new
-                 {
-                     s.Id,
-                     s.Avatar,
-                     s.PhoneNumber,
-                     s.NickName,
-                     s.UserName,
-                 }) on l.From equals u.Id into ug
-                 from ugg in ug.DefaultIfEmpty()
-                 where l.UserID == userID
-                 orderby l.CreateDateTime descending
-                 select new
-                 {
-                     User = ugg,
-                     Log = l
-                 })
-                .ToPagedList(page, pageSize);
+            var query = (from l in db.RegistrationCodeLogs
+                         join u in db.Users.Select(s => new
+                         {
+                             s.Id,
+                             s.Avatar,
+                             s.PhoneNumber,
+                             s.NickName,
+                             s.UserName,
+                         }) on l.From equals u.Id into ug
+                         from ugg in ug.DefaultIfEmpty()
+                         where l.UserID == userID
+                         select new
+                         {
+                             User = ugg,
+                             Log = l
+                         });
+            if (!string.IsNullOrWhiteSpace(from))
+            {
+                query = query.Where(s => s.Log.From == from);
+            }
+            var paged = query.OrderByDescending(s => s.Log.CreateDateTime).ToPagedList(page, pageSize);
             var model = paged.Select(s => new RegistrationCodeLogViewModel
             {
                 Avatar = Comm.ResizeImage(s.User?.Avatar, image: null),
                 Count = s.Log.Count,
-                CreateDateTime = s.Log.CreateDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                CreateDateTime = s.Log.CreateDateTime,
                 From = s.Log.From,
                 ID = s.Log.ID,
                 NickName = s.User?.NickName ?? "系统",
                 PhoneNumber = s.User?.PhoneNumber,
-                Remark = s.Log.Remark,
+                Remark = string.IsNullOrWhiteSpace(s.Log.Remark) ? (s.Log.Count > 0 ? "给你装码" : "收到你的转码") : s.Log.Remark,
                 UserID = s.Log.UserID,
                 UserName = s.User?.UserName ?? "系统"
+            }).Select(s => new
+            {
+                s.Avatar,
+                s.Count,
+                CreateDateTime = s.CreateDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                s.From,
+                s.ID,
+                s.NickName,
+                s.UserID,
+                s.Remark
             });
             return Json(Comm.ToJsonResultForPagedList(paged, model), JsonRequestBehavior.AllowGet);
         }
@@ -79,6 +93,10 @@ namespace Buy.Controllers
             if (tUser == null)
             {
                 return Json(Comm.ToJsonResult("NoFound", $"手机号不存在"));
+            }
+            if (tUser.Id == userID)
+            {
+                return Json(Comm.ToJsonResult("Error", $"不能转给自己"));
             }
             var codes = db.RegistrationCodes
                 .Where(s => s.OwnUser == userID

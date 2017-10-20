@@ -9,7 +9,7 @@ namespace Buy.Models
     {
         public int ID { get; set; }
 
-        public DateTime CreateDateTime { get; set; }
+        public virtual DateTime CreateDateTime { get; set; }
 
         public string From { get; set; }
 
