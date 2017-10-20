@@ -37,7 +37,7 @@ namespace Buy.Controllers
             {
                 Avatar = Comm.ResizeImage(s.User?.Avatar, image: null),
                 Count = s.Log.Count,
-                CreateDateTime = s.Log.CreateDateTime,
+                CreateDateTime = s.Log.CreateDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
                 From = s.Log.From,
                 ID = s.Log.ID,
                 NickName = s.User?.NickName ?? "系统",
