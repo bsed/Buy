@@ -4,9 +4,9 @@
     ViewBag.Title = "登录";
     string returnUrl = ViewBag.ReturnUrl;
     var wechatLogin = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={Buy.WeChat.Config.AppID}"
-        + $"&redirect_uri=@{Url.ContentFull("~/Account/LoginByWeiXin")}"
-        + $"&response_type=code&scope=snsapi_userinfo&state={returnUrl}#wechat_redirect";
-    var test=
+        + $"&redirect_uri={Url.ContentFull("~/Account/LoginByWeiXin")}"
+        + $"&response_type=code&scope=snsapi_login&state={returnUrl}#wechat_redirect";
+   
 }
 
 
@@ -43,7 +43,7 @@
                     <div class="fr"><a href="@Url.Action("Register","Account")">新用户注册</a></div>
                 </div>
             </div>
-            <div class="account-otherLoginWay paddingLr16 fs12">
+            <div class="account-otherLoginWay paddingLr16 fs12 ">
                 <div class="account-otherLoginWay-tits">其它登录方式</div>
                 <div class="account-otherLoginWay-list">
                     <a href="@wechatLogin">

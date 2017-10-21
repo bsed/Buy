@@ -681,6 +681,7 @@ namespace Buy.Controllers
         #region 微信对接
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult LoginByWeiXinSilence(string state)
         {
             var p = new Dictionary<string, string>();
@@ -692,7 +693,7 @@ namespace Buy.Controllers
             return Redirect($"https://open.weixin.qq.com/connect/oauth2/authorize{p.ToParam("?")}#wechat_redirect");
         }
 
-
+        [AllowAnonymous]
         [AllowCrossSiteJson]
         public ActionResult LoginByWeiXin(string code, string state = null, int app = 0)
         {
@@ -744,7 +745,7 @@ namespace Buy.Controllers
             }
             var accessToken = result.AccessToken;
             var unionid = result.UnionID;
-            
+            Comm.WriteLog("wechatlogin", JsonConvert.SerializeObject(result), Enums.DebugLogLevel.Normal);
 
             try
             {
@@ -760,7 +761,7 @@ namespace Buy.Controllers
                     case null:
                     case "":
                     case "couponindex":
-                        return RedirectToAction("Index", "Coupons");
+                        return RedirectToAction("Index", "Coupon");
                     default:
                         return Redirect(state);
                 }
@@ -773,6 +774,7 @@ namespace Buy.Controllers
 
         }
 
+        [AllowAnonymous]
         [AllowCrossSiteJson]
         public ActionResult LoginByWeiXinUnionID(string unionID, string avatar = null, string nickname = null)
         {
@@ -789,6 +791,7 @@ namespace Buy.Controllers
 
         public ApplicationUser LoginByWeiXinInfo(string unionID, string avatar = null, string nickname = null)
         {
+
             if (string.IsNullOrWhiteSpace(unionID))
             {
                 throw new Exception("unionID不可为空");
