@@ -2,6 +2,11 @@
 @model LoginViewModel
 @{
     ViewBag.Title = "登录";
+    string returnUrl = ViewBag.ReturnUrl;
+    var wechatLogin = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={Buy.WeChat.Config.AppID}"
+        + $"&redirect_uri=@{Url.ContentFull("~/Account/LoginByWeiXin")}"
+        + $"&response_type=code&scope=snsapi_userinfo&state={returnUrl}#wechat_redirect";
+    var test=
 }
 
 
@@ -14,7 +19,7 @@
             <input id="returnUrl" type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
             <div class="account-logo">
-                <img src="~/Content/images/view/logo.png"/>
+                <img src="~/Content/images/view/logo.png" />
             </div>
 
             <div class="paddingLr16">
@@ -38,10 +43,13 @@
                     <div class="fr"><a href="@Url.Action("Register","Account")">新用户注册</a></div>
                 </div>
             </div>
-            <div class="account-otherLoginWay paddingLr16 fs12 hidden">
+            <div class="account-otherLoginWay paddingLr16 fs12">
                 <div class="account-otherLoginWay-tits">其它登录方式</div>
                 <div class="account-otherLoginWay-list">
-                    <img src="~/Content/images/view/img_wechat_login_grey@2x.png" /><div>微信</div>
+                    <a href="@wechatLogin">
+                        <img src="~/Content/images/view/img_wechat_login_grey@2x.png" />
+                    </a>
+                    <div>微信</div>
                 </div>
             </div>
         }

@@ -11,14 +11,14 @@ namespace Buy.WeChat
     public class Config
     {
         /// <summary>
-        /// 网页
+        /// 网页开放平台
         /// </summary>
-        public const string AppID = "";
+        public const string AppID = "wx35d7769861d01a33";
 
         /// <summary>
-        /// 网页
+        /// 网页开放平台
         /// </summary>
-        public const string AppSecret = "";
+        public const string AppSecret = "db504014147f4e24b368a9e3196c0920";
 
         /// <summary>
         /// IOS
