@@ -745,8 +745,6 @@ namespace Buy.Controllers
             }
             var accessToken = result.AccessToken;
             var unionid = result.UnionID;
-            Comm.WriteLog("wechatlogin", JsonConvert.SerializeObject(result), Enums.DebugLogLevel.Normal);
-
             try
             {
                 var userInfo = wechat.GetUserInfoSns(openID, accessToken);
