@@ -17,6 +17,7 @@
         </div>
         <div class="clearfix marginT20">
             @Html.HiddenFor(model => model.Id)
+            @Html.Hidden("ReturnUrl", (string)ViewBag.ReturnUrl)
             <div class="account-input">
                 <div class="account-input-tits">邀请码</div>
                 <input type="text" class="invite-input style02" id="inviteCode" placeholder="请填写邀请码" />

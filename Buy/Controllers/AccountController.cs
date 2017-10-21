@@ -212,8 +212,9 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Error", ModelState.FirstErrorMessage()));
         }
 
-        public ActionResult Activation()
+        public ActionResult Activation(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             var id = User.Identity.GetUserId();
             var u = db.Users.FirstOrDefault(s => s.Id == id);
             return View(u);
@@ -754,15 +755,27 @@ namespace Buy.Controllers
                 {
                     return Json(Comm.ToJsonResult("Success", "成功", new UserViewModel(user)));
                 }
+                string returnUrl = null;
                 switch (state.ToLower())
                 {
                     case null:
                     case "":
                     case "couponindex":
-                        return RedirectToAction("Index", "Coupon");
+                        {
+                            returnUrl = Url.Action("Index", "Coupon");
+                        }
+                        break;
                     default:
-                        return Redirect(state);
+                        {
+                            returnUrl = state;
+                        }
+                        break;
                 }
+                if (user.UserType == Enums.UserType.Normal && !user.IsActive)
+                {
+                    return RedirectToAction("Activation", "Account", new { ReturnUrl = returnUrl });
+                }
+                return Redirect(returnUrl);
             }
             catch (Exception)
             {
