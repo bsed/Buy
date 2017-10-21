@@ -189,7 +189,7 @@ namespace Buy
                             Value = item["优惠券面额"].ToString(),
                             Platform = item["平台类型"].ToString() == "淘宝" ? Enums.CouponPlatform.TaoBao : Enums.CouponPlatform.TMall,
                             Sales = Convert.ToInt32(item["商品月销量"]),
-                            Commission = Convert.ToDecimal(item["佣金"]),
+                            //Commission = Convert.ToDecimal(item["佣金"]),//淘宝这里给出的佣金是按原价计算出来的
                             CommissionRate = Convert.ToDecimal(item["收入比率(%)"]),
                             Left = Convert.ToInt32(item["优惠券剩余量"]),
                             Total = Convert.ToInt32(item["优惠券总量"]),
@@ -201,6 +201,7 @@ namespace Buy
                         try
                         {
                             model.Price = Taobao.GetAfterCouponPrice(model.OriginalPrice, model.Value);
+                            model.Commission = Math.Round(model.Price * model.CommissionRate / 100, 2);
                         }
                         catch (Exception)
                         {
