@@ -184,6 +184,9 @@ $("#inviteBtn").click(function (e) {
         dataType: "json",
         success: function (data) {
             if (data.State == "Success") {
+                if ($("#ReturnUrl").val() != "") {
+                    location = $("#ReturnUrl").val()
+                }
                 location = comm.action("Index", "Coupon");
             } else {
                 comm.promptBox(data.Message)
