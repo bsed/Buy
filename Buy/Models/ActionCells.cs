@@ -198,7 +198,7 @@ namespace Buy.Models.ActionCell
             ProductType = coupon.ProductType;
             ShopName = coupon.ShopName;
             Subtitle = coupon.Subtitle;
-            ShareUrl = Comm.ResizeImage($"~/Coupon/Details?id={coupon.ID}", image: null);
+            ShareUrl = Comm.ResizeImage($"~/Coupon/Details?id={coupon.ID}&cUserID={coupon.UserID}", image: null);
             ProductUrl = productUrl;
             Commission = coupon.Commission;
             CommissionRate = coupon.CommissionRate;
