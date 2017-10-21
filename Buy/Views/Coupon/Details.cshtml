@@ -23,6 +23,7 @@
         }
     }
     string url = Request.Url.ToString();
+    string cUserID = Request["cUserID"];
 }
 
 @if (Model != null)
@@ -33,11 +34,11 @@
     {
         img = $"{img}_200x200.jpg";
     }
-
+    <input id="cUserID" type="hidden" value="@cUserID" />
     <img id="lazyloadimg" hidden src="~/Content/images/404/placeholder_image.png?w=150&h=150" />
     <div id="detail" class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
-            <div class="couponDetail-top-back fl" id="btnBack"></div>
+            <div class="couponDetail-top-back fl @(string.IsNullOrWhiteSpace(cUserID)?"":"hidden")" id="btnBack" ></div>
             @*<div class="couponDetail-top-share fr" id="btnShare"></div>*@
         </div>
         <div class="couponDetail-pImg">

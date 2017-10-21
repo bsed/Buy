@@ -35,6 +35,7 @@ var pHeight = $("#detailTit").height();
 var dVal = $("body").height() - $(window).height();
 var pState = false;
 var scState = false;
+var cUserID = $("#cUserID").val();
 
 if ($("body").height() == $(window).height()) {
     pState = true;
@@ -119,7 +120,7 @@ $("[name='clipboard']").click(function (e) {
     $.ajax({
         type: "GET",
         url: comm.action("GetPwd", "Coupon"),
-        data: { id: $("#ID").val() },
+        data: { id: $("#ID").val(), cUserID: cUserID },
         dataType: "json",
         success: function (data) {
             switch (data.State) {
@@ -192,7 +193,6 @@ $(".pwdMask").click(function (e) {
 $("#btnShare").click(function (e) {
     $("#detail").addClass("hidden");
     $("#share").removeClass("hidden");
-
     if ($("#Output").children().length <= 0) {
         $.ajax({
             type: "GET",

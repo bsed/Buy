@@ -351,7 +351,7 @@ namespace Buy.Controllers
                 tpt.Subtitle,
                 Values = Bll.Coupons.GetValues(tpt),
                 tpt.Sales,
-                ShareUrl = Url.ContentFull($"~/Coupon/Details?id={tpt.ID}"),
+                ShareUrl = Url.ContentFull($"~/Coupon/Details?id={tpt.ID}&cUserID={couponUserID}"),
                 ProductUrl = productUrl,
             };
             return Json(Comm.ToJsonResult("Success", "成功", new
@@ -478,42 +478,54 @@ namespace Buy.Controllers
         }
 
         [AllowCrossSiteJson]
-        public ActionResult GetPwd(int id, string userID)
+        public ActionResult GetPwd(int id, string userID, string cUserID)
         {
             userID = UserID == null ? userID : UserID;
-            if (!string.IsNullOrWhiteSpace(userID))
+            string couponUserID;
+            if (string.IsNullOrWhiteSpace(cUserID))//如果有分享的用户ID不验证
             {
-                var cu = db.CouponUsers.FirstOrDefault(s => s.CouponID == id && s.UserID == userID);
-                if (cu == null)
+                if (string.IsNullOrWhiteSpace(userID))
                 {
-                    var user = db.Users.FirstOrDefault(s => s.Id == userID);
-                    if (!user.IsActive)
-                    {
-                        return Json(Comm.ToJsonResult("NotActive", "用户没有激活"), JsonRequestBehavior.AllowGet);
-                    }
-                    var couponUserID = Bll.Accounts.GetCouponUserID(userID);
-                    if (couponUserID == null)
-                    {
-                        return Json(Comm.ToJsonResult("NotReceive", "当前用户没法领取"), JsonRequestBehavior.AllowGet);
-                    }
-                    cu = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.CouponID == id && s.UserID == couponUserID);
-                    if (cu == null)
-                    {
-                        return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
-                    }
+                    return Json(Comm.ToJsonResult("NotLogin", "用户没有登录"), JsonRequestBehavior.AllowGet);
                 }
-                string pwd = "";
-                if (cu.Platform == Enums.CouponPlatform.TaoBao || cu.Platform == Enums.CouponPlatform.TMall)
+                var user = db.Users.FirstOrDefault(s => s.Id == userID);
+                if (!user.IsActive)
                 {
-                    pwd = new Taobao().GetWirelessShareTpwd(cu.Coupon.Image, cu.Link, cu.Coupon.Name, 0);
+                    return Json(Comm.ToJsonResult("NotActive", "用户没有激活"), JsonRequestBehavior.AllowGet);
                 }
-                else
+                couponUserID = Bll.Accounts.GetCouponUserID(userID);
+                if (couponUserID == null)
                 {
-                    pwd = cu.Link;
+                    return Json(Comm.ToJsonResult("NotReceive", "当前用户没法领取"), JsonRequestBehavior.AllowGet);
                 }
-                return Json(Comm.ToJsonResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
             }
-            return Json(Comm.ToJsonResult("NotLogin", "用户没有登录"), JsonRequestBehavior.AllowGet);
+            else
+            {
+                couponUserID = cUserID;
+            }
+            CouponUser cu = db.CouponUsers.Include(s => s.Coupon).FirstOrDefault(s => s.CouponID == id && s.UserID == couponUserID);
+            if (cu == null)
+            {
+                return Json(Comm.ToJsonResult("Error", "优惠券不存在"), JsonRequestBehavior.AllowGet);
+            }
+            string pwd = "";
+            switch (cu.Platform)
+            {
+                case Enums.CouponPlatform.TaoBao:
+                case Enums.CouponPlatform.TMall:
+                    {
+                        pwd = new Taobao().GetWirelessShareTpwd(cu.Coupon.Image, cu.Link, cu.Coupon.Name, 0);
+                    }
+                    break;
+                case Enums.CouponPlatform.Jd:
+                case Enums.CouponPlatform.MoGuJie:
+                default:
+                    {
+                        pwd = cu.Link;
+                    }
+                    break;
+            }
+            return Json(Comm.ToJsonResult("Success", "成功", new { Data = pwd }), JsonRequestBehavior.AllowGet);
         }
 
         [AllowCrossSiteJson]
