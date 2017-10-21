@@ -177,8 +177,8 @@ namespace Buy.Controllers
                 case Enums.CouponSort.TodayTop:
                     {
                         var date = query.Max(s => s.CreateDateTime).Date;
-                        query = query.Where(s => s.OriginalPrice > 19.99m
-                              && s.OriginalPrice < 150.01m
+                        query = query.Where(s => s.Price > 19.99m
+                              && s.Price < 150.01m
                               && s.CommissionRate > 0.3m
                               && s.CreateDateTime > date)
                               .OrderByDescending(s => s.CommissionRate);
@@ -189,8 +189,8 @@ namespace Buy.Controllers
                     {
                         var date = query.Max(s => s.CreateDateTime).Date;
                         query = query.Where(s => s.CreateDateTime > date
-                            && s.OriginalPrice > 19.99m
-                            && s.OriginalPrice < 150.01m);
+                            && s.Price > 19.99m
+                            && s.Price < 150.01m);
                         query = query.OrderByDescending(s => s.CommissionRate)
                                 .ThenByDescending(s => s.Sales);
                     }
