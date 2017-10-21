@@ -196,34 +196,56 @@ namespace Buy.Controllers
             System.Diagnostics.Stopwatch oTime = new System.Diagnostics.Stopwatch();
             oTime.Start();
 
-            var datetime = DateTime.Now.AddDays(-5);
-            var count = db.CouponUsers.Include(s => s.Coupon)
-                .Where(s => s.Coupon.CreateDateTime.Day <= datetime.Day && s.Coupon.EndDateTime >= DateTime.Now &&
-                (s.Platform == Enums.CouponPlatform.TaoBao || s.Platform == Enums.CouponPlatform.TMall)).Take(10).Count();
-            int totalPage = count / 50 + (count % 50 > 0 ? 1 : 0);
+            var datetime = DateTime.Now.Date.AddDays(-1);
+            //var query = from c in db.Coupons
+            //            join uc in db.CouponUsers on c.ID equals uc.CouponID into ucc
+            //            from ucg in ucc.DefaultIfEmpty()
+            //            where c.CreateDateTime > datetime && c.EndDateTime >= DateTime.Now &&
+            //                (c.Platform == Enums.CouponPlatform.TaoBao || c.Platform == Enums.CouponPlatform.TMall)
+            //            select new { c.ID, Link = ucg == null ? null : ucg.Link };
+            var query = from c in db.Coupons
+                        join uc in db.CouponUsers on c.ID equals uc.CouponID into ucc
+                        from ucg in ucc.DefaultIfEmpty()
+                        where (c.Platform == Enums.CouponPlatform.TaoBao || c.Platform == Enums.CouponPlatform.TMall)
+                        select new { c.ID, Link = ucg.Link };
+            var temp = query.GroupBy(s => s.ID).Select(s => new { s.Key, Count = s.Count() }).Where(s => s.Count > 1).ToList();
+            var count = query.Count();
+            int pageSize = 50;
+            int totalPage = count / pageSize + (count % pageSize > 0 ? 1 : 0);
             int hasCounpon = 0, noCounpon = 0, changeCount = 0; ;
+
+            throw new Exception();
             //var msg = new List<SmsResult>();
-            for (int i = 1; i <= totalPage; i++)
+            var driver = new PhantomJSDriver();
+            List<int> invalidCouponIds = new List<int>();
+            try
             {
-                var data = db.CouponUsers.Include(s => s.Coupon)
-                    .Where(s => s.Coupon.CreateDateTime.Day <= datetime.Day && s.Coupon.EndDateTime >= DateTime.Now &&
-                    (s.Platform == Enums.CouponPlatform.TaoBao || s.Platform == Enums.CouponPlatform.TMall))
-                    .OrderBy(s => s.ID).ToPagedList(i, 10);
-                foreach (var item in data)
+                Action<int> addInvalid = id =>
                 {
-                    using (var driver = new PhantomJSDriver())
+                    noCounpon++;
+                    invalidCouponIds.Add(id);
+                };
+                for (int i = 1; i <= 1; i++)
+                {
+                    var data = query.OrderBy(s => s.ID).ToPagedList(i, pageSize);
+                    foreach (var item in data)
                     {
+                        if (string.IsNullOrWhiteSpace(item.Link))
+                        {
+                            addInvalid(item.ID);
+                            continue;
+                        }
                         driver.Url = $"{item.Link}";
                         driver.Navigate();
-                        var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                        var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(1));
                         try
                         {
-                            wait.Until(s => s.FindElement(OpenQA.Selenium.By.ClassName("coupons-wrap")));
+
+                            wait.Until(s => s.FindElement(OpenQA.Selenium.By.CssSelector($".atom-dialog,.coupons-wrap,.coupons-container-no")));
                         }
                         catch (Exception)
                         {
-                            driver.Quit();
-                            return Json(Comm.ToJsonResult("Error", "超时"), JsonRequestBehavior.AllowGet);
+                            continue;
                         }
                         var source = driver.PageSource;
                         var dom = CQ.CreateDocument(source);
@@ -234,28 +256,37 @@ namespace Buy.Controllers
                         else
                         {
                             noCounpon++;
-                            //修改券结束时间
-                            item.Coupon.EndDateTime = datetime;
+                            invalidCouponIds.Add(item.ID);
                         }
                         //msg.Add(new SmsResult()
                         //{
                         //    IsSuccess = sdsd.Count > 0 ? true : false,
                         //    Message = item.ID.ToString(),
                         //});
-                        driver.Quit();
-                    }
-                }
-                changeCount += db.SaveChanges();
-            }
 
+
+                    }
+
+
+
+                }
+            }
+            finally
+            {
+                driver.Quit();
+                driver.Dispose();
+            }
+            changeCount = invalidCouponIds.Count();
             oTime.Stop();
+
+
             return Json(Comm.ToJsonResult("Success", "成功",
                 new
                 {
                     //msg,
                     HasCounpon = hasCounpon,
                     NoCounpon = noCounpon,
-                    ChangeCount= changeCount,
+                    ChangeCount = changeCount,
                     Time = oTime.Elapsed.TotalSeconds,
                 }), JsonRequestBehavior.AllowGet);
         }
