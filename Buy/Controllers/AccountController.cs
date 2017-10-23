@@ -787,11 +787,21 @@ namespace Buy.Controllers
 
         [AllowAnonymous]
         [AllowCrossSiteJson]
-        public ActionResult LoginByWeiXinUnionID(string unionID, string avatar = null, string nickname = null)
+        public ActionResult LoginByWeiXinUnionID(string unionID, string avatar = null, string nickname = null, string wechatCode = null, string phoneNumber = null)
         {
             try
             {
                 var user = LoginByWeiXinInfo(unionID, avatar, nickname);
+                var tUser = db.Users.FirstOrDefault(s => s.Id == user.Id);
+                if (!string.IsNullOrWhiteSpace(phoneNumber))
+                {
+                    tUser.PhoneNumber = phoneNumber;
+                }
+                if (!string.IsNullOrWhiteSpace(wechatCode))
+                {
+                    tUser.WeChatCode = wechatCode;
+                }
+                db.SaveChanges();
                 return Json(Comm.ToJsonResult("Success", "成功", new UserViewModel(user)));
             }
             catch (Exception ex)
