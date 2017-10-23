@@ -48,7 +48,7 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Edit(string userID, string nickName, string avatar, string wecharCode)
+        public ActionResult Edit(string userID, string nickName, string avatar, string wechatCode)
         {
             var user = db.Users.FirstOrDefault(s => s.Id == userID);
             if (user == null)
@@ -57,7 +57,7 @@ namespace Buy.Controllers
             }
             user.NickName = nickName;
             user.Avatar = avatar;
-            user.WeChatCode = wecharCode;
+            user.WeChatCode = wechatCode;
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "修改成功"));
         }
