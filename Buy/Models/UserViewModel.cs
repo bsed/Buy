@@ -28,6 +28,7 @@ namespace Buy.Models
             IsActivation = user.IsActive;
             UserType = user.UserType;
             ParentUserID = user.ParentUserID;
+            WeChatCode = user.WeChatCode;
         }
 
 
@@ -59,6 +60,8 @@ namespace Buy.Models
 
 
         public string ParentUserID { get; set; }
+
+        public string WeChatCode { get; set; }
 
 
     }
