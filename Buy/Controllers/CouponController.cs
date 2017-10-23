@@ -333,6 +333,7 @@ namespace Buy.Controllers
                 default:
                     break;
             }
+            string shareUrl = Url.ContentFull($"~/Coupon/Details?id={tpt.ID}&cUserID={couponUserID}");
             var data = new
             {
                 tpt.ID,
@@ -351,7 +352,8 @@ namespace Buy.Controllers
                 tpt.Subtitle,
                 Values = Bll.Coupons.GetValues(tpt),
                 tpt.Sales,
-                ShareUrl = Url.ContentFull($"~/Coupon/Details?id={tpt.ID}&cUserID={couponUserID}"),
+                ShareUrl = shareUrl,
+                ShareUrlQrCode = Url.ContentFull($"~/QrCode?data={shareUrl}"),
                 ProductUrl = productUrl,
             };
             return Json(Comm.ToJsonResult("Success", "成功", new

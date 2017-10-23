@@ -70,13 +70,14 @@ namespace Buy.Controllers
             var code = db.RegistrationCodes
                 .FirstOrDefault(s => s.OwnUser == userID
                     && s.UseEndDateTime == null);
+
+            if (code == null)
+            {
+                return Json(Comm.ToJsonResult("NoFound", "没有可用的激活码", new { Code = code?.Code, Lave = 0 }), JsonRequestBehavior.AllowGet);
+            }
             var count = db.RegistrationCodes
                 .Count(s => s.OwnUser == userID
                     && s.UseEndDateTime == null);
-            if (code == null)
-            {
-                return Json(Comm.ToJsonResult("NoFound", "没有可用的激活码", new { Code = code.Code, Lave = count }), JsonRequestBehavior.AllowGet);
-            }
             return Json(Comm.ToJsonResult("Success", "成功", new { Code = code.Code, Lave = count }), JsonRequestBehavior.AllowGet);
         }
 
