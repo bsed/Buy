@@ -188,11 +188,19 @@ namespace Buy.Controllers
                 default:
                     {
                         var date = query.Max(s => s.CreateDateTime).Date;
-                        query = query.Where(s => s.CreateDateTime > date
-                            && s.Price > 19.99m
-                            && s.Price < 150.01m);
-                        query = query.OrderByDescending(s => s.CommissionRate)
-                                .ThenByDescending(s => s.Sales);
+                        query = query.Select(s => new
+                        {
+                            result = s.CreateDateTime > date && s.Price > 19.99m && s.Price < 150.01m ? 0 : 1,
+                            CouponQuery = s
+                        }).OrderBy(s => s.result)
+                        .ThenByDescending(s => s.CouponQuery.CommissionRate)
+                        .ThenByDescending(s => s.CouponQuery.Sales)
+                        .Select(s => s.CouponQuery);
+                        //query = query.Where(s => s.CreateDateTime > date
+                        //   && s.Price > 19.99m
+                        //   && s.Price < 150.01m);
+                        //query = query.OrderByDescending(s => s.CommissionRate)
+                        //        .ThenByDescending(s => s.Sales);
                     }
                     break;
             }
