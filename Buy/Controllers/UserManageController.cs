@@ -50,7 +50,6 @@ namespace Buy.Controllers
         {
             Sidebar();
             var query = from u in db.Users
-                        where u.UserType == type
                         join r in db.RegistrationCodes
                         on u.Id equals r.OwnUser
                         into c
@@ -73,6 +72,10 @@ namespace Buy.Controllers
                     || s.NickName.Contains(filter)
                     || s.UserName.Contains(filter)
                     || s.WeChatCode == filter);
+            }
+            else
+            {
+                query = query.Where(s => s.UserType == type);
             }
             var userlist = query
                  .OrderBy(s => s.RegisterDateTime)
