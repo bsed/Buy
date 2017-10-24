@@ -70,13 +70,14 @@ namespace Buy.Controllers
             var code = db.RegistrationCodes
                 .FirstOrDefault(s => s.OwnUser == userID
                     && s.UseEndDateTime == null);
+
+            if (code == null)
+            {
+                return Json(Comm.ToJsonResult("NoFound", "没有可用的激活码", new { Code = code?.Code, Lave = 0 }), JsonRequestBehavior.AllowGet);
+            }
             var count = db.RegistrationCodes
                 .Count(s => s.OwnUser == userID
                     && s.UseEndDateTime == null);
-            if (code == null)
-            {
-                return Json(Comm.ToJsonResult("NoFound", "没有可用的激活码", new { Code = code.Code, Lave = count }), JsonRequestBehavior.AllowGet);
-            }
             return Json(Comm.ToJsonResult("Success", "成功", new { Code = code.Code, Lave = count }), JsonRequestBehavior.AllowGet);
         }
 
@@ -90,9 +91,17 @@ namespace Buy.Controllers
                 return Json(Comm.ToJsonResult("NoFound", $"转出人不存在"));
             }
             var tUser = db.Users.FirstOrDefault(s => s.PhoneNumber == phoneNumber);
+            var enableGive = new Enums.UserType[] {
+                Enums.UserType.Proxy,
+                Enums.UserType.ProxySec
+            };
             if (tUser == null)
             {
                 return Json(Comm.ToJsonResult("NoFound", $"手机号不存在"));
+            }
+            else if (!enableGive.Contains(tUser.UserType))
+            {
+                return Json(Comm.ToJsonResult("Error", $"转送对象没有权限接收"));
             }
             if (tUser.Id == userID)
             {

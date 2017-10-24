@@ -212,4 +212,19 @@ namespace Buy.Models
 
         public string ParentID { get; set; }
     }
+
+    public class UserEditViewModel
+    {
+        public string UserID { get; set; }
+        
+        public string WeChatID { get; set; }
+
+        public string Avatar { get; set; }
+
+
+        public string NickName { get; set; }
+
+        public string WeChatCode { get; set; }
+
+    }
 }

@@ -785,13 +785,22 @@ namespace Buy.Controllers
 
         }
 
+        [HttpPost]
         [AllowAnonymous]
         [AllowCrossSiteJson]
-        public ActionResult LoginByWeiXinUnionID(string unionID, string avatar = null, string nickname = null)
+        public ActionResult LoginByWeiXinUnionID(string unionID)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(Comm.ToJsonResult("Error", ModelState.FirstErrorMessage()));
+            }
             try
             {
-                var user = LoginByWeiXinInfo(unionID, avatar, nickname);
+                var user = db.Users.FirstOrDefault(s => s.WeChatID == unionID);
+                if (user == null)
+                {
+                    return Json(Comm.ToJsonResult("NoFound", "用户不存在"));
+                }
                 return Json(Comm.ToJsonResult("Success", "成功", new UserViewModel(user)));
             }
             catch (Exception ex)

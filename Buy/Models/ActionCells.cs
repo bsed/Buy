@@ -249,6 +249,16 @@ namespace Buy.Models.ActionCell
         public decimal CommissionRate { get; set; }
 
         public List<CouponValue> Values { get; set; }
+
+
+        public string ShareUrlQrCode
+        {
+            get
+            {
+                return Comm.ResizeImage($"~/QrCode?data={ShareUrl}", image: null);
+
+            }
+        }
     }
 
 
