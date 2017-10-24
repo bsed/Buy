@@ -91,9 +91,17 @@ namespace Buy.Controllers
                 return Json(Comm.ToJsonResult("NoFound", $"转出人不存在"));
             }
             var tUser = db.Users.FirstOrDefault(s => s.PhoneNumber == phoneNumber);
+            var enableGive = new Enums.UserType[] {
+                Enums.UserType.Proxy,
+                Enums.UserType.ProxySec
+            };
             if (tUser == null)
             {
                 return Json(Comm.ToJsonResult("NoFound", $"手机号不存在"));
+            }
+            else if (!enableGive.Contains(tUser.UserType))
+            {
+                return Json(Comm.ToJsonResult("Error", $"转送对象没有权限接收"));
             }
             if (tUser.Id == userID)
             {
