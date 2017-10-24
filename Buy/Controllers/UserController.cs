@@ -48,16 +48,25 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Edit(string userID, string nickName, string avatar, string wechatCode)
+        public ActionResult Edit(UserEditViewModel model)
         {
-            var user = db.Users.FirstOrDefault(s => s.Id == userID);
+            var user = db.Users.FirstOrDefault(s => s.Id == model.UserID);
             if (user == null)
             {
-                return Json(Comm.ToJsonResult("Erroe", "没有这个用户"));
+                return Json(Comm.ToJsonResult("Error", "没有这个用户"));
             }
-            user.NickName = nickName;
-            user.Avatar = avatar;
-            user.WeChatCode = wechatCode;
+            user.NickName = model.NickName;
+            try
+            {
+                user.Avatar = Url.IsLocalUrl(model.Avatar) ? model.Avatar : this.Download(model.Avatar);
+            }
+            catch (Exception ex)
+            {
+                return Json(Comm.ToJsonResult("Error", "图片上传失败"));
+            }
+           
+            user.WeChatCode = model.WeChatCode;
+            user.WeChatID = model.WeChatID;
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "修改成功"));
         }

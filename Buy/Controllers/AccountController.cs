@@ -788,7 +788,7 @@ namespace Buy.Controllers
         [HttpPost]
         [AllowAnonymous]
         [AllowCrossSiteJson]
-        public ActionResult LoginByWeiXinUnionID(LoginByWeiXinUnion model)
+        public ActionResult LoginByWeiXinUnionID(string unionID)
         {
             if (!ModelState.IsValid)
             {
@@ -796,22 +796,11 @@ namespace Buy.Controllers
             }
             try
             {
-                var user = LoginByWeiXinInfo(model.UnionID, model.Avatar, model.NickName);
-                var tUser = db.Users.FirstOrDefault(s => s.Id == user.Id);
-                if (!string.IsNullOrWhiteSpace(model.PhoneNumber))
+                var user = db.Users.FirstOrDefault(s => s.WeChatID == unionID);
+                if (user == null)
                 {
-                    var result = Bll.Accounts.VerCode(model.PhoneNumber, model.Code);
-                    if (!result.IsSuccess)
-                    {
-                        return Json(Comm.ToJsonResult("ErrorCode", result.Message));
-                    }
-                    tUser.PhoneNumber = model.PhoneNumber;
+                    return Json(Comm.ToJsonResult("NoFound", "用户不存在"));
                 }
-                if (!string.IsNullOrWhiteSpace(model.WeChatCode))
-                {
-                    tUser.WeChatCode = model.WeChatCode;
-                }
-                db.SaveChanges();
                 return Json(Comm.ToJsonResult("Success", "成功", new UserViewModel(user)));
             }
             catch (Exception ex)

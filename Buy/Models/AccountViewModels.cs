@@ -213,10 +213,11 @@ namespace Buy.Models
         public string ParentID { get; set; }
     }
 
-    public class LoginByWeiXinUnion
+    public class UserEditViewModel
     {
-        [Required]
-        public string UnionID { get; set; }
+        public string UserID { get; set; }
+        
+        public string WeChatID { get; set; }
 
         public string Avatar { get; set; }
 
@@ -225,10 +226,5 @@ namespace Buy.Models
 
         public string WeChatCode { get; set; }
 
-
-        public string PhoneNumber { get; set; }
-
-
-        public string Code { get; set; }
     }
 }
