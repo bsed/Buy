@@ -14,7 +14,7 @@ namespace Buy.Controllers
 
         [HttpGet]
         [AllowCrossSiteJson]
-        public ActionResult GetLog(string userID, string from, int page = 1, int pageSize = 1)
+        public ActionResult GetLog(string userID, string from, int page = 1, int pageSize = 20)
         {
             var query = (from l in db.RegistrationCodeLogs
                          join u in db.Users.Select(s => new

@@ -30,6 +30,7 @@ namespace Buy.Controllers
         {
             var date1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             var date2 = date1.AddDays(-1);
+            var role = db.Roles.FirstOrDefault(s => s.Name == SysRole.UserTakeChildProxy);
             date2 = new DateTime(date2.Year, date2.Month, 1);
             var query = from u in db.Users
                         join r in db.UserRemarks.Where(s => s.UserID == userID)
@@ -48,7 +49,7 @@ namespace Buy.Controllers
                             Avatar = u.Avatar,
                             Id = u.Id,
                             NickName = u.NickName,
-                            CanAddChild = true,
+                            CanAddChild = u.Roles.Any(s => s.RoleId == role.Id),
                             Remark = urr == null ? null : urr.Remark,
                             ThisMonthCount = m1g.Count(),
                             LastMonthCount = m2g.Count(),
@@ -143,7 +144,7 @@ namespace Buy.Controllers
                     RemarkUser = remarkUserID,
                     UserID = userID
                 });
-               
+
             }
             else
             {

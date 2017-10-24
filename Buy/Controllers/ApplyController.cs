@@ -96,9 +96,14 @@ namespace Buy.Controllers
             apply.CheckDateTime = DateTime.Now;
             if (check)
             {
-                var user = db.Users.FirstOrDefault(s => s.Id == apply.UserID);
-                user.ParentUserID = apply.ProxyID;
 
+                var user = db.Users.FirstOrDefault(s => s.Id == apply.UserID);
+                if (!string.IsNullOrWhiteSpace(user.ParentUserID) && user.ParentUserID != apply.ProxyID)
+                {
+                    return Json(Comm.ToJsonResult("Error", $"该用户已经成了别的代理子代理"));
+                }
+                user.ParentUserID = apply.ProxyID;
+                user.UserType = Enums.UserType.ProxySec;
             }
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", $"处理成功"));

@@ -7,6 +7,9 @@ namespace Buy
 {
     public static class SysRole
     {
+        #region 系统权限
+
+    
         public const string RoleManageRead = "RoleManageRead";
         public const string RoleManageCreate = "RoleManageCreate";
         public const string RoleManageEdit = "RoleManageEdit";
@@ -17,7 +20,7 @@ namespace Buy
         public const string UserManageEdit = "UserManageEdit";
         public const string UserManageDelete = "UserManageDelete";
         public const string UserManageUpdate = "UserManageUpdate";
-
+        public const string UserManageEnableTakeChildProxy = "UserManageEnableTakeChildProxy";
 
         public const string CouponTypeManageRead = "CouponTypeManageRead";
         public const string CouponTypeManageCreate = "CouponTypeManageCreate";
@@ -58,6 +61,16 @@ namespace Buy
         public const string CustomerServiceManageCreate = "CustomerServiceManageCreate";
         public const string CustomerServiceManageEdit = "CustomerServiceManageEdit";
         public const string CustomerServiceManageDelete = "CustomerServiceManageDelete";
+
+       
+        #endregion
+
+        #region 用户权限
+        /// <summary>
+        /// 收二级代理
+        /// </summary>
+        public const string UserTakeChildProxy = "TakeChildProxy";
+        #endregion
 
     }
 }

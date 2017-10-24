@@ -137,4 +137,41 @@ namespace Buy.Models
         public string NickName { get; set; }
     }
 
+
+    public class UserManageEditProxyViewModel
+    {
+        public UserManageEditProxyViewModel()
+        {
+
+        }
+
+        public UserManageEditProxyViewModel(ApplicationUser user)
+        {
+
+            Id = user.Id;
+            UserName = user.UserName;
+            PhoneNumber = user.PhoneNumber;
+            NickName = user.NickName;
+        }
+
+
+
+        public string Id { get; set; }
+
+        [Required]
+        [Display(Name = "用户名")]
+        public string UserName { get; set; }
+
+        [Display(Name = "昵称")]
+        public string NickName { get; set; }
+
+        [Required]
+        [Display(Name = "手机号")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "收二级代理")]
+        public bool TakeChildProxy { get; set; }
+        
+    }
+
 }

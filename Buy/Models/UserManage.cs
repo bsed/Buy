@@ -32,5 +32,12 @@ namespace Buy.Models
 
         [Display(Name = "类别")]
         public Enums.UserType UserType { get; set; }
+
+        [Display(Name = "手机号")]
+        public string PhoneNumber { get; set; }
+
+
+        [Display(Name = "微信号")]
+        public string WeChatCode { get; set; }
     }
 }

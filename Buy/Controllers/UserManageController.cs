@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
-
+using System.Data.Entity;
 namespace Buy.Controllers
 {
     [Authorize]
@@ -46,24 +46,35 @@ namespace Buy.Controllers
 
         // GET: UserManage
         [Authorize(Roles = SysRole.UserManageRead)]
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(int page = 1, Enums.UserType type = Enums.UserType.Proxy, string filter = null)
         {
             Sidebar();
-            var userlist = (from u in db.Users
-                            where u.UserType == Enums.UserType.Proxy
-                            join r in db.RegistrationCodes
-                            on u.Id equals r.OwnUser
-                            into c
-                            select new UserManage()
-                            {
-                                Count = c.Count(),
-                                Id = u.Id,
-                                RegisterDateTime = u.RegisterDateTime,
-                                UnUseCount = c.Count(s => !s.UseTime.HasValue),
-                                UseCount = c.Count(s => s.UseTime.HasValue),
-                                UserName = u.UserName,
-                                NickName = u.NickName,
-                            })
+            var query = from u in db.Users
+                        where u.UserType == type
+                        join r in db.RegistrationCodes
+                        on u.Id equals r.OwnUser
+                        into c
+                        select new UserManage()
+                        {
+                            Count = c.Count(),
+                            Id = u.Id,
+                            RegisterDateTime = u.RegisterDateTime,
+                            UnUseCount = c.Count(s => !s.UseTime.HasValue),
+                            UseCount = c.Count(s => s.UseTime.HasValue),
+                            UserName = u.UserName,
+                            NickName = u.NickName,
+                            UserType = u.UserType,
+                            PhoneNumber = u.PhoneNumber,
+                            WeChatCode = u.WeChatCode
+                        };
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                query = query.Where(s => s.PhoneNumber == filter
+                    || s.NickName.Contains(filter)
+                    || s.UserName.Contains(filter)
+                    || s.WeChatCode == filter);
+            }
+            var userlist = query
                  .OrderBy(s => s.RegisterDateTime)
                 .ToPagedList(page);
             return View(userlist);
@@ -96,7 +107,7 @@ namespace Buy.Controllers
 
         [HttpPost]
         [Authorize(Roles = SysRole.UserManageCreate)]
-        public ActionResult Create(UserMangeCreateUserViewModel model,string returnUrl)
+        public ActionResult Create(UserMangeCreateUserViewModel model, string returnUrl)
         {
             if (!User.IsInRole(SysRole.UserManageCreate))
             {
@@ -215,6 +226,83 @@ namespace Buy.Controllers
             }
             return Redirect(returnUrl);
         }
+
+        [HttpGet]
+        [Authorize(Roles = SysRole.UserManageEdit)]
+        public ActionResult EditProxy(string id)
+        {
+            Sidebar();
+            var user = db.Users.Include(s => s.Roles).FirstOrDefault(s => s.Id == id);
+            var roles = db.Roles.FirstOrDefault(s => s.Name == SysRole.UserTakeChildProxy);
+
+            if (user == null || user.UserType != Enums.UserType.Proxy)
+            {
+                return this.ToError("错误", "不存在该代理", Url.Action("Index"));
+            }
+            var model = new UserManageEditProxyViewModel(user);
+            model.TakeChildProxy = user.Roles.Any(s => s.RoleId == roles.Id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = SysRole.UserManageEdit)]
+        public ActionResult EditProxy(UserManageEditProxyViewModel model)
+        {
+            Sidebar();
+            var user = db.Users
+                .Include(s => s.Roles)
+                .FirstOrDefault(s => s.Id == model.Id);
+            var roles = db.Roles.FirstOrDefault(s => s.Name == SysRole.UserTakeChildProxy);
+            var takeChildProxy = user.Roles.Any(s => s.RoleId == roles.Id);
+            if (user == null || user.UserType != Enums.UserType.Proxy)
+            {
+                return this.ToError("错误", "不存在该代理", Url.Action("Index"));
+            }
+            if (db.Users.Any(s => s.UserName == model.UserName && s.Id != model.Id))
+            {
+                ModelState.AddModelError("UserName", "用户名有重复的");
+                return View(model);
+            }
+            if (ModelState.IsValid)
+            {
+                user.UserName = model.UserName;
+                user.PhoneNumber = model.PhoneNumber;
+                user.NickName = model.NickName;
+                if (User.IsInRole(SysRole.UserManageEnableTakeChildProxy)
+                    && model.TakeChildProxy != takeChildProxy)
+                {
+                    if (model.TakeChildProxy)
+                    {
+                        user.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole
+                        {
+                            UserId = user.Id,
+                            RoleId = roles.Id,
+                        });
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        var delRole = user.Roles.FirstOrDefault(s => s.RoleId == roles.Id);
+                        user.Roles.Remove(delRole);
+                        db.SaveChanges();
+                    }
+                }
+                var returnUrl = Url.Action("Index");
+                if (this.GetReturnUrl() != null)
+                {
+                    returnUrl = this.GetReturnUrl();
+                }
+                return this.Redirect(returnUrl);
+            }
+            else
+            {
+
+            }
+
+
+            return View(model);
+        }
+
 
         [HttpGet]
         [Authorize(Roles = SysRole.UserManageRead)]

@@ -84,8 +84,7 @@ namespace Buy.Enums
     public enum RoleType
     {
         System,
-        User,
-
+        Proxy,
     }
 
     public enum FileType
@@ -456,4 +455,7 @@ namespace Buy.Enums
         [Display(Name = "未通过")]
         NoPass
     }
+
+
+    
 }

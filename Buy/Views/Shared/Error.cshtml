@@ -2,8 +2,10 @@
 
 @{
     ViewBag.Title = "Error";
+    string head = ViewBag.Head;
+    string message = ViewBag.Message;
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<h1 class="text-danger">@head</h1>
+<h4 class="text-danger">@Html.Raw(message)</h4>
 

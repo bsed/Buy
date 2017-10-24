@@ -68,7 +68,7 @@ namespace Buy.Bll
                      Description = desc,
                      Group = gourp,
                      Name = name,
-                     Type = Enums.RoleType.User
+                     Type = Enums.RoleType.Proxy
                  });
              };
             Action<string, string, string> addSystemRole = (name, gourp, desc) =>
@@ -82,23 +82,23 @@ namespace Buy.Bll
                 });
             };
             #region 用户权限
-            //addUserRole(SysRole.TicketCreate, "用户权限", "卡券创建");
-            //addUserRole(SysRole.TicketSend, "用户权限", "卡券发放");
-            //addUserRole(SysRole.TicketUse, "用户权限", "卡券使用");
+            addUserRole(SysRole.UserTakeChildProxy, "代理权限", "收二级代理");
+
             #endregion
             #region 后台权限
-            
+
             addSystemRole(SysRole.UserManageRead, "用户管理", "代理用户查看");
             addSystemRole(SysRole.UserManageCreate, "用户管理", "代理用户添加");
             addSystemRole(SysRole.UserManageDelete, "用户管理", "代理用户删除");
             addSystemRole(SysRole.UserManageEdit, "用户管理", "代理用户编辑");
             addSystemRole(SysRole.UserManageUpdate, "用户管理", "升级代理");
+            addSystemRole(SysRole.UserManageEnableTakeChildProxy, "用户管理", "授权代理收子代理");
 
             addSystemRole(SysRole.CouponTypeManageRead, "优惠券类型管理", "优惠券类型查看");
             addSystemRole(SysRole.CouponTypeManageCreate, "优惠券类型管理", "优惠券类型添加");
             addSystemRole(SysRole.CouponTypeManageEdit, "优惠券类型管理", "优惠券类型编辑");
             addSystemRole(SysRole.CouponTypeManageDelete, "优惠券类型管理", "优惠券类型删除");
-            
+
             addSystemRole(SysRole.CouponManageRead, "优惠券管理", "优惠券管理查看");
             addSystemRole(SysRole.CouponManageCreate, "优惠券管理", "优惠券管理添加");
             addSystemRole(SysRole.CouponManageEdit, "优惠券管理", "优惠券管理编辑");
@@ -113,6 +113,7 @@ namespace Buy.Bll
             addSystemRole(SysRole.ShopManageDelete, "商家管理", "商家管理删除");
             addSystemRole(SysRole.ShopManageEdit, "商家管理", "商家管理编辑");
             addSystemRole(SysRole.ShopManageRead, "商家管理", "商家管理查看");
+            
 
             addSystemRole(SysRole.LocalCouponManageCreate, "本地券管理", "本地券管理添加");
             addSystemRole(SysRole.LocalCouponManageDelete, "本地券管理", "本地券管理删除");
@@ -139,8 +140,10 @@ namespace Buy.Bll
             addSystemRole(SysRole.CustomerServiceManageEdit, "客服设置", "客服管理编辑");
             addSystemRole(SysRole.CustomerServiceManageDelete, "客服设置", "客服管理删除");
 
-            #endregion
+
             
+            #endregion
+
             foreach (var item in roles)
             {
                 if (_appRoleManager.FindByName(item.Name) == null)
