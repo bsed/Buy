@@ -212,4 +212,23 @@ namespace Buy.Models
 
         public string ParentID { get; set; }
     }
+
+    public class LoginByWeiXinUnion
+    {
+        [Required]
+        public string UnionID { get; set; }
+
+        public string Avatar { get; set; }
+
+
+        public string NickName { get; set; }
+
+        public string WeChatCode { get; set; }
+
+
+        public string PhoneNumber { get; set; }
+
+
+        public string Code { get; set; }
+    }
 }

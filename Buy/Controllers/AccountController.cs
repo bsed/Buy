@@ -785,21 +785,31 @@ namespace Buy.Controllers
 
         }
 
+        [HttpPost]
         [AllowAnonymous]
         [AllowCrossSiteJson]
-        public ActionResult LoginByWeiXinUnionID(string unionID, string avatar = null, string nickname = null, string wechatCode = null, string phoneNumber = null)
+        public ActionResult LoginByWeiXinUnionID(LoginByWeiXinUnion model)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(Comm.ToJsonResult("Error", ModelState.FirstErrorMessage()));
+            }
             try
             {
-                var user = LoginByWeiXinInfo(unionID, avatar, nickname);
+                var user = LoginByWeiXinInfo(model.UnionID, model.Avatar, model.NickName);
                 var tUser = db.Users.FirstOrDefault(s => s.Id == user.Id);
-                if (!string.IsNullOrWhiteSpace(phoneNumber))
+                if (!string.IsNullOrWhiteSpace(model.PhoneNumber))
                 {
-                    tUser.PhoneNumber = phoneNumber;
+                    var result = Bll.Accounts.VerCode(model.PhoneNumber, model.Code);
+                    if (!result.IsSuccess)
+                    {
+                        return Json(Comm.ToJsonResult("ErrorCode", result.Message));
+                    }
+                    tUser.PhoneNumber = model.PhoneNumber;
                 }
-                if (!string.IsNullOrWhiteSpace(wechatCode))
+                if (!string.IsNullOrWhiteSpace(model.WeChatCode))
                 {
-                    tUser.WeChatCode = wechatCode;
+                    tUser.WeChatCode = model.WeChatCode;
                 }
                 db.SaveChanges();
                 return Json(Comm.ToJsonResult("Success", "成功", new UserViewModel(user)));
