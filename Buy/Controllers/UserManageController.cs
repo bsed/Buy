@@ -187,9 +187,9 @@ namespace Buy.Controllers
                 .FirstOrDefault(s => s.Id == model.Id);
             var roles = db.Roles.FirstOrDefault(s => s.Name == SysRole.UserTakeChildProxy);
             var takeChildProxy = user.Roles.Any(s => s.RoleId == roles.Id);
-            if (user == null || user.UserType != Enums.UserType.Proxy)
+            if (user == null)
             {
-                return this.ToError("错误", "不存在该代理", Url.Action("Index"));
+                return this.ToError("错误", "不存在该用户", Url.Action("Index"));
             }
             if (db.Users.Any(s => s.UserName == model.UserName && s.Id != model.Id))
             {
