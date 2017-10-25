@@ -56,6 +56,12 @@ namespace Buy.Bll
             }
         }
 
+        public static IEnumerable<string> Split(string text)
+        {
+            var segmenter = new JiebaSegmenter();
+            return segmenter.CutForSearch(text);
+        }
+
         public static List<Keyword> HotKeyword()
         {
             using (ApplicationDbContext db = new ApplicationDbContext())

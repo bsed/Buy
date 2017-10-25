@@ -126,10 +126,10 @@ namespace Buy.Controllers
             }
             if (!string.IsNullOrWhiteSpace(model.Filter))
             {
-                var filterList = model.Filter.SplitToArray<string>(' ');
+                var filterList = Bll.Keywords.Split(model.Filter);
                 foreach (var item in filterList)
                 {
-                    query = query.Where(s => s.Name.Contains(item) || s.ProductType.Contains(item) || s.ShopName.Contains(item));
+                    query = query.Where(s => s.Name.Contains(item) || s.ProductType.Contains(item));
                 }
             }
             if (model.MinPrice > 0)
