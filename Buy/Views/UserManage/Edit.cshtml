@@ -1,4 +1,4 @@
-﻿@model Buy.Models.UserManageEditProxyViewModel
+﻿@model Buy.Models.UserManageEditViewModel
 
 @{
     ViewBag.Title = "编辑代理";
@@ -69,7 +69,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TakeChildProxy, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10 form-control-static">
-                @Html.EditorFor(model => model.TakeChildProxy, new { htmlAttributes = new { @class = "control-form"  } })
+                @Html.EditorFor(model => model.TakeChildProxy, new { htmlAttributes = new { @class = "control-form" } })
             </div>
         </div>
 

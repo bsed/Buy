@@ -138,14 +138,14 @@ namespace Buy.Models
     }
 
 
-    public class UserManageEditProxyViewModel
+    public class UserManageEditViewModel
     {
-        public UserManageEditProxyViewModel()
+        public UserManageEditViewModel()
         {
 
         }
 
-        public UserManageEditProxyViewModel(ApplicationUser user)
+        public UserManageEditViewModel(ApplicationUser user)
         {
 
             Id = user.Id;

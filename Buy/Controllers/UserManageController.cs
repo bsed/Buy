@@ -163,7 +163,7 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Error", result.Result.Errors.FirstOrDefault()));
         }
 
-       
+
 
         [HttpGet]
         [Authorize(Roles = SysRole.UserManageEdit)]
@@ -171,7 +171,7 @@ namespace Buy.Controllers
         {
             Sidebar();
             var user = db.Users.Include(s => s.Roles).FirstOrDefault(s => s.Id == id);
-            var model = new UserManageEditProxyViewModel(user);
+            var model = new UserManageEditViewModel(user);
             var roles = db.Roles.FirstOrDefault(s => s.Name == SysRole.UserTakeChildProxy);
             model.TakeChildProxy = user.Roles.Any(s => s.RoleId == roles.Id);
             return View(model);
@@ -179,7 +179,7 @@ namespace Buy.Controllers
 
         [HttpPost]
         [Authorize(Roles = SysRole.UserManageEdit)]
-        public ActionResult Edit(UserManageEditProxyViewModel model)
+        public ActionResult Edit(UserManageEditViewModel model)
         {
             Sidebar();
             var user = db.Users
@@ -193,7 +193,12 @@ namespace Buy.Controllers
             }
             if (db.Users.Any(s => s.UserName == model.UserName && s.Id != model.Id))
             {
-                ModelState.AddModelError("UserName", "用户名有重复的");
+                ModelState.AddModelError("UserName", "用户名已被占用");
+                return View(model);
+            }
+            if (db.Users.Any(s => s.PhoneNumber == model.PhoneNumber && s.Id != model.Id))
+            {
+                ModelState.AddModelError("UserName", "手机号已被占用");
                 return View(model);
             }
             if (ModelState.IsValid)
@@ -201,6 +206,7 @@ namespace Buy.Controllers
                 user.UserName = model.UserName;
                 user.PhoneNumber = model.PhoneNumber;
                 user.NickName = model.NickName;
+                db.SaveChanges();
                 if (User.IsInRole(SysRole.UserManageEnableTakeChildProxy)
                     && model.TakeChildProxy != takeChildProxy)
                 {
