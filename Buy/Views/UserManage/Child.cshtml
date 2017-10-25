@@ -46,6 +46,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.UnUseCount)
             </th>
+            <th>
+                激活码
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -75,11 +78,32 @@
                 @Html.DisplayFor(modelItem => item.UnUseCount)
             </td>
             <td>
-                @Html.ActionLink("新增", "Create", "RegistrationCode", new { userId = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) }, null)|
-                @Html.ActionLink("转让", "Transfer", "RegistrationCode", new { userId = item.Id }, null)|
-                @Html.ActionLink("查看", "Index", "RegistrationCode", new { userId = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) }, null)|
-                @Html.ActionLink("编辑", "Edit", new { id = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) }) |
-                <a name="btnUpdate" href="#" data-name="@item.NickName" data-id="@item.Id">升级代理</a>
+                @if (User.IsInRole(SysRole.RegistrationCodeManageCreate))
+                {
+                    @Html.ActionLink("新增", "Create", "RegistrationCode", new { userId = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) }, null)
+                    @Html.Raw(" |")
+                }
+                @if (User.IsInRole(SysRole.RegistrationCodeManageCreate))
+                {
+                    @Html.ActionLink("转让", "Transfer", "RegistrationCode", new { userId = item.Id }, null)
+                    @Html.Raw(" |")
+                }
+                @if (User.IsInRole(SysRole.RegistrationCodeManageRead))
+                {
+                    @Html.ActionLink("查看", "Index", "RegistrationCode", new { userId = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) }, null)
+                }
+              
+            </td>
+            <td>
+                @if (User.IsInRole(SysRole.UserManageEdit))
+                {
+                    @Html.ActionLink("编辑", "Edit", new { id = item.Id, returnUrl = Url.Action("child", new { id = user.Id }) })
+                    @Html.Raw(" |")
+                }
+                @if (User.IsInRole(SysRole.UserManageUpdate))
+                {
+                    <a name="btnUpdate" href="#" data-name="@item.NickName" data-id="@item.Id">升级代理</a>
+                }
             </td>
         </tr>
     }

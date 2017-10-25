@@ -38,6 +38,12 @@
     <div class="fluid">
         <div id="sidebar" class="sidebar">
             <ul class="nav nav-sidebar">
+                <li class="@hidSidebar(SysRole.AdminManageRead)">
+                    <a href="@Url.Action("Index", "AdminManage")" title="管理员管理">管理员管理</a>
+                </li>
+                <li class="@hidSidebar(SysRole.RoleManageRead)">
+                    <a href="@Url.Action("Index", "RoleManage")" title="权限管理">权限管理</a>
+                </li>
                 <li class="@hidSidebar(SysRole.UserManageRead)">
                     <a href="@Url.Action("Index", "UserManage")" title="用户管理">用户管理</a>
                 </li>
@@ -56,9 +62,7 @@
                 <li class="@hidSidebar(SysRole.LocalCouponManageRead)">
                     <a href="@Url.Action("Index", "LocalCouponManage")" title="本地券管理">本地券管理</a>
                 </li>
-                <li class="@hidSidebar(SysRole.RoleManageRead)">
-                    <a href="@Url.Action("Index", "RoleManage")" title="权限管理">权限管理</a>
-                </li>
+              
                 <li class="@hidSidebar(SysRole.BannerManageRead)">
                     <a href="@Url.Action("Index", "BannerManage")" title="Banner管理">Banner管理</a>
                 </li>

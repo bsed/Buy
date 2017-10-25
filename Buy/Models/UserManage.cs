@@ -40,4 +40,26 @@ namespace Buy.Models
         [Display(Name = "微信号")]
         public string WeChatCode { get; set; }
     }
+
+
+    public class AdminManageIndexViewModel
+    {
+        [Display(Name = "ID")]
+        public string Id { get; set; }
+
+        [Display(Name = "用户名")]
+        public string UserName { get; set; }
+
+        [Display(Name = "注册时间")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime RegisterDateTime { get; set; }
+
+        [Display(Name = "昵称")]
+        public string NickName { get; set; }
+
+        public int RoleGroupID { get; set; }
+
+        [Display(Name = "角色")]
+        public string RoleGroupName { get; set; }
+    }
 }

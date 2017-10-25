@@ -341,6 +341,7 @@
     <Compile Include="Controllers\UrlMatchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
+    <Compile Include="Controllers\AdminManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1093,8 +1094,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\RegistrationCode\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutBackground.cshtml" />
-    <Content Include="Views\UserManage\Create.cshtml" />
-    <Content Include="Views\UserManage\Index.cshtml" />
+    <Content Include="Views\AdminManage\Create.cshtml" />
+    <Content Include="Views\AdminManage\Index.cshtml" />
     <Content Include="Views\RegistrationCode\Index.cshtml" />
     <Content Include="Views\CouponTypeManage\Index.cshtml" />
     <Content Include="Views\CouponTypeManage\Create.cshtml" />
@@ -1135,7 +1136,7 @@
     <Content Include="Views\RoleManage\Edit.cshtml" />
     <Content Include="Views\RoleManage\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SelectRoleListViewModel.cshtml" />
-    <Content Include="Views\UserManage\Edit.cshtml" />
+    <Content Include="Views\AdminManage\Edit.cshtml" />
     <Content Include="Views\LocalCoupon\Index.cshtml" />
     <Content Include="Views\LocalCoupon\GetList.cshtml" />
     <Content Include="Views\LocalCoupon\Details.cshtml" />
@@ -1158,7 +1159,10 @@
     <Content Include="Views\Shared\_LayoutExport.cshtml" />
     <Content Include="Views\Shared\_LayoutExportPreview.cshtml" />
     <Content Include="Views\RegistrationCode\Transfer.cshtml" />
-    <Content Include="Views\UserManage\EditProxy.cshtml" />
+    <Content Include="Views\UserManage\Edit.cshtml" />
+    <Content Include="Views\UserManage\Create.cshtml" />
+    <Content Include="Views\UserManage\Index.cshtml" />
+    <Content Include="Views\Home\Backstage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Apply\" />

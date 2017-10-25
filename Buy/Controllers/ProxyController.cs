@@ -18,10 +18,24 @@ namespace Buy.Controllers
         {
             var query = QueryUser(userID);
             query = query.Where(s => (s.UserType == Enums.UserType.Proxy
-                                || s.UserType == Enums.UserType.ProxySec)
-                                && (s.NickName.Contains(filter)
-                                || s.PhoneNumber.Contains(filter)));
-
+                 || s.UserType == Enums.UserType.ProxySec)
+                 && (s.NickName.Contains(filter)
+                 || s.PhoneNumber.Contains(filter)));
+            var model = query.ToList().Select(s => new
+                {
+                    s.UserName,
+                    s.PhoneNumber,
+                    Avatar = Url.ResizeImage(s.Avatar, null),
+                    s.Id,
+                    s.NickName,
+                    s.CanAddChild,
+                    RegisterDateTime = s.RegisterDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                    s.WeChatCode,
+                    s.ThisMonthCount,
+                    s.LastMonthCount,
+                    s.TotalCount,
+                    s.Remark,
+                }).ToList();
             return Json(Comm.ToJsonResult("Success", "成功", query), JsonRequestBehavior.AllowGet);
         }
 
@@ -77,17 +91,24 @@ namespace Buy.Controllers
             var paged = query
                 .OrderByDescending(s => s.RegisterDateTime)
                 .ToPagedList(page, pageSize);
-            //var model = paged
-            //    .Select(s => new UserQueryModelForProxy
-            //    {
-            //        UserName = s.UserName,
-            //        PhoneNumber = s.PhoneNumber,
-            //        Avatar = s.Avatar,
-            //        Id = s.Id,
-            //        NickName = s.NickName,
-            //        CanAddChild = true
-            //    })
-            //    .ToList();
+
+            var model = paged
+                .Select(s => new
+                {
+                    s.UserName,
+                    s.PhoneNumber,
+                    Avatar = Url.ResizeImage(s.Avatar, null),
+                    s.Id,
+                    s.NickName,
+                    s.CanAddChild,
+                    RegisterDateTime = s.RegisterDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                    s.WeChatCode,
+                    s.ThisMonthCount,
+                    s.LastMonthCount,
+                    s.TotalCount,
+                    s.Remark,
+                })
+                .ToList();
             return Json(Comm.ToJsonResultForPagedList(paged, paged), JsonRequestBehavior.AllowGet); ;
         }
 

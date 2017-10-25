@@ -1,4 +1,4 @@
-﻿@model Buy.Models.UserMangeCreateUserViewModel
+﻿@model Buy.Models.UserManageCreateUserViewModel
 
 @{
     var name = Model.UserType.GetDisplayName();
@@ -13,7 +13,7 @@
 
 <ol class="breadcrumb">
     <li>@Html.ActionLink("用户管理", "Index", "UserManage")</li>
-    <li class="active">添加用户</li>
+    <li class="active">添加代理</li>
 </ol>
 
 @using (Html.BeginForm())
@@ -66,19 +66,8 @@
                 </div>
             </div>
         }
-        @if (Model.UserType == Buy.Enums.UserType.System)
-        {
-            <div class="form-group">
-                @Html.LabelFor(model => model.RoleGroupID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.RoleGroupID, (SelectList)ViewBag.SelRole, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.RoleGroupID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        }
-        else
-        {
-            @*<div class="form-group">
+
+        @*<div class="form-group">
                 <div class="col-md-2">
                     <input type="checkbox" class="pull-right" id="productProxy_ck" />
                 </div>
@@ -103,7 +92,7 @@
                     </div>
                 </div>
             </div>*@
-        }
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

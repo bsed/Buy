@@ -82,7 +82,7 @@ namespace Buy.Models
     }
 
 
-    public class UserMangeCreateUserViewModel
+    public class UserManageCreateUserViewModel
     {
         [Required]
         [RegularExpression(Reg.MOBILE, ErrorMessage = "{0} 格式有误")]
@@ -94,9 +94,6 @@ namespace Buy.Models
 
         [Display(Name = "用户类型")]
         public Enums.UserType UserType { get; set; }
-
-        [Display(Name = "权限分组")]
-        public int? RoleGroupID { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
@@ -116,6 +113,29 @@ namespace Buy.Models
         public string NickName { get; set; }
     }
 
+    public class AdminManageCreateViewModel
+    {
+        public string Id { get; set; }
+
+        [Required]
+        [Display(Name = "帐号")]
+        public string UserName { get; set; }
+
+        [Display(Name = "权限分组")]
+        public int RoleGroupID { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "密码")]
+        public string Password { get; set; }
+
+        [Required]
+        [Display(Name = "昵称")]
+
+        public string NickName { get; set; }
+
+
+        public System.Web.Mvc.SelectList SelRole { get; set; }
+    }
 
     public class RegisterChildViewModel
     {
@@ -213,10 +233,11 @@ namespace Buy.Models
         public string ParentID { get; set; }
     }
 
+
     public class UserEditViewModel
     {
         public string UserID { get; set; }
-        
+
         public string WeChatID { get; set; }
 
         public string Avatar { get; set; }

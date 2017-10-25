@@ -22,6 +22,11 @@ namespace Buy
         public const string UserManageUpdate = "UserManageUpdate";
         public const string UserManageEnableTakeChildProxy = "UserManageEnableTakeChildProxy";
 
+        public const string AdminManageRead = "AdminManageRead";
+        public const string AdminManageCreate = "AdminManageCreate";
+        public const string AdminManageEdit = "AdminManageEdit";
+        public const string AdminManageDelete = "AdminManageDelete";
+
         public const string CouponTypeManageRead = "CouponTypeManageRead";
         public const string CouponTypeManageCreate = "CouponTypeManageCreate";
         public const string CouponTypeManageEdit = "CouponTypeManageEdit";

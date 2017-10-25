@@ -21,7 +21,6 @@ $("#submit").click(function (e) {
         UserName: $("#UserName").val(),
         Password: $("#Password").val()
     }
-
     $.ajax({
         type: "POST",
         url: comm.action("Login", "Account"),
@@ -34,7 +33,7 @@ $("#submit").click(function (e) {
                         location = $("#returnUrl").val();
                     }
                     else {
-                        location = comm.action("Index", "UserManage");
+                        location = comm.action("Backstage", "Home");
                     }
                 } else {
                     if (data.Result.IsActivation) {
@@ -79,7 +78,7 @@ $("#UserName,#Password").keyup(function (e) {
     if (e.keyCode == 13) {
         $("#submit").click();
     }
- 
+
 });
 
 $("#btnlogin").click(function (e) {
@@ -98,7 +97,7 @@ $("#btnlogin").click(function (e) {
                     location = $("#returnUrl").val();
                 }
                 else {
-                    location = comm.action("Index", "UserManage");
+                    location = comm.action("Backstage", "Home");
                 }
             }
             else {

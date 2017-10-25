@@ -44,7 +44,6 @@ namespace Buy.Controllers
             }
         }
 
-        // GET: UserManage
         [Authorize(Roles = SysRole.UserManageRead)]
         public ActionResult Index(int page = 1, Enums.UserType type = Enums.UserType.Proxy, string filter = null)
         {
@@ -83,7 +82,7 @@ namespace Buy.Controllers
             return View(userlist);
         }
 
-        // GET: UserManage/Create
+
         [Authorize(Roles = SysRole.UserManageCreate)]
         public ActionResult Create(Enums.UserType userType = Enums.UserType.Proxy, string pid = null)
         {
@@ -93,24 +92,18 @@ namespace Buy.Controllers
             {
                 user = db.Users.FirstOrDefault(s => s.Id == pid);
             }
-            var model = new UserMangeCreateUserViewModel()
+            var model = new UserManageCreateUserViewModel()
             {
-                UserType = userType,
+                UserType = Enums.UserType.Proxy,
                 ParentUserID = user?.Id,
                 ParentUserNickName = user?.NickName
-
             };
-            if (userType == Enums.UserType.System)
-            {
-                var roles = db.RoleGroups.ToList();
-                ViewBag.SelRole = new SelectList(roles, "ID", "Name");
-            }
             return View(model);
         }
 
+
         [HttpPost]
-        [Authorize(Roles = SysRole.UserManageCreate)]
-        public ActionResult Create(UserMangeCreateUserViewModel model, string returnUrl)
+        public ActionResult Create(UserManageCreateUserViewModel model, string returnUrl)
         {
             if (!User.IsInRole(SysRole.UserManageCreate))
             {
@@ -135,14 +128,6 @@ namespace Buy.Controllers
                 {
                     return Json(Comm.ToJsonResult("Error", $"用户“{pUser.NickName}”不是代理"));
                     //ModelState.AddModelError("ParentUserID", $"用户“{pUser.NickName}”不是代理");
-                }
-            }
-            if (model.UserType == Enums.UserType.System)
-            {
-                if (!model.RoleGroupID.HasValue)
-                {
-                    return Json(Comm.ToJsonResult("Error", $"选择权限分组"));
-                    //ModelState.AddModelError("RoleGroupID", "选择权限分组");
                 }
             }
 
@@ -178,78 +163,23 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Error", result.Result.Errors.FirstOrDefault()));
         }
 
+       
 
-        // GET: UserManage/Edit/5
+        [HttpGet]
         [Authorize(Roles = SysRole.UserManageEdit)]
         public ActionResult Edit(string id)
         {
             Sidebar();
-            var user = db.Users.FirstOrDefault(s => s.Id == id);
-            if (user == null)
-            {
-                return RedirectToAction("Index");
-            }
-            if (user.UserType == Enums.UserType.System)
-            {
-                var roles = db.RoleGroups.ToList();
-                ViewBag.SelRole = new SelectList(roles, "ID", "Name");
-            }
-            return View(user);
-        }
-
-        // POST: UserManage/Edit/5
-        [HttpPost]
-        [Authorize(Roles = SysRole.UserManageEdit)]
-        public ActionResult Edit(ApplicationUser model)
-        {
-            var users = db.Users.Where(s => s.Id == model.Id || s.UserName == model.UserName);
-            if (users.Any(s => s.UserName == model.UserName && s.Id != model.Id))
-            {
-                ModelState.AddModelError("UserName", "用户名有重复的");
-                return View(model);
-            }
-            var user = users.FirstOrDefault(s => s.Id == model.Id);
-            if (user == null)
-            {
-                return RedirectToAction("Index");
-            }
-            user.UserName = model.UserName;
-            user.NickName = model.NickName;
-            user.PhoneNumber = model.PhoneNumber;
-            if (user.UserType == Enums.UserType.System)
-            {
-                user.RoleGroupID = model.RoleGroupID;
-                _roles.EditUserRoleByGroupID(user.Id, model.RoleGroupID.Value);
-            }
-            db.SaveChanges();
-            var returnUrl = Request["ReturnUrl"];
-            if (string.IsNullOrWhiteSpace(returnUrl))
-            {
-                returnUrl = Url.Action("Index");
-            }
-            return Redirect(returnUrl);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = SysRole.UserManageEdit)]
-        public ActionResult EditProxy(string id)
-        {
-            Sidebar();
             var user = db.Users.Include(s => s.Roles).FirstOrDefault(s => s.Id == id);
-            var roles = db.Roles.FirstOrDefault(s => s.Name == SysRole.UserTakeChildProxy);
-
-            if (user == null || user.UserType != Enums.UserType.Proxy)
-            {
-                return this.ToError("错误", "不存在该代理", Url.Action("Index"));
-            }
             var model = new UserManageEditProxyViewModel(user);
+            var roles = db.Roles.FirstOrDefault(s => s.Name == SysRole.UserTakeChildProxy);
             model.TakeChildProxy = user.Roles.Any(s => s.RoleId == roles.Id);
             return View(model);
         }
 
         [HttpPost]
         [Authorize(Roles = SysRole.UserManageEdit)]
-        public ActionResult EditProxy(UserManageEditProxyViewModel model)
+        public ActionResult Edit(UserManageEditProxyViewModel model)
         {
             Sidebar();
             var user = db.Users

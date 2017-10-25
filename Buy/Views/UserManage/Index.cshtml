@@ -10,6 +10,11 @@
         selectType = tempType;
     }
     string filter = Request["filter"];
+    var selUserType = new Buy.Enums.UserType[] {
+        Buy.Enums.UserType.Normal,
+        Buy.Enums.UserType.Proxy,
+        Buy.Enums.UserType.ProxySec
+    };
 }
 
 <nav class="navbar navbar-default">
@@ -17,11 +22,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("添加代理", "Create")</li>
-                <li>@Html.ActionLink("添加管理员", "Create", new { userType = Buy.Enums.UserType.System })</li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@selectType.GetDisplayName() <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        @foreach (Buy.Enums.UserType item in Enum.GetValues(typeof(Buy.Enums.UserType)))
+                        @foreach (Buy.Enums.UserType item in selUserType)
                         {
                             <li><a href="@Url.Action("Index", new { Type = item })">@item.GetDisplayName()</a></li>
                         }
@@ -63,24 +67,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.UnUseCount)
             </th>
+            <th>
+                注册码
+            </th>
             <th></th>
         </tr>
     </thead>
     @foreach (var item in Model)
     {
-        string editUrl;
-        switch (item.UserType)
-        {
-            case Buy.Enums.UserType.Normal:
-            case Buy.Enums.UserType.System:
-            case Buy.Enums.UserType.ProxySec:
-            default:
-                editUrl = Url.Action("Edit", new { id = item.Id, ReturnUrl = Url.Action() });
-                break;
-            case Buy.Enums.UserType.Proxy:
-                editUrl = Url.Action("EditProxy", new { id = item.Id, ReturnUrl = Url.Action() });
-                break;
-        }
         <tr>
             <td>
                 @item.UserType.GetDisplayName()
@@ -105,11 +99,27 @@
                 @Html.DisplayFor(modelItem => item.UnUseCount)
             </td>
             <td>
-                @Html.ActionLink("添加注册码", "Create", "RegistrationCode", new { userId = item.Id }, null)|
-                @Html.ActionLink("查看注册码", "Index", "RegistrationCode", new { userId = item.Id }, null)|
-                <a href="@editUrl">编辑</a> |
+                @if (User.IsInRole(SysRole.RegistrationCodeManageCreate))
+                {
+                    @Html.ActionLink("添加", "Create", "RegistrationCode", new { userId = item.Id }, null)
+                    @Html.Raw("|")
+                }
+                @if (User.IsInRole(SysRole.RegistrationCodeManageRead))
+                {
+                    @Html.ActionLink("查看", "Index", "RegistrationCode", new { userId = item.Id }, null)
+                }
+            </td>
+            <td>
+               
+                @if (User.IsInRole(SysRole.UserManageEdit))
+                {
+                    @Html.ActionLink("编辑", "Edit", new { id = item.Id, ReturnUrl = Url.Action() }, null)
+                    @Html.Raw("|")
+                }
+
                 @Html.ActionLink("子用户", "Child", new { id = item.Id })
             </td>
+
         </tr>
     }
 

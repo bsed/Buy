@@ -94,6 +94,11 @@ namespace Buy.Bll
             addSystemRole(SysRole.UserManageUpdate, "用户管理", "升级代理");
             addSystemRole(SysRole.UserManageEnableTakeChildProxy, "用户管理", "授权代理收子代理");
 
+            addSystemRole(SysRole.AdminManageRead, "管理员管理", "管理员查看");
+            addSystemRole(SysRole.AdminManageCreate, "管理员管理", "管理员添加");
+            addSystemRole(SysRole.AdminManageDelete, "管理员管理", "管理员删除");
+            addSystemRole(SysRole.AdminManageEdit, "管理员管理", "管理员编辑");
+
             addSystemRole(SysRole.CouponTypeManageRead, "优惠券类型管理", "优惠券类型查看");
             addSystemRole(SysRole.CouponTypeManageCreate, "优惠券类型管理", "优惠券类型添加");
             addSystemRole(SysRole.CouponTypeManageEdit, "优惠券类型管理", "优惠券类型编辑");
