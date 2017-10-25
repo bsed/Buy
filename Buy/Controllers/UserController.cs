@@ -58,13 +58,16 @@ namespace Buy.Controllers
             user.NickName = model.NickName;
             try
             {
-                user.Avatar = Url.IsLocalUrl(model.Avatar) ? model.Avatar : this.Download(model.Avatar);
+                if (!string.IsNullOrWhiteSpace(model.Avatar))
+                {
+                    user.Avatar = Url.IsLocalUrl(model.Avatar) ? model.Avatar : this.Download(model.Avatar);
+                }
             }
             catch (Exception ex)
             {
                 return Json(Comm.ToJsonResult("Error", "图片上传失败"));
             }
-           
+
             user.WeChatCode = model.WeChatCode;
             user.WeChatID = model.WeChatID;
             db.SaveChanges();
