@@ -358,16 +358,12 @@ namespace Buy.Controllers
                 NoCoupon = s.Count(x => !x.IsSuccess)
             }).OrderBy(s => s.Days);
             oTime.Stop();
-            Comm.WriteLog("text", new
+            Comm.WriteLog("CouponStatistics", new
             {
                 data = JsonConvert.SerializeObject(model),
                 Time = oTime.Elapsed.TotalSeconds
             }.ToString(), Enums.DebugLogLevel.Normal);
-            return Json(Comm.ToJsonResult("Success", "成功", new
-            {
-                data = model,
-                Time = oTime.Elapsed.TotalSeconds
-            }), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功"), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
