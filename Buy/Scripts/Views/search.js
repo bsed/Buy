@@ -26,6 +26,14 @@ function nodataCheck(target) {
     }
 }
 
+var hVal = $("#hVal").val();
+if (hVal == "/") {
+    hVal = "";
+}
+if (hVal != "" && $("[name='filterText']").val() == "") {
+    $("[name='filterText']").val(hVal);
+}
+
 //load优惠券
 function loadcoupon() {
     if (!canLoadPage) {
@@ -132,6 +140,7 @@ function search(val) {
         }
     });
     if (array.length > 0) {
+        
         for (var i = 0; i < array.length; i++) {
             if (array[i] == filter) {
                 state = false
@@ -139,22 +148,26 @@ function search(val) {
         }
 
         if (state) {
-            array = array.concat(filter);
+            if (filter != "") {
+                array = array.concat(filter);
 
-            $.cookie("searchHistory", array.join(","), {
-                path: "/", expires: 1
-            });
+                $.cookie("searchHistory", array.join(","), {
+                    path: "/", expires: 1
+                });
+            }
 
             window.location.href = comm.webPath + "/coupon/SearchConfirm?filter=" + filter;
         } else {
             window.location.href = comm.webPath + "/coupon/SearchConfirm?filter=" + filter;
         }
     } else {
-        array = array.concat(filter);
+        if (filter != "") {
+            array = array.concat(filter);
 
-        $.cookie("searchHistory", array.join(","), {
-            path: "/", expires: 1
-        });
+            $.cookie("searchHistory", array.join(","), {
+                path: "/", expires: 1
+            });
+        }
        
         window.location.href = comm.webPath + "/coupon/SearchConfirm?filter=" + filter;
     }
@@ -256,11 +269,13 @@ function searchConfirm(val) {
 
 //搜索提示
 $("#searchConfirm").click(function () {
-    window.location.href = comm.action("Search", "Coupon");
+    var tVal=$("[name='filterText']").val();
+    window.location.href = comm.action("Search", "Coupon", { text: tVal });
 });
 
 $("#searchConfirmBtn").click(function () {
-    window.location.href = comm.action("Search", "Coupon");
+    var tVal = $("[name='filterText']").val();
+    window.location.href = comm.action("Search", "Coupon", { text: tVal });
 });
 
 //平台切换

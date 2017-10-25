@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using OpenQA.Selenium.PhantomJS;
 using CsQuery;
+using Newtonsoft.Json;
 
 namespace Buy.Controllers
 {
@@ -263,12 +264,7 @@ namespace Buy.Controllers
                         //    IsSuccess = sdsd.Count > 0 ? true : false,
                         //    Message = item.ID.ToString(),
                         //});
-
-
                     }
-
-
-
                 }
             }
             finally
@@ -279,7 +275,6 @@ namespace Buy.Controllers
             changeCount = invalidCouponIds.Count();
             oTime.Stop();
 
-
             return Json(Comm.ToJsonResult("Success", "成功",
                 new
                 {
@@ -289,6 +284,106 @@ namespace Buy.Controllers
                     ChangeCount = changeCount,
                     Time = oTime.Elapsed.TotalSeconds,
                 }), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [AllowCrossSiteJson]
+        [AllowAnonymous]
+        //统计券是否有券
+        public ActionResult HasCoupon(DateTime? date)
+        {
+            System.Diagnostics.Stopwatch oTime = new System.Diagnostics.Stopwatch();
+            oTime.Start();
+            date = date.HasValue ? date : DateTime.Now;
+            var query = from c in db.Coupons
+                        join uc in db.CouponUsers on c.ID equals uc.CouponID into ucc
+                        from ucg in ucc.DefaultIfEmpty()
+                        where (c.Platform == Enums.CouponPlatform.TaoBao || c.Platform == Enums.CouponPlatform.TMall)
+                            && c.CreateDateTime <= date.Value && c.EndDateTime <= date.Value
+                        select new { c.ID, Link = ucg.Link, Days = DbFunctions.DiffDays(c.CreateDateTime, date.Value) };
+            var count = query.Count();
+            int pageSize = 50;
+            int totalPage = count / pageSize + (count % pageSize > 0 ? 1 : 0);
+            var driver = new PhantomJSDriver();
+            List<VerCode> invalidCouponIds = new List<VerCode>();
+            try
+            {
+                Action<int> addInvalid = id =>
+                {
+                    invalidCouponIds.Add(new VerCode() { IsSuccess = false, Message = id.ToString() });
+                };
+                for (int i = 1; i <= totalPage; i++)
+                {
+                    var data = query.OrderByDescending(s => s.Days).ThenBy(s => s.ID).ToPagedList(i, pageSize);
+                    foreach (var item in data)
+                    {
+                        if (string.IsNullOrWhiteSpace(item.Link))
+                        {
+                            addInvalid(item.Days.Value);
+                            continue;
+                        }
+                        driver.Url = $"{item.Link}";
+                        driver.Navigate();
+                        var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(1));
+                        try
+                        {
+                            wait.Until(s => s.FindElement(OpenQA.Selenium.By.CssSelector($".atom-dialog,.coupons-wrap,.coupons-container-no")));
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        var source = driver.PageSource;
+                        var dom = CQ.CreateDocument(source);
+                        if (dom.Select(".coupons-price").Select(s => s.ClassName).ToList().Count > 0)
+                        {
+                            invalidCouponIds.Add(new VerCode() { IsSuccess = true, Message = item.Days.ToString() });
+                        }
+                        else
+                        {
+                            addInvalid(item.Days.Value);
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                driver.Quit();
+                driver.Dispose();
+            }
+            var model = invalidCouponIds.GroupBy(s => s.Message).Select(s => new
+            {
+                Days = s.Key,
+                HasCoupon = s.Count(x => x.IsSuccess),
+                NoCoupon = s.Count(x => !x.IsSuccess)
+            }).OrderBy(s => s.Days);
+            oTime.Stop();
+            Comm.WriteLog("CouponStatistics", new
+            {
+                data = JsonConvert.SerializeObject(model),
+                Time = oTime.Elapsed.TotalSeconds
+            }.ToString(), Enums.DebugLogLevel.Normal);
+            return Json(Comm.ToJsonResult("Success", "成功"), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [AllowCrossSiteJson]
+        [AllowAnonymous]
+        //券有效期统计
+        public ActionResult GetTime(int count = 1000)
+        {
+            var list = db.Coupons.Take(count).Select(s => new
+            {
+                days = DbFunctions.DiffDays(s.StartDateTime, s.EndDateTime),
+                Platform = s.Platform
+            }).GroupBy(s => new { s.Platform, s.days })
+            .Select(s => new
+            {
+                s.Key.Platform,
+                s.Key.days,
+                Count = s.Count()
+            }).OrderBy(s => s.Count);
+            return Json(Comm.ToJsonResult("Success", "成功", list), JsonRequestBehavior.AllowGet);
         }
 
     }
