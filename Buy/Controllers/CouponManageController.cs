@@ -7,7 +7,8 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using OpenQA.Selenium.PhantomJS;
 using CsQuery;
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 namespace Buy.Controllers
 {
     [Authorize]
@@ -197,25 +198,18 @@ namespace Buy.Controllers
             oTime.Start();
 
             var datetime = DateTime.Now.Date.AddDays(-1);
-            //var query = from c in db.Coupons
-            //            join uc in db.CouponUsers on c.ID equals uc.CouponID into ucc
-            //            from ucg in ucc.DefaultIfEmpty()
-            //            where c.CreateDateTime > datetime && c.EndDateTime >= DateTime.Now &&
-            //                (c.Platform == Enums.CouponPlatform.TaoBao || c.Platform == Enums.CouponPlatform.TMall)
-            //            select new { c.ID, Link = ucg == null ? null : ucg.Link };
             var query = from c in db.Coupons
-                        join uc in db.CouponUsers on c.ID equals uc.CouponID into ucc
-                        from ucg in ucc.DefaultIfEmpty()
+                        let link = db.CouponUsers.FirstOrDefault(s => s.CouponID == c.ID).Link
                         where (c.Platform == Enums.CouponPlatform.TaoBao || c.Platform == Enums.CouponPlatform.TMall)
-                        select new { c.ID, Link = ucg.Link };
-            var temp = query.GroupBy(s => s.ID).Select(s => new { s.Key, Count = s.Count() }).Where(s => s.Count > 1).ToList();
+                            && c.CreateDateTime < datetime
+                            && c.EndDateTime > DateTime.Now
+                        select new { c.ID, Link = link };
+
             var count = query.Count();
             int pageSize = 50;
             int totalPage = count / pageSize + (count % pageSize > 0 ? 1 : 0);
-            int hasCounpon = 0, noCounpon = 0, changeCount = 0; ;
+            int hasCounpon = 0, noCounpon = 0, changeCount = 0, noLoadCount = 0;
 
-            throw new Exception();
-            //var msg = new List<SmsResult>();
             var driver = new PhantomJSDriver();
             List<int> invalidCouponIds = new List<int>();
             try
@@ -225,7 +219,7 @@ namespace Buy.Controllers
                     noCounpon++;
                     invalidCouponIds.Add(id);
                 };
-                for (int i = 1; i <= 1; i++)
+                for (int i = 1; i <= pageSize; i++)
                 {
                     var data = query.OrderBy(s => s.ID).ToPagedList(i, pageSize);
                     foreach (var item in data)
@@ -245,7 +239,7 @@ namespace Buy.Controllers
                         }
                         catch (Exception)
                         {
-                            continue;
+                            noLoadCount++;
                         }
                         var source = driver.PageSource;
                         var dom = CQ.CreateDocument(source);
@@ -255,8 +249,7 @@ namespace Buy.Controllers
                         }
                         else
                         {
-                            noCounpon++;
-                            invalidCouponIds.Add(item.ID);
+                            addInvalid(item.ID);
                         }
                         //msg.Add(new SmsResult()
                         //{
@@ -266,9 +259,6 @@ namespace Buy.Controllers
 
 
                     }
-
-
-
                 }
             }
             finally
@@ -278,17 +268,18 @@ namespace Buy.Controllers
             }
             changeCount = invalidCouponIds.Count();
             oTime.Stop();
-
-
-            return Json(Comm.ToJsonResult("Success", "成功",
-                new
-                {
-                    //msg,
-                    HasCounpon = hasCounpon,
-                    NoCounpon = noCounpon,
-                    ChangeCount = changeCount,
-                    Time = oTime.Elapsed.TotalSeconds,
-                }), JsonRequestBehavior.AllowGet);
+            var result = new
+            {
+                //msg,
+                HasCounpon = hasCounpon,
+                NoCounpon = noCounpon,
+                ChangeCount = changeCount,
+                Total = count,
+                NoLoad = noLoadCount,
+                Time = oTime.Elapsed.TotalSeconds,
+            };
+            Comm.WriteLog("DelInvalidCoupon", JsonConvert.SerializeObject(result), Enums.DebugLogLevel.Normal);
+            return Json(Comm.ToJsonResult("Success", "成功", result), JsonRequestBehavior.AllowGet);
         }
 
     }
