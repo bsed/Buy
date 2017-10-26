@@ -9,6 +9,8 @@ using OpenQA.Selenium.PhantomJS;
 using CsQuery;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PagedList;
+
 namespace Buy.Controllers
 {
     [Authorize]
@@ -189,26 +191,34 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", "cg", changeCount));
         }
 
+        /// <summary>
+        /// 检查优惠券是否过期
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="mode">0：不处理，只统计；1：不能的用设为过期，不删除；2：不能用和过期的都删掉</param>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         [AllowCrossSiteJson]
-        public ActionResult DelInvalidCoupon()
+        public ActionResult DelInvalidCoupon(DateTime? date = null, int mode = 0)
         {
             System.Diagnostics.Stopwatch oTime = new System.Diagnostics.Stopwatch();
             oTime.Start();
-
-            var datetime = DateTime.Now.Date.AddDays(-1);
+            if (date == null)
+            {
+                date = DateTime.Now.Date.AddDays(-1);
+            }
             var query = from c in db.Coupons
                         let link = db.CouponUsers.FirstOrDefault(s => s.CouponID == c.ID).Link
                         where (c.Platform == Enums.CouponPlatform.TaoBao || c.Platform == Enums.CouponPlatform.TMall)
-                            && c.CreateDateTime < datetime
+                            && c.CreateDateTime < date
                             && c.EndDateTime > DateTime.Now
                         select new { c.ID, Link = link };
 
             var count = query.Count();
             int pageSize = 50;
             int totalPage = count / pageSize + (count % pageSize > 0 ? 1 : 0);
-            int hasCounpon = 0, noCounpon = 0, changeCount = 0, noLoadCount = 0;
+            int hasCounpon = 0, noCounpon = 0, noLoadCount = 0, delCount = 0;
 
             var driver = new PhantomJSDriver();
             List<int> invalidCouponIds = new List<int>();
@@ -216,7 +226,6 @@ namespace Buy.Controllers
             {
                 Action<int> addInvalid = id =>
                 {
-                    noCounpon++;
                     invalidCouponIds.Add(id);
                 };
                 for (int i = 1; i <= pageSize; i++)
@@ -264,16 +273,38 @@ namespace Buy.Controllers
                 driver.Quit();
                 driver.Dispose();
             }
-            changeCount = invalidCouponIds.Count();
+            if (mode > 0)
+            {
+                var size = 50;
+                var tSize = invalidCouponIds.Count / size + (invalidCouponIds.Count % size > 0 ? 1 : 0);
+
+                for (int i = 1; i <= tSize; i++)
+                {
+                    var ids = invalidCouponIds.ToPagedList(i, size).ToList();
+                    var coupons = db.Coupons
+                        .Where(s => ids.Contains(s.ID))
+                        .ToList();
+                    coupons.ForEach(s => s.EndDateTime = date.Value);
+                    db.SaveChanges();
+                };
+                if (mode > 1)
+                {
+                    var del = db.Coupons.Where(s => s.EndDateTime < DateTime.Now);
+                    db.Coupons.RemoveRange(del);
+                    delCount = db.SaveChanges();
+                }
+            }
+
+
             oTime.Stop();
             var result = new
             {
                 //msg,
                 HasCounpon = hasCounpon,
                 NoCounpon = noCounpon,
-                ChangeCount = changeCount,
                 Total = count,
                 NoLoad = noLoadCount,
+                Delete = delCount,
                 Time = oTime.Elapsed.TotalSeconds,
             };
             Comm.WriteLog("DelInvalidCoupon", JsonConvert.SerializeObject(result), Enums.DebugLogLevel.Normal);
