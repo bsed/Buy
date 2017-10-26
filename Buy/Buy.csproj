@@ -429,6 +429,10 @@
     <Compile Include="Migrations\201710191052293_RegistrationCodeLogAddUserID.Designer.cs">
       <DependentUpon>201710191052293_RegistrationCodeLogAddUserID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710260938381_AddFavorites.cs" />
+    <Compile Include="Migrations\201710260938381_AddFavorites.Designer.cs">
+      <DependentUpon>201710260938381_AddFavorites.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -440,6 +444,7 @@
     <Compile Include="Models\CloudFileControl.cs" />
     <Compile Include="Models\CloudFileViewModel.cs" />
     <Compile Include="Models\CouponUser.cs" />
+    <Compile Include="Models\Favorite.cs" />
     <Compile Include="Models\FileUpload.cs" />
     <Compile Include="Models\Help.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -1243,6 +1248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710191052293_RegistrationCodeLogAddUserID.resx">
       <DependentUpon>201710191052293_RegistrationCodeLogAddUserID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710260938381_AddFavorites.resx">
+      <DependentUpon>201710260938381_AddFavorites.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

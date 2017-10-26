@@ -125,5 +125,8 @@ namespace Buy.Models
 
 
         public virtual DbSet<UserRemark> UserRemarks { get; set; }
+
+
+        public virtual DbSet<Favorite> Favorites { get; set; }
     }
 }
