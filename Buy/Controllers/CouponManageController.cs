@@ -224,10 +224,6 @@ namespace Buy.Controllers
             List<int> invalidCouponIds = new List<int>();
             try
             {
-                Action<int> addInvalid = id =>
-                {
-                    invalidCouponIds.Add(id);
-                };
                 for (int i = 1; i <= pageSize; i++)
                 {
                     var data = query.OrderBy(s => s.ID).ToPagedList(i, pageSize);
@@ -235,7 +231,7 @@ namespace Buy.Controllers
                     {
                         if (string.IsNullOrWhiteSpace(item.Link))
                         {
-                            addInvalid(item.ID);
+                            invalidCouponIds.Add(item.ID);
                             continue;
                         }
                         driver.Url = $"{item.Link}";
@@ -258,7 +254,7 @@ namespace Buy.Controllers
                         }
                         else
                         {
-                            addInvalid(item.ID);
+                            invalidCouponIds.Add(item.ID);
                         }
                         //msg.Add(new SmsResult()
                         //{
@@ -273,6 +269,7 @@ namespace Buy.Controllers
                 driver.Quit();
                 driver.Dispose();
             }
+            noCounpon = invalidCouponIds.Count();
             if (mode > 0)
             {
                 var size = 50;
