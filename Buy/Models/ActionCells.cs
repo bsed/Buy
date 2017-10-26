@@ -255,7 +255,7 @@ namespace Buy.Models.ActionCell
         {
             get
             {
-                return Comm.ResizeImage($"~/QrCode?data={ShareUrl}", image: null);
+                return Comm.ResizeImage($"~/QrCode?data={System.Uri.EscapeDataString(ShareUrl)}", image: null);
 
             }
         }

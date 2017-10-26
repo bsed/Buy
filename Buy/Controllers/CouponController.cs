@@ -359,7 +359,7 @@ namespace Buy.Controllers
                 Values = Bll.Coupons.GetValues(tpt),
                 tpt.Sales,
                 ShareUrl = shareUrl,
-                ShareUrlQrCode = Url.ContentFull($"~/QrCode?data={shareUrl}"),
+                ShareUrlQrCode = Url.ContentFull($"~/QrCode?data={Url.Encode(shareUrl)}"),
                 ProductUrl = productUrl,
             };
             return Json(Comm.ToJsonResult("Success", "成功", new
