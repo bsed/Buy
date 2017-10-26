@@ -39,8 +39,8 @@ namespace Buy.Controllers
             {
                 registrationCodes = registrationCodes.Where(s => s.OwnUser == userId);
             }
-            var list = registrationCodes
-                .OrderByDescending(s => s.ID)
+            var list = registrationCodes.OrderByDescending(s => s.CreateTime)
+                .ThenByDescending(s => s.ID)
                 .ToPagedList(page);
 
             var userids = list.Select(s => s.OwnUser).ToList();
