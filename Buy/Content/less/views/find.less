@@ -45,6 +45,7 @@
         li{
             background-color:@bg-color-white;
             padding:16rem*@resize;
+            padding-bottom:23rem*@resize;
 
             a{
                 .clean-a();
@@ -56,6 +57,7 @@
             }
 
             .localcoupon-details{
+                position:relative;
                 margin-top:8rem*@resize;
 
                 .localcoupon-title{
@@ -66,7 +68,22 @@
                     -webkit-box-orient: vertical;
                     line-height: 20rem*@resize;
                     font-size: @font-size-2;
-                    margin-bottom:8rem*@resize;
+                    margin-bottom:9rem*@resize;
+                }
+
+                .localcoupon-addCardBtn{
+                    background:url("../../images/view/img_wallet_nor@3x.png") no-repeat center;
+                    .rectangle(104rem*@resize,36rem*@resize);
+                    background-size:contain;
+                    position:absolute;
+                    right:0;
+                    bottom:-23rem*@resize;
+                    transition:0.3s all;
+
+                    &:hover{
+                        background:url("../../images/view/img_wallet_pre@3x.png") no-repeat center;
+                        background-size:contain;
+                    }
                 }
             }
         }
