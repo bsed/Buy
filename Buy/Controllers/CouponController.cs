@@ -255,6 +255,10 @@ namespace Buy.Controllers
             if (couponUserID != null)
             {
                 tpt = (from s in db.Coupons
+                       join f in db.Favorites
+                            .Where(s => s.Type == Enums.FavoriteType.Coupon && s.UserID == userID)
+                         on s.ID equals f.CouponID
+                         into sf
                        from u in db.CouponUsers
                        where s.ID == id && s.ID == u.CouponID && u.UserID == couponUserID
                        select new CouponQuery
@@ -282,11 +286,16 @@ namespace Buy.Controllers
                            Type = s.Type,
                            TypeID = s.TypeID,
                            Value = s.Value,
+                           IsFavorite = sf.Any()
                        }).FirstOrDefault();
             }
             else
             {
                 tpt = (from s in db.Coupons
+                       join f in db.Favorites
+                          .Where(s => s.Type == Enums.FavoriteType.Coupon && s.UserID == userID)
+                       on s.ID equals f.CouponID
+                       into sf
                        select new CouponQuery
                        {
                            CreateDateTime = s.CreateDateTime,
@@ -312,6 +321,7 @@ namespace Buy.Controllers
                            Type = s.Type,
                            TypeID = s.TypeID,
                            Value = s.Value,
+                           IsFavorite = sf.Any()
                        }).FirstOrDefault();
             }
 
@@ -361,6 +371,7 @@ namespace Buy.Controllers
                 ShareUrl = shareUrl,
                 ShareUrlQrCode = Url.ContentFull($"~/QrCode?data={Url.Encode(shareUrl)}"),
                 ProductUrl = productUrl,
+                tpt.IsFavorite,
             };
             return Json(Comm.ToJsonResult("Success", "成功", new
             {

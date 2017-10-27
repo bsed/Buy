@@ -10,11 +10,13 @@ namespace Buy.Models
     [NotMapped]
     public class CouponQuery : CouponUserViewModel
     {
-        
+
 
         public decimal Discount { get; set; }
 
         public decimal DiscountRate { get; set; }
+
+        public bool IsFavorite { get; set; }
     }
 
     public class CouponSearchViewModel

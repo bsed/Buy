@@ -296,7 +296,7 @@ namespace Buy.Models.ActionCell
 
     public class LocalCouponCell : Cell
     {
-        public LocalCouponCell(LocalCoupon lc)
+        public LocalCouponCell(LocalCouponList lc)
         {
             ID = lc.ID.ToString();
             Title = lc.Name;
@@ -310,6 +310,7 @@ namespace Buy.Models.ActionCell
             ShopID = lc.ShopID;
             ShopName = lc.Shop.Name;
             ShopLogo = Comm.ResizeImage(lc.Shop.Logo, image: null);
+            IsFavorite = lc.IsFavorite;
         }
 
         public override CellStyle Style
@@ -333,6 +334,27 @@ namespace Buy.Models.ActionCell
         public string ShopName { get; set; }
 
         public string ShopLogo { get; set; }
+
+        public bool IsFavorite { get; set; }
     }
 
+    public class FavoriteLocalCouponCell : Cell
+    {
+        public FavoriteLocalCouponCell(Favorite f, LocalCouponCell l)
+        {
+            ID = f.ID.ToString();
+            LocalCouponCell = l;
+        }
+
+        public override CellStyle Style
+        {
+            get
+            {
+                return CellStyle.ThirdPartyFootTicketCell;
+            }
+        }
+
+        public LocalCouponCell LocalCouponCell { get; set; }
+
+    }
 }

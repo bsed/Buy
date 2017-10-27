@@ -49,4 +49,9 @@ namespace Buy.Models
         public FileUpload FileUpload { get; set; }
     }
 
+    [NotMapped]
+    public class LocalCouponList : LocalCoupon
+    {
+        public bool IsFavorite { get; set; }
+    }
 }

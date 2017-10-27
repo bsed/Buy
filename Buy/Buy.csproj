@@ -321,6 +321,7 @@
     <Compile Include="Controllers\CouponManageController.cs" />
     <Compile Include="Controllers\CouponTypeManageController.cs" />
     <Compile Include="Controllers\CustomerServiceController.cs" />
+    <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalCouponController.cs" />
@@ -1176,6 +1177,7 @@
   <ItemGroup>
     <Folder Include="Views\Apply\" />
     <Folder Include="Views\Banner\" />
+    <Folder Include="Views\Favorite\" />
     <Folder Include="Views\ProxyRegCode\" />
     <Folder Include="Views\Proxy\" />
     <Folder Include="Views\RegCode\" />

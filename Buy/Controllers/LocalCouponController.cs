@@ -1,4 +1,5 @@
 ﻿using Buy.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,34 @@ namespace Buy.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        private IQueryable<LocalCoupon> QueryShops(List<int> typeIds = null)
+        private IQueryable<LocalCouponList> QueryShops(string userId, List<int> typeIds = null)
         {
-            var query = db.LocalCoupons
-                .Where(s => s.CreateDateTime < DateTime.Now && s.EndDateTime > DateTime.Now);
+            var query = (from l in db.LocalCoupons
+                         join f in db.Favorites
+                             .Where(s => s.Type == Enums.FavoriteType.LocalCoupon
+                                 && s.UserID == userId)
+                          on l.ID equals f.CouponID
+                          into lf
+                         where l.CreateDateTime < DateTime.Now && l.EndDateTime > DateTime.Now
+                         select new { LocalCoupon = l, IsFavorite = lf.Any() });
             if (typeIds != null && typeIds.Count > 0)
             {
-                query = query.Where(s => typeIds.Contains(s.ShopID));
+                query = query.Where(s => typeIds.Contains(s.LocalCoupon.ShopID));
             }
-            return query;
+            var model = query.Select(s => new LocalCouponList
+            {
+                ID = s.LocalCoupon.ID,
+                ShopID = s.LocalCoupon.ShopID,
+                Remark = s.LocalCoupon.Remark,
+                Commission = s.LocalCoupon.Commission,
+                CreateDateTime = s.LocalCoupon.CreateDateTime,
+                EndDateTime = s.LocalCoupon.EndDateTime,
+                Image = s.LocalCoupon.Image,
+                IsFavorite = s.IsFavorite,
+                Name = s.LocalCoupon.Name,
+                Price = s.LocalCoupon.Price
+            });
+            return model;
         }
 
         // GET: LocalCoupon
@@ -31,7 +51,8 @@ namespace Buy.Controllers
 
         public ActionResult GetList(string shopId = null, int page = 1)
         {
-            var paged = QueryShops(shopId?.SplitToIntArray())
+            var userId = User.Identity.GetUserId();
+            var paged = QueryShops(userId, shopId?.SplitToIntArray())
                 .OrderByDescending(s => s.CreateDateTime)
                 .ToPagedList(page);
             return View(paged);
@@ -63,9 +84,9 @@ namespace Buy.Controllers
 
         [HttpGet]
         [AllowCrossSiteJson]
-        public ActionResult GetAll(string shopId = null, int page = 1)
+        public ActionResult GetAll(string userId, string shopId = null, int page = 1)
         {
-            var paged = QueryShops(shopId?.SplitToIntArray())
+            var paged = QueryShops(userId, shopId?.SplitToIntArray())
                 .OrderByDescending(s => s.CreateDateTime)
                 .ToPagedList(page);
             var model = paged.Select(s => new Models.ActionCell.LocalCouponCell(s)).ToList();

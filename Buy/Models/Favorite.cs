@@ -17,4 +17,11 @@ namespace Buy.Models
 
         public Enums.FavoriteType Type { get; set; }
     }
+
+    public class FavoriteLocalCouponList
+    {
+        public Favorite Favorite { get; set; }
+
+        public LocalCouponList LocalCoupon { get; set; }
+    }
 }
