@@ -91,10 +91,23 @@
         color: @font-col-white;
         background-color: @bg-color-white;
         border-top: @border;
+        padding:0 16rem*@resize;
+
+        .couponDetail-collect{
+            background:url("../../images/view/img_collect_nor@3x.png") no-repeat center;
+            .square(48rem*@resize);
+            background-size:contain;
+            margin:0;
+
+            &.active{
+                 background:url("../../images/view/img_collect_pre@3x.png") no-repeat center;
+                 background-size:contain;
+            }
+        }
 
         > div {
             position: relative;
-            width: 85%;
+            width: 75%;
             //float: right;
             padding: 0 10rem*@resize;
             margin: 4rem*@resize auto 0 auto;
