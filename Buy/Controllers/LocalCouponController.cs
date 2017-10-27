@@ -20,8 +20,9 @@ namespace Buy.Controllers
                                  && s.UserID == userId)
                           on l.ID equals f.CouponID
                           into lf
-                         where l.CreateDateTime < DateTime.Now && l.EndDateTime > DateTime.Now
-                         select new { LocalCoupon = l, IsFavorite = lf.Any() });
+                         from s in db.Shops
+                         where l.CreateDateTime < DateTime.Now && l.EndDateTime > DateTime.Now && l.ShopID == s.ID
+                         select new { LocalCoupon = l, IsFavorite = lf.Any(), Shop = s });
             if (typeIds != null && typeIds.Count > 0)
             {
                 query = query.Where(s => typeIds.Contains(s.LocalCoupon.ShopID));
@@ -37,6 +38,7 @@ namespace Buy.Controllers
                 Image = s.LocalCoupon.Image,
                 IsFavorite = s.IsFavorite,
                 Name = s.LocalCoupon.Name,
+                Shop = s.Shop,
                 Price = s.LocalCoupon.Price
             });
             return model;

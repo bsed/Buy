@@ -12,11 +12,11 @@ namespace Buy.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Favorite
-        public ActionResult Index(string userId, Enums.FavoriteType type, Enums.CouponPlatform platform, int page = 1)
+        public ActionResult Index(string userId, Enums.FavoriteType type, string platforms, int page = 1)
         {
             if (type == Enums.FavoriteType.Coupon)
             {
-                var list = GetCoupon(userId, platform);
+                var list = GetCoupon(userId, platforms);
                 var paged = list.OrderByDescending(s => s.CreateDateTime).ToPagedList(page);
                 var model = paged.Select(s => new Models.ActionCell.CouponCell(s));
                 //return Json(Comm.ToJsonResultForPagedList(paged, model), JsonRequestBehavior.AllowGet);
@@ -34,9 +34,9 @@ namespace Buy.Controllers
         [HttpGet]
         [AllowCrossSiteJson]
         //收藏
-        public ActionResult GetCouponFavorite(string userId, Enums.CouponPlatform platform, int page = 1)
+        public ActionResult GetCouponFavorite(string userId, string platforms, int page = 1)
         {
-            var list = GetCoupon(userId, platform);
+            var list = GetCoupon(userId, platforms);
             var paged = list.OrderByDescending(s => s.CreateDateTime).ToPagedList(page);
             var model = paged.Select(s => new Models.ActionCell.CouponCell(s));
             return Json(Comm.ToJsonResultForPagedList(paged, model), JsonRequestBehavior.AllowGet);
@@ -53,8 +53,17 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResultForPagedList(paged, model), JsonRequestBehavior.AllowGet);
         }
 
-        public IQueryable<CouponUserViewModel> GetCoupon(string userId, Enums.CouponPlatform platform)
+        public IQueryable<CouponUserViewModel> GetCoupon(string userId, string platforms)
         {
+            var ps = platforms.SplitToArray<Enums.CouponPlatform>();
+            if (ps == null || ps.Count <= 0)
+            {
+                ps.Add(Enums.CouponPlatform.Jd);
+                ps.Add(Enums.CouponPlatform.MoGuJie);
+                ps.Add(Enums.CouponPlatform.TaoBao);
+                ps.Add(Enums.CouponPlatform.TMall);
+            }
+
             string couponUserID = Bll.Accounts.GetCouponUserID(userId);
             IQueryable<CouponUserViewModel> list;
             if (!string.IsNullOrWhiteSpace(couponUserID))
@@ -64,7 +73,7 @@ namespace Buy.Controllers
                         from coupons in fc.DefaultIfEmpty()
                         from u in db.CouponUsers
                         where f.Type == Enums.FavoriteType.Coupon && f.UserID == userId &&
-                         u.CouponID == coupons.ID && u.UserID == couponUserID && coupons.Platform == platform
+                         u.CouponID == coupons.ID && u.UserID == couponUserID && ps.Contains(coupons.Platform)
                         select coupons)
                        .Select(s => new CouponUserViewModel()
                        {
@@ -99,7 +108,7 @@ namespace Buy.Controllers
                 list = (from f in db.Favorites
                         join c in db.Coupons on f.CouponID equals c.ID into fc
                         from coupons in fc.DefaultIfEmpty()
-                        where f.Type == Enums.FavoriteType.Coupon && f.UserID == userId && coupons.Platform == platform
+                        where f.Type == Enums.FavoriteType.Coupon && f.UserID == userId && ps.Contains(coupons.Platform)
                         select coupons)
                            .Select(s =>
                           new CouponQuery
