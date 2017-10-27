@@ -433,6 +433,10 @@
     <Compile Include="Migrations\201710260938381_AddFavorites.Designer.cs">
       <DependentUpon>201710260938381_AddFavorites.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710270326596_FavoriteAddType.cs" />
+    <Compile Include="Migrations\201710270326596_FavoriteAddType.Designer.cs">
+      <DependentUpon>201710270326596_FavoriteAddType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1251,6 +1255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710260938381_AddFavorites.resx">
       <DependentUpon>201710260938381_AddFavorites.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710270326596_FavoriteAddType.resx">
+      <DependentUpon>201710270326596_FavoriteAddType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

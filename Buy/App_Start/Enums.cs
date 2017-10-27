@@ -457,5 +457,12 @@ namespace Buy.Enums
     }
 
 
-    
+    public enum FavoriteType
+    {
+        [Display(Name = "优惠券")]
+        Coupon,
+        [Display(Name = "本地券")]
+        LocalCoupon
+    }
+
 }

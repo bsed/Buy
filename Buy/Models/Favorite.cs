@@ -14,5 +14,7 @@ namespace Buy.Models
         public DateTime CreateDateTime { get; set; }
 
         public int CouponID { get; set; }
+
+        public Enums.FavoriteType Type { get; set; }
     }
 }
