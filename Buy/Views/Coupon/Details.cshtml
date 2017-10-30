@@ -85,9 +85,9 @@
             @Html.HiddenFor(model => model.Platform)
 
             @*.active 已收藏*@
-            <div id="collect_btn" class="couponDetail-collect fl" data-id="@Model.ID"></div>
+            @*<div id="collect_btn" class="couponDetail-collect fl" data-id="@Model.ID"></div>*@
 
-            <div class="fr">
+            <div @*class="fr"*@>
                 领取<span>@Buy.Bll.Coupons.GetValues(Model)[0].Value</span>券
                 <div class="border-round left"><div></div><div></div><div></div><div></div></div>
                 <div class="border-round right"><div></div><div></div><div></div><div></div></div>

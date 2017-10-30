@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Buy.Models.LocalCouponList>
+﻿@model IEnumerable<Buy.Models.FavoriteLocalCouponList>
 
 @{
     ViewBag.Title = "GetList";
     Layout = null;
-    var paged = (PagedList.IPagedList<Buy.Models.LocalCoupon>)Model;
+    var paged = (PagedList.IPagedList<Buy.Models.FavoriteLocalCouponList>)Model;
 }
 
 @if (Model.Count() > 0)
@@ -12,16 +12,12 @@
     {
         <li>
             <div class="localcoupon-img">
-                <img src="~/content/images/404/placeholder_image.png" data-original="@Comm.ResizeImage(item.Image)" />
+                <img src="~/content/images/404/placeholder_image.png" data-original="@Comm.ResizeImage(item.LocalCoupon.Image)" />
             </div>
             <div class="localcoupon-details">
-                <div class="localcoupon-title">@item.Name</div>
-                <div class="color-main fs12">有效期至：@item.EndDateTime.ToString("yyyy-MM-dd")</div>
-                @*添加到卡包，添加后隐藏按钮，提示添加成功*@
-                @*@if (!item.IsFavorite)
-                {
-                    <div class="localcoupon-addCardBtn" data-id="@item.ID"></div>
-                }*@
+                <div class="localcoupon-title">@item.LocalCoupon.Name</div>
+                <div class="color-main fs12">有效期至：@item.LocalCoupon.EndDateTime.ToString("yyyy-MM-dd")</div>
+                <div class="localcoupon-delCardBtn" data-id="@item.LocalCoupon.ID">删除</div>
             </div>
         </li>
     }

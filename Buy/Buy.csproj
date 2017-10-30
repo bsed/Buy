@@ -1059,6 +1059,7 @@
     <Content Include="Scripts\Views\forgotPassword.js" />
     <Content Include="Scripts\Views\home.js" />
     <Content Include="Scripts\Views\localCoupon.js" />
+    <Content Include="Scripts\Views\favorite.js" />
     <Content Include="Scripts\Views\login.js" />
     <Content Include="Scripts\Views\userMange.js" />
     <Content Include="Scripts\Views\register.js" />
@@ -1179,11 +1180,14 @@
     <Content Include="Views\UserManage\Create.cshtml" />
     <Content Include="Views\UserManage\Index.cshtml" />
     <Content Include="Views\Home\Backstage.cshtml" />
+    <Content Include="Views\Favorite\Coupon.cshtml" />
+    <Content Include="Views\User\CouponFavorite.cshtml" />
+    <Content Include="Views\User\LocalCouponFavorite.cshtml" />
+    <Content Include="Views\Favorite\LocalCoupon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Apply\" />
     <Folder Include="Views\Banner\" />
-    <Folder Include="Views\Favorite\" />
     <Folder Include="Views\ProxyRegCode\" />
     <Folder Include="Views\Proxy\" />
     <Folder Include="Views\RegCode\" />
