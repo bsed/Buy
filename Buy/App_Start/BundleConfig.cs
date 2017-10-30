@@ -123,6 +123,7 @@ namespace Buy
             addViewScripts("useManageChild", new string[] { "useManageChild.js" });
             addViewScripts("registrationCodeCreate", new string[] { "registrationCodeCreate.js" });
             addViewScripts("userMange", new string[] { "userMange.js" });
+            addViewScripts("favorite", new string[] { "favorite.js" });
         }
     }
 }

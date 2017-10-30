@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Buy.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Buy.Controllers
 {
@@ -11,24 +12,30 @@ namespace Buy.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Favorite
-        public ActionResult Index(string userId, Enums.FavoriteType type, string platforms, int page = 1)
+        private string UserID
         {
-            if (type == Enums.FavoriteType.Coupon)
+
+            get
             {
-                var list = GetCoupon(userId, platforms);
-                var paged = list.OrderByDescending(s => s.CreateDateTime).ToPagedList(page);
-                var model = paged.Select(s => new Models.ActionCell.CouponCell(s));
-                //return Json(Comm.ToJsonResultForPagedList(paged, model), JsonRequestBehavior.AllowGet);
+                return User.Identity.GetUserId();
             }
-            else
-            {
-                //var list = GetLocalCoupon(userId);
-                //var paged = list.OrderByDescending(s => s.CreateDateTime).ToPagedList(page);
-                //var model = paged.Select(s => new Models.ActionCell.LocalCouponCell(s));
-                //return Json(Comm.ToJsonResultForPagedList(paged, model), JsonRequestBehavior.AllowGet);
-            }
-            return View();
+        }
+
+        // GET: Favorite
+        [Authorize]
+        public ActionResult Coupon(string platforms, int page = 1)
+        {
+            var list = GetCoupon(UserID, platforms);
+            var paged = list.OrderByDescending(s => s.CreateDateTime).ToPagedList(page);
+            return View(paged);
+        }
+
+        [Authorize]
+        public ActionResult LocalCoupon(int page = 1)
+        {
+            var list = GetLocalCoupon(UserID);
+            var paged = list.OrderByDescending(s => s.Favorite.CreateDateTime).ToPagedList(page);
+            return View(paged);
         }
 
         [HttpGet]
@@ -58,8 +65,7 @@ namespace Buy.Controllers
             var ps = platforms.SplitToArray<Enums.CouponPlatform>();
             if (ps == null || ps.Count <= 0)
             {
-                ps.Add(Enums.CouponPlatform.Jd);
-                ps.Add(Enums.CouponPlatform.MoGuJie);
+                ps = new List<Enums.CouponPlatform>();
                 ps.Add(Enums.CouponPlatform.TaoBao);
                 ps.Add(Enums.CouponPlatform.TMall);
             }
@@ -142,12 +148,12 @@ namespace Buy.Controllers
             return list;
         }
 
+
         public IQueryable<FavoriteLocalCouponList> GetLocalCoupon(string userId)
         {
             var localCoupons = from f in db.Favorites
-                               join l in db.LocalCoupons on f.CouponID equals l.ID into lc
-                               from localCoupon in lc.DefaultIfEmpty()
-                               where f.Type == Enums.FavoriteType.LocalCoupon && f.UserID == userId
+                               from localCoupon in db.LocalCoupons
+                               where f.Type == Enums.FavoriteType.LocalCoupon && f.UserID == userId && f.CouponID == localCoupon.ID
                                select new FavoriteLocalCouponList
                                {
                                    Favorite = f,
@@ -162,8 +168,9 @@ namespace Buy.Controllers
                                        Image = localCoupon.Image,
                                        IsFavorite = true,
                                        Name = localCoupon.Name,
-                                       Price = localCoupon.Price
-                                   },
+                                       Price = localCoupon.Price,
+                                       Shop = localCoupon.Shop,
+                                   }
                                };
             return localCoupons;
         }
@@ -173,6 +180,16 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult Create(Favorite model)
         {
+            model.UserID = UserID == null ? model.UserID : UserID;
+            if (model.UserID == null)
+            {
+                return Json(Comm.ToJsonResult("Error", "没有登录"));
+            }
+            var favorites = db.Favorites.Where(s => s.UserID == model.UserID && s.CouponID == model.CouponID);
+            if (favorites.Count() > 0)
+            {
+                return Json(Comm.ToJsonResult("Error", "已经收藏了"));
+            }
             model.CreateDateTime = DateTime.Now;
             db.Favorites.Add(model);
             db.SaveChanges();
@@ -185,6 +202,10 @@ namespace Buy.Controllers
         public ActionResult Delete(int id)
         {
             var favorite = db.Favorites.FirstOrDefault(s => s.ID == id);
+            if (favorite == null)
+            {
+                return Json(Comm.ToJsonResult("Error", "没有收藏券"));
+            }
             db.Favorites.Remove(favorite);
             db.SaveChanges();
             return Json(Comm.ToJsonResult("Success", "成功"));

@@ -13,7 +13,7 @@ var swiper = new Swiper('.find-banner .swiper-container', {
     paginationClickable: true,
     autoplay: 2500,
     autoplayDisableOnInteraction: false,
-    loop:true
+    loop: true
 });
 
 function clear(target) {
@@ -138,12 +138,13 @@ function loadCoupon() {
         dataType: "html",
         success: function (data) {
             //$page.remove();
-            
+
             var $data = $(data);
             if ($data.length > 0) {
                 $("#localCoupon li[data-page]").remove();
             }
             $coupon.find("ul").append($data);
+            favorite();
             comm.lazyloadALL();
         },
         complete: function () {
@@ -152,6 +153,48 @@ function loadCoupon() {
             //    nodataCheck("#coupon ul");
             //}
         }
+    });
+}
+
+//添加删除收藏按鈕
+function favorite() {
+    $(".localcoupon-addCardBtn").click(function (e) {
+        var data = {
+            CouponID: $(this).data("id"),
+            Type: "LocalCoupon"
+        };
+        $.ajax({
+            type: "POST",
+            url: comm.action("Create", "Favorite"),
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                if (data.State == "Success") {
+                    comm.promptBox(data.Message);
+                } else {
+                    comm.promptBox(data.Message);
+                }
+            }
+        });
+    });
+
+    $(".localcoupon-delCardBtn").click(function (e) {
+        var data = {
+            CouponID: $(this).data("id"),
+        };
+        $.ajax({
+            type: "POST",
+            url: comm.action("Delete", "Favorite"),
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                if (data.State == "Success") {
+                    comm.promptBox(data.Message);
+                } else {
+                    comm.promptBox(data.Message);
+                }
+            }
+        });
     });
 }
 
