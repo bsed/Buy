@@ -36,7 +36,7 @@ namespace Buy.Controllers
                     s.TotalCount,
                     s.Remark,
                 }).ToList();
-            return Json(Comm.ToJsonResult("Success", "成功", query), JsonRequestBehavior.AllowGet);
+            return Json(Comm.ToJsonResult("Success", "成功", model), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -109,7 +109,7 @@ namespace Buy.Controllers
                     s.Remark,
                 })
                 .ToList();
-            return Json(Comm.ToJsonResultForPagedList(paged, paged), JsonRequestBehavior.AllowGet); ;
+            return Json(Comm.ToJsonResultForPagedList(paged, model), JsonRequestBehavior.AllowGet); ;
         }
 
         //private void GetProxyUserDetail(List<UserViewModelForProxy> users)
