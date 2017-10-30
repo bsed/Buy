@@ -85,6 +85,16 @@ namespace Buy.Controllers
             }), JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult CouponFavorite()
+        {
+            return View();
+        }
+
+        public ActionResult LocalCouponFavorite()
+        {
+            return View();
+        }
+
         [HttpGet]
         [AllowAnonymous]
         [AllowCrossSiteJson]

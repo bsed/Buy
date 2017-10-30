@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "我的卡包";
+}
+
+<div class="minHight100vh paddingT44">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="navigationBar">
+            <div class="navigationBar-back" onclick="history.back(-1)"></div>
+            <div class="navigationBar-tits">我的卡包</div>
+        </div>
+
+        <div class="paddingLr16 marginT35 localCouponFavorite localcoupon-list">
+            <ul>
+                <li class="loadModule loadModule-dataIng" data-next="true" data-page="0">
+                    <img class="marginR8" src="~/Content/images/view/loadingGif.gif" />加载中
+                </li>
+            </ul>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/favorite")
+}
