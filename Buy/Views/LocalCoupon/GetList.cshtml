@@ -18,10 +18,10 @@
                 <div class="localcoupon-title">@item.Name</div>
                 <div class="color-main fs12">有效期至：@item.EndDateTime.ToString("yyyy-MM-dd")</div>
                 @*添加到卡包，添加后隐藏按钮，提示添加成功*@
-                @*@if (!item.IsFavorite)
+                @if (!item.IsFavorite)
                 {
                     <div class="localcoupon-addCardBtn" data-id="@item.ID"></div>
-                }*@
+                }
             </div>
         </li>
     }

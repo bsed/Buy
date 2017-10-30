@@ -243,3 +243,46 @@ $("#shareback").click(function (e) {
     $("#detail").removeClass("hidden");
     $("#share").addClass("hidden");
 });
+
+//收藏按钮
+$("#collect_btn").click(function (e) {
+    var $this = $(this);
+    if ($this.hasClass("active")) {
+        var data = {
+            id: $this.attr("data-id"),
+        };
+        $.ajax({
+            type: "POST",
+            url: comm.action("Delete", "Favorite"),
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                if (data.State == "Success") {
+                    $this.removeClass("active");
+                    $this.attr("data-id", $("#ID").val());
+                } else {
+                    comm.promptBox(data.Message);
+                }
+            }
+        });
+    } else {
+        var data = {
+            CouponID: $this.attr("data-id"),
+            Type: "Coupon"
+        };
+        $.ajax({
+            type: "POST",
+            url: comm.action("Create", "Favorite"),
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                if (data.State == "Success") {
+                    $this.addClass("active");
+                    $this.attr("data-id", data.Result);
+                } else {
+                    comm.promptBox(data.Message);
+                }
+            }
+        });
+    }
+});

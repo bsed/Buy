@@ -1,12 +1,13 @@
 ﻿
 var canLoadPage = true;
-
+var isCoupon = $(".couponFavorite").length > 0 ? true : false;
+var platforms
 //加载列表
 function loadCoupon() {
     if (!canLoadPage) {
         return;
     }
-    var $coupon = $(".localCouponFavorite");
+    var $coupon = isCoupon ? $(".couponFavorite") : $(".localCouponFavorite");
     var $page = $coupon.find("ul li[data-page]");
     if (!$page.data("next")) {
         return;
@@ -16,7 +17,7 @@ function loadCoupon() {
     $(".nodata").addClass("hidden");
     $.ajax({
         type: "GET",
-        url: comm.action("LocalCoupon", "Favorite"),
+        url: comm.action(isCoupon ? "Coupon" : "LocalCoupon", "Favorite"),
         data: {
             page: page
         },
@@ -24,10 +25,16 @@ function loadCoupon() {
         success: function (data) {
             var $data = $(data);
             if ($data.length > 0) {
-                $(".localCouponFavorite li[data-page]").remove();
+                if (isCoupon) {
+                    $(".couponFavorite li[data-page]").remove();
+                } else {
+                    $(".localCouponFavorite li[data-page]").remove();
+                }
             }
             $coupon.find("ul").append($data);
-            favorite();
+            if (!isCoupon) {
+                favorite();
+            }
             comm.lazyloadALL();
         },
         complete: function () {
@@ -44,9 +51,11 @@ loadCoupon();
 function favorite() {
 
     $(".localcoupon-delCardBtn").click(function (e) {
+        var $this = $(this);
         var data = {
-            CouponID: $(this).data("id"),
+            id: $this.data("id"),
         };
+
         $.ajax({
             type: "POST",
             url: comm.action("Delete", "Favorite"),
@@ -55,6 +64,7 @@ function favorite() {
             success: function (data) {
                 if (data.State == "Success") {
                     comm.promptBox(data.Message);
+                    $this.parents("li").remove();
                 } else {
                     comm.promptBox(data.Message);
                 }

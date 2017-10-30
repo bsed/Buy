@@ -31,6 +31,10 @@ namespace Buy.Controllers
             {
                 query = from u in db.CouponUsers
                         from s in db.Coupons
+                        join f in db.Favorites
+                           .Where(s => s.Type == Enums.FavoriteType.Coupon && s.UserID == model.UserId)
+                        on s.ID equals f.CouponID
+                        into sf
                         where u.CouponID == s.ID && u.UserID == couponUserID
                         select new CouponQuery
                         {
@@ -58,38 +62,46 @@ namespace Buy.Controllers
                             TypeID = s.TypeID,
                             Value = s.Value,
                             UserID = u.UserID,
+                            IsFavorite = sf.Any(),
+                            FavoriteID = sf.Any() ? sf.FirstOrDefault().ID : 0,
                         };
             }
             else
             {
-                query = db.Coupons.Select(s =>
-                         new CouponQuery
-                         {
-                             CreateDateTime = s.CreateDateTime,
-                             DataJson = s.DataJson,
-                             Discount = s.OriginalPrice - s.Price,
-                             DiscountRate = (s.OriginalPrice - s.Price) / s.OriginalPrice,
-                             EndDateTime = s.EndDateTime,
-                             Commission = s.Commission,
-                             CommissionRate = s.CommissionRate,
-                             ID = s.ID,
-                             Image = s.Image,
-                             Link = null,
-                             Name = s.Name,
-                             OriginalPrice = s.OriginalPrice,
-                             Platform = s.Platform,
-                             Price = s.Price,
-                             ProductID = s.ProductID,
-                             ProductType = s.ProductType,
-                             Sales = s.Sales,
-                             ShopName = s.ShopName,
-                             StartDateTime = s.StartDateTime,
-                             Subtitle = s.Subtitle,
-                             Type = s.Type,
-                             TypeID = s.TypeID,
-                             Value = s.Value,
-                             UserID = null,
-                         });
+                query = from s in db.Coupons
+                        join f in db.Favorites
+                           .Where(s => s.Type == Enums.FavoriteType.Coupon && s.UserID == model.UserId)
+                        on s.ID equals f.CouponID
+                        into sf
+                        select new CouponQuery
+                        {
+                            CreateDateTime = s.CreateDateTime,
+                            DataJson = s.DataJson,
+                            Discount = s.OriginalPrice - s.Price,
+                            DiscountRate = (s.OriginalPrice - s.Price) / s.OriginalPrice,
+                            EndDateTime = s.EndDateTime,
+                            Commission = s.Commission,
+                            CommissionRate = s.CommissionRate,
+                            ID = s.ID,
+                            Image = s.Image,
+                            Link = null,
+                            Name = s.Name,
+                            OriginalPrice = s.OriginalPrice,
+                            Platform = s.Platform,
+                            Price = s.Price,
+                            ProductID = s.ProductID,
+                            ProductType = s.ProductType,
+                            Sales = s.Sales,
+                            ShopName = s.ShopName,
+                            StartDateTime = s.StartDateTime,
+                            Subtitle = s.Subtitle,
+                            Type = s.Type,
+                            TypeID = s.TypeID,
+                            Value = s.Value,
+                            UserID = null,
+                            IsFavorite = sf.Any(),
+                            FavoriteID = sf.Any() ? sf.First().ID : 0,
+                        };
             }
             query = query.Where(s => s.EndDateTime > DateTime.Now);
             //不显示创建时间是未来的和过期的
@@ -286,7 +298,8 @@ namespace Buy.Controllers
                            Type = s.Type,
                            TypeID = s.TypeID,
                            Value = s.Value,
-                           IsFavorite = sf.Any()
+                           IsFavorite = sf.Any(),
+                           FavoriteID = sf.Any() ? sf.First().ID : 0,
                        }).FirstOrDefault();
             }
             else
@@ -321,7 +334,8 @@ namespace Buy.Controllers
                            Type = s.Type,
                            TypeID = s.TypeID,
                            Value = s.Value,
-                           IsFavorite = sf.Any()
+                           IsFavorite = sf.Any(),
+                           FavoriteID = sf.Any() ? sf.First().ID : 0,
                        }).FirstOrDefault();
             }
 
@@ -372,6 +386,7 @@ namespace Buy.Controllers
                 ShareUrlQrCode = Url.ContentFull($"~/QrCode?data={Url.Encode(shareUrl)}"),
                 ProductUrl = productUrl,
                 tpt.IsFavorite,
+                tpt.FavoriteID,
             };
             return Json(Comm.ToJsonResult("Success", "成功", new
             {
@@ -651,6 +666,16 @@ namespace Buy.Controllers
         {
             var coupon = db.Coupons
                 .FirstOrDefault(s => s.ID == id);
+            var f = db.Favorites.FirstOrDefault(s => s.CouponID == id && s.UserID == UserID && s.Type == Enums.FavoriteType.Coupon);
+            bool isFavorite = false;
+            int favoriteID = 0;
+            if (f != null)
+            {
+                isFavorite = true;
+                favoriteID = f.ID;
+            }
+            ViewBag.IsFavorite = isFavorite;
+            ViewBag.FavoriteID = favoriteID;
             return View(coupon);
         }
 

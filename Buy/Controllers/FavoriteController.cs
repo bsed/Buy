@@ -69,6 +69,14 @@ namespace Buy.Controllers
                 ps.Add(Enums.CouponPlatform.TaoBao);
                 ps.Add(Enums.CouponPlatform.TMall);
             }
+            else
+            {
+                if (ps.Any(s => s == Enums.CouponPlatform.TaoBao || s == Enums.CouponPlatform.TMall))
+                {
+                    ps.Add(Enums.CouponPlatform.TaoBao);
+                    ps.Add(Enums.CouponPlatform.TMall);
+                }
+            }
 
             string couponUserID = Bll.Accounts.GetCouponUserID(userId);
             IQueryable<CouponUserViewModel> list;
@@ -185,7 +193,8 @@ namespace Buy.Controllers
             {
                 return Json(Comm.ToJsonResult("Error", "没有登录"));
             }
-            var favorites = db.Favorites.Where(s => s.UserID == model.UserID && s.CouponID == model.CouponID);
+            var favorites = db.Favorites.Where(s => s.UserID == model.UserID &&
+                s.CouponID == model.CouponID && s.Type == model.Type);
             if (favorites.Count() > 0)
             {
                 return Json(Comm.ToJsonResult("Error", "已经收藏了"));
@@ -193,7 +202,7 @@ namespace Buy.Controllers
             model.CreateDateTime = DateTime.Now;
             db.Favorites.Add(model);
             db.SaveChanges();
-            return Json(Comm.ToJsonResult("Success", "成功"));
+            return Json(Comm.ToJsonResult("Success", "成功", model.ID));
         }
 
         // POST: Favorite/Delete/5

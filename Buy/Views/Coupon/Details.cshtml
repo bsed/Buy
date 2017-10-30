@@ -38,7 +38,7 @@
     <img id="lazyloadimg" hidden src="~/Content/images/404/placeholder_image.png?w=150&h=150" />
     <div id="detail" class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
-            <div class="couponDetail-top-back fl @(string.IsNullOrWhiteSpace(cUserID)?"":"hidden")" id="btnBack" ></div>
+            <div class="couponDetail-top-back fl @(string.IsNullOrWhiteSpace(cUserID)?"":"hidden")" id="btnBack"></div>
             @*<div class="couponDetail-top-share fr" id="btnShare"></div>*@
         </div>
         <div class="couponDetail-pImg">
@@ -81,13 +81,13 @@
             </div>
         </div>
 
-        <div name="clipboard" class="couponDetail-useBtn clearfix">
+        <div class="couponDetail-useBtn clearfix">
             @Html.HiddenFor(model => model.Platform)
 
             @*.active 已收藏*@
-            @*<div id="collect_btn" class="couponDetail-collect fl" data-id="@Model.ID"></div>*@
+            <div id="collect_btn" class="couponDetail-collect fl @((bool)ViewBag.IsFavorite?"active":"")" data-id="@((bool)ViewBag.IsFavorite?(int)ViewBag.FavoriteID:Model.ID)"></div>
 
-            <div @*class="fr"*@>
+            <div class="fr" name="clipboard">
                 领取<span>@Buy.Bll.Coupons.GetValues(Model)[0].Value</span>券
                 <div class="border-round left"><div></div><div></div><div></div><div></div></div>
                 <div class="border-round right"><div></div><div></div><div></div><div></div></div>

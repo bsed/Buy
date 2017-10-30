@@ -571,6 +571,7 @@
     <Content Include="Content\images\view\img_bg_profile%402x.png" />
     <Content Include="Content\images\view\img_bsk_b%402x.png" />
     <Content Include="Content\images\view\img_burgerking_b%402x.png" />
+    <Content Include="Content\images\view\img_collect_nodata%403x.png" />
     <Content Include="Content\images\view\img_collect_nor%403x.png" />
     <Content Include="Content\images\view\img_collect_pre%403x.png" />
     <Content Include="Content\images\view\img_coupon_nodata.png" />
@@ -579,6 +580,7 @@
     <Content Include="Content\images\view\img_mogoodsx%402x.png" />
     <Content Include="Content\images\view\img_search_nodata%402x.png" />
     <Content Include="Content\images\view\img_tag_qhj%402x.png" />
+    <Content Include="Content\images\view\img_wallet_nodata%403x.png" />
     <Content Include="Content\images\view\img_wallet_nor%403x.png" />
     <Content Include="Content\images\view\img_wallet_pre%403x.png" />
     <Content Include="Content\images\view\img_wechat_login_grey%402x.png" />

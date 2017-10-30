@@ -177,25 +177,6 @@ function favorite() {
             }
         });
     });
-
-    $(".localcoupon-delCardBtn").click(function (e) {
-        var data = {
-            CouponID: $(this).data("id"),
-        };
-        $.ajax({
-            type: "POST",
-            url: comm.action("Delete", "Favorite"),
-            data: data,
-            dataType: "json",
-            success: function (data) {
-                if (data.State == "Success") {
-                    comm.promptBox(data.Message);
-                } else {
-                    comm.promptBox(data.Message);
-                }
-            }
-        });
-    });
 }
 
 $("#pullDown").click(function () {
