@@ -389,7 +389,13 @@ namespace Buy.Controllers
                             LoginDateTime = DateTime.Now,
                             UserID = user.Id
                         });
-                        return Json(Comm.ToJsonResult("Success", "登录成功", new { ID = user.Id, NickName = user.NickName, Code = code }));
+                        return Json(Comm.ToJsonResult("Success", "登录成功", new
+                        {
+                            ID = user.Id,
+                            NickName = user.NickName,
+                            Code = code,
+                            PhoneNumber = user.PhoneNumber
+                        }));
                     }
                 case SignInStatus.LockedOut:
                     {
