@@ -22,20 +22,20 @@ namespace Buy.Controllers
                  && (s.NickName.Contains(filter)
                  || s.PhoneNumber.Contains(filter)));
             var model = query.ToList().Select(s => new
-                {
-                    s.UserName,
-                    s.PhoneNumber,
-                    Avatar = Url.ResizeImage(s.Avatar, null),
-                    s.Id,
-                    s.NickName,
-                    s.CanAddChild,
-                    RegisterDateTime = s.RegisterDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
-                    s.WeChatCode,
-                    s.ThisMonthCount,
-                    s.LastMonthCount,
-                    s.TotalCount,
-                    s.Remark,
-                }).ToList();
+            {
+                s.UserName,
+                s.PhoneNumber,
+                Avatar = Url.ResizeImage(s.Avatar, null),
+                s.Id,
+                s.NickName,
+                s.CanAddChild,
+                RegisterDateTime = s.RegisterDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                s.WeChatCode,
+                s.ThisMonthCount,
+                s.LastMonthCount,
+                s.TotalCount,
+                s.Remark,
+            }).ToList();
             return Json(Comm.ToJsonResult("Success", "成功", model), JsonRequestBehavior.AllowGet);
         }
 
@@ -82,6 +82,10 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult GetChild(string userID, int page = 1, int pageSize = 20, Enums.UserType? type = null)
         {
+            if (string.IsNullOrWhiteSpace(userID))
+            {
+                return Json(Comm.ToJsonResult("Error", "UserID不能为空"));
+            }
             var query = QueryUser(userID).Where(s => s.ParentID == userID);
 
             if (type.HasValue)
@@ -151,6 +155,41 @@ namespace Buy.Controllers
         //    }
         //    return;
         //}
+
+        /// <summary>
+        /// 查询用户和子代理某采集数据输
+        /// </summary>
+        /// <param name="userID">一级代理</param>
+        /// <param name="platform">平台，多个平台之间用,分隔</param>
+        /// <param name="date">日期，默认今天</param>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowCrossSiteJson]
+        public ActionResult GetCouponCount(string userID, string platform, DateTime? date = null)
+        {
+            if (userID == null)
+            {
+                return Json(Comm.ToJsonResult("Error", "UserID不能为空"));
+            }
+            var platforms = platform.SplitToArray<Enums.CouponPlatform>();
+            DateTime dt = date == null ? DateTime.Now.Date : date.Value.Date;
+            var userCoupons = from u in db.Users
+                              where (u.Id == userID || u.ParentUserID == userID)
+                                    && (u.UserType == Enums.UserType.Proxy || u.UserType == Enums.UserType.ProxySec)
+                              join ccu in
+                                (from c in db.Coupons
+                                 from cu in db.CouponUsers
+                                 where c.ID == cu.CouponID
+                                      && System.Data.Entity.DbFunctions.TruncateTime(c.CreateDateTime) == dt
+                                      && platforms.Contains(c.Platform)
+                                 group cu by cu.UserID into ccug
+                                 select new { UserID = ccug.Key, Count = ccug.Count() })
+                              on u.Id equals ccu.UserID into ucc
+                              from lucc in ucc.DefaultIfEmpty()
+                              select new { u.Id, u.PhoneNumber, Count = lucc == null ? 0 : lucc.Count };
+            return Json(Comm.ToJsonResult("Success", "成功", userCoupons), JsonRequestBehavior.AllowGet);
+
+        }
 
         [HttpPost]
         [AllowCrossSiteJson]
