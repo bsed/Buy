@@ -100,7 +100,7 @@ namespace Buy.Controllers
                             Value = s.Value,
                             UserID = null,
                             IsFavorite = sf.Any(),
-                            FavoriteID = sf.Any() ? sf.First().ID : 0,
+                            FavoriteID = sf.Any() ? sf.FirstOrDefault().ID : 0,
                         };
             }
             query = query.Where(s => s.EndDateTime > DateTime.Now);

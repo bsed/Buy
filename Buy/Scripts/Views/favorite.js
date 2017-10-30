@@ -1,7 +1,7 @@
 ﻿
 var canLoadPage = true;
 var isCoupon = $(".couponFavorite").length > 0 ? true : false;
-var platforms
+var platforms = 0;
 //加载列表
 function loadCoupon() {
     if (!canLoadPage) {
