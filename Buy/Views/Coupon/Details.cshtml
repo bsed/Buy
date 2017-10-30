@@ -87,7 +87,7 @@
             @*.active 已收藏*@
             <div id="collect_btn" class="couponDetail-collect fl @((bool)ViewBag.IsFavorite?"active":"")" data-id="@((bool)ViewBag.IsFavorite?(int)ViewBag.FavoriteID:Model.ID)"></div>
 
-            <div class="fr" name="clipboard">
+            <div class="couponDetail-clipboard fr" name="clipboard">
                 领取<span>@Buy.Bll.Coupons.GetValues(Model)[0].Value</span>券
                 <div class="border-round left"><div></div><div></div><div></div><div></div></div>
                 <div class="border-round right"><div></div><div></div><div></div><div></div></div>
