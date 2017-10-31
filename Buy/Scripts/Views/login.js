@@ -53,11 +53,13 @@ $("#submit").click(function (e) {
                 }
             }
             else {
+                $("#submit").prop("disabled", false);
+                $("#submit").val("登录");
                 comm.promptBox(data.Message)
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
-            $("#submit").val("登录成功，跳转中...");
+
         }
     });
 });
