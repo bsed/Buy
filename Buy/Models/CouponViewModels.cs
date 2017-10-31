@@ -15,8 +15,6 @@ namespace Buy.Models
         public decimal Discount { get; set; }
 
         public decimal DiscountRate { get; set; }
-
-        public bool IsFavorite { get; set; }
     }
 
     public class CouponSearchViewModel
@@ -88,6 +86,10 @@ namespace Buy.Models
         public string UserID { get; set; }
 
         public string Link { get; set; }
+
+        public bool IsFavorite { get; set; }
+
+        public int FavoriteID { get; set; }
 
         public Coupon ToCoupon()
         {

@@ -11,14 +11,19 @@
     foreach (var item in Model)
     {
         <li>
-            <div class="localcoupon-img">
-                <img src="~/content/images/404/placeholder_image.png" data-original="@Comm.ResizeImage(item.LocalCoupon.Image)" />
-            </div>
+            <a href="@Url.Action("Details", "LocalCoupon", new { id=item.LocalCoupon.ID})">
+                <div class="localcoupon-img">
+                    <img src="~/content/images/404/placeholder_image.png" data-original="@Comm.ResizeImage(item.LocalCoupon.Image)" />
+                </div>
+            </a>
             <div class="localcoupon-details">
-                <div class="localcoupon-title">@item.LocalCoupon.Name</div>
-                <div class="color-main fs12">有效期至：@item.LocalCoupon.EndDateTime.ToString("yyyy-MM-dd")</div>
-                <div class="localcoupon-delCardBtn" data-id="@item.LocalCoupon.ID">删除</div>
+                <a href="@Url.Action("Details", "LocalCoupon", new { id=item.LocalCoupon.ID})">
+                    <div class="localcoupon-title">@item.LocalCoupon.Name</div>
+                    <div class="color-main fs12">有效期至：@item.LocalCoupon.EndDateTime.ToString("yyyy-MM-dd")</div>
+                </a>
+                <div class="localcoupon-delCardBtn" data-id="@item.Favorite.ID">删除</div>
             </div>
+
         </li>
     }
     if (paged.HasNextPage)
@@ -37,6 +42,6 @@
 else
 {
     <li class="loadModule loadModule-noData">
-        <img src="~/content/images/view/img_coupon_nodata.png" />
+        <img src="~/content/images/view/img_wallet_nodata@3x.png" />
     </li>
 }

@@ -159,6 +159,7 @@ function loadCoupon() {
 //添加删除收藏按鈕
 function favorite() {
     $(".localcoupon-addCardBtn").click(function (e) {
+        var $this = $(this);
         var data = {
             CouponID: $(this).data("id"),
             Type: "LocalCoupon"
@@ -170,25 +171,7 @@ function favorite() {
             dataType: "json",
             success: function (data) {
                 if (data.State == "Success") {
-                    comm.promptBox(data.Message);
-                } else {
-                    comm.promptBox(data.Message);
-                }
-            }
-        });
-    });
-
-    $(".localcoupon-delCardBtn").click(function (e) {
-        var data = {
-            CouponID: $(this).data("id"),
-        };
-        $.ajax({
-            type: "POST",
-            url: comm.action("Delete", "Favorite"),
-            data: data,
-            dataType: "json",
-            success: function (data) {
-                if (data.State == "Success") {
+                    $this.fadeOut();
                     comm.promptBox(data.Message);
                 } else {
                     comm.promptBox(data.Message);

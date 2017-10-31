@@ -202,6 +202,8 @@ namespace Buy.Models.ActionCell
             ProductUrl = productUrl;
             Commission = coupon.Commission;
             CommissionRate = coupon.CommissionRate;
+            IsFavorite = coupon.IsFavorite;
+            FavoriteID = coupon.FavoriteID;
         }
 
         public override CellStyle Style
@@ -250,6 +252,9 @@ namespace Buy.Models.ActionCell
 
         public List<CouponValue> Values { get; set; }
 
+        public bool IsFavorite { get; set; }
+
+        public int FavoriteID { get; set; }
 
         public string ShareUrlQrCode
         {

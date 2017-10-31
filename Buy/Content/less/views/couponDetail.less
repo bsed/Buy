@@ -93,6 +93,10 @@
         border-top: @border;
         padding:0 16rem*@resize;
 
+        &:active{
+            color:@font-col-white;
+        }
+
         .couponDetail-collect{
             background:url("../../images/view/img_collect_nor@3x.png") no-repeat center;
             .square(48rem*@resize);
@@ -105,7 +109,7 @@
             }
         }
 
-        > div {
+        .couponDetail-clipboard {
             position: relative;
             width: 75%;
             //float: right;
