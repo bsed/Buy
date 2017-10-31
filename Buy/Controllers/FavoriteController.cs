@@ -56,7 +56,7 @@ namespace Buy.Controllers
         {
             var list = GetLocalCoupon(userId);
             var paged = list.OrderByDescending(s => s.Favorite.CreateDateTime).ToPagedList(page);
-            var model = paged.Select(s => new Models.ActionCell.FavoriteLocalCouponCell(s.Favorite, new Models.ActionCell.LocalCouponCell(s.LocalCoupon)));
+            var model = paged.Select(s => new Models.ActionCell.LocalCouponCell(s.LocalCoupon));
             return Json(Comm.ToJsonResultForPagedList(paged, model), JsonRequestBehavior.AllowGet);
         }
 
@@ -82,76 +82,78 @@ namespace Buy.Controllers
             IQueryable<CouponUserViewModel> list;
             if (!string.IsNullOrWhiteSpace(couponUserID))
             {
-                list = (from f in db.Favorites
-                        join c in db.Coupons on f.CouponID equals c.ID into fc
-                        from coupons in fc.DefaultIfEmpty()
-                        from u in db.CouponUsers
-                        where f.Type == Enums.FavoriteType.Coupon && f.UserID == userId &&
-                         u.CouponID == coupons.ID && u.UserID == couponUserID && ps.Contains(coupons.Platform)
-                        select coupons)
-                       .Select(s => new CouponUserViewModel()
+                list = from f in db.Favorites
+                       join c in db.Coupons on f.CouponID equals c.ID into fc
+                       from coupons in db.Coupons
+                       from u in db.CouponUsers
+                       where f.Type == Enums.FavoriteType.Coupon && f.UserID == userId &&
+                        u.CouponID == coupons.ID && u.UserID == couponUserID &&
+                        ps.Contains(coupons.Platform)
+                       select new CouponUserViewModel()
                        {
-                           Commission = s.Commission,
-                           CommissionRate = s.CommissionRate,
-                           CreateDateTime = s.CreateDateTime,
-                           DataJson = s.DataJson,
-                           EndDateTime = s.EndDateTime,
-                           Image = s.Image,
-                           Left = s.Left,
-                           ID = s.ID,
-                           Name = s.Name,
-                           OriginalPrice = s.OriginalPrice,
-                           PCouponID = s.PCouponID,
-                           Platform = s.Platform,
-                           PLink = s.PLink,
-                           Price = s.Price,
-                           ProductID = s.ProductID,
-                           ProductType = s.ProductType,
-                           Sales = s.Sales,
-                           ShopName = s.ShopName,
-                           StartDateTime = s.StartDateTime,
-                           Subtitle = s.Subtitle,
-                           Total = s.Total,
-                           TypeID = s.TypeID,
-                           UrlLisr = s.UrlLisr,
-                           Value = s.Value
-                       });
+                           Commission = coupons.Commission,
+                           CommissionRate = coupons.CommissionRate,
+                           CreateDateTime = coupons.CreateDateTime,
+                           DataJson = coupons.DataJson,
+                           EndDateTime = coupons.EndDateTime,
+                           Image = coupons.Image,
+                           Left = coupons.Left,
+                           ID = coupons.ID,
+                           Name = coupons.Name,
+                           OriginalPrice = coupons.OriginalPrice,
+                           PCouponID = coupons.PCouponID,
+                           Platform = coupons.Platform,
+                           PLink = coupons.PLink,
+                           Price = coupons.Price,
+                           ProductID = coupons.ProductID,
+                           ProductType = coupons.ProductType,
+                           Sales = coupons.Sales,
+                           ShopName = coupons.ShopName,
+                           StartDateTime = coupons.StartDateTime,
+                           Subtitle = coupons.Subtitle,
+                           Total = coupons.Total,
+                           TypeID = coupons.TypeID,
+                           UrlLisr = coupons.UrlLisr,
+                           Value = coupons.Value,
+                           FavoriteID = f.ID,
+                           IsFavorite = true,
+                       };
             }
             else
             {
-                list = (from f in db.Favorites
-                        join c in db.Coupons on f.CouponID equals c.ID into fc
-                        from coupons in fc.DefaultIfEmpty()
-                        where f.Type == Enums.FavoriteType.Coupon && f.UserID == userId && ps.Contains(coupons.Platform)
-                        select coupons)
-                           .Select(s =>
-                          new CouponQuery
-                          {
-                              CreateDateTime = s.CreateDateTime,
-                              DataJson = s.DataJson,
-                              Discount = s.OriginalPrice - s.Price,
-                              DiscountRate = (s.OriginalPrice - s.Price) / s.OriginalPrice,
-                              EndDateTime = s.EndDateTime,
-                              Commission = s.Commission,
-                              CommissionRate = s.CommissionRate,
-                              ID = s.ID,
-                              Image = s.Image,
-                              Link = null,
-                              Name = s.Name,
-                              OriginalPrice = s.OriginalPrice,
-                              Platform = s.Platform,
-                              Price = s.Price,
-                              ProductID = s.ProductID,
-                              ProductType = s.ProductType,
-                              Sales = s.Sales,
-                              ShopName = s.ShopName,
-                              StartDateTime = s.StartDateTime,
-                              Subtitle = s.Subtitle,
-                              Type = s.Type,
-                              TypeID = s.TypeID,
-                              Value = s.Value,
-                              UserID = null,
-                          });
+                list = from f in db.Favorites
+                       join c in db.Coupons on f.CouponID equals c.ID into fc
+                       from coupons in fc.DefaultIfEmpty()
+                       where f.Type == Enums.FavoriteType.Coupon && f.UserID == userId && ps.Contains(coupons.Platform)
+                       select new CouponQuery
+                       {
+                           CreateDateTime = coupons.CreateDateTime,
+                           DataJson = coupons.DataJson,
+                           Discount = coupons.OriginalPrice - coupons.Price,
+                           DiscountRate = (coupons.OriginalPrice - coupons.Price) / coupons.OriginalPrice,
+                           EndDateTime = coupons.EndDateTime,
+                           Commission = coupons.Commission,
+                           CommissionRate = coupons.CommissionRate,
+                           ID = coupons.ID,
+                           Image = coupons.Image,
+                           Link = null,
+                           Name = coupons.Name,
+                           OriginalPrice = coupons.OriginalPrice,
+                           Platform = coupons.Platform,
+                           Price = coupons.Price,
+                           ProductID = coupons.ProductID,
+                           ProductType = coupons.ProductType,
+                           Sales = coupons.Sales,
+                           ShopName = coupons.ShopName,
+                           StartDateTime = coupons.StartDateTime,
+                           Subtitle = coupons.Subtitle,
+                           Type = coupons.Type,
+                           TypeID = coupons.TypeID,
+                           Value = coupons.Value,
+                           UserID = null,
+                           IsFavorite = true,
+                           FavoriteID = f.ID
+                       };
             }
             return list;
         }
@@ -178,6 +180,7 @@ namespace Buy.Controllers
                                        Name = localCoupon.Name,
                                        Price = localCoupon.Price,
                                        Shop = localCoupon.Shop,
+                                       FavoriteID = f.ID
                                    }
                                };
             return localCoupons;

@@ -22,7 +22,7 @@ namespace Buy.Controllers
                           into lf
                          from s in db.Shops
                          where l.CreateDateTime < DateTime.Now && l.EndDateTime > DateTime.Now && l.ShopID == s.ID
-                         select new { LocalCoupon = l, IsFavorite = lf.Any(), Shop = s });
+                         select new { LocalCoupon = l, Favorite = lf, Shop = s });
             if (typeIds != null && typeIds.Count > 0)
             {
                 query = query.Where(s => typeIds.Contains(s.LocalCoupon.ShopID));
@@ -36,7 +36,8 @@ namespace Buy.Controllers
                 CreateDateTime = s.LocalCoupon.CreateDateTime,
                 EndDateTime = s.LocalCoupon.EndDateTime,
                 Image = s.LocalCoupon.Image,
-                IsFavorite = s.IsFavorite,
+                IsFavorite = s.Favorite.Any(),
+                FavoriteID = s.Favorite.Any() ? s.Favorite.FirstOrDefault().ID : 0,
                 Name = s.LocalCoupon.Name,
                 Shop = s.Shop,
                 Price = s.LocalCoupon.Price

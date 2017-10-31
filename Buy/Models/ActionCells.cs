@@ -316,6 +316,7 @@ namespace Buy.Models.ActionCell
             ShopName = lc.Shop.Name;
             ShopLogo = Comm.ResizeImage(lc.Shop.Logo, image: null);
             IsFavorite = lc.IsFavorite;
+            FavoriteID = lc.FavoriteID;
         }
 
         public override CellStyle Style
@@ -341,25 +342,7 @@ namespace Buy.Models.ActionCell
         public string ShopLogo { get; set; }
 
         public bool IsFavorite { get; set; }
-    }
 
-    public class FavoriteLocalCouponCell : Cell
-    {
-        public FavoriteLocalCouponCell(Favorite f, LocalCouponCell l)
-        {
-            ID = f.ID.ToString();
-            LocalCouponCell = l;
-        }
-
-        public override CellStyle Style
-        {
-            get
-            {
-                return CellStyle.ThirdPartyFootTicketCell;
-            }
-        }
-
-        public LocalCouponCell LocalCouponCell { get; set; }
-
+        public int FavoriteID { get; set; }
     }
 }

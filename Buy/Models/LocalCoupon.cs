@@ -53,5 +53,7 @@ namespace Buy.Models
     public class LocalCouponList : LocalCoupon
     {
         public bool IsFavorite { get; set; }
+
+        public int FavoriteID { get; set; }
     }
 }
