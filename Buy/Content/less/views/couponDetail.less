@@ -116,10 +116,15 @@
             padding: 0 10rem*@resize;
             margin: 4rem*@resize auto 0 auto;
             .one-line-vertical-mid(39rem*@resize);
+            color: @font-col-white;
             background: -webkit-linear-gradient(left, #FF922B, #FF5913); /* Safari 5.1 - 6.0 */
             background: -o-linear-gradient(right, #FF922B, #FF5913); /* Opera 11.1 - 12.0 */
             background: -moz-linear-gradient(right, #FF922B, #FF5913); /* Firefox 3.6 - 15 */
             background: linear-gradient(to right, #FF922B, #FF5913); /* 标准的语法 */
+
+            &:active,&:hover,&:focus{
+                color: @font-col-white;
+            }
         }
 
         .border-round {
