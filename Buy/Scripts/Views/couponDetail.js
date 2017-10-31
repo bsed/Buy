@@ -260,6 +260,7 @@ $("#collect_btn").click(function (e) {
                 if (data.State == "Success") {
                     $this.removeClass("active");
                     $this.attr("data-id", $("#ID").val());
+                    comm.promptBox("取消收藏");
                 } else {
                     comm.promptBox(data.Message);
                 }
@@ -279,6 +280,7 @@ $("#collect_btn").click(function (e) {
                 if (data.State == "Success") {
                     $this.addClass("active");
                     $this.attr("data-id", data.Result);
+                    comm.promptBox("收藏成功");
                 } else {
                     comm.promptBox(data.Message);
                 }
