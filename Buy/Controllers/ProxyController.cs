@@ -186,7 +186,7 @@ namespace Buy.Controllers
                                  select new { UserID = ccug.Key, Count = ccug.Count() })
                               on u.Id equals ccu.UserID into ucc
                               from lucc in ucc.DefaultIfEmpty()
-                              select new { u.Id, u.PhoneNumber, Count = lucc == null ? 0 : lucc.Count };
+                              select new { UserID = u.Id, u.PhoneNumber, Count = lucc == null ? 0 : lucc.Count };
             return Json(Comm.ToJsonResult("Success", "成功", userCoupons), JsonRequestBehavior.AllowGet);
 
         }
