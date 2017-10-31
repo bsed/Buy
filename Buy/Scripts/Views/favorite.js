@@ -86,6 +86,10 @@ function favorite() {
                 if (data.State == "Success") {
                     comm.promptBox(data.Message);
                     $this.parents("li").remove();
+
+                    if ($(".localCouponFavorite ul").find("li").not(".loadModule").length == "0") {
+                        $(".loadModule").remove();
+                    }
                 } else {
                     comm.promptBox(data.Message);
                 }
