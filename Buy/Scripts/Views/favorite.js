@@ -1,7 +1,17 @@
 ﻿
 var canLoadPage = true;
 var isCoupon = $(".couponFavorite").length > 0 ? true : false;
-var platforms = 0;
+var platforms = $("[data-platform].active").data("platform");
+
+var loading = $("#loading").attr("src");
+
+function clear(target) {
+    $(target).children().remove();
+    var html = "";
+    html += '<li class="loadModule loadModule-dataIng" data-page="0" data-next="true"><img class="marginR8" src="' + loading + '"/>加载中</li>';
+    $(target).append(html);
+}
+
 //加载列表
 function loadCoupon() {
     if (!canLoadPage) {
@@ -19,7 +29,8 @@ function loadCoupon() {
         type: "GET",
         url: comm.action(isCoupon ? "Coupon" : "LocalCoupon", "Favorite"),
         data: {
-            page: page
+            page: page,
+            platforms: platforms
         },
         dataType: "html",
         success: function (data) {
@@ -46,6 +57,16 @@ function loadCoupon() {
     });
 }
 loadCoupon();
+
+$("[data-platform]").click(function () {
+    var $this = $(this);
+    $("[data-platform]").removeClass("active");
+    $this.addClass("active");
+    platforms = $this.data("platform");
+    clear(".couponFavorite ul");
+    canLoadPage = true;
+    loadCoupon();
+});
 
 //删除收藏按鈕
 function favorite() {

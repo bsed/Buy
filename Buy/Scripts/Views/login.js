@@ -26,6 +26,10 @@ $("#submit").click(function (e) {
         url: comm.action("Login", "Account"),
         data: data,
         dataType: "json",
+        beforeSend: function (XMLHttpRequest) {
+            $("#submit").prop("disabled", true);
+            $("#submit").val("登录中，请稍等");
+        },
         success: function (data) {
             if (data.State == "Success") {
                 if (data.Result.UserType == 1) {
@@ -51,6 +55,9 @@ $("#submit").click(function (e) {
             else {
                 comm.promptBox(data.Message)
             }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            $("#submit").val("登录成功，跳转中...");
         }
     });
 });
