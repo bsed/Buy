@@ -11,7 +11,7 @@ $("[name='clearVal']").click(function () {
     $(this).addClass("hidden");
     $(this).parent().find("input").val(null);
 
-    $(this).parents(".account-input").addClass("is-empty").removeClass("is-focused");
+    //$(this).parents(".account-input").addClass("is-empty").removeClass("is-focused");
 
     $("#submit").prop("disabled", true);
 });
@@ -114,19 +114,19 @@ $("#btnlogin").click(function (e) {
     });
 });
 
-$(".account-input input").focus(function () {
-    $(".account-input").removeClass("is-focused");
-    $(this).parents(".account-input").addClass("is-focused");
-});
+//$(".account-input input").focus(function () {
+//    $(".account-input").removeClass("is-focused");
+//    $(this).parents(".account-input").addClass("is-focused");
+//});
 
-$(".account-input input").blur(function () {
-    $(this).parents(".account-input").removeClass("is-focused");
-});
+//$(".account-input input").blur(function () {
+//    $(this).parents(".account-input").removeClass("is-focused");
+//});
 
-$(".account-input input").keyup(function () {
-    if ($(this).val() == "") {
-        $(this).parents(".account-input").addClass("is-empty");
-    } else {
-        $(this).parents(".account-input").removeClass("is-empty");
-    }
-});
+//$(".account-input input").keyup(function () {
+//    if ($(this).val() == "") {
+//        $(this).parents(".account-input").addClass("is-empty");
+//    } else {
+//        $(this).parents(".account-input").removeClass("is-empty");
+//    }
+//});

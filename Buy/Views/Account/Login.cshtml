@@ -23,14 +23,14 @@
             </div>
 
             <div class="paddingLr16">
-                <div class="account-input is-empty style02">
+                <div class="account-input">
                     <div class="account-input-tits">手机号码</div>
                     @Html.TextBoxFor(m => m.UserName, new { @class = "" })
                     <div name="clearVal" class="account-input-del hidden"></div>
                 </div>
-                <div class="account-input is-empty style02">
+                <div class="account-input">
                     <div class="account-input-tits">密码</div>
-                    @Html.TextBoxFor(m => m.Password, new { @class = "" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "" })
                     <div name="clearVal" class="account-input-del hidden"></div>
                 </div>
 
