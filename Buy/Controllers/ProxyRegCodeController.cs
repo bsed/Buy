@@ -117,7 +117,7 @@ namespace Buy.Controllers
             }
             foreach (var item in codes)
             {
-                item.OwnUser = phoneNumber;
+                item.OwnUser = tUser.Id;
             }
             db.SaveChanges();
             var tLog = new RegistrationCodeLog { Count = count, CreateDateTime = DateTime.Now, From = userID, UserID = tUser.Id };
