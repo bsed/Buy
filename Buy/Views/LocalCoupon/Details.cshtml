@@ -1,10 +1,9 @@
 ﻿@model Buy.Models.LocalCoupon
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "券详情";
 }
-
-
 
 <div class="localcoupon">
     <div class="localcoupon-detail minHight100vh paddingT44">
@@ -29,6 +28,14 @@
             <div name="foodTime" class="color-main fs14">有效期至：@Model.EndDateTime.ToString("yyyy-MM-dd")</div>
             <div class="fs16 marginT20">说明：@Html.DisplayFor(model => model.Remark)</div>
         </div>
+        @if (Model.Shop.Code == "xianggu")
+        {
+            <div class="localcoupon-detail-buy">
+                <a href="@($"http://www.immlm.net/Product/Details?name={Model.Name}&&userID={User.Identity.GetUserId()}")">
+                    立刻购买
+                </a>
+            </div>
+        }
     </div>
 </div>
 

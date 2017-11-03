@@ -4,7 +4,7 @@
     .localcoupon-detail {
         min-height: 100vh;
         background-color: @font-col-black01;
-        color:@font-col-white;
+        color: @font-col-white;
 
         .localcoupon-detail-label {
             color: #FFD500;
@@ -14,16 +14,32 @@
         .localcoupon-detail-img {
             .img();
 
-            a{
-                display:block;
+            a {
+                display: block;
             }
         }
 
         .localcoupon-detail-info {
-            padding: 15rem*@resize;
+            padding: 15rem*@resize 15rem*@resize 48rem*@resize 15rem*@resize;
             color: @font-col-white;
+        }
 
-
+        .localcoupon-detail-buy {
+            a {
+                display: block;
+                position: fixed;
+                width: 100%;
+                bottom: 0;
+                z-index: @z-index-bottom;
+                height: 48rem*@resize;
+                text-align: center;
+                font-size: @font-size-4;
+                border-top: @border;
+                background-color: @bg-color-black;
+                padding: 0 16rem*@resize;
+                line-height: 48rem*@resize;
+                .clean-a();
+            }
         }
     }
 }

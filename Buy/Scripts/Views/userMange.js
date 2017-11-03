@@ -1,4 +1,4 @@
-﻿var unionUrl = "http://localhost:18434/";
+﻿var unionUrl = "http://www.immlm.net/";
 
 if ($(".productProxy").length > 0) {
 
