@@ -12,9 +12,9 @@ namespace Buy.Jd
 {
     public static class Config
     {
-        public const string AppKey = "B7C4D27A373518F4C2B8952BF5D2C9BA";
+        public const string AppKey = "01033F980DC500993B993CFBB8179B33";
 
-        public const string AppSecret = "8927c105d49e4a06b755353fdf4d24f5";
+        public const string AppSecret = "3044d944140c404b93c55362ec87b873";
 
         public const long UnionID = 1000282367;
 
@@ -104,6 +104,17 @@ namespace Buy.Jd
             json = JsonConvert.DeserializeObject<JObject>(strData);
             var result = json["result"].Values<JObject>().ToList();
 
+        }
+
+        public string QueryCouponGoods()
+        {
+
+            UnionThemeGoodsServiceQueryCouponGoodsRequest req = new UnionThemeGoodsServiceQueryCouponGoodsRequest();
+
+            req.from = 0; req.pageSize = 100;
+
+            UnionThemeGoodsServiceQueryCouponGoodsResponse response = _client.Execute(req, Token.AccessToken, DateTime.Now.ToLocalTime());
+            return response.Body;
         }
 
         public void GetTest()

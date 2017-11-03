@@ -325,6 +325,7 @@
     <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JDController.cs" />
     <Compile Include="Controllers\LocalCouponController.cs" />
     <Compile Include="Controllers\LocalCouponManageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -1191,6 +1192,7 @@
   <ItemGroup>
     <Folder Include="Views\Apply\" />
     <Folder Include="Views\Banner\" />
+    <Folder Include="Views\JD\" />
     <Folder Include="Views\ProxyRegCode\" />
     <Folder Include="Views\Proxy\" />
     <Folder Include="Views\RegCode\" />
