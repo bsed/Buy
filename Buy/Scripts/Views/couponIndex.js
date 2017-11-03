@@ -346,16 +346,21 @@ function loadCoupon() {
         },
         dataType: "html",
         success: function (data) {
-            $page.remove();
-            var $data = $(data);
-            $coupon.find("ul").append($data);
-            comm.lazyloadALL();
+            if (data != "") {
+                $page.remove();
+                var $data = $(data);
+                $coupon.find("ul").append($data);
+                comm.lazyloadALL();
+            } else {
+                $page.remove();
+                nodataCheck("#coupon ul");
+            }
         },
         complete: function () {
             canLoadPage = true;
-            if ($coupon.find("li").length == 0) {
-                nodataCheck("#coupon ul");
-            }
+            //if ($coupon.find("li").length == 0) {
+            //    nodataCheck("#coupon ul");
+            //}
         }
     });
 }
