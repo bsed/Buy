@@ -29,6 +29,23 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Model.Type.GetDisplayName()
+        </dd>
+        @if (Model.Type == Buy.Enums.LocalCouponType.Online)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Link)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Link)
+            </dd>
+        }
+        <dt>
             @Html.DisplayNameFor(model => model.CreateDateTime)
         </dt>
 
@@ -94,5 +111,5 @@
 
     </dl>
 
-   
+
 </div>

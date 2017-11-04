@@ -11,9 +11,12 @@
             <div class="navigationBar-back" id="btnBack"></div>
             <div class="navigationBar-tits style02">券详情</div>
         </div>
-        <div class="localcoupon-detail-label fs24 fontWeight">
-            到店直接出示此页即可使用
-        </div>
+        @if (Model.Type == Buy.Enums.LocalCouponType.Offline)
+        {
+            <div class="localcoupon-detail-label fs24 fontWeight">
+                到店直接出示此页即可使用
+            </div>
+        }
         <div class="localcoupon-detail-img">
             <a href="@Comm.ResizeImage(Model.Image)">
                 <img src="@Comm.ResizeImage(Model.Image)" />
@@ -28,10 +31,10 @@
             <div name="foodTime" class="color-main fs14">有效期至：@Model.EndDateTime.ToString("yyyy-MM-dd")</div>
             <div class="fs16 marginT20">说明：@Html.DisplayFor(model => model.Remark)</div>
         </div>
-        @if (Model.Shop.Code == "xianggu")
+        @if (Model.Type == Buy.Enums.LocalCouponType.Online)
         {
             <div class="localcoupon-detail-buy">
-                <a href="@($"http://www.immlm.net/Product/Details?name={Model.Name}&&userID={User.Identity.GetUserId()}")">
+                <a href="@($"{Model.Link}&&userID={User.Identity.GetUserId()}")">
                     立刻购买
                 </a>
             </div>

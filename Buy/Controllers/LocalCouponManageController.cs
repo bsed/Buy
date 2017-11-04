@@ -80,7 +80,9 @@ namespace Buy.Controllers
                     Image = model.FileUpload.Images.FirstOrDefault(),
                     Name = model.Name,
                     Price = model.Price,
-                    Commission = model.Commission
+                    Commission = model.Commission,
+                    Link = model.Link,
+                    Type = model.Type,
                 };
                 db.LocalCoupons.Add(lc);
                 db.SaveChanges();
@@ -114,7 +116,9 @@ namespace Buy.Controllers
                 ID = lc.ID,
                 Price = lc.Price,
                 Remark = lc.Remark,
-                Commission = lc.Commission
+                Commission = lc.Commission,
+                Link = lc.Link,
+                Type = lc.Type
             };
             return View(model);
         }
@@ -147,6 +151,8 @@ namespace Buy.Controllers
                 lc.CreateDateTime = model.CreateDateTime;
                 lc.EndDateTime = model.EndDateTime;
                 lc.Commission = model.Commission;
+                lc.Type = model.Type;
+                lc.Link = model.Link;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

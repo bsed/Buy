@@ -27,8 +27,24 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ShopID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ShopID, (List<SelectListItem>)ViewBag.Shop,  new { @class = "form-control" } )
+                @Html.DropDownListFor(model => model.ShopID, (List<SelectListItem>)ViewBag.Shop, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ShopID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Type, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group typeLink">
+            @Html.LabelFor(model => model.Link, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -91,5 +107,18 @@
     @Scripts.Render("~/bundles/datetimepicker/js")
     <script>
         $("#EndDateTime,#CreateDateTime").date();
+
+        function linkHidden() {
+            if ($("#Type").val() == "0") {
+                $(".typeLink").addClass("hidden");
+            } else {
+                $(".typeLink").removeClass("hidden");
+            }
+        }
+        linkHidden();
+
+        $("#Type").change(function (e) {
+            linkHidden();
+        });
     </script>
 }

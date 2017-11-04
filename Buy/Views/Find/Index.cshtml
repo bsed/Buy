@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<Buy.Models.Shop>
-
+@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "本地券";
 }
 @Styles.Render("~/bundles/swiper/css")
 
 @Html.Hidden("shopId", Request["shopId"])
-
+@Html.Hidden("UserID", User.Identity.GetUserId())
 <img id="loading" class="hidden" src="~/Content/images/view/loadingGif.gif" />
 <div class="find bg-color-grey minHight100vh paddingT88 paddingB50">
     <div class="navigationBar"><div class="navigationBar-tits">本地券</div></div>

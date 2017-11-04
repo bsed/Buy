@@ -12,6 +12,14 @@ namespace Buy.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        private string UserID
+        {
+            get
+            {
+                return User.Identity.GetUserId();
+            }
+        }
+
         private IQueryable<LocalCouponList> QueryShops(string userId, List<int> typeIds = null)
         {
             var query = (from l in db.LocalCoupons
@@ -72,15 +80,24 @@ namespace Buy.Controllers
         [AllowCrossSiteJson]
         public ActionResult GetShop()
         {
-            var shops = db.Shops.OrderBy(s => s.Sort).ToList();
+            var shops = db.Shops.AsQueryable();
+            var users = db.Users.Where(s => s.UserName == "15999737564" || s.Id == UserID);
+            var testuser = users.FirstOrDefault(s => s.UserName == "15999737564").Id;
+            var user = users.FirstOrDefault(s => s.Id == UserID);
+            if (user != null && (user.Id == testuser || user.ParentUserID == testuser))
+            { }
+            else
+            {
+                shops = shops.Where(s => s.Code != "xianggu");
+            }
             return Json(Comm.ToJsonResult("Success", "成功", new
             {
-                Data = shops.Select(s => new
+                Data = shops.OrderBy(s => s.Sort).ToList().Select(s => new
                 {
                     Logo = Url.ResizeImage(s.Logo),
                     s.Code,
                     s.Name,
-                    s.ID
+                    s.ID,
                 })
             }), JsonRequestBehavior.AllowGet);
         }
