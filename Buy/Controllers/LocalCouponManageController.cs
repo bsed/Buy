@@ -88,6 +88,7 @@ namespace Buy.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            GetShop();
             return View(model);
         }
 
