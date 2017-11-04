@@ -440,6 +440,10 @@
     <Compile Include="Migrations\201710270326596_FavoriteAddType.Designer.cs">
       <DependentUpon>201710270326596_FavoriteAddType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711040129409_LocalCouponAddTypeAndLink.cs" />
+    <Compile Include="Migrations\201711040129409_LocalCouponAddTypeAndLink.Designer.cs">
+      <DependentUpon>201711040129409_LocalCouponAddTypeAndLink.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1275,6 +1279,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710270326596_FavoriteAddType.resx">
       <DependentUpon>201710270326596_FavoriteAddType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711040129409_LocalCouponAddTypeAndLink.resx">
+      <DependentUpon>201711040129409_LocalCouponAddTypeAndLink.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

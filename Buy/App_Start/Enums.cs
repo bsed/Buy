@@ -465,4 +465,12 @@ namespace Buy.Enums
         LocalCoupon
     }
 
+    
+    public enum LocalCouponType
+    {
+        [Display(Name ="线下")]
+        Offline,
+        [Display(Name = "线上")]
+        Online
+    }
 }
