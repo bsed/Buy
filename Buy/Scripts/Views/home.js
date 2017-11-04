@@ -1,5 +1,7 @@
 ﻿var sum = 0;
 
+$(".app").addClass("active");
+
 $(window).on('mousewheel', function (event, delta) {
     sum = sum + delta;
 
