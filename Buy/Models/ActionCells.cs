@@ -317,6 +317,8 @@ namespace Buy.Models.ActionCell
             ShopLogo = Comm.ResizeImage(lc.Shop.Logo, image: null);
             IsFavorite = lc.IsFavorite;
             FavoriteID = lc.FavoriteID;
+            Link = lc.Link;
+            LocalCouponType = lc.Type;
         }
 
         public override CellStyle Style
@@ -344,5 +346,9 @@ namespace Buy.Models.ActionCell
         public bool IsFavorite { get; set; }
 
         public int FavoriteID { get; set; }
+
+        public string Link { get; set; }
+
+        public Enums.LocalCouponType LocalCouponType { get; set; }
     }
 }

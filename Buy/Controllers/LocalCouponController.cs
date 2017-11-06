@@ -48,7 +48,9 @@ namespace Buy.Controllers
                 FavoriteID = s.Favorite.Any() ? s.Favorite.FirstOrDefault().ID : 0,
                 Name = s.LocalCoupon.Name,
                 Shop = s.Shop,
-                Price = s.LocalCoupon.Price
+                Price = s.LocalCoupon.Price,
+                Link=s.LocalCoupon.Link,
+                Type=s.LocalCoupon.Type,
             });
             return model;
         }
@@ -140,6 +142,8 @@ namespace Buy.Controllers
                 EndDateTime = lc.EndDateTime.ToString("yyyy-MM-dd"),
                 lc.ShopID,
                 ShopLogo = Url.ContentFull(lc.Shop.Logo),
+                lc.Type,
+                lc.Link
             };
             return Json(Comm.ToJsonResult("Success", "成功", new { Data = data }), JsonRequestBehavior.AllowGet);
         }
