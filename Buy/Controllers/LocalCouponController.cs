@@ -49,8 +49,8 @@ namespace Buy.Controllers
                 Name = s.LocalCoupon.Name,
                 Shop = s.Shop,
                 Price = s.LocalCoupon.Price,
-                Link=s.LocalCoupon.Link,
-                Type=s.LocalCoupon.Type,
+                Link = s.LocalCoupon.Link,
+                Type = s.LocalCoupon.Type,
             });
             return model;
         }
@@ -87,7 +87,7 @@ namespace Buy.Controllers
             var users = db.Users.Where(s => s.UserName == "15999737564" || s.Id == UserID);
             var testuser = users.FirstOrDefault(s => s.UserName == "15999737564").Id;
             var user = users.FirstOrDefault(s => s.Id == UserID);
-            if (user.UserType == Enums.UserType.Normal && user.ParentUserID != testuser)
+            if (user != null && user.UserType == Enums.UserType.Normal && user.ParentUserID != testuser)
             {
                 user = db.Users.FirstOrDefault(s => s.Id == user.ParentUserID);
             }
