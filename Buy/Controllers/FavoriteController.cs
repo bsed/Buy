@@ -146,7 +146,9 @@ namespace Buy.Controllers
                                        Name = localCoupon.Name,
                                        Price = localCoupon.Price,
                                        Shop = localCoupon.Shop,
-                                       FavoriteID = f.ID
+                                       FavoriteID = f.ID,
+                                       Link = localCoupon.Link,
+                                       Type = localCoupon.Type
                                    }
                                };
             return localCoupons;
