@@ -78,12 +78,17 @@ namespace Buy.Controllers
 
         [HttpGet]
         [AllowCrossSiteJson]
-        public ActionResult GetShop()
+        public ActionResult GetShop(string userId)
         {
             var shops = db.Shops.AsQueryable();
+            userId = string.IsNullOrWhiteSpace(UserID) ? userId : UserID;
             var users = db.Users.Where(s => s.UserName == "15999737564" || s.Id == UserID);
             var testuser = users.FirstOrDefault(s => s.UserName == "15999737564").Id;
             var user = users.FirstOrDefault(s => s.Id == UserID);
+            if (user.UserType == Enums.UserType.Normal && user.ParentUserID != testuser)
+            {
+                user = db.Users.FirstOrDefault(s => s.Id == user.ParentUserID);
+            }
             if (user != null && (user.Id == testuser || user.ParentUserID == testuser))
             { }
             else
