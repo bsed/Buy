@@ -69,7 +69,7 @@ namespace Buy.Controllers
         {
             var code = db.RegistrationCodes
                 .FirstOrDefault(s => s.OwnUser == userID
-                    && s.UseEndDateTime == null);
+                    && s.UseEndDateTime == null && s.UseTime == null);
 
             if (code == null)
             {
@@ -77,7 +77,7 @@ namespace Buy.Controllers
             }
             var count = db.RegistrationCodes
                 .Count(s => s.OwnUser == userID
-                    && s.UseEndDateTime == null);
+                    && s.UseEndDateTime == null && s.UseTime == null);
             return Json(Comm.ToJsonResult("Success", "成功", new { Code = code.Code, Lave = count }), JsonRequestBehavior.AllowGet);
         }
 
