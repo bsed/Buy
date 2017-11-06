@@ -34,7 +34,7 @@
         @if (Model.Type == Buy.Enums.LocalCouponType.Online)
         {
             <div class="localcoupon-detail-buy">
-                <a href="@($"{Model.Link}&&userID={User.Identity.GetUserId()}")">
+                <a href="@($"{Model.Link}&userID={User.Identity.GetUserId()}")">>
                     立刻购买
                 </a>
             </div>

@@ -64,8 +64,7 @@ namespace Buy.Controllers
 
         public ActionResult GetList(string shopId = null, int page = 1)
         {
-            var userId = User.Identity.GetUserId();
-            var paged = QueryShops(userId, shopId?.SplitToIntArray())
+            var paged = QueryShops(UserID, shopId?.SplitToIntArray())
                 .OrderByDescending(s => s.CreateDateTime)
                 .ToPagedList(page);
             return View(paged);
@@ -83,10 +82,10 @@ namespace Buy.Controllers
         public ActionResult GetShop(string userId)
         {
             var shops = db.Shops.AsQueryable();
-            userId = string.IsNullOrWhiteSpace(UserID) ? userId : UserID;
-            var users = db.Users.Where(s => s.UserName == "15999737564" || s.Id == UserID);
+            userId = UserID == null ? userId : UserID;
+            var users = db.Users.Where(s => s.UserName == "15999737564" || s.Id == userId);
             var testuser = users.FirstOrDefault(s => s.UserName == "15999737564").Id;
-            var user = users.FirstOrDefault(s => s.Id == UserID);
+            var user = users.FirstOrDefault(s => s.Id == userId);
             if (user != null && user.UserType == Enums.UserType.Normal && user.ParentUserID != testuser)
             {
                 user = db.Users.FirstOrDefault(s => s.Id == user.ParentUserID);
