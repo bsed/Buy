@@ -14,7 +14,6 @@ namespace Buy.Bll
                 .Where(s => s.Platform == platform && !string.IsNullOrWhiteSpace(s.Keyword))
                 .FirstOrDefault(s =>
                 {
-
                     var keys = s.Keyword.SplitToArray<string>();
                     return keys.Contains(keyword);
                 })?.ID;
@@ -166,6 +165,14 @@ namespace Buy.Bll
                             && links.Contains(s.Link))
                             .Select(s => s.Link)
                             .ToList();
+                        //临时表里的重复券
+                        dbLinks.AddRange(
+                            db.CouponUserTemps
+                            .Where(s => s.UserID == userID
+                            && s.Platform == p
+                            && links.Contains(s.Link))
+                            .Select(s => s.Link)
+                            .ToList());
                     }
                     else
                     {
@@ -175,6 +182,14 @@ namespace Buy.Bll
                            && links.Contains(s.Link))
                            .Select(s => s.Link)
                            .ToList();
+                        //临时表里的重复券
+                        dbLinks.AddRange(
+                            db.CouponUserTemps
+                            .Where(s => s.UserID == userID
+                             && platforms.Contains(s.Platform)
+                            && links.Contains(s.Link))
+                            .Select(s => s.Link)
+                            .ToList());
                     }
 
                     if (dbLinks.Count > 0)
@@ -189,7 +204,6 @@ namespace Buy.Bll
                     {
                         var p = platforms[0];
                         queryCoupon = queryCoupon.Where(s => s.Platform == p && pLinks.Contains(s.PLink));
-
                     }
                     else
                     {
@@ -199,29 +213,80 @@ namespace Buy.Bll
                     var couponIDs = queryCoupon
                         .Select(s => new { s.ID, s.PLink })
                         .ToList();
+                    //var userCoupons = (
+                    //                   from t in addTemp
+                    //                   join ci in couponIDs on t.PLink equals ci.PLink into cig
+                    //                   from k in cig.DefaultIfEmpty()
+                    //                   where k != null
+                    //                   select new CouponUser
+                    //                   {
+                    //                       CouponID = k.ID,
+                    //                       Link = t.Link,
+                    //                       PCouponID = t.PCouponID,
+                    //                       UserID = userID,
+                    //                       Platform = t.Platform,
+                    //                       ProductID = t.ProductID
+                    //                   }).ToList();
+                    // db.CouponUsers.AddRange(userCoupons);
+
+                    //保存到临时表
                     var userCoupons = (
                                        from t in addTemp
                                        join ci in couponIDs on t.PLink equals ci.PLink into cig
                                        from k in cig.DefaultIfEmpty()
                                        where k != null
-                                       select new CouponUser
+                                       select new CouponUserTemp
                                        {
                                            CouponID = k.ID,
                                            Link = t.Link,
                                            PCouponID = t.PCouponID,
                                            UserID = userID,
                                            Platform = t.Platform,
-                                           ProductID = t.ProductID
+                                           ProductID = t.ProductID,
+                                           CreateDateTime = DateTime.Now
                                        }).ToList();
-                    db.CouponUsers.AddRange(userCoupons);
+                    db.CouponUserTemps.AddRange(userCoupons);
                     db.SaveChanges();
                 }
-
+                //保存到正式表
+                var platformss = models.GroupBy(s => s.Platform).Select(s => s.Key).ToList();
+                var CouponUserTemps = db.CouponUserTemps
+                    .Where(s => s.UserID == userID && platformss.Contains(s.Platform))
+                    .Select(s => new CouponUser()
+                    {
+                        CouponID = s.CouponID,
+                        CreateDateTime = s.CreateDateTime,
+                        Link = s.Link,
+                        PCouponID = s.PCouponID,
+                        Platform = s.Platform,
+                        ProductID = s.ProductID,
+                        UserID = s.UserID
+                    });
+                var count = CouponUserTemps.Count();
+                int upageSize = 50;
+                int utotalPage = count / upageSize + (count % upageSize > 0 ? 1 : 0);
+                for (int i = 1; i <= pageSize; i++)
+                {
+                    var data = CouponUserTemps.OrderBy(s => s.ID).ToPagedList(i, 50);
+                    foreach (var item in data)
+                    {
+                        db.CouponUsers.Add(item);
+                    }
+                    db.SaveChanges();
+                }
+                //删除临时表
+                var tempList = db.CouponUserTemps
+                    .Where(s => s.UserID == userID && platformss.Contains(s.Platform));
+                for (int i = 1; i <= pageSize; i++)
+                {
+                    var data = tempList.OrderBy(s => s.ID).ToPagedList(i, 50);
+                    foreach (var item in data)
+                    {
+                        db.CouponUserTemps.Remove(item);
+                    }
+                    db.SaveChanges();
+                }
             }
-
         }
-
-
-
     }
 }

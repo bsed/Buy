@@ -408,5 +408,30 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", "成功", list), JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [AllowCrossSiteJson]
+        [AllowAnonymous]
+        public ActionResult CtrateTime()
+        {
+            var userCoupons = from u in db.CouponUsers
+                              join c in db.Coupons on u.CouponID equals c.ID into uc
+                              from coupon in uc.DefaultIfEmpty()
+                              where coupon != null && u.CreateDateTime.Year < DateTime.Now.Year
+                              select new { u, coupon };
+
+            int count = userCoupons.Count();
+            int totalPage = count / 50 + (count % 50 > 0 ? 1 : 0);
+            int changeCount = 0;
+            for (int i = 1; i <= totalPage; i++)
+            {
+                var data = userCoupons.OrderBy(s => s.u.ID).ToPagedList(i, 50);
+                foreach (var item in data)
+                {
+                    item.u.CreateDateTime = item.coupon.CreateDateTime;
+                }
+                changeCount += db.SaveChanges();
+            }
+            return Json(Comm.ToJsonResult("Success", "成功", changeCount), JsonRequestBehavior.AllowGet);
+        }
     }
 }
