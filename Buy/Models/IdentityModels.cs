@@ -128,5 +128,8 @@ namespace Buy.Models
 
 
         public virtual DbSet<Favorite> Favorites { get; set; }
+
+
+        public virtual DbSet<CouponUserTemp> CouponUserTemps { get; set; }
     }
 }

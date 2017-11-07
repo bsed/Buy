@@ -62,8 +62,8 @@ namespace Buy.Controllers
                             TypeID = s.TypeID,
                             Value = s.Value,
                             UserID = u.UserID,
-                            IsFavorite = sf.Any(),
-                            FavoriteID = sf.Any() ? sf.FirstOrDefault().ID : 0,
+                            IsFavorite = false,
+                            FavoriteID = 0,
                         };
             }
             else
@@ -198,6 +198,7 @@ namespace Buy.Controllers
                 case Enums.CouponSort.Default:
                 default:
                     {
+
                         query = query.Select(s => new
                         {
                             result = s.Price > 19.99m && s.Price < 150.01m ? 0 : 1,
@@ -206,11 +207,7 @@ namespace Buy.Controllers
                         .ThenByDescending(s => s.CouponQuery.CommissionRate)
                         .ThenByDescending(s => s.CouponQuery.Sales)
                         .Select(s => s.CouponQuery);
-                        //query = query.Where(s => s.CreateDateTime > date
-                        //   && s.Price > 19.99m
-                        //   && s.Price < 150.01m);
-                        //query = query.OrderByDescending(s => s.CommissionRate)
-                        //        .ThenByDescending(s => s.Sales);
+
                     }
                     break;
             }
@@ -226,7 +223,7 @@ namespace Buy.Controllers
             int page = 1, string types = null,
             string platforms = null,
             bool orderByTime = false, Enums.CouponSort sort = Enums.CouponSort.Default,
-            decimal minPrice = 0, decimal maxPrice = 0, string userId = null)
+            decimal minPrice = 0, decimal maxPrice = 0, string userId = null, int pageSize = 50)
         {
 
             loadTime = loadTime.HasValue ? loadTime : DateTime.Now;
@@ -251,7 +248,8 @@ namespace Buy.Controllers
             }
             else
             {
-                var paged = QueryCoupon(model).ToPagedList(page, 50);
+
+                var paged = QueryCoupon(model).ToPagedList(page, pageSize);
                 var models = paged.Distinct(new CouponUserViewModelComparer())
                     .Select(s => new Models.ActionCell.CouponCell(s)).ToList();
                 return Json(Comm.ToJsonResultForPagedList(paged, models), JsonRequestBehavior.AllowGet);
