@@ -794,7 +794,7 @@ namespace Buy.Controllers
         [HttpPost]
         [AllowAnonymous]
         [AllowCrossSiteJson]
-        public ActionResult LoginByWeiXinUnionID(string unionID)
+        public ActionResult LoginByWeiXinUnionID(string unionID, string avatar, string nickname, bool NeedRegister = false)
         {
             if (!ModelState.IsValid)
             {
@@ -805,7 +805,14 @@ namespace Buy.Controllers
                 var user = db.Users.FirstOrDefault(s => s.WeChatID == unionID);
                 if (user == null)
                 {
-                    return Json(Comm.ToJsonResult("NoFound", "用户不存在"));
+                    if (NeedRegister)
+                    {
+                        user = LoginByWeiXinInfo(unionID, avatar, nickname);
+                    }
+                    else
+                    {
+                        return Json(Comm.ToJsonResult("NoFound", "用户不存在"));
+                    }
                 }
                 return Json(Comm.ToJsonResult("Success", "成功", new UserViewModel(user)));
             }
