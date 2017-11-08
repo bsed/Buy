@@ -10,6 +10,7 @@ namespace Buy.Controllers
     {
         // GET: Taobao
         [HttpPost]
+        [AllowCrossSiteJson]
         public ActionResult Import(string userID, string url)
         {
             if (string.IsNullOrWhiteSpace(userID))
@@ -30,7 +31,7 @@ namespace Buy.Controllers
             {
                 Comm.WriteLog("TaoBaoImort", $"删除缓存失败：{ex.Message}", Enums.DebugLogLevel.Error, Url.Action(), ex);
             }
-          
+
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
     }

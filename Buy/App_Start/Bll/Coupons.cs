@@ -73,8 +73,10 @@ namespace Buy.Bll
                 //分段添加到数据库
                 int pageSize = 200;
                 var totalPage = models.Count / pageSize + (models.Count % pageSize > 0 ? 1 : 0);
+                var stwatch = new System.Diagnostics.Stopwatch();
+                TimeSpan tsAddCoupon, tsAddTempCouponUser, tsAddCouponUser, tsAddKeyword, tsFilter;
+                stwatch.Start();
 
-                var dtTS = DateTime.Now;
                 //这里只导入券，不含链接，链接在导入完商品有导入
                 for (int i = 0; i < totalPage; i++)
                 {
@@ -100,11 +102,14 @@ namespace Buy.Bll
                     }
                     afterFilter.AddRange(addTemp);
                 }
-
+                stwatch.Stop();
+                tsFilter = new TimeSpan(stwatch.ElapsedMilliseconds);
+                stwatch.Reset();
+                stwatch.Start();
                 //伪造添加时间
                 //从每天8点开始总时间为16小时，分组商品数量大于100才使用该算法
                 DateTime dtStart = DateTime.Now.Date.AddHours(8);
-                var dtTS2 = DateTime.Now;
+
                 var addDbCount = 0;
                 var groupTypes = afterFilter.GroupBy(s => s.TypeID)
                     .Select(s => new { TypeID = s.Key, Count = s.Count() })
@@ -143,8 +148,10 @@ namespace Buy.Bll
                     }
 
                 }
-
-                Comm.WriteLog("testTime", $"重复时间：{(dtTS2 - dtTS).TotalSeconds}，添加用时：{(DateTime.Now - dtTS2).TotalSeconds}，导入数量{models.Count}，添加数量{addDbCount}，重复数{models.Count - afterFilter.Count},添加失败数{afterFilter.Count - addDbCount}", Enums.DebugLogLevel.Normal);
+                stwatch.Stop();
+                tsAddCoupon = new TimeSpan(stwatch.ElapsedMilliseconds);
+                stwatch.Reset();
+                stwatch.Restart();
 
 
                 //导入用户用户券
@@ -248,44 +255,32 @@ namespace Buy.Bll
                     db.CouponUserTemps.AddRange(userCoupons);
                     db.SaveChanges();
                 }
+                stwatch.Stop();
+                tsAddTempCouponUser = new TimeSpan(stwatch.ElapsedMilliseconds);
+                stwatch.Reset();
+                stwatch.Restart();
                 //保存到正式表
-                var platformss = models.GroupBy(s => s.Platform).Select(s => s.Key).ToList();
-                var CouponUserTemps = db.CouponUserTemps
-                    .Where(s => s.UserID == userID && platformss.Contains(s.Platform))
-                    .Select(s => new CouponUser()
-                    {
-                        CouponID = s.CouponID,
-                        CreateDateTime = s.CreateDateTime,
-                        Link = s.Link,
-                        PCouponID = s.PCouponID,
-                        Platform = s.Platform,
-                        ProductID = s.ProductID,
-                        UserID = s.UserID
-                    });
-                var count = CouponUserTemps.Count();
-                int upageSize = 50;
-                int utotalPage = count / upageSize + (count % upageSize > 0 ? 1 : 0);
-                for (int i = 1; i <= pageSize; i++)
-                {
-                    var data = CouponUserTemps.OrderBy(s => s.ID).ToPagedList(i, 50);
-                    foreach (var item in data)
-                    {
-                        db.CouponUsers.Add(item);
-                    }
-                    db.SaveChanges();
-                }
-                //删除临时表
-                var tempList = db.CouponUserTemps
-                    .Where(s => s.UserID == userID && platformss.Contains(s.Platform));
-                for (int i = 1; i <= pageSize; i++)
-                {
-                    var data = tempList.OrderBy(s => s.ID).ToPagedList(i, 50);
-                    foreach (var item in data)
-                    {
-                        db.CouponUserTemps.Remove(item);
-                    }
-                    db.SaveChanges();
-                }
+                var platformss = models.GroupBy(s => s.Platform).Select(s => s.Key).Select(s => (int)s).ToList();
+
+                var count = db.Database.ExecuteSqlCommand("insert into CouponUsers (CouponID,UserID,Link,[Platform],PCouponID,ProductID,CreateDateTime) "
+                      + "select CouponID, UserID, Link,[Platform], PCouponID, ProductID, CreateDateTime "
+                      + "from CouponUserTemps "
+                      + $"where UserID = @userid and [Platform] in ({string.Join(",", platformss)})",
+                        new System.Data.SqlClient.SqlParameter("userid", userID));
+
+                var count1 = db.Database.ExecuteSqlCommand($"delete CouponUserTemps where UserID=@userid and [Platform] in ({string.Join(",", platformss)})",
+                    new System.Data.SqlClient.SqlParameter("userid", userID));
+
+
+                stwatch.Stop();
+                tsAddCouponUser = new TimeSpan(stwatch.ElapsedMilliseconds);
+                Comm.WriteLog("testTime", $"重复时间：{tsFilter.TotalSeconds}，"
+                    + $"添加券用时：{tsAddCoupon.TotalSeconds}，"
+                    + $"添加临时表用时：{tsAddTempCouponUser.TotalSeconds}，"
+                    + $"添加到正式表用时：{tsAddCouponUser.TotalSeconds}，"
+                    + $"导入数量{models.Count}，添加数量{addDbCount}，"
+                    + $"重复数{models.Count - afterFilter.Count},"
+                    + $"添加失败数{afterFilter.Count - addDbCount}", Enums.DebugLogLevel.Normal);
             }
         }
     }
