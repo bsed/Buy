@@ -165,14 +165,6 @@ namespace Buy.Bll
                             && links.Contains(s.Link))
                             .Select(s => s.Link)
                             .ToList();
-                        //临时表里的重复券
-                        dbLinks.AddRange(
-                            db.CouponUserTemps
-                            .Where(s => s.UserID == userID
-                            && s.Platform == p
-                            && links.Contains(s.Link))
-                            .Select(s => s.Link)
-                            .ToList());
                     }
                     else
                     {
@@ -182,14 +174,6 @@ namespace Buy.Bll
                            && links.Contains(s.Link))
                            .Select(s => s.Link)
                            .ToList();
-                        //临时表里的重复券
-                        dbLinks.AddRange(
-                            db.CouponUserTemps
-                            .Where(s => s.UserID == userID
-                             && platforms.Contains(s.Platform)
-                            && links.Contains(s.Link))
-                            .Select(s => s.Link)
-                            .ToList());
                     }
 
                     if (dbLinks.Count > 0)
