@@ -39,7 +39,7 @@
     <div id="detail" class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
             <div class="couponDetail-top-back fl @(string.IsNullOrWhiteSpace(cUserID)?"":"hidden")" id="btnBack"></div>
-            @*<div class="couponDetail-top-share fr" id="btnShare"></div>*@
+            <div class="couponDetail-top-share fr" id="btnShare"></div>
         </div>
         <div class="couponDetail-pImg">
             <img src="@Comm.ResizeImage(Model.Image)" alt="" />
@@ -102,8 +102,8 @@
 
     <div id="share" class="couponDetail paddingT44 minHight100vh hidden">
         <div class="navigationBar">
-            <div class="navigationBar-back" id="shareback"></div>
-            分享
+            <div class="navigationBar-back " id="shareback"></div>
+            <div class="navigationBar-tits style02">分享</div>
         </div>
         <div class="paddingLr16 paddingTb16" style="position:static;">
             <div class="fs16">分享的文案</div>
