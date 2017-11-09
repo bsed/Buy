@@ -297,7 +297,7 @@ namespace Buy.Controllers
                            TypeID = s.TypeID,
                            Value = s.Value,
                            IsFavorite = sf.Any(),
-                           FavoriteID = sf.Any() ? sf.First().ID : 0,
+                           FavoriteID = sf.Any() ? sf.FirstOrDefault().ID : 0,
                        }).FirstOrDefault();
             }
             else
@@ -307,6 +307,7 @@ namespace Buy.Controllers
                           .Where(s => s.Type == Enums.FavoriteType.Coupon && s.UserID == userID)
                        on s.ID equals f.CouponID
                        into sf
+                       where s.ID == id
                        select new CouponQuery
                        {
                            CreateDateTime = s.CreateDateTime,
@@ -333,7 +334,7 @@ namespace Buy.Controllers
                            TypeID = s.TypeID,
                            Value = s.Value,
                            IsFavorite = sf.Any(),
-                           FavoriteID = sf.Any() ? sf.First().ID : 0,
+                           FavoriteID = sf.Any() ? sf.FirstOrDefault().ID : 0,
                        }).FirstOrDefault();
             }
 
