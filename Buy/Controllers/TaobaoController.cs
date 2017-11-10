@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
+using Buy.Models;
+
 namespace Buy.Controllers
 {
     public class TaobaoController : Controller

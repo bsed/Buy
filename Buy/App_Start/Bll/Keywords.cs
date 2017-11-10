@@ -8,6 +8,8 @@ namespace Buy.Bll
 {
     public static class Keywords
     {
+        private static ApplicationDbContext db = new ApplicationDbContext();
+
         public static void Add(string text)
         {
             var segmenter = new JiebaSegmenter();
@@ -16,24 +18,23 @@ namespace Buy.Bll
                 .Where(s => s.Key.Length > 1)
                 .Select(s => new { Key = s.Key, Count = s.Count() })
                 .ToList();
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            //using (ApplicationDbContext db = new ApplicationDbContext())
+            //{
+            var temp = result.Select(s => s.Key).ToList();
+            var keys = db.Keywords.Where(s => temp.Contains(s.Word)).ToList();
+            var words = keys.Select(s => s.Word).ToList();
+            foreach (var item in keys)
             {
-                var temp = result.Select(s => s.Key).ToList();
-                var keys = db.Keywords.Where(s => temp.Contains(s.Word)).ToList();
-                var words = keys.Select(s => s.Word).ToList();
-                foreach (var item in keys)
-                {
-                    item.CouponNameCount += result.FirstOrDefault(s => s.Key == item.Word).Count;
-                }
-                var addKeys = result.Where(s => !words.Contains(s.Key)).Select(s => new Keyword
-                {
-                    CouponNameCount = s.Count,
-                    Word = s.Key
-                }).ToList();
-                db.Keywords.AddRange(addKeys);
-                db.SaveChanges();
+                item.CouponNameCount += result.FirstOrDefault(s => s.Key == item.Word).Count;
             }
-
+            var addKeys = result.Where(s => !words.Contains(s.Key)).Select(s => new Keyword
+            {
+                CouponNameCount = s.Count,
+                Word = s.Key
+            }).ToList();
+            db.Keywords.AddRange(addKeys);
+            db.SaveChanges();
+            //}
         }
 
         public static void UpdateSearchCount(string text)
