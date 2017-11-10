@@ -80,6 +80,10 @@ $("#shareback").click(function (e) {
 $("#btnShare").click(function (e) {
     $("#detail").addClass("hidden");
     $("#share").removeClass("hidden");
+    //判断
+    if (!new check().isWeiXin()) {
+        $("#sharePhoto-tips").text("长按保存图片")
+    }
 
     //canvas图片
     var canvas = document.createElement("canvas");

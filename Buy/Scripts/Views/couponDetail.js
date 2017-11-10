@@ -193,6 +193,10 @@ $(".pwdMask").click(function (e) {
 $("#btnShare").click(function (e) {
     $("#detail").addClass("hidden");
     $("#share").removeClass("hidden");
+    //判断
+    if (!new check().isWeiXin()) {
+        $("#sharePhoto-tips").text("长按保存图片")
+    }
     if ($("#Output").children().length <= 0) {
         $.ajax({
             type: "GET",
