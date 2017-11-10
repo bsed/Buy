@@ -235,44 +235,50 @@ $("#btnShare").click(function (e) {
 
                     var canvas = document.createElement("canvas");
                     var cxt = canvas.getContext("2d");
-                    canvas.width = $("#shareImgModule").width();
-                    canvas.height = $("#shareImgModule").height();
+                    var shareImgModule = $("#shareImgModule");
+                    canvas.width = shareImgModule.width();
+                    canvas.height = shareImgModule.height();
                     cxt.fillStyle = "#ffffff";
-                    cxt.fillRect(0, 0, $("#shareImgModule").width(), $("#shareImgModule").height());
-                    var share_img = document.getElementById('shareImgModule_img');
-                    var qrcode = document.getElementById('qrcode');
-                    var platformLogo = document.getElementById('platformLogo');
+                    cxt.fillRect(0, 0, shareImgModule.width(), shareImgModule.height());
+
+                    var share_img = $("#shareImgModule_img");
+                    var qrcode = $("#qrcode");
+                    var platformLogo = $("#platformLogo");
+                    var share_img_i = document.getElementById('shareImgModule_img');
+                    var qrcode_i = document.getElementById('qrcode');
+                    var platformLogo_i = document.getElementById('platformLogo');
                     cxt.fillStyle = "#ffffff";
-                    cxt.drawImage(share_img, 0, 0, $("#shareImgModule_img").width(), $("#shareImgModule_img").height());
-                    cxt.drawImage(qrcode, 215, 305, $("#qrcode").width(), $("#qrcode").height());
-                    cxt.drawImage(platformLogo, 5, 305, $("#platformLogo").width(), $("#platformLogo").height());
-                    var biaotword = $('#share_name').val();
+                    cxt.drawImage(share_img_i, 0, 0, share_img.width(), share_img.height());
+                    cxt.drawImage(qrcode_i, shareImgModule.width() - qrcode.width() - 5, share_img.width() + 5, qrcode.width(), qrcode.height());
+                    cxt.drawImage(platformLogo_i, 5, share_img.height() + 7, platformLogo.width(), platformLogo.height());
+
+                    var biaotword = share_name;
                     var biaotword1 = biaotword.substring(0, 12);
                     var biaotword2 = biaotword.substring(12, 22);
                     cxt.font = "14px Helvetica Neue";
                     cxt.fillStyle = "rgba(0,0,0,0.87)";
-                    cxt.fillText(biaotword1, $("#platformLogo").width()+9, 317);
-                    cxt.fillText(biaotword2, 5, 336);
+                    cxt.fillText(biaotword1, platformLogo.width() + 9, share_img.height() + 20);
+                    cxt.fillText(biaotword2, 5, share_img.height() + 5 + 32);
 
                     cxt.font = "12px Helvetica Neue";
                     cxt.fillStyle = "#ff5913";
-                    cxt.fillText("长按识别二维码", 212, 398);
+                    cxt.fillText("长按识别二维码", shareImgModule.width() - qrcode.width() - 8, share_img.height() + qrcode.height() + 20);
 
                     cxt.font = "12px Helvetica Neue";
                     cxt.fillStyle = "#ff5913";
-                    cxt.fillText("¥", 5, 365);
+                    cxt.fillText("¥", 5, share_img.height() + 65);
 
                     cxt.font = "24px Helvetica Neue";
                     cxt.fillStyle = "#ff5913";
-                    cxt.fillText($("#share_price").val(), 15, 365);
+                    cxt.fillText(share_price, 15, share_img.height() + 65);
 
                     cxt.font = "12px Helvetica Neue";
                     cxt.fillStyle = "rgba(0,0,0,0.54)";
-                    cxt.fillText("在售价 ¥ " + $("#share_or_price").val(), 110, 362);
+                    cxt.fillText("在售价 ¥ " + share_or_price, 110, share_img.height() + 62);
 
                     cxt.beginPath();
                     cxt.moveTo(110, 358);
-                    cxt.lineTo($("#originalPrice").width()+110, 358);
+                    cxt.lineTo($("#originalPrice").width() + 110, share_img.height() + 58);
                     cxt.strokeStyle = "rgba(0,0,0,0.54)";
                     cxt.stroke();
                     cxt.closePath();
@@ -280,19 +286,19 @@ $("#btnShare").click(function (e) {
                     cxt.beginPath();
                     cxt.lineWidth = "1";
                     cxt.strokeStyle = "#ffd500";
-                    cxt.rect(23, 378, 40, 16);
+                    cxt.rect(23, share_img.height() + 78, 40, 16);
                     cxt.stroke();
 
                     cxt.fillStyle = "#ffd500";
-                    cxt.fillRect(5, 377, 18, 18);
+                    cxt.fillRect(5, share_img.height() + 77, 18, 18);
 
                     cxt.font = "12px Helvetica Neue";
                     cxt.fillStyle = "rgba(0,0,0,0.87)";
-                    cxt.fillText("券", 8, 390);
+                    cxt.fillText("券", 8, share_img.height() + 90);
 
                     cxt.font = "12px Helvetica Neue";
                     cxt.fillStyle = "rgba(0,0,0,0.87)";
-                    cxt.fillText($(".coupon-tab-val").text(), 25, 390);
+                    cxt.fillText($(".coupon-tab-val").text(), 25, share_img.height() + 90);
 
 
                     var url = canvas.toDataURL("image/jpeg");
@@ -324,7 +330,7 @@ clipShareText.on('success', function (e) {
     $("#shareText-tips").text("（文案已复制，可粘贴文案）");
 });
 clipShareText.on('error', function (e) {
-    selectText("pwdMask-text");
+    selectText("shareText");
     alert("*无法复制，请长按文案复制");
     $("#shareText-tips").text("（无法复制，请长按文案复制）");
 });
