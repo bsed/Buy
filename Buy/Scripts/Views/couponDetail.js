@@ -256,7 +256,7 @@ $("#btnShare").click(function (e) {
                     var platformLogo_i = document.getElementById('platformLogo');
                     cxt.fillStyle = "#ffffff";
                     cxt.drawImage(share_img_i, 0, 0, share_img.width(), share_img.height());
-                    cxt.drawImage(qrcode_i, shareImgModule.width() - qrcode.width() - 5, share_img.width() + 5, qrcode.width(), qrcode.height());
+                    cxt.drawImage(qrcode_i, shareImgModule.width() - qrcode.width() - 5, share_img.height() + 5, qrcode.width(), qrcode.height());
                     cxt.drawImage(platformLogo_i, 5, share_img.height() + 7, platformLogo.width(), platformLogo.height());
 
                     var biaotword = share_name;
