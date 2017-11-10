@@ -191,6 +191,9 @@ $(".pwdMask").click(function (e) {
 });
 
 $("#btnShare").click(function (e) {
+    if ($("#userID").val() == "") {
+        location = comm.action("Login", "Account", { returnUrl: document.location.pathname });
+    }
     $("#detail").addClass("hidden");
     $("#share").removeClass("hidden");
     //判断
