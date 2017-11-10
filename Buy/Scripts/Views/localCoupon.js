@@ -80,6 +80,10 @@ $("#shareback").click(function (e) {
 $("#btnShare").click(function (e) {
     $("#detail").addClass("hidden");
     $("#share").removeClass("hidden");
+    //判断
+    if (!new check().isWeiXin()) {
+        $("#sharePhoto-tips").text("长按保存图片")
+    }
 
     //canvas图片
     var canvas = document.createElement("canvas");
@@ -94,7 +98,7 @@ $("#btnShare").click(function (e) {
     var platformLogo_i = document.getElementById('platformLogo');
     cxt.fillStyle = "#ffffff";
     cxt.drawImage(share_img_i, 0, 0, share_img.width(), share_img.height());
-    cxt.drawImage(qrcode_i, shareImgModule.width() - qrcode.width() - 5, share_img.width() + 5, qrcode.width(), qrcode.height());
+    cxt.drawImage(qrcode_i, shareImgModule.width() - qrcode.width() - 5, share_img.height() + 5, qrcode.width(), qrcode.height());
     cxt.drawImage(platformLogo_i, 5, share_img.height() + 5, platformLogo.width(), platformLogo.height());
 
     var biaotword = share_name;
