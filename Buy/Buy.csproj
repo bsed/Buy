@@ -640,6 +640,7 @@
     <Content Include="Content\Site.less" />
     <Content Include="App_Data\mgjCids.json" />
     <Content Include="App_Data\temp.json" />
+    <Content Include="App_Data\jdcid.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1196,6 +1197,7 @@
     <Content Include="Views\User\CouponFavorite.cshtml" />
     <Content Include="Views\User\LocalCouponFavorite.cshtml" />
     <Content Include="Views\Favorite\LocalCoupon.cshtml" />
+    <Content Include="Views\CouponTypeManage\JDType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Apply\" />
