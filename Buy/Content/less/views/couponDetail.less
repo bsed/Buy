@@ -4,6 +4,31 @@
     position: relative;
     padding-bottom: 48rem*@resize;
 
+    .couponDetail-shareText {
+        position: fixed;
+        width: 100%;
+        height: 48rem*@resize;
+        bottom: 0;
+        z-index: @z-index-top;
+        background-color: @bg-color-white;
+        text-align: center;
+        border-top: @border;
+
+        > input {
+            .clean-input();
+            width: 50%;
+            max-width: none;
+            height: 36rem*@resize;
+            margin-top: 6rem*@resize;
+            background-color: @bg-color-main;
+            color: @font-col-white;
+            font-size: @font-size-3;
+            text-align: center;
+            border: none;
+            border-radius: 5rem*@resize;
+        }
+    }
+
     .couponDetail-top {
         .clearfix();
         position: absolute;
@@ -91,21 +116,21 @@
         color: @font-col-white;
         background-color: @bg-color-white;
         border-top: @border;
-        padding:0 16rem*@resize;
+        padding: 0 16rem*@resize;
 
-        &:active{
-            color:@font-col-white;
+        &:active {
+            color: @font-col-white;
         }
 
-        .couponDetail-collect{
-            background:url("../../images/view/img_collect_nor@3x.png") no-repeat center;
+        .couponDetail-collect {
+            background: url("../../images/view/img_collect_nor@3x.png") no-repeat center;
             .square(48rem*@resize);
-            background-size:contain;
-            margin:0;
+            background-size: contain;
+            margin: 0;
 
-            &.active{
-                 background:url("../../images/view/img_collect_pre@3x.png") no-repeat center;
-                 background-size:contain;
+            &.active {
+                background: url("../../images/view/img_collect_pre@3x.png") no-repeat center;
+                background-size: contain;
             }
         }
 
@@ -121,8 +146,7 @@
             background: -o-linear-gradient(right, #FF922B, #FF5913); /* Opera 11.1 - 12.0 */
             background: -moz-linear-gradient(right, #FF922B, #FF5913); /* Firefox 3.6 - 15 */
             background: linear-gradient(to right, #FF922B, #FF5913); /* 标准的语法 */
-
-            &:active,&:hover,&:focus{
+            &:active, &:hover, &:focus {
                 color: @font-col-white;
             }
         }
@@ -182,6 +206,13 @@
     }
 
     .couponDetail-shareInfo {
+        position: relative;
+
+        img{
+            .block-mid(50%);
+            z-index:@z-index-mid;
+        }
+
         textarea {
             .clean-input();
             resize: none;
@@ -305,16 +336,21 @@
     }
 }
 
+.Output {
+    img {
+    }
+}
+
 .shareImgModule {
     width: 300px;
-    background-color:@bg-color-white;
+    background-color: @bg-color-white;
 
     .shareImgModule-img {
         .square(300px);
         .img();
 
-        img{
-            background-color:@bg-color-white;
+        img {
+            background-color: @bg-color-white;
         }
     }
 
@@ -370,7 +406,7 @@
 
                 .originalPrice {
                     text-decoration: line-through;
-                    font-size: 14px;
+                    font-size: 12px;
                 }
             }
         }

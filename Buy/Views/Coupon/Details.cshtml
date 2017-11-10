@@ -102,22 +102,24 @@
 
     <div id="share" class="couponDetail paddingT44 minHight100vh hidden">
         <div class="navigationBar">
-            <div class="navigationBar-back " id="shareback"></div>
+            <div class="navigationBar-back" id="shareback"></div>
             <div class="navigationBar-tits style02">分享</div>
         </div>
         <div class="paddingLr16 paddingTb16" style="position:static;">
-            <div class="fs16">分享的文案</div>
+            <div class="fs16">一、分享的文案<span id="shareText-tips" class="color-main"></span></div>
             <div class="couponDetail-shareInfo marginT10 marginB5">
-                <textarea rows="9"></textarea>
+                <textarea id="shareText" rows="9"></textarea>
+                <img id="shareText-load" class="hidden" src="~/Content/images/view/loadingGif.gif"/>
             </div>
             <input id="share_name" hidden value="@Model.Name" />
             <input id="share_or_price" hidden value="@Model.OriginalPrice" />
             <input id="share_price" hidden value="@Model.Price" />
             <input id="share_url" hidden value="@url" />
+            <input id="share_img" hidden value="@img"/>
 
             <div class="fs12 color-grey">请不要更改“｛｝”之间的文字哦～</div>
-            <div class="fs16 marginT15">分享的图片</div>
-            <div class="marginT10" id="Output"></div>
+            <div class="fs16 marginT15">二、分享的图片 》<span class="color-main">长按图片转发给朋友</span></div>
+            <div class="marginT10 Output" id="Output"></div>
             <div class="shareImgModule" id="shareImgModule">
                 <div class="shareImgModule-img">
                     <img crossorigin="anonymous" id="shareImgModule_img" src="@img" />
@@ -125,11 +127,11 @@
                 <div class="shareImgModule-info">
                     <div class="shareImgModule-info-cons fl">
                         <div class="shareImgModule-info-cons-name">
-                            <img src="@platformLogo" crossorigin="anonymous" />@Model.Name
+                            <img id="platformLogo" src="@platformLogo" crossorigin="anonymous" />@Model.Name
                         </div>
                         <div class="shareImgModule-info-cons-price">
                             <div class="fl preferPrice"><span class="">¥</span><span class="fontsize24">@Model.Price</span></div>
-                            <div class="fl originalPrice color-grey">在售价 ¥ @Model.OriginalPrice</div>
+                            <div id="originalPrice" class="fl originalPrice color-grey">在售价 ¥ @Model.OriginalPrice</div>
                         </div>
                         <div class="clearfix">
                             <div class="coupon-tab fl marginR8">
@@ -142,12 +144,14 @@
                         </div>
                     </div>
                     <div class="shareImgModule-code fr">
-                        <img class="marginB5" crossorigin="anonymous" src="@Url.Action("Index", "QrCode", new { data =Url.ContentFull( Url.Action("Details", "Coupon", new { id = Model.ID }) )})" />
+                        <img id="qrcode" class="marginB5" crossorigin="anonymous" src="@Url.Action("Index", "QrCode", new { data =Url.ContentFull( Url.Action("Details", "Coupon", new { id = Model.ID }) )})" />
                         <div class="fs12 color-main">长按识别二维码</div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="couponDetail-shareText"><input id="shareTextBtn" type="button" value="复制分享的文案" data-clipboard-text=""/></div>
     </div>
 }
 else

@@ -3,13 +3,15 @@
 
 @{
     ViewBag.Title = "券详情";
+    string url = Request.Url.ToString();
 }
 
-<div class="localcoupon">
+<div id="detail" class="localcoupon">
     <div class="localcoupon-detail minHight100vh paddingT44">
         <div class="navigationBar">
             <div class="navigationBar-back" id="btnBack"></div>
             <div class="navigationBar-tits style02">券详情</div>
+            <div class="navigationBar-share" id="btnShare"><span class="glyphicon glyphicon-share"></span></div>
         </div>
         @if (Model.Type == Buy.Enums.LocalCouponType.Offline)
         {
@@ -34,7 +36,8 @@
         @if (Model.Type == Buy.Enums.LocalCouponType.Online)
         {
             <div class="localcoupon-detail-buy">
-                <a href="@($"{Model.Link}&userID={User.Identity.GetUserId()}")">>
+                <a href="@($"{Model.Link}&userID={User.Identity.GetUserId()}")">
+                    >
                     立刻购买
                 </a>
             </div>
@@ -42,7 +45,53 @@
     </div>
 </div>
 
+<div id="share" class="minHight100vh paddingT44 paddingB50 hidden">
+    <div class="navigationBar">
+        <div class="navigationBar-back" id="shareback"></div>
+        <div class="navigationBar-tits style02">分享</div>
+    </div>
+    <div class="paddingLr16 paddingTb16" style="position:static;">
+        <input id="share_name" hidden value="@Model.Name" />
+        <input id="share_img" hidden value="@Comm.ResizeImage(Model.Image)" />
+        <input id="share_logo" hidden value="@Comm.ResizeImage(Model.Shop.Logo,w:15,h:15)" />
+        <input id="share_price" hidden value="@Model.Price" />
+        <input id="share_time" hidden value="@Model.EndDateTime.ToString("yyyy-MM-dd")" />
+        <input id="share_url" hidden value="@url" />
+        <input id="share_shop" hidden value="@Model.Shop.Name" />
+
+        <div class="fs16">一、分享的文案<span id="shareText-tips" class="color-main"></span></div>
+        <div class="localcoupon-shareInfo marginT10 marginB5">
+            <textarea id="shareText" rows="6"></textarea>
+        </div>
+
+        <div class="fs16 marginT15">二、分享的图片 》<span class="color-main">长按图片转发给朋友</span></div>
+        <div class="marginT10 Output" id="Output"></div>
+        <div class="shareImgModule" id="shareImgModule">
+            <div class="shareImgModule-img">
+                <img crossorigin="anonymous" id="shareImgModule_img" src="@Comm.ResizeImage(Model.Image)" />
+            </div>
+            <div class="shareImgModule-info">
+                <div class="shareImgModule-info-cons fl">
+                    <div class="shareImgModule-info-cons-name">
+                        <img id="platformLogo" src="@Comm.ResizeImage(Model.Shop.Logo,w:15,h:15)" crossorigin="anonymous" />@Model.Name
+                    </div>
+                    <div class="shareImgModule-info-cons-price">
+                        <div class="fl preferPrice"><span class="">¥</span><span class="fontsize24">@Model.Price</span></div>
+                    </div>
+                    <div class="marginT10 fs14 color-grey">有效期至：@Model.EndDateTime.ToString("yyyy-MM-dd")</div>
+                </div>
+                <div class="shareImgModule-code fr">
+                    <img id="qrcode" class="marginB5" crossorigin="anonymous" src="@Url.Action("Index", "QrCode", new { data =Url.ContentFull( Url.Action("Details", "LocalCoupon", new { id = Model.ID }) )})" />
+                    <div class="fs12 color-main">长按识别二维码</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="localcoupon-shareText"><input id="shareTextBtn" type="button" value="复制分享的文案" data-clipboard-text="" /></div>
+</div>
+
 
 @section Scripts{
+    @Scripts.Render("~/bundles/clipboard")
     @Scripts.Render("~/bundles/localCoupon")
 }
