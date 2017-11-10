@@ -184,23 +184,12 @@ namespace Buy.Bll
                     //        $" and [Platform] in ({string.Join(",", platforms)}) and [Link] in(@links)"
                     //        , new System.Data.SqlClient.SqlParameter("userid", userID)
                     //         , new System.Data.SqlClient.SqlParameter("links", string.Join(",", links))).ToList();
-                    //    dbLinks.AddRange(db.Database.SqlQuery<string>("select [Link] from [Buy].[dbo].[CouponUserTemps] "
-                    //        + "where UserID = @userid" +
-                    //        $" and [Platform] in ({string.Join(",", platforms)}) and [Link] in(@links)"
-                    //        , new System.Data.SqlClient.SqlParameter("userid", userID)
-                    //         , new System.Data.SqlClient.SqlParameter("links", string.Join(",", links))).ToList());
                     //    //dbLinks = db.CouponUsers
                     //    //           .Where(s => s.UserID == userID
                     //    //           && platforms.Contains(s.Platform)
                     //    //           && links.Contains(s.Link))
                     //    //           .Select(s => s.Link)
                     //    //           .ToList();
-                    //    //dbLinks.AddRange(db.CouponUserTemps
-                    //    //  .Where(s => s.UserID == userID
-                    //    //  && platforms.Contains(s.Platform)
-                    //    //  && links.Contains(s.Link))
-                    //    //  .Select(s => s.Link)
-                    //    //  .ToList());
                     //}
                     //Comm.WriteLog("efUseTime", $"共：{new TimeSpan(stwatchsssss.ElapsedMilliseconds).TotalSeconds},查询数据共：{dbLinks.Count}", Enums.DebugLogLevel.Normal);
                     //if (dbLinks.Count > 0)
@@ -294,7 +283,7 @@ namespace Buy.Bll
                     + $"添加到正式表用时：{tsAddCouponUser.TotalSeconds}，"
                     + $"导入数量{models.Count}，添加数量{addDbCount}，"
                     + $"重复数{models.Count - afterFilter.Count},"
-                    + $"添加失败数{afterFilter.Count - addDbCount},添加到TempsCount:{TempsCount},Users:{count},del:{count1}", Enums.DebugLogLevel.Normal);
+                    + $"添加失败数{afterFilter.Count - addDbCount}", Enums.DebugLogLevel.Normal);
             }
         }
     }
