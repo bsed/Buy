@@ -373,46 +373,6 @@ namespace Buy.Controllers
             return json;
         }
 
-
-        public ActionResult JDType()
-        {
-            Sidebar();
-            string json = GetFileJson(Server.MapPath("~/App_Data/jdcid.json"));
-            JArray json1 = (JArray)JsonConvert.DeserializeObject(json);
-            List<CouponTypeTreeNode> aa = new List<CouponTypeTreeNode>();
-            foreach (var item in json1)
-            {
-                var types = item.ToString().SplitToArray<string>('+');
-                aa.Add(new CouponTypeTreeNode()
-                {
-                    Childs = new List<CouponTypeTreeNode>(),
-                    ParentId = types.First(),
-                    Name = types.Last(),
-                });
-            }
-            aa = aa.GroupBy(s => s.ParentId).Select(s =>
-            {
-                var iii = new CouponTypeTreeNode()
-                {
-                    Name = s.Key,
-                    Childs = s.Select(x => new CouponTypeTreeNode() { Name = x.Name, Childs = new List<CouponTypeTreeNode>(), }).ToList(),
-                };
-                return iii;
-            }).ToList();
-            var tree = new CouponTypeTreeNode
-            {
-                Childs = aa,
-                TestID = "",
-                Name = "全部",
-                ParentId = "",
-                Count = 0,
-                IsLeaf = true,
-                TypeID = null,
-                ID = 0,
-            };
-            return View(tree);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

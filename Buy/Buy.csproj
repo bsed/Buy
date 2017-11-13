@@ -1197,7 +1197,6 @@
     <Content Include="Views\User\CouponFavorite.cshtml" />
     <Content Include="Views\User\LocalCouponFavorite.cshtml" />
     <Content Include="Views\Favorite\LocalCoupon.cshtml" />
-    <Content Include="Views\CouponTypeManage\JDType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Apply\" />
