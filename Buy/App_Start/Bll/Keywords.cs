@@ -25,7 +25,7 @@ namespace Buy.Bll
             var words = keys.Select(s => s.Word).ToList();
             foreach (var item in keys)
             {
-                item.CouponNameCount += result.FirstOrDefault(s => s.Key == item.Word).Count;
+                item.CouponNameCount += result.FirstOrDefault(s => s.Key == item.Word)?.Count ?? 0;
             }
             var addKeys = result.Where(s => !words.Contains(s.Key)).Select(s => new Keyword
             {
