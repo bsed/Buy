@@ -319,6 +319,7 @@ namespace Buy.Models.ActionCell
             FavoriteID = lc.FavoriteID;
             Link = lc.Link;
             LocalCouponType = lc.Type;
+            ShareUrl = Comm.ResizeImage($"~/LocalCoupon/Details?id={lc.ID}", image: null);
         }
 
         public override CellStyle Style
@@ -350,5 +351,16 @@ namespace Buy.Models.ActionCell
         public string Link { get; set; }
 
         public Enums.LocalCouponType LocalCouponType { get; set; }
+        
+        public string ShareUrl { get; set; }
+
+        public string ShareUrlQrCode
+        {
+            get
+            {
+                return Comm.ResizeImage($"~/QrCode?data={System.Uri.EscapeDataString(ShareUrl)}", image: null);
+
+            }
+        }
     }
 }
