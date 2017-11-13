@@ -29,6 +29,7 @@ namespace Buy.Models
             UserType = user.UserType;
             ParentUserID = user.ParentUserID;
             WeChatCode = user.WeChatCode;
+            WeChatID = user.WeChatID;
         }
 
 
@@ -63,6 +64,8 @@ namespace Buy.Models
 
         public string WeChatCode { get; set; }
 
+
+        public string WeChatID { get; set; }
 
     }
 
