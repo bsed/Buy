@@ -10,6 +10,8 @@ namespace Buy.Controllers
 {
     public class JDController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         // GET: JD
         public ActionResult Login(string code, string state)
         {
@@ -82,6 +84,27 @@ namespace Buy.Controllers
 
 
         }
-        
+
+        [HttpGet]
+        [AllowCrossSiteJson]
+        public ActionResult GetCid()
+        {
+            var model = db.CouponTypes
+                  .Where(s => s.Platform == Enums.CouponPlatform.Jd 
+                    && s.Keyword != null)
+                  .Select(s => new { s.ID, s.Keyword, s.Name })
+                  .ToList();
+            return Json(Comm.ToJsonResult("Success", "成功", model), JsonRequestBehavior.AllowGet);
+
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
