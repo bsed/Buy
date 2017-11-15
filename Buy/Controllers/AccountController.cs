@@ -492,16 +492,6 @@ namespace Buy.Controllers
                 }
                 else
                 {
-                    try
-                    {
-                        JObject ja = (JObject)JsonConvert.DeserializeObject(verCode.Message);
-                        //verCode.Message = ja["msg"].ToString();
-                        verCode.Message = "发送成功";
-                    }
-                    catch (Exception)
-                    {
-                        return Json(Comm.ToJsonResult("Error", "发送失败"));
-                    }
                     return Json(Comm.ToJsonResult("Error", verCode.Message));
                 }
             }

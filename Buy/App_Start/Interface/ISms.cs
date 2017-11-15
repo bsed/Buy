@@ -94,7 +94,7 @@ namespace Buy
             data.Add("mobile", phone);
             data.Add("text", $"【买了么】你的验证码是{code}，有效期为{min}，如果非本人操作请忽视。");
             result = sms.singleSend(data);
-            return new SmsResult { IsSuccess = result.success, Message = result.responseText };
+            return new SmsResult { IsSuccess = result.success, Message = JsonConvert.DeserializeObject<JObject>(result.responseText)["msg"].ToString() };
         }
     }
 
