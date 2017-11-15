@@ -60,21 +60,24 @@ namespace Buy.Controllers
 
 
         [HttpPost]
-        public ActionResult Import()
+        [AllowCrossSiteJson]
+        public ActionResult Import(string url)
         {
-            if (Request.Files.Count == 0 || Request.Files[0].ContentLength == 0)
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                return Json(Comm.ToJsonResult("Error", "Url为空"));
+            }
+            string path = Server.MapPath(url);
+            if (!System.IO.File.Exists(path))
             {
                 return Json(Comm.ToJsonResult("FileNoFound", "导入数据不存在"));
             }
             try
             {
-                var file = Request.Files[0];
-                System.IO.BinaryReader b = new System.IO.BinaryReader(file.InputStream);
-                byte[] binData = b.ReadBytes(Convert.ToInt32(file.InputStream.Length));
-
-                string result = System.Text.Encoding.UTF8.GetString(binData);
+                var result = System.IO.File.ReadAllText(path);
                 List<CouponUserViewModel> models = JsonConvert.DeserializeObject<List<CouponUserViewModel>>(result);
                 Bll.Coupons.DbAdd(models);
+                System.IO.File.Delete(path);
                 return Json(Comm.ToJsonResult("Success", "成功"));
             }
             catch (Exception ex)
@@ -90,7 +93,7 @@ namespace Buy.Controllers
         public ActionResult GetCid()
         {
             var model = db.CouponTypes
-                  .Where(s => s.Platform == Enums.CouponPlatform.Jd 
+                  .Where(s => s.Platform == Enums.CouponPlatform.Jd
                     && s.Keyword != null)
                   .Select(s => new { s.ID, s.Keyword, s.Name })
                   .ToList();

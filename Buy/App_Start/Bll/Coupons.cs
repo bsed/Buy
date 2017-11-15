@@ -256,25 +256,68 @@ namespace Buy.Bll
                 //保存到正式表
                 var platformss = models.GroupBy(s => s.Platform).Select(s => s.Key).Select(s => (int)s).ToList();
                 //先把全部数据添加到CouponUserTemps里，再通过sql查询把重复的数据不添加到CouponUsers里
-                var count = db.Database.ExecuteSqlCommand("insert into [Buy].[dbo].[CouponUsers] "
-                        +"([CouponID],[UserID],[Link],[Platform],[PCouponID],[ProductID],[CreateDateTime]) "
-                        + "select [CouponID],[UserID],[Link],[Platform],[PCouponID],[ProductID],[CreateDateTime] "
-                        + "from [Buy].[dbo].[CouponUserTemps] "
-                        + $"where [UserID] = @userid and [Platform] in ({string.Join(", ", platformss)}) "
-                        + "and not exists(select 1 from [Buy].[dbo].[CouponUsers] b where[Buy].[dbo].[CouponUserTemps].[Link] = b.[Link])"
-                        , new System.Data.SqlClient.SqlParameter("userid", userID));
+                Action moveData = null;
+                Action removeData = null;
+                int moveTime = 0, removeTime = 0;
 
-                //var count = db.Database.ExecuteSqlCommand("insert into CouponUsers (CouponID,UserID,Link,[Platform],PCouponID,ProductID,CreateDateTime) "
-                //      + "select CouponID, UserID, Link,[Platform], PCouponID, ProductID, CreateDateTime "
-                //      + "from CouponUserTemps "
-                //      + $"where UserID = @userid and [Platform] in ({string.Join(",", platformss)})"
-                //      + "and not exists(select 1 from [Buy].[dbo].[Coupons] b where a.[Link] = b.[PLink])",
-                //        new System.Data.SqlClient.SqlParameter("userid", userID));
+                moveData = () =>
+               {
+                   try
+                   {
+                       moveTime++;
+                       string sqlMove = "insert into [Buy].[dbo].[CouponUsers] "
+                           + "([CouponID],[UserID],[Link],[Platform],[PCouponID],[ProductID],[CreateDateTime]) "
+                           + "select [CouponID],[UserID],[Link],[Platform],[PCouponID],[ProductID],[CreateDateTime] "
+                           + "from [Buy].[dbo].[CouponUserTemps] "
+                           + $"where [UserID] = @userid and [Platform] in ({string.Join(", ", platformss)}) "
+                           + "and not exists(select 1 from [Buy].[dbo].[CouponUsers] b where [Buy].[dbo].[CouponUserTemps].[Link] = b.[Link])";
+                       var count = db.Database.ExecuteSqlCommand(sqlMove, new System.Data.SqlClient.SqlParameter("userid", userID));
 
-                var count1 = db.Database.ExecuteSqlCommand($"delete CouponUserTemps where UserID=@userid and [Platform] in ({string.Join(",", platformss)})",
-                    new System.Data.SqlClient.SqlParameter("userid", userID));
+
+                       //var count = db.Database.ExecuteSqlCommand("insert into CouponUsers (CouponID,UserID,Link,[Platform],PCouponID,ProductID,CreateDateTime) "
+                       //      + "select CouponID, UserID, Link,[Platform], PCouponID, ProductID, CreateDateTime "
+                       //      + "from CouponUserTemps "
+                       //      + $"where UserID = @userid and [Platform] in ({string.Join(",", platformss)})"
+                       //      + "and not exists(select 1 from [Buy].[dbo].[Coupons] b where a.[Link] = b.[PLink])",
+                       //        new System.Data.SqlClient.SqlParameter("userid", userID));
 
 
+                   }
+                   catch (Exception ex)
+                   {
+                       Comm.WriteLog("Coupons_DbAdd", $"UserID:{userID},Platform:{string.Join(",", platformss)}移动数据失败{moveTime}：{ex.Message}", Enums.DebugLogLevel.Error);
+
+                       if (moveTime > 10)
+                       {
+                           throw ex;
+                       }
+                       //如果超时了再执行
+                       System.Threading.Thread.Sleep(1000 * moveTime);
+                       moveData();
+                   }
+
+               };
+                removeData = () =>
+                {
+                    removeTime++;
+                    try
+                    {
+                        var count1 = db.Database.ExecuteSqlCommand($"delete CouponUserTemps where UserID=@userid and [Platform] in ({string.Join(",", platformss)})",
+                            new System.Data.SqlClient.SqlParameter("userid", userID));
+                    }
+                    catch (Exception ex)
+                    {
+                        Comm.WriteLog("Coupons_DbAdd", $"UserID:{userID},Platform:{string.Join(",", platformss)}删除数据失败{removeTime}：{ex.Message}", Enums.DebugLogLevel.Error);
+                        if (removeTime > 10)
+                        {
+                            throw ex;
+                        }
+                        System.Threading.Thread.Sleep(1000 * moveTime);
+                        removeData();
+                    }
+                };
+                moveData();
+                removeData();
                 stwatch.Stop();
                 tsAddCouponUser = new TimeSpan(stwatch.ElapsedMilliseconds);
                 Comm.WriteLog("testTime", $"重复时间：{tsFilter.TotalSeconds}，"
