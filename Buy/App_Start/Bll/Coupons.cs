@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Buy.Models;
+using System.Data.Entity;
 
 namespace Buy.Bll
 {
@@ -146,13 +147,11 @@ namespace Buy.Bll
                     {
                         Comm.WriteLog("ImportLog", ex.Message, Enums.DebugLogLevel.Error);
                     }
-
                 }
                 stwatch.Stop();
                 tsAddCoupon = new TimeSpan(stwatch.ElapsedMilliseconds);
                 stwatch.Reset();
                 stwatch.Restart();
-                var TempsCount = 0;
                 //导入用户用户券
                 for (int i = 0; i < totalPage; i++)
                 {
@@ -161,42 +160,31 @@ namespace Buy.Bll
                     var platforms = models.GroupBy(s => s.Platform).Select(s => s.Key).ToList();
                     //判断是否有重复添加
                     var links = addTemp.Select(s => s.Link).ToList();
-                    //List<string> dbLinks;//重复的券
-                    //if (platforms.Count == 1)//如果非淘宝联盟
-                    //{
-                    //    var p = platforms[0];
-                    //    dbLinks = db.Database.SqlQuery<string>("select [Link] from [Buy].[dbo].[CouponUsers] "
-                    //        + "where UserID = @userid" +
-                    //        $" and [Platform] in ({string.Join(",", platforms)}) and [Link] in(@links)"
-                    //        , new System.Data.SqlClient.SqlParameter("userid", userID)
-                    //         , new System.Data.SqlClient.SqlParameter("links", string.Join(",", links))).ToList();
-                    //    //dbLinks = db.CouponUsers
-                    //    //    .Where(s => s.UserID == userID
-                    //    //    && s.Platform == p
-                    //    //    && links.Contains(s.Link))
-                    //    //    .Select(s => s.Link)
-                    //    //    .ToList();
-                    //}
-                    //else
-                    //{
-                    //    dbLinks = db.Database.SqlQuery<string>("select [Link] from [Buy].[dbo].[CouponUsers] "
-                    //        + "where UserID = @userid" +
-                    //        $" and [Platform] in ({string.Join(",", platforms)}) and [Link] in(@links)"
-                    //        , new System.Data.SqlClient.SqlParameter("userid", userID)
-                    //         , new System.Data.SqlClient.SqlParameter("links", string.Join(",", links))).ToList();
-                    //    //dbLinks = db.CouponUsers
-                    //    //           .Where(s => s.UserID == userID
-                    //    //           && platforms.Contains(s.Platform)
-                    //    //           && links.Contains(s.Link))
-                    //    //           .Select(s => s.Link)
-                    //    //           .ToList();
-                    //}
-                    //Comm.WriteLog("efUseTime", $"共：{new TimeSpan(stwatchsssss.ElapsedMilliseconds).TotalSeconds},查询数据共：{dbLinks.Count}", Enums.DebugLogLevel.Normal);
-                    //if (dbLinks.Count > 0)
-                    //{
-                    //    addTemp = addTemp.Where(s => !dbLinks.Contains(s.Link)).ToList();
-                    //    links = addTemp.Select(s => s.Link).ToList();
-                    //}
+                    List<string> dbLinks;//重复的券
+                    if (platforms.Count == 1)//如果非淘宝联盟
+                    {
+                        var p = platforms[0];
+                        dbLinks = db.CouponUsers
+                            .Where(s => s.UserID == userID
+                            && s.Platform == p
+                            && links.Contains(s.Link))
+                            .Select(s => s.Link).AsNoTracking()
+                            .ToList();
+                    }
+                    else
+                    {
+                        dbLinks = db.CouponUsers
+                                   .Where(s => s.UserID == userID
+                                   && platforms.Contains(s.Platform)
+                                   && links.Contains(s.Link))
+                                   .Select(s => s.Link).AsNoTracking()
+                                   .ToList();
+                    }
+                    if (dbLinks.Count > 0)
+                    {
+                        addTemp = addTemp.Where(s => !dbLinks.Contains(s.Link)).ToList();
+                        links = addTemp.Select(s => s.Link).ToList();
+                    }
                     //通过pLink反查CountID
                     var pLinks = addTemp.Select(s => s.PLink);
                     var queryCoupon = db.Coupons.AsQueryable();
@@ -213,22 +201,6 @@ namespace Buy.Bll
                     var couponIDs = queryCoupon
                         .Select(s => new { s.ID, s.PLink })
                         .ToList();
-                    ////var userCoupons = (
-                    ////                   from t in addTemp
-                    ////                   join ci in couponIDs on t.PLink equals ci.PLink into cig
-                    ////                   from k in cig.DefaultIfEmpty()
-                    ////                   where k != null
-                    ////                   select new CouponUser
-                    ////                   {
-                    ////                       CouponID = k.ID,
-                    ////                       Link = t.Link,
-                    ////                       PCouponID = t.PCouponID,
-                    ////                       UserID = userID,
-                    ////                       Platform = t.Platform,
-                    ////                       ProductID = t.ProductID
-                    ////                   }).ToList();
-                    //// db.CouponUsers.AddRange(userCoupons);
-
                     //保存到临时表
                     var userCoupons = (
                                        from t in addTemp
@@ -247,15 +219,19 @@ namespace Buy.Bll
                                        }).ToList();
                     db.CouponUserTemps.AddRange(userCoupons);
                     db.SaveChanges();
-                    TempsCount += userCoupons.Count;
                 }
+                //臨時表重复券删除
+                var del = db.Database.ExecuteSqlCommand($"delete from CouponUserTemps"
+                    + " where Link in (select Link from CouponUserTemps group by Link having count(Link) > 1)"
+                    + " and ID not in (select min(ID) from CouponUserTemps group by Link having count(Link) > 1)"
+                    + " and UserID = @userid"
+                    , new System.Data.SqlClient.SqlParameter("userid", userID));
                 stwatch.Stop();
                 tsAddTempCouponUser = new TimeSpan(stwatch.ElapsedMilliseconds);
                 stwatch.Reset();
                 stwatch.Restart();
                 //保存到正式表
                 var platformss = models.GroupBy(s => s.Platform).Select(s => s.Key).Select(s => (int)s).ToList();
-                //先把全部数据添加到CouponUserTemps里，再通过sql查询把重复的数据不添加到CouponUsers里
                 Action moveData = null;
                 Action removeData = null;
                 int moveTime = 0, removeTime = 0;
@@ -265,23 +241,19 @@ namespace Buy.Bll
                    try
                    {
                        moveTime++;
-                       string sqlMove = "insert into [Buy].[dbo].[CouponUsers] "
-                           + "([CouponID],[UserID],[Link],[Platform],[PCouponID],[ProductID],[CreateDateTime]) "
-                           + "select [CouponID],[UserID],[Link],[Platform],[PCouponID],[ProductID],[CreateDateTime] "
-                           + "from [Buy].[dbo].[CouponUserTemps] "
-                           + $"where [UserID] = @userid and [Platform] in ({string.Join(", ", platformss)}) "
-                           + "and not exists(select 1 from [Buy].[dbo].[CouponUsers] b where [Buy].[dbo].[CouponUserTemps].[Link] = b.[Link])";
-                       var count = db.Database.ExecuteSqlCommand(sqlMove, new System.Data.SqlClient.SqlParameter("userid", userID));
+                       //string sqlMove = "insert into [Buy].[dbo].[CouponUsers] "
+                       //    + "([CouponID],[UserID],[Link],[Platform],[PCouponID],[ProductID],[CreateDateTime]) "
+                       //    + "select [CouponID],[UserID],[Link],[Platform],[PCouponID],[ProductID],[CreateDateTime] "
+                       //    + "from [Buy].[dbo].[CouponUserTemps] "
+                       //    + $"where [UserID] = @userid and [Platform] in ({string.Join(", ", platformss)}) "
+                       //    + "and not exists(select 1 from [Buy].[dbo].[CouponUsers] b where [Buy].[dbo].[CouponUserTemps].[Link] = b.[Link])";
+                       //var count = db.Database.ExecuteSqlCommand(sqlMove, new System.Data.SqlClient.SqlParameter("userid", userID));
 
-
-                       //var count = db.Database.ExecuteSqlCommand("insert into CouponUsers (CouponID,UserID,Link,[Platform],PCouponID,ProductID,CreateDateTime) "
-                       //      + "select CouponID, UserID, Link,[Platform], PCouponID, ProductID, CreateDateTime "
-                       //      + "from CouponUserTemps "
-                       //      + $"where UserID = @userid and [Platform] in ({string.Join(",", platformss)})"
-                       //      + "and not exists(select 1 from [Buy].[dbo].[Coupons] b where a.[Link] = b.[PLink])",
-                       //        new System.Data.SqlClient.SqlParameter("userid", userID));
-
-
+                       var count = db.Database.ExecuteSqlCommand("insert into CouponUsers (CouponID,UserID,Link,[Platform],PCouponID,ProductID,CreateDateTime) "
+                         + "select CouponID, UserID, Link,[Platform], PCouponID, ProductID, CreateDateTime "
+                         + "from CouponUserTemps "
+                         + $"where UserID = @userid and [Platform] in ({string.Join(",", platformss)})"
+                         , new System.Data.SqlClient.SqlParameter("userid", userID));
                    }
                    catch (Exception ex)
                    {
@@ -295,7 +267,6 @@ namespace Buy.Bll
                        System.Threading.Thread.Sleep(1000 * moveTime);
                        moveData();
                    }
-
                };
                 removeData = () =>
                 {
