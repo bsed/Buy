@@ -78,7 +78,13 @@
             <div id="detailTit" class="columnModule">
                 <div class="columnModule-title"><span>商品详情</span></div>
             </div>
-            <div id="pullUpLoad" class="couponDetail-scroll"><span style="transform:rotate(0)">↑</span><div class="loading hidden"></div>上拉查看商品详情</div>
+            <div id="pullUpLoad" class="couponDetail-scroll">
+                <span style="transform:rotate(0)">↑</span>
+                <div class="loading hidden"></div>
+                <div class="text">
+                    上拉查看商品详情
+                </div>
+            </div>
             <div name="poductDetail" class="couponDetail-detailImg">
             </div>
         </div>
@@ -139,8 +145,8 @@
                             <div class="coupon-tab fl marginR8">
                                 @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
                                 {
-                                    <div class="coupon-tab-type fl">@item.Type</div>
-                                    <div class="coupon-tab-val fl">@item.Value</div>
+                                <div class="coupon-tab-type fl">@item.Type</div>
+                                <div class="coupon-tab-val fl">@item.Value</div>
                                 }
                             </div>
                         </div>

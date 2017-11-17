@@ -1,33 +1,49 @@
 ﻿$("#btnBack").goback(comm.action("Index", "Coupon"));
 
-if ($("#ID").length > 0) {
-    function GetDetailImgs() {
-        $.ajax({
-            type: "POST",
-            url: comm.action("GetDetailImgs", "Coupon"),
-            data: { id: $("#ID").val() },
-            dataType: "json",
-            success: function (data) {
-                if (data.State == "Success") {
-                    var html = "";
-                    if (data.Result.Data.length > 0) {
-                        var lazyloadimg = $("#lazyloadimg").attr("src");
-                        var dttop = $("#detailTit").offset().top;
-                        var dth = $("#detailTit").height();
-                        $.each(data.Result.Data, function (i, n) {
-                            html += '<img src="' + lazyloadimg + '" data-original="' + n + '" />';
-                        })
-                        $("[name=poductDetail]").append(html);
-                        comm.lazyloadALL();
+//获取图片详情
+function GetDetailImgs() {
+    $.ajax({
+        type: "POST",
+        url: comm.action("GetDetailImgs", "Coupon"),
+        data: { id: $("#ID").val() },
+        dataType: "json",
+        timeout: 10000,
+        complete: function (XMLHttpRequest, status) {
+            if (status == 'timeout') {//超时,status还有success,error等值的情况
+                //location = location;
+                $(".text").text("加载超时,上拉重新加载");
+                var update1 = $("#pullUpLoad");
+                update1.find("span").css("transform", "rotate(0deg)");
+                update1.find("span").show();
+                update1.find(".loading").addClass("hidden");
+            }
+        },
+        success: function (data) {
+            if (data.State == "Success") {
+                var html = "";
+                if (data.Result.Data.length > 0) {
+                    var lazyloadimg = $("#lazyloadimg").attr("src");
+                    var dttop = $("#detailTit").offset().top;
+                    var dth = $("#detailTit").height();
+                    $.each(data.Result.Data, function (i, n) {
+                        html += '<img src="' + lazyloadimg + '" data-original="' + n + '" />';
+                    })
+                    $("[name=poductDetail]").append(html);
+                    comm.lazyloadALL();
 
-                        if ($("[name='poductDetail'] img").length > 0) {
-                            $("#pullUpLoad").hide();
-                        }
+                    if ($("[name='poductDetail'] img").length > 0) {
+                        $("#pullUpLoad").hide();
                     }
+                } else {
+                    $(".text").text("加载超时,上拉重新加载");
+                    var update1 = $("#pullUpLoad");
+                    update1.find("span").css("transform", "rotate(0deg)");
+                    update1.find("span").show();
+                    update1.find(".loading").addClass("hidden");
                 }
             }
-        });
-    }
+        }
+    });
 }
 
 var poffSetTop = $("#detailTit").offset().top;
