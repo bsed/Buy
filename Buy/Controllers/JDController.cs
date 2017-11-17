@@ -93,9 +93,10 @@ namespace Buy.Controllers
         public ActionResult GetCid()
         {
             var model = db.CouponTypes
-                  .Where(s => s.Platform == Enums.CouponPlatform.Jd
-                    && s.Keyword != null)
+                  .Where(s => s.Platform == Enums.CouponPlatform.Jd)
                   .Select(s => new { s.ID, s.Keyword, s.Name })
+                  .ToList()
+                  .Where(s=>!string.IsNullOrWhiteSpace(s.Keyword))
                   .ToList();
             return Json(Comm.ToJsonResult("Success", "成功", model), JsonRequestBehavior.AllowGet);
 
