@@ -119,22 +119,21 @@ namespace Buy.Controllers
                 return Json(Comm.ToJsonResult("NoRole", "没有权限"));
             }
             var groupProductType = db.Coupons
-                .Where(s => !s.TypeID.HasValue && s.ProductType != null)
+                .Where(s => !s.TypeID.HasValue && s.ProductType != null && s.Platform == Enums.CouponPlatform.Jd)
                 .GroupBy(s => s.ProductType)
                 .Select(s => s.Key)
                 .ToList();
             int changeCount = 0;
             foreach (var productType in groupProductType)
             {
-                var typeID = Bll.Coupons.CheckType(productType, Enums.CouponPlatform.TaoBao);
+                var typeID = Bll.Coupons.CheckType(productType, Enums.CouponPlatform.Jd);
                 if (typeID == null)
                 {
                     continue;
                 }
                 var coupons = db.Coupons.Where(s => !s.TypeID.HasValue
                     && s.ProductType == productType
-                    && (s.Platform == Enums.CouponPlatform.TaoBao
-                        || s.Platform == Enums.CouponPlatform.TMall)).ToList();
+                    && s.Platform == Enums.CouponPlatform.Jd).ToList();
                 foreach (var item in coupons)
                 {
                     item.TypeID = typeID;
@@ -151,15 +150,13 @@ namespace Buy.Controllers
         [AllowAnonymous]
         public ActionResult CleanType()
         {
-            int count = db.Coupons.Where(s => (s.Platform == Enums.CouponPlatform.TaoBao ||
-            s.Platform == Enums.CouponPlatform.TMall) &&
+            int count = db.Coupons.Where(s => s.Platform == Enums.CouponPlatform.Jd &&
             s.TypeID.HasValue && s.ProductType != null).Count();
             int totalPage = count / 50 + (count % 50 > 0 ? 1 : 0);
             int changeCount = 0;
             for (int i = 1; i <= totalPage; i++)
             {
-                var data = db.Coupons.Where(s => (s.Platform == Enums.CouponPlatform.TaoBao ||
-                s.Platform == Enums.CouponPlatform.TMall) &&
+                var data = db.Coupons.Where(s => s.Platform == Enums.CouponPlatform.Jd &&
                 s.TypeID.HasValue && s.ProductType != null)
                     .OrderBy(s => s.ID).ToPagedList(i, 50);
                 foreach (var item in data)
@@ -406,32 +403,6 @@ namespace Buy.Controllers
                 Count = s.Count()
             }).OrderBy(s => s.Count);
             return Json(Comm.ToJsonResult("Success", "成功", list), JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        [AllowCrossSiteJson]
-        [AllowAnonymous]
-        public ActionResult CtrateTime()
-        {
-            var userCoupons = from u in db.CouponUsers
-                              join c in db.Coupons on u.CouponID equals c.ID into uc
-                              from coupon in uc.DefaultIfEmpty()
-                              where coupon != null && u.CreateDateTime.Year < DateTime.Now.Year
-                              select new { u, coupon };
-
-            int count = userCoupons.Count();
-            int totalPage = count / 50 + (count % 50 > 0 ? 1 : 0);
-            int changeCount = 0;
-            for (int i = 1; i <= totalPage; i++)
-            {
-                var data = userCoupons.OrderBy(s => s.u.ID).ToPagedList(i, 50);
-                foreach (var item in data)
-                {
-                    item.u.CreateDateTime = item.coupon.CreateDateTime;
-                }
-                changeCount += db.SaveChanges();
-            }
-            return Json(Comm.ToJsonResult("Success", "成功", changeCount), JsonRequestBehavior.AllowGet);
         }
     }
 }

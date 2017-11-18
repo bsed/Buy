@@ -30,22 +30,29 @@
             default:
                 break;
         }
+        var value = Buy.Bll.Coupons.GetValues(item)[0].Value;
         <li>
             <div class="couponList-head">
-                <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
+                <a href="@Url.Action("Details", "Coupon", new { id = item.ID })">
                     <img src="~/Content/Images/404/placeholder_image.png?w=150&h=150" data-original="@img" />
                     <img class="plogo" src="@platformLogo" />
                 </a>
             </div>
 
             <div class="couponList-details">
-                <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
+                <a href="@Url.Action("Details", "Coupon", new { id = item.ID })">
                     <div class="couponList-title">
                         @item.Name
                     </div>
                     @if (item.Platform == Buy.Enums.CouponPlatform.Jd)
                     {
-
+                        <div class="couponList-price">
+                            <div class=""><span class="couponList-sales fs12">销量：@item.Sales</span></div>
+                            @if (item.OriginalPrice != item.Price)
+                            {
+                                <div class="originalPrice">原价：<span class="">￥@item.OriginalPrice</span></div>
+                            }
+                        </div>
                     }
                     else
                     {
@@ -58,21 +65,30 @@
                     <div class="couponList-afterPrice">
                         <span class="yuan">￥</span>@item.Price
                     </div>
-                    @*<div class="marginT15">
-                            <div class="coupon-tab">
-                                @foreach (var value in Buy.Bll.Coupons.GetValues(item))
-                                {
-                                    <div class="coupon-tab-type fl">@value.Type</div>
-                                    <div class="coupon-tab-val fl">@value.Value</div>
-                                }
-                            </div>
-                        </div>*@
                 </a>
             </div>
-
-            <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
+            <a href="@Url.Action("Details", "Coupon", new { id = item.ID })">
                 <div class="couponList-ticket" data-href="">
-                    <div class="lingquan"><span class="fs16">@Buy.Bll.Coupons.GetValues(item)[0].Value</span></div>
+                    <div class="lingquan">
+                        <span class="fs16">
+                            @if (item.Platform == Buy.Enums.CouponPlatform.Jd)
+                            {
+                                var val = decimal.Parse(value);
+                                if (val != 0)
+                                {
+                                    @(Math.Abs(val))
+                                }
+                                else
+                                {
+                                    <span>专享价</span>
+                                }
+                            }
+                            else
+                            {
+                                @(value)
+                            }
+                        </span>
+                    </div>
                 </div>
             </a>
             <div style="clear:both;"></div>
@@ -97,7 +113,5 @@
 }
 else
 {
-    @*<li class="loadModule loadModule-dataIng" data-next="false" data-page="0">
-            已经到底了
-        </li>*@
+
 }

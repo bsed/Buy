@@ -439,6 +439,29 @@ namespace Buy.Controllers
                                 {
                                     img = dom.Select(".itemPhotoDetail #s-desc").Select(s => s.Attributes["data-ks-lazyload"]).ToList();
                                 }
+                                if (img.Count == 0)
+                                {
+                                    using (var driver = new PhantomJSDriver())
+                                    {
+                                        driver.Url = $"https://detail.m.tmall.com/item.htm?id={tt.ProductID}";
+                                        driver.Navigate();
+                                        driver.FindElement(OpenQA.Selenium.By.ClassName("desc")).Click();
+                                        var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                                        try
+                                        {
+                                            wait.Until(s => s.FindElement(OpenQA.Selenium.By.Id("s-desc")));
+                                        }
+                                        catch (Exception)
+                                        {
+                                            driver.Quit();
+                                            return Json(Comm.ToJsonResult("Error", "超时"), JsonRequestBehavior.AllowGet);
+                                        }
+                                        var source = driver.PageSource;
+                                        dom = CQ.CreateDocument(source);
+                                        img = dom.Select("#s-desc img").Select(s => s.Attributes["data-ks-lazyload"]).ToList();
+                                        driver.Quit();
+                                    }
+                                }
                             }
                             break;
                         case Enums.CouponPlatform.Jd:

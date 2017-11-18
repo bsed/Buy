@@ -35,13 +35,15 @@
     {
         img = $"{img}_200x200.jpg";
     }
+    var value = Buy.Bll.Coupons.GetValues(Model)[0].Value;
     <input id="cUserID" type="hidden" value="@cUserID" />
     <input id="userID" type="hidden" value="@User.Identity.GetUserId()" />
+    <input id="platform" type="hidden" value="@Model.Platform" />
     <img id="lazyloadimg" hidden src="~/Content/images/404/placeholder_image.png?w=150&h=150" />
     <div id="detail" class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
             <div class="couponDetail-top-back fl @(string.IsNullOrWhiteSpace(cUserID)?"":"hidden")" id="btnBack"></div>
-            <div class="couponDetail-top-share fr" id="btnShare"></div>
+            @*<div class="couponDetail-top-share fr" id="btnShare"></div>*@
         </div>
         <div class="couponDetail-pImg">
             <img src="@Comm.ResizeImage(Model.Image)" alt="" />
@@ -51,34 +53,54 @@
                 <img src="@platformLogo" />
                 @Model.Name
             </a>
-            <div class="couponDetail-info-price">
-                <div class="fl preferPrice"><span class="fs12 marginR5">¥</span><span class="fs24">@Model.Price</span></div>
-                <div class="tab fl"><img src="~/Content/images/view/img_tag_qhj@2x.png" /></div>
-            </div>
 
-            @if (Model.Platform != Buy.Enums.CouponPlatform.Jd)
+            @if (Model.Platform == Buy.Enums.CouponPlatform.Jd)
             {
+                <div class="couponDetail-info-price">
+                    <div class="fl preferPrice"><span class="fs12 marginR5">¥</span><span class="fs24">@Model.Price</span></div>
+                    @if (Model.OriginalPrice != Model.Price)
+                    {
+                        <div class="tab fl"><img src="~/Content/images/view/img_tag_qhj@2x.png" /></div>
+                    }
+                    else
+                    {
+                        <div class="fr">
+                            <div class="fr color-grey fs14">销量：@Model.Sales</div>
+                        </div>
+                    }
+                </div>
+
+                if (Model.OriginalPrice != Model.Price)
+                {
+                    <div class="clearfix marginT8">
+                        <div class="fl originalPrice color-grey fs14">原价：<span>¥ @Model.OriginalPrice</span></div>
+                        <div class="fr color-grey fs14">销量：@Model.Sales</div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="couponDetail-info-price">
+                    <div class="fl preferPrice"><span class="fs12 marginR5">¥</span><span class="fs24">@Model.Price</span></div>
+                    <div class="tab fl"><img src="~/Content/images/view/img_tag_qhj@2x.png" /></div>
+                </div>
                 <div class="clearfix marginT8">
                     <div class="fl originalPrice color-grey fs14">原价：<span>¥ @Model.OriginalPrice</span></div>
                     <div class="fr color-grey fs14">销量：@Model.Sales</div>
                 </div>
             }
-
-            @*<div class="clearfix marginT10">
-                    <div class="coupon-tab fl marginR8">
-                        @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
-                        {
-                            <div class="coupon-tab-type fl">@item.Type</div>
-                            <div class="coupon-tab-val fl">@item.Value</div>
-                        }
-                    </div>
-                </div>*@
         </div>
         <div class="marginT10">
             <div id="detailTit" class="columnModule">
                 <div class="columnModule-title"><span>商品详情</span></div>
             </div>
-            <div id="pullUpLoad" class="couponDetail-scroll"><span style="transform:rotate(0)">↑</span><div class="loading hidden"></div>上拉查看商品详情</div>
+            <div id="pullUpLoad" class="couponDetail-scroll">
+                <span style="transform:rotate(0)">↑</span>
+                <div class="loading hidden"></div>
+                <div class="text">
+                    上拉查看商品详情
+                </div>
+            </div>
             <div name="poductDetail" class="couponDetail-detailImg">
             </div>
         </div>
@@ -88,9 +110,30 @@
 
             @*.active 已收藏*@
             <div id="collect_btn" class="couponDetail-collect fl @((bool)ViewBag.IsFavorite?"active":"")" data-id="@((bool)ViewBag.IsFavorite?(int)ViewBag.FavoriteID:Model.ID)"></div>
+            <div class="couponDetail-share fl" id="btnShare"></div>
 
             <div class="couponDetail-clipboard fr" name="clipboard">
-                领取<span>@Buy.Bll.Coupons.GetValues(Model)[0].Value</span>券
+                领取
+                @if (Model.Platform == Buy.Enums.CouponPlatform.Jd)
+                {
+                    var val = decimal.Parse(value);
+                    if (val != 0)
+                    {
+                        <span>
+                            @(Math.Abs(val))券
+                        </span>
+                    }
+                    else
+                    {
+                        <span>专享价</span>
+                    }
+                }
+                else
+                {
+                    <span>
+                        @(value)券
+                    </span>
+                }
                 <div class="border-round left"><div></div><div></div><div></div><div></div></div>
                 <div class="border-round right"><div></div><div></div><div></div><div></div></div>
             </div>
@@ -114,7 +157,11 @@
                 <img id="shareText-load" class="hidden" src="~/Content/images/view/loadingGif.gif" />
             </div>
             <input id="share_name" hidden value="@Model.Name" />
-            <input id="share_or_price" hidden value="@Model.OriginalPrice" />
+            @if (Model.OriginalPrice != Model.Price)
+            {
+                <input id="share_or_price" hidden value="@Model.OriginalPrice" />
+            }
+            
             <input id="share_price" hidden value="@Model.Price" />
             <input id="share_url" hidden value="@url" />
             <input id="share_img" hidden value="@img" />
@@ -133,14 +180,36 @@
                         </div>
                         <div class="shareImgModule-info-cons-price">
                             <div class="fl preferPrice"><span class="">¥</span><span class="fontsize24">@Model.Price</span></div>
-                            <div id="originalPrice" class="fl originalPrice color-grey">在售价 ¥ @Model.OriginalPrice</div>
+                            @if (Model.OriginalPrice != Model.Price)
+                            {
+                                <div id="originalPrice" class="fl originalPrice color-grey">
+                                    在售价 ¥ @Model.OriginalPrice
+                                </div>
+                            }
                         </div>
                         <div class="clearfix">
                             <div class="coupon-tab fl marginR8">
                                 @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
                                 {
                                     <div class="coupon-tab-type fl">@item.Type</div>
-                                    <div class="coupon-tab-val fl">@item.Value</div>
+                                    <div class="coupon-tab-val fl">
+                                        @if (Model.Platform == Buy.Enums.CouponPlatform.Jd)
+                                        {
+                                            var val = decimal.Parse(value);
+                                            if (val != 0)
+                                            {
+                                                @(Math.Abs(val))
+                                            }
+                                            else
+                                            {
+                                                @("专享价")
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @item.Value
+                                        }
+                                    </div>
                                 }
                             </div>
                         </div>
