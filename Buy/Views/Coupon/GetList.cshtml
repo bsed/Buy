@@ -50,10 +50,7 @@
                     {
                         <div class="couponList-price">
                             <div class=""><span class="couponList-sales fs12">销量：@item.Sales</span></div>
-                            @if (Buy.Bll.Coupons.GetValues(item)[0].Value != "0.00")
-                            {
-                                <div class="originalPrice">原价：<span class="">￥@item.OriginalPrice</span></div>
-                            }
+                            <div class="originalPrice">原价：<span class="">￥@item.OriginalPrice</span></div>
                         </div>
                     }
                     else
@@ -78,7 +75,6 @@
                         </div>*@
                 </a>
             </div>
-
             <a href="@Url.Action("Details", "Coupon", new { id = item.ID })">
                 <div class="couponList-ticket" data-href="">
                     <div class="lingquan">
