@@ -1,4 +1,10 @@
-﻿$("#btnBack").goback(comm.action("Index", "Coupon"));
+﻿var platform = $("#platform").val();
+var share_name = $("#share_name").val();
+var share_or_price = $("#share_or_price").val();
+var share_price = $("#share_price").val();
+var share_url = $("#share_url").val();
+
+$("#btnBack").goback(comm.action("Index", "Coupon"));
 
 //获取图片详情
 function GetDetailImgs() {
@@ -206,6 +212,101 @@ clipboard.on('error', function (e) {
 $(".pwdMask").click(function (e) {
 });
 
+function canvas2d() {
+    //canvas截屏
+    //var img = document.getElementById('shareImgModule_img');
+    //var data = getBase64Image(img);
+    //$('#shareImgModule_img').prop("src", data);
+
+    //html2canvas(document.getElementById("shareImgModule"), {
+    //    allowTaint: true,
+    //    taintTest: true,
+    //    useCORS: true,
+    //    onrendered: function (canvas) {
+    //        var url = canvas.toDataURL();
+    //        var img = new Image();
+    //        img.src = url;
+    //        document.getElementById('Output').appendChild(img);
+    //        $("#shareImgModule").addClass("hidden");
+    //    }
+    //});
+
+    var canvas = document.createElement("canvas");
+    var cxt = canvas.getContext("2d");
+    var shareImgModule = $("#shareImgModule");
+    canvas.width = shareImgModule.width();
+    canvas.height = shareImgModule.height();
+    cxt.fillStyle = "#ffffff";
+    cxt.fillRect(0, 0, shareImgModule.width(), shareImgModule.height());
+
+    var share_img = $("#shareImgModule_img");
+    var qrcode = $("#qrcode");
+    var platformLogo = $("#platformLogo");
+    var share_img_i = document.getElementById('shareImgModule_img');
+    var qrcode_i = document.getElementById('qrcode');
+    var platformLogo_i = document.getElementById('platformLogo');
+    cxt.fillStyle = "#ffffff";
+    cxt.drawImage(share_img_i, 0, 0, share_img.width(), share_img.height());
+    cxt.drawImage(qrcode_i, shareImgModule.width() - qrcode.width() - 5, share_img.height() + 5, qrcode.width(), qrcode.height());
+    cxt.drawImage(platformLogo_i, 5, share_img.height() + 7, platformLogo.width(), platformLogo.height());
+
+    var biaotword = share_name;
+    var biaotword1 = biaotword.substring(0, 12);
+    var biaotword2 = biaotword.substring(12, 22);
+    cxt.font = "14px Helvetica Neue";
+    cxt.fillStyle = "rgba(0,0,0,0.87)";
+    cxt.fillText(biaotword1, platformLogo.width() + 9, share_img.height() + 20);
+    cxt.fillText(biaotword2, 5, share_img.height() + 5 + 32);
+
+    cxt.font = "12px Helvetica Neue";
+    cxt.fillStyle = "#ff5913";
+    cxt.fillText("长按识别二维码", shareImgModule.width() - qrcode.width() - 8, share_img.height() + qrcode.height() + 20);
+
+    cxt.font = "12px Helvetica Neue";
+    cxt.fillStyle = "#ff5913";
+    cxt.fillText("¥", 5, share_img.height() + 65);
+
+    cxt.font = "24px Helvetica Neue";
+    cxt.fillStyle = "#ff5913";
+    cxt.fillText(share_price, 15, share_img.height() + 65);
+
+    cxt.font = "12px Helvetica Neue";
+    cxt.fillStyle = "rgba(0,0,0,0.54)";
+    cxt.fillText("在售价 ¥ " + share_or_price, 110, share_img.height() + 62);
+
+    cxt.beginPath();
+    cxt.moveTo(110, 358);
+    cxt.lineTo($("#originalPrice").width() + 110, share_img.height() + 58);
+    cxt.strokeStyle = "rgba(0,0,0,0.54)";
+    cxt.stroke();
+    cxt.closePath();
+
+    cxt.beginPath();
+    cxt.lineWidth = "1";
+    cxt.strokeStyle = "#ffd500";
+    cxt.rect(23, share_img.height() + 78, 40, 16);
+    cxt.stroke();
+
+    cxt.fillStyle = "#ffd500";
+    cxt.fillRect(5, share_img.height() + 77, 18, 18);
+
+    cxt.font = "12px Helvetica Neue";
+    cxt.fillStyle = "rgba(0,0,0,0.87)";
+    cxt.fillText("券", 8, share_img.height() + 90);
+
+    cxt.font = "12px Helvetica Neue";
+    cxt.fillStyle = "rgba(0,0,0,0.87)";
+    cxt.fillText($(".coupon-tab-val").text(), 25, share_img.height() + 90);
+
+
+    var url = canvas.toDataURL("image/jpeg");
+    var img = new Image();
+    img.src = url;
+    document.getElementById('Output').appendChild(img);
+
+    $("#shareImgModule").addClass("hidden");
+}
+
 $("#btnShare").click(function (e) {
     if ($("#userID").val() == "") {
         location = comm.action("Login", "Account", { returnUrl: document.location.pathname });
@@ -218,122 +319,37 @@ $("#btnShare").click(function (e) {
         $("#sharePhoto-tips").text("长按保存图片")
     }
     if ($("#Output").children().length <= 0) {
-        $.ajax({
-            type: "GET",
-            url: comm.action("GetPwd", "Coupon"),
-            data: { id: $("#ID").val() },
-            dataType: "json",
-            beforeSend: function (XMLHttpRequest) {
-                $("#shareText-load").removeClass("hidden");
-            },
-            success: function (data) {
-                if (data.State == "Success") {
-                    var share_name = $("#share_name").val();
-                    var share_or_price = $("#share_or_price").val();
-                    var share_price = $("#share_price").val();
-                    var share_url = $("#share_url").val();
-                    var val = share_name + "\n【在售价】" + share_or_price + "元\n【券后价】" + share_price + "元\n【下单链接】" + share_url + "\n-------------------------------------\n复制这条信息，{" + data.Result.Data + "}，打开【手机淘宝】即可查看";
+        if (platform == "Jd") {
+            var val = share_name + "\n【在售价】" + share_or_price + "元\n【券后价】" + share_price + "元\n【下单链接】" + share_url;
 
-                    $("#shareText-load").addClass("hidden");
+            $("#shareText-load").addClass("hidden");
+            $("#shareText").val(val);
+            $("#shareTextBtn").attrdata("clipboard-text", val);
 
-                    $("#shareText").val(val);
-                    $("#shareTextBtn").attrdata("clipboard-text", val);
+            canvas2d();
+        } else {
+            $.ajax({
+                type: "GET",
+                url: comm.action("GetPwd", "Coupon"),
+                data: { id: $("#ID").val() },
+                dataType: "json",
+                beforeSend: function (XMLHttpRequest) {
+                    $("#shareText-load").removeClass("hidden");
+                },
+                success: function (data) {
+                    if (data.State == "Success") {
+                        var val = share_name + "\n【在售价】" + share_or_price + "元\n【券后价】" + share_price + "元\n【下单链接】" + share_url + "\n-------------------------------------\n复制这条信息，{" + data.Result.Data + "}，打开【手机淘宝】即可查看";
 
-                    //canvas截屏
-                    //var img = document.getElementById('shareImgModule_img');
-                    //var data = getBase64Image(img);
-                    //$('#shareImgModule_img').prop("src", data);
+                        $("#shareText-load").addClass("hidden");
 
-                    //html2canvas(document.getElementById("shareImgModule"), {
-                    //    allowTaint: true,
-                    //    taintTest: true,
-                    //    useCORS: true,
-                    //    onrendered: function (canvas) {
-                    //        var url = canvas.toDataURL();
-                    //        var img = new Image();
-                    //        img.src = url;
-                    //        document.getElementById('Output').appendChild(img);
-                    //        $("#shareImgModule").addClass("hidden");
-                    //    }
-                    //});
+                        $("#shareText").val(val);
+                        $("#shareTextBtn").attrdata("clipboard-text", val);
 
-                    var canvas = document.createElement("canvas");
-                    var cxt = canvas.getContext("2d");
-                    var shareImgModule = $("#shareImgModule");
-                    canvas.width = shareImgModule.width();
-                    canvas.height = shareImgModule.height();
-                    cxt.fillStyle = "#ffffff";
-                    cxt.fillRect(0, 0, shareImgModule.width(), shareImgModule.height());
-
-                    var share_img = $("#shareImgModule_img");
-                    var qrcode = $("#qrcode");
-                    var platformLogo = $("#platformLogo");
-                    var share_img_i = document.getElementById('shareImgModule_img');
-                    var qrcode_i = document.getElementById('qrcode');
-                    var platformLogo_i = document.getElementById('platformLogo');
-                    cxt.fillStyle = "#ffffff";
-                    cxt.drawImage(share_img_i, 0, 0, share_img.width(), share_img.height());
-                    cxt.drawImage(qrcode_i, shareImgModule.width() - qrcode.width() - 5, share_img.height() + 5, qrcode.width(), qrcode.height());
-                    cxt.drawImage(platformLogo_i, 5, share_img.height() + 7, platformLogo.width(), platformLogo.height());
-
-                    var biaotword = share_name;
-                    var biaotword1 = biaotword.substring(0, 12);
-                    var biaotword2 = biaotword.substring(12, 22);
-                    cxt.font = "14px Helvetica Neue";
-                    cxt.fillStyle = "rgba(0,0,0,0.87)";
-                    cxt.fillText(biaotword1, platformLogo.width() + 9, share_img.height() + 20);
-                    cxt.fillText(biaotword2, 5, share_img.height() + 5 + 32);
-
-                    cxt.font = "12px Helvetica Neue";
-                    cxt.fillStyle = "#ff5913";
-                    cxt.fillText("长按识别二维码", shareImgModule.width() - qrcode.width() - 8, share_img.height() + qrcode.height() + 20);
-
-                    cxt.font = "12px Helvetica Neue";
-                    cxt.fillStyle = "#ff5913";
-                    cxt.fillText("¥", 5, share_img.height() + 65);
-
-                    cxt.font = "24px Helvetica Neue";
-                    cxt.fillStyle = "#ff5913";
-                    cxt.fillText(share_price, 15, share_img.height() + 65);
-
-                    cxt.font = "12px Helvetica Neue";
-                    cxt.fillStyle = "rgba(0,0,0,0.54)";
-                    cxt.fillText("在售价 ¥ " + share_or_price, 110, share_img.height() + 62);
-
-                    cxt.beginPath();
-                    cxt.moveTo(110, 358);
-                    cxt.lineTo($("#originalPrice").width() + 110, share_img.height() + 58);
-                    cxt.strokeStyle = "rgba(0,0,0,0.54)";
-                    cxt.stroke();
-                    cxt.closePath();
-
-                    cxt.beginPath();
-                    cxt.lineWidth = "1";
-                    cxt.strokeStyle = "#ffd500";
-                    cxt.rect(23, share_img.height() + 78, 40, 16);
-                    cxt.stroke();
-
-                    cxt.fillStyle = "#ffd500";
-                    cxt.fillRect(5, share_img.height() + 77, 18, 18);
-
-                    cxt.font = "12px Helvetica Neue";
-                    cxt.fillStyle = "rgba(0,0,0,0.87)";
-                    cxt.fillText("券", 8, share_img.height() + 90);
-
-                    cxt.font = "12px Helvetica Neue";
-                    cxt.fillStyle = "rgba(0,0,0,0.87)";
-                    cxt.fillText($(".coupon-tab-val").text(), 25, share_img.height() + 90);
-
-
-                    var url = canvas.toDataURL("image/jpeg");
-                    var img = new Image();
-                    img.src = url;
-                    document.getElementById('Output').appendChild(img);
-
-                    $("#shareImgModule").addClass("hidden");
+                        canvas2d();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 });
 

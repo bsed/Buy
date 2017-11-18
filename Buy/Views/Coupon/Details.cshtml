@@ -38,6 +38,7 @@
     var value = Buy.Bll.Coupons.GetValues(Model)[0].Value;
     <input id="cUserID" type="hidden" value="@cUserID" />
     <input id="userID" type="hidden" value="@User.Identity.GetUserId()" />
+    <input id="platform" type="hidden" value="@Model.Platform"/>
     <img id="lazyloadimg" hidden src="~/Content/images/404/placeholder_image.png?w=150&h=150" />
     <div id="detail" class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
