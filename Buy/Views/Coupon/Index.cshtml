@@ -58,63 +58,67 @@
         </ul>
     </div>
     @*banner*@
-    <div id="index" class="">
-        <div class="banner couponIndex-banner">
-            @{
-                var banner1 = banner.FirstOrDefault();
-            }
-            <div class="banner-simple">
-                <a href="@(Url.ContentFull(banner1?.Link))">
-                    <img src="@(Url.ResizeImage(banner1?.Image, 750, 280))" alt="" />
-                </a>
+    @if (p != Buy.Enums.CouponPlatform.Jd)
+    {
+        <div id="index" class="">
+            <div class="banner couponIndex-banner">
+                @{
+                    var banner1 = banner.FirstOrDefault();
+                }
+                <div class="banner-simple">
+                    <a href="@(Url.ContentFull(banner1?.Link))">
+                        <img src="@(Url.ResizeImage(banner1?.Image, 750, 280))" alt="" />
+                    </a>
+                </div>
+                @if (p == Buy.Enums.CouponPlatform.TaoBao)
+                {
+                    <div class="couponIndex-shade"></div>
+                }
             </div>
-            @if (p == Buy.Enums.CouponPlatform.TaoBao)
+            @switch (p)
             {
-                <div class="couponIndex-shade"></div>
+                case Buy.Enums.CouponPlatform.TaoBao:
+                case Buy.Enums.CouponPlatform.TMall:
+                    {
+                        <div class="couponIndex-menu">
+                            <ul>
+                                @foreach (var item in classify)
+                            {
+                                    <li>
+                                        <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
+                                            <img src="@Comm.ResizeImage(item.Image,124,124)" />
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    break;
+                case Buy.Enums.CouponPlatform.Jd:
+                    break;
+                case Buy.Enums.CouponPlatform.MoGuJie:
+                    {
+                        <div class="couponIndex-menu style02">
+                            <ul>
+                                @foreach (var item in classify)
+                            {
+                                    <li>
+                                        <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
+                                            <img src="@Comm.ResizeImage(item.Image,326, 120)" />
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    break;
+                default:
+                    break;
             }
-        </div>
-        @switch (p)
-        {
-            case Buy.Enums.CouponPlatform.TaoBao:
-            case Buy.Enums.CouponPlatform.TMall:
-                {
-                    <div class="couponIndex-menu">
-                        <ul>
-                            @foreach (var item in classify)
-                            {
-                                <li>
-                                    <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
-                                        <img src="@Comm.ResizeImage(item.Image,124,124)" />
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
-                break;
-            case Buy.Enums.CouponPlatform.Jd:
-                break;
-            case Buy.Enums.CouponPlatform.MoGuJie:
-                {
-                    <div class="couponIndex-menu style02">
-                        <ul>
-                            @foreach (var item in classify)
-                            {
-                                <li>
-                                    <a href="@Url.ContentFull(item.Link)" data-code="@item.Code">
-                                        <img src="@Comm.ResizeImage(item.Image,326, 120)" />
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
-                break;
-            default:
-                break;
-        }
 
-    </div>
+        </div>
+                    }
+
 
     <div id="couponNav" class="coupon-nav">
         <ul>

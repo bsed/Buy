@@ -52,13 +52,37 @@
                 <img src="@platformLogo" />
                 @Model.Name
             </a>
-            <div class="couponDetail-info-price">
-                <div class="fl preferPrice"><span class="fs12 marginR5">¥</span><span class="fs24">@Model.Price</span></div>
-                <div class="tab fl"><img src="~/Content/images/view/img_tag_qhj@2x.png" /></div>
-            </div>
 
-            @if (Model.Platform != Buy.Enums.CouponPlatform.Jd)
+            @if (Model.Platform == Buy.Enums.CouponPlatform.Jd)
             {
+                <div class="couponDetail-info-price">
+                    <div class="fl preferPrice"><span class="fs12 marginR5">¥</span><span class="fs24">@Model.Price</span></div>
+                    @if (Model.OriginalPrice != Model.Price)
+                    {
+                        <div class="tab fl"><img src="~/Content/images/view/img_tag_qhj@2x.png" /></div>
+                    }
+                    else
+                    {
+                        <div class="fr">
+                            <div class="fr color-grey fs14">销量：@Model.Sales</div>
+                        </div>
+                    }
+                </div>
+
+                if (Model.OriginalPrice != Model.Price)
+                {
+                    <div class="clearfix marginT8">
+                        <div class="fl originalPrice color-grey fs14">原价：<span>¥ @Model.OriginalPrice</span></div>
+                        <div class="fr color-grey fs14">销量：@Model.Sales</div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="couponDetail-info-price">
+                    <div class="fl preferPrice"><span class="fs12 marginR5">¥</span><span class="fs24">@Model.Price</span></div>
+                    <div class="tab fl"><img src="~/Content/images/view/img_tag_qhj@2x.png" /></div>
+                </div>
                 <div class="clearfix marginT8">
                     <div class="fl originalPrice color-grey fs14">原价：<span>¥ @Model.OriginalPrice</span></div>
                     <div class="fr color-grey fs14">销量：@Model.Sales</div>
@@ -157,8 +181,8 @@
                             <div class="coupon-tab fl marginR8">
                                 @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
                                 {
-                                <div class="coupon-tab-type fl">@item.Type</div>
-                                <div class="coupon-tab-val fl">@item.Value</div>
+                                    <div class="coupon-tab-type fl">@item.Type</div>
+                                    <div class="coupon-tab-val fl">@item.Value</div>
                                 }
                             </div>
                         </div>
