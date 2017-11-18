@@ -12,6 +12,7 @@
 @Styles.Render("~/bundles/swiper/css")
 
 <div id="couponBox" class="couponIndex paddingT88 paddingB50 bg-color-grey minHight100vh">
+    <img id="loading" class="hidden" src="~/Content/images/view/loadingGif.gif" />
     @Html.Hidden("typeID", Request["typeID"])
     @Html.Hidden("platform", p)
     @Html.Hidden("sort", Request["sort"])
@@ -36,10 +37,10 @@
     </div>
     <div id="sortOne" class="sortList style03" style="display:none">
         <ul>
-            <li name="type" data-type="0">
+            <li name="sortOne_type" data-type="0">
                 <img src="@Url.ResizeImage("~/Content/images/view/home_category_01@3x.png",80,80)" /><div class="name">首页</div>
             </li>
-            <li name="type" class="hidden sortListDemo" data-type="">
+            <li name="sortOne_type" class="hidden sortListDemo" data-type="">
                 <img src="" /><div class="name"></div>
             </li>
         </ul>

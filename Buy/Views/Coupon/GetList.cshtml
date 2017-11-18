@@ -45,7 +45,13 @@
                     </div>
                     @if (item.Platform == Buy.Enums.CouponPlatform.Jd)
                     {
-
+                        <div class="couponList-price">
+                            <div class=""><span class="couponList-sales fs12">销量：@item.Sales</span></div>
+                            @if (Buy.Bll.Coupons.GetValues(item)[0].Value != "0.00")
+                            {
+                                <div class="originalPrice">原价：<span class="">￥@item.OriginalPrice</span></div>
+                            }
+                        </div>
                     }
                     else
                     {
@@ -69,12 +75,15 @@
                         </div>*@
                 </a>
             </div>
+            @if (Buy.Bll.Coupons.GetValues(item)[0].Value != "0.00")
+            {
+                <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
+                    <div class="couponList-ticket" data-href="">
+                        <div class="lingquan"><span class="fs16">@Buy.Bll.Coupons.GetValues(item)[0].Value</span></div>
+                    </div>
+                </a>
+            }
 
-            <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
-                <div class="couponList-ticket" data-href="">
-                    <div class="lingquan"><span class="fs16">@Buy.Bll.Coupons.GetValues(item)[0].Value</span></div>
-                </div>
-            </a>
             <div style="clear:both;"></div>
         </li>
     }
@@ -97,7 +106,5 @@
 }
 else
 {
-    @*<li class="loadModule loadModule-dataIng" data-next="false" data-page="0">
-            已经到底了
-        </li>*@
+
 }
