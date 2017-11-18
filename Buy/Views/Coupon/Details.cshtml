@@ -157,7 +157,11 @@
                 <img id="shareText-load" class="hidden" src="~/Content/images/view/loadingGif.gif" />
             </div>
             <input id="share_name" hidden value="@Model.Name" />
-            <input id="share_or_price" hidden value="@Model.OriginalPrice" />
+            @if (Model.OriginalPrice != Model.Price)
+            {
+                <input id="share_or_price" hidden value="@Model.OriginalPrice" />
+            }
+            
             <input id="share_price" hidden value="@Model.Price" />
             <input id="share_url" hidden value="@url" />
             <input id="share_img" hidden value="@img" />

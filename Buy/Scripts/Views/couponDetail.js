@@ -270,9 +270,11 @@ function canvas2d() {
     cxt.fillStyle = "#ff5913";
     cxt.fillText(share_price, 15, share_img.height() + 65);
 
-    cxt.font = "12px Helvetica Neue";
-    cxt.fillStyle = "rgba(0,0,0,0.54)";
-    cxt.fillText("在售价 ¥ " + share_or_price, 110, share_img.height() + 62);
+    if (share_or_price != undefined) {
+        cxt.font = "12px Helvetica Neue";
+        cxt.fillStyle = "rgba(0,0,0,0.54)";
+        cxt.fillText("在售价 ¥ " + share_or_price, 110, share_img.height() + 62);
+    }
 
     cxt.beginPath();
     cxt.moveTo(110, 358);
@@ -296,7 +298,7 @@ function canvas2d() {
 
     cxt.font = "12px Helvetica Neue";
     cxt.fillStyle = "rgba(0,0,0,0.87)";
-    cxt.fillText($(".coupon-tab-val").text(), 25, share_img.height() + 90);
+    cxt.fillText($(".coupon-tab-val").text(), 23, share_img.height() + 90);
 
 
     var url = canvas.toDataURL("image/jpeg");
@@ -320,7 +322,12 @@ $("#btnShare").click(function (e) {
     }
     if ($("#Output").children().length <= 0) {
         if (platform == "Jd") {
-            var val = share_name + "\n【在售价】" + share_or_price + "元\n【券后价】" + share_price + "元\n【下单链接】" + share_url;
+            if (share_or_price == undefined) {
+                var val = share_name + "\n【在售价】" + share_price + "元\n【下单链接】" + share_url;
+            } else {
+                var val = share_name + "\n【在售价】" + share_or_price + "元\n【券后价】" + share_price + "元\n【下单链接】" + share_url;
+            }
+            
 
             $("#shareText-load").addClass("hidden");
             $("#shareText").val(val);
