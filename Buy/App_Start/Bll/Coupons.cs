@@ -16,7 +16,7 @@ namespace Buy.Bll
                 .FirstOrDefault(s =>
                 {
                     var keys = s.Keyword.SplitToArray<string>();
-                    return keys.Contains(keyword);
+                    return keys.Contains(keyword.Trim());
                 })?.ID;
         }
 

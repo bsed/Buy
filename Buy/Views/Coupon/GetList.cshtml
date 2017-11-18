@@ -30,16 +30,19 @@
             default:
                 break;
         }
+        decimal dec = 0;
+        var value = Buy.Bll.Coupons.GetValues(item)[0].Value;
+        var isDecimal = decimal.TryParse(value, out dec);
         <li>
             <div class="couponList-head">
-                <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
+                <a href="@Url.Action("Details", "Coupon", new { id = item.ID })">
                     <img src="~/Content/Images/404/placeholder_image.png?w=150&h=150" data-original="@img" />
                     <img class="plogo" src="@platformLogo" />
                 </a>
             </div>
 
             <div class="couponList-details">
-                <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
+                <a href="@Url.Action("Details", "Coupon", new { id = item.ID })">
                     <div class="couponList-title">
                         @item.Name
                     </div>
@@ -70,34 +73,45 @@
                 </a>
             </div>
 
-            <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
+            <a href="@Url.Action("Details", "Coupon", new { id = item.ID })">
                 <div class="couponList-ticket" data-href="">
-                    <div class="lingquan"><span class="fs16">@Buy.Bll.Coupons.GetValues(item)[0].Value</span></div>
+                    <div class="lingquan">
+                        <span class="fs16">
+                            @if (isDecimal)
+                            {
+                                @(Math.Abs(dec))
+                            }
+                            else
+                            {
+                                @(value)
+                            }
+                        </span>
+                    </div>
                 </div>
             </a>
             <div style="clear:both;"></div>
         </li>
-    }
-    if (!isUpdate)
-    {
-        var paged = (PagedList.IPagedList<Buy.Models.Coupon>)ViewBag.Paged;
-        if (paged.HasNextPage)
-        {
-            <li class="loadModule loadModule-dataIng" data-next="true" data-page="@paged.PageNumber">
-                <img class="marginR8" src="~/Content/images/view/loadingGif.gif" />加载中
-            </li>
-        }
-        else
-        {
-            <li class="loadModule loadModule-dataIng" data-next="false" data-page="0">
-                已经到底了
-            </li>
-        }
-    }
-}
-else
-{
-    @*<li class="loadModule loadModule-dataIng" data-next="false" data-page="0">
-            已经到底了
-        </li>*@
-}
+                                }
+                                if (!isUpdate)
+                                {
+                                    var paged = (PagedList.IPagedList<Buy.Models.Coupon>)ViewBag.Paged;
+                                    if (paged.HasNextPage)
+                                    {
+                                        <li class="loadModule loadModule-dataIng" data-next="true" data-page="@paged.PageNumber">
+                                            <img class="marginR8" src="~/Content/images/view/loadingGif.gif" />加载中
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="loadModule loadModule-dataIng" data-next="false" data-page="0">
+                                            已经到底了
+                                        </li>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    @*<li class="loadModule loadModule-dataIng" data-next="false" data-page="0">
+                                            已经到底了
+                                        </li>*@
+                                }
