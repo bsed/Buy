@@ -30,9 +30,7 @@
             default:
                 break;
         }
-        decimal dec = 0;
         var value = Buy.Bll.Coupons.GetValues(item)[0].Value;
-        var isDecimal = decimal.TryParse(value, out dec);
         <li>
             <div class="couponList-head">
                 <a href="@Url.Action("Details", "Coupon", new { id = item.ID })">
@@ -50,7 +48,10 @@
                     {
                         <div class="couponList-price">
                             <div class=""><span class="couponList-sales fs12">销量：@item.Sales</span></div>
-                            <div class="originalPrice">原价：<span class="">￥@item.OriginalPrice</span></div>
+                            @if (item.OriginalPrice != item.Price)
+                            {
+                                <div class="originalPrice">原价：<span class="">￥@item.OriginalPrice</span></div>
+                            }
                         </div>
                     }
                     else
@@ -64,24 +65,23 @@
                     <div class="couponList-afterPrice">
                         <span class="yuan">￥</span>@item.Price
                     </div>
-                    @*<div class="marginT15">
-                            <div class="coupon-tab">
-                                @foreach (var value in Buy.Bll.Coupons.GetValues(item))
-                                {
-                                    <div class="coupon-tab-type fl">@value.Type</div>
-                                    <div class="coupon-tab-val fl">@value.Value</div>
-                                }
-                            </div>
-                        </div>*@
                 </a>
             </div>
             <a href="@Url.Action("Details", "Coupon", new { id = item.ID })">
                 <div class="couponList-ticket" data-href="">
                     <div class="lingquan">
                         <span class="fs16">
-                            @if (isDecimal)
+                            @if (item.Platform == Buy.Enums.CouponPlatform.Jd)
                             {
-                                @(Math.Abs(dec))
+                                var val = decimal.Parse(value);
+                                if (val != 0)
+                                {
+                                    @(Math.Abs(val))
+                                }
+                                else
+                                {
+                                    <span>专享价</span>
+                                }
                             }
                             else
                             {
