@@ -38,7 +38,7 @@
     var value = Buy.Bll.Coupons.GetValues(Model)[0].Value;
     <input id="cUserID" type="hidden" value="@cUserID" />
     <input id="userID" type="hidden" value="@User.Identity.GetUserId()" />
-    <input id="platform" type="hidden" value="@Model.Platform"/>
+    <input id="platform" type="hidden" value="@Model.Platform" />
     <img id="lazyloadimg" hidden src="~/Content/images/404/placeholder_image.png?w=150&h=150" />
     <div id="detail" class="couponDetail minHight100vh bg-color-grey">
         <div class="couponDetail-top">
@@ -176,14 +176,36 @@
                         </div>
                         <div class="shareImgModule-info-cons-price">
                             <div class="fl preferPrice"><span class="">¥</span><span class="fontsize24">@Model.Price</span></div>
-                            <div id="originalPrice" class="fl originalPrice color-grey">在售价 ¥ @Model.OriginalPrice</div>
+                            @if (Model.OriginalPrice != Model.Price)
+                            {
+                                <div id="originalPrice" class="fl originalPrice color-grey">
+                                    在售价 ¥ @Model.OriginalPrice
+                                </div>
+                            }
                         </div>
                         <div class="clearfix">
                             <div class="coupon-tab fl marginR8">
                                 @foreach (var item in Buy.Bll.Coupons.GetValues(Model))
                                 {
                                     <div class="coupon-tab-type fl">@item.Type</div>
-                                    <div class="coupon-tab-val fl">@item.Value</div>
+                                    <div class="coupon-tab-val fl">
+                                        @if (Model.Platform == Buy.Enums.CouponPlatform.Jd)
+                                        {
+                                            var val = decimal.Parse(value);
+                                            if (val != 0)
+                                            {
+                                                @(Math.Abs(val))
+                                            }
+                                            else
+                                            {
+                                                @("专享价")
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @item.Value
+                                        }
+                                    </div>
                                 }
                             </div>
                         </div>
