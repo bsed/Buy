@@ -591,6 +591,7 @@
     <Content Include="Content\images\view\img_search_nodata%402x.png" />
     <Content Include="Content\images\view\img_share_blue_toolbar.png" />
     <Content Include="Content\images\view\img_tag_qhj%402x.png" />
+    <Content Include="Content\images\view\img_tag_zxj%403x.png" />
     <Content Include="Content\images\view\img_wallet_nodata%403x.png" />
     <Content Include="Content\images\view\img_wallet_nor%403x.png" />
     <Content Include="Content\images\view\img_wallet_pre%403x.png" />

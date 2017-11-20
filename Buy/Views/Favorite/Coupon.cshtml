@@ -32,6 +32,7 @@
             default:
                 break;
         }
+        var value = Buy.Bll.Coupons.GetValues(item)[0].Value;
         <li>
             <div class="couponList-head">
                 <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
@@ -47,7 +48,13 @@
                     </div>
                     @if (item.Platform == Buy.Enums.CouponPlatform.Jd)
                     {
-
+                        <div class="couponList-price">
+                            <div class=""><span class="couponList-sales fs12">销量：@item.Sales</span></div>
+                            @if (item.OriginalPrice != item.Price)
+                            {
+                                <div class="originalPrice">原价：<span class="">￥@item.OriginalPrice</span></div>
+                            }
+                        </div>
                     }
                     else
                     {
@@ -74,7 +81,26 @@
 
             <a href="@Url.Action("Details", "Coupon", new {id=item.ID })">
                 <div class="couponList-ticket" data-href="">
-                    <div class="lingquan"><span class="fs16">@Buy.Bll.Coupons.GetValues(item)[0].Value</span></div>
+                    <div class="lingquan">
+                        <span class="fs16">
+                            @if (item.Platform == Buy.Enums.CouponPlatform.Jd)
+                            {
+                                var val = decimal.Parse(value);
+                                if (val != 0)
+                                {
+                                    @(Math.Abs(val))
+                                }
+                                else
+                                {
+                                    <span>专享价</span>
+                                }
+                            }
+                            else
+                            {
+                                @(value)
+                            }
+                        </span>
+                    </div>
                 </div>
             </a>
             <div style="clear:both;"></div>
