@@ -34,16 +34,24 @@ namespace Buy.Controllers
             {
                 string agent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
                 var type = agent.Contains("iphone") ? Enums.UpdateLogType.IOS : Enums.UpdateLogType.Android;
-                if (type == Enums.UpdateLogType.Android)
+                switch (type)
                 {
-                    string filePath = Server.MapPath("~/Download/malieme.apk");//路径
-                    return File(filePath, "text/plain", "malieme.apk"); //arrow-right.png是客户端保存的名字
-                }
-                else
-                {
-                    return Redirect("https://itunes.apple.com/cn/app/id1294184032?mt=8");
+                    case Enums.UpdateLogType.Android:
+                        {
+                            string filePath = Server.MapPath("~/download/malieme.apk");//路径
+                            return File(filePath, "application/vnd.android.package-archive", "malieme.apk");
+                        }
+                        break;
+                    case Enums.UpdateLogType.IOS:
+                        {
+                            return Redirect("https://itunes.apple.com/cn/app/id1294184032?mt=8");
+                        }
+                        break;
+                    default:
+                        break;
                 }
             }
+            //return View();
             return RedirectToAction("Index", "Home");
         }
 

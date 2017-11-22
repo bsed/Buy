@@ -67,7 +67,11 @@ namespace Buy
         public const string CustomerServiceManageEdit = "CustomerServiceManageEdit";
         public const string CustomerServiceManageDelete = "CustomerServiceManageDelete";
 
-       
+        public const string UpdateLogManageRead = "UpdateLogManageRead";
+        public const string UpdateLogManageCreate = "UpdateLogManageCreate";
+        public const string UpdateLogManageEdit = "UpdateLogManageEdit";
+        public const string UpdateLogManageDelete = "UpdateLogManageDelete";
+
         #endregion
 
         #region 用户权限

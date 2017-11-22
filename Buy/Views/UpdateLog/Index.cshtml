@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Buy.Models.UpdateLog>
+
+@{
+    ViewBag.Title = "版本管理";
+    Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+    var paged = (PagedList.IPagedList<Buy.Models.UpdateLog>)Model;
+    string strUpdateLogType = "所有";
+    Buy.Enums.UpdateLogType? updateLogType = null;
+    if (!string.IsNullOrWhiteSpace(Request["type"]))
+    {
+        updateLogType = (Buy.Enums.UpdateLogType)Enum.Parse(typeof(Buy.Enums.UpdateLogType), Request["type"], false);
+        strUpdateLogType = updateLogType.GetDisplayName();
+    }
+}
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("添加版本", "Create")</li>
+                @*<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        @strUpdateLogType <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Index")">所有</a></li>
+                        @foreach (var item in (Buy.Enums.UpdateLogType[])Enum.GetValues(typeof(Buy.Enums.UpdateLogType)))
+                        {
+                            <li><a href="@Url.Action("Index", new { type = item.GetHashCode() })">@item.GetDisplayName()</a></li>
+                        }
+                    </ul>
+                </li>*@
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ver)
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Url)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ver)
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.PageList(paged, Url.PageUrl())
