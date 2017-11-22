@@ -732,6 +732,8 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
 
+
+
         public ActionResult SearchConfirm(string filter, int page = 1, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
             Enums.CouponSort sort = Enums.CouponSort.Default)
         {
@@ -742,6 +744,23 @@ namespace Buy.Controllers
                 Sort = sort,
             };
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowCrossSiteJson]
+        public ActionResult GetCouponUserTempsCount(string userID, string platforms, DateTime date)
+        {
+            if (string.IsNullOrWhiteSpace(userID))
+            {
+                return Json(Comm.ToJsonResult("Error", "UserID不能为空"));
+            }
+            var p = platforms.SplitToArray<Enums.CouponPlatform>();
+            if (p == null || p.Count == 0)
+            {
+                return Json(Comm.ToJsonResult("Error", "Platforms不能为空"));
+            }
+            var count = Bll.Coupons.DbAddCheck(userID, p, date);
+            return Json(Comm.ToJsonResult("Success", "成功", count), JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
