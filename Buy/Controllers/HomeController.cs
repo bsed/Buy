@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Buy.Models;
+
 namespace Buy.Controllers
 {
     public class HomeController : Controller
@@ -19,9 +20,39 @@ namespace Buy.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+
+            if (Comm.IsWeChat)
+                ViewBag.Message = "Your application description page.";
 
             return View();
+        }
+
+        public ActionResult Download()
+        {
+            //string sda = "~/Download/malieme.apk";
+            if (Comm.IsMobileDrive)
+            {
+                string agent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
+                var type = agent.Contains("iphone") ? Enums.UpdateLogType.IOS : Enums.UpdateLogType.Android;
+                switch (type)
+                {
+                    case Enums.UpdateLogType.Android:
+                        {
+                            string filePath = Server.MapPath("~/download/malieme.apk");//路径
+                            return File(filePath, "application/vnd.android.package-archive", "malieme.apk");
+                        }
+                        break;
+                    case Enums.UpdateLogType.IOS:
+                        {
+                            return Redirect("https://itunes.apple.com/cn/app/id1294184032?mt=8");
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            //return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Contact()

@@ -145,8 +145,11 @@ namespace Buy.Bll
             addSystemRole(SysRole.CustomerServiceManageEdit, "客服设置", "客服管理编辑");
             addSystemRole(SysRole.CustomerServiceManageDelete, "客服设置", "客服管理删除");
 
+            addSystemRole(SysRole.UpdateLogManageRead, "版本管理", "版本管理查看");
+            addSystemRole(SysRole.UpdateLogManageCreate, "版本管理", "版本管理创建");
+            addSystemRole(SysRole.UpdateLogManageEdit, "版本管理", "版本管理编辑");
+            addSystemRole(SysRole.UpdateLogManageDelete, "版本管理", "版本管理删除");
 
-            
             #endregion
 
             foreach (var item in roles)

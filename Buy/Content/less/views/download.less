@@ -1,0 +1,67 @@
+﻿@import "../base";
+
+.downloaad {
+    background: -webkit-linear-gradient(left, #d8203e, #f62447); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #d8203e, #f62447); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #d8203e, #f62447); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #d8203e, #f62447); /* 标准的语法 */
+    height: 100vh;
+    width: 100vw;
+    padding: 20rem*@resize 15rem*@resize;
+
+    .text {
+        color: #fff;
+        font-size: 60px;
+        margin-top: 20px;
+        letter-spacing: 10px;
+        line-height: 75px;
+        font-weight: bold;
+        -webkit-transition-delay: .4s;
+        transition-delay: .4s;
+    }
+
+    .detail {
+        font-size: 16px;
+        color: #fff;
+        margin-top: 25px;
+        width: 100%;
+        -webkit-transition-delay: .4s;
+        transition-delay: .4s;
+    }
+
+    .download {
+        .clearfix();
+        margin-top: 40px;
+        -webkit-transition-delay: 0.4s;
+        transition-delay: 0.4s;
+
+        .download-btns {
+            // .rectangle(200px,80px);
+            text-align: center;
+            line-height: 80px;
+            background-color: #101010;
+            border-radius: 3px;
+            color: @font-col-white;
+            font-size: 18px;
+            cursor: pointer;
+            //margin-right: 40px;
+            transition: 0.3s all;
+            margin-bottom: 10px;
+
+            a {
+                .clean-a();
+                display: block;
+            }
+
+            img {
+                width: 41px;
+                height: auto;
+                margin-right: 15px;
+            }
+
+            &:hover {
+                box-shadow: 0 6px 23px -1px #232323;
+            }
+        }
+    }
+}

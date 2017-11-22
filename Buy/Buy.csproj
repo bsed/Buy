@@ -340,6 +340,7 @@
     <Compile Include="Controllers\SystemSettingController.cs" />
     <Compile Include="Controllers\TaobaoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\UpdateLogController.cs" />
     <Compile Include="Controllers\UploaderController.cs" />
     <Compile Include="Controllers\UrlMatchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -661,6 +662,7 @@
     <Content Include="Content\less\views\homeIndex.less" />
     <Content Include="Content\less\urlMatch.less" />
     <Content Include="Content\less\imageResizeUploader.less" />
+    <Content Include="Content\less\views\download.less" />
     <None Include="Properties\PublishProfiles\BuyPublish.pubxml" />
     <Content Include="Resources\char_state_tab.json" />
     <Content Include="Resources\pos_prob_emit.json" />
@@ -1158,8 +1160,6 @@
     <Content Include="Views\MoGuJie\LoginSuccess.cshtml" />
     <Content Include="Views\ShopManage\Index.cshtml" />
     <Content Include="Views\ShopManage\Create.cshtml" />
-    <Content Include="Views\ShopManage\Edit.cshtml" />
-    <Content Include="Views\ShopManage\Delete.cshtml" />
     <Content Include="Views\LocalCouponManage\Index.cshtml" />
     <Content Include="Views\LocalCouponManage\Create.cshtml" />
     <Content Include="Views\LocalCouponManage\Edit.cshtml" />
@@ -1200,6 +1200,11 @@
     <Content Include="Views\User\CouponFavorite.cshtml" />
     <Content Include="Views\User\LocalCouponFavorite.cshtml" />
     <Content Include="Views\Favorite\LocalCoupon.cshtml" />
+    <Content Include="Views\UpdateLog\Index.cshtml" />
+    <Content Include="Views\UpdateLog\Create.cshtml" />
+    <Content Include="Views\ShopManage\Delete.cshtml" />
+    <Content Include="Views\ShopManage\Edit.cshtml" />
+    <Content Include="Views\Home\Download.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Apply\" />
