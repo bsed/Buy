@@ -30,29 +30,32 @@ namespace Buy.Controllers
         public ActionResult Download()
         {
             //string sda = "~/Download/malieme.apk";
-            if (Comm.IsMobileDrive)
-            {
-                string agent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
-                var type = agent.Contains("iphone") ? Enums.UpdateLogType.IOS : Enums.UpdateLogType.Android;
-                switch (type)
-                {
-                    case Enums.UpdateLogType.Android:
-                        {
-                            string filePath = Server.MapPath("~/download/malieme.apk");//路径
-                            return File(filePath, "application/vnd.android.package-archive", "malieme.apk");
-                        }
-                        break;
-                    case Enums.UpdateLogType.IOS:
-                        {
-                            return Redirect("https://itunes.apple.com/cn/app/id1294184032?mt=8");
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-            //return View();
-            return RedirectToAction("Index", "Home");
+            //if (Comm.IsMobileDrive)
+            //{
+            //    string agent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
+            //    var type = agent.Contains("iphone") ? Enums.UpdateLogType.IOS : Enums.UpdateLogType.Android;
+            //    switch (type)
+            //    {
+            //        case Enums.UpdateLogType.Android:
+            //            {
+            //                string filePath = Server.MapPath("~/download/malieme.apk");//路径
+            //                return File(filePath, "application/vnd.android.package-archive", "malieme.apk");
+            //            }
+            //            break;
+            //        case Enums.UpdateLogType.IOS:
+            //            {
+            //                return Redirect("https://itunes.apple.com/cn/app/id1294184032?mt=8");
+            //            }
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
+            string agent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
+            var type = agent.Contains("iphone") ? Enums.UpdateLogType.IOS : Enums.UpdateLogType.Android;
+            ViewBag.Type = type;
+            return View();
+            //return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Contact()

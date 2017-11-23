@@ -506,6 +506,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\404\default.jpg" />
     <Content Include="Content\images\404\placeholder_image.png" />
+    <Content Include="Content\images\filetype\doc.png" />
+    <Content Include="Content\images\filetype\file.png" />
+    <Content Include="Content\images\filetype\mp3.png" />
+    <Content Include="Content\images\filetype\mp4.png" />
+    <Content Include="Content\images\filetype\ppt.png" />
+    <Content Include="Content\images\filetype\xls.png" />
+    <Content Include="Content\images\filetype\zip.png" />
     <Content Include="Content\images\home\arrow-right.png" />
     <Content Include="Content\images\home\arrow_up.png" />
     <Content Include="Content\images\home\download_qr.png" />

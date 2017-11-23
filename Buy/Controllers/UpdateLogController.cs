@@ -21,6 +21,7 @@ namespace Buy.Controllers
         [Authorize(Roles =SysRole.UpdateLogManageRead)]
         public ActionResult Index(int page = 1)
         {
+            Sidebar();
             var logs = db.UpdateLogs.OrderByDescending(s => s.CreateDateTime).ToPagedList(page);
             return View(logs);
         }
