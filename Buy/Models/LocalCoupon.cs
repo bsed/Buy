@@ -41,11 +41,15 @@ namespace Buy.Models
         [Display(Name = "佣金")]
         public virtual decimal Commission { get; set; }
 
-        [Display(Name = "类别")]
+        [Display(Name = "方式")]
         public Enums.LocalCouponType Type { get; set; }
 
         [Display(Name = "链接")]
         public string Link { get; set; }
+
+        [Display(Name = "分类")]
+        public int KindID { get; set; }
+        
 
     }
 

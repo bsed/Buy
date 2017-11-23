@@ -449,6 +449,10 @@
     <Compile Include="Migrations\201711070305156_AddCouponUserTemp.Designer.cs">
       <DependentUpon>201711070305156_AddCouponUserTemp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711231143496_AddLocalCouponKink.cs" />
+    <Compile Include="Migrations\201711231143496_AddLocalCouponKink.Designer.cs">
+      <DependentUpon>201711231143496_AddLocalCouponKink.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -467,6 +471,7 @@
     <Compile Include="Models\ImageResizer.cs" />
     <Compile Include="Models\Keyword.cs" />
     <Compile Include="Models\LocalCoupon.cs" />
+    <Compile Include="Models\LocalCouponKind.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RegistrationCode.cs" />
     <Compile Include="Models\RegistrationCodeLog.cs" />
@@ -1299,6 +1304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711070305156_AddCouponUserTemp.resx">
       <DependentUpon>201711070305156_AddCouponUserTemp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711231143496_AddLocalCouponKink.resx">
+      <DependentUpon>201711231143496_AddLocalCouponKink.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

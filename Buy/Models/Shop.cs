@@ -27,6 +27,24 @@ namespace Buy.Models
         public virtual List<LocalCoupon> Coupons { get; set; }
 
         public virtual List<ShopMember> Members { get; set; }
+
+        public virtual string Remark { get; set; }
+
+        public virtual string Images { get; set; }
+
+        public virtual string PhoneNumber { get; set; }
+
+        public double? Lat { get; set; }
+
+        public double? Lng { get; set; }
+
+        public string Address { get; set; }
+
+        public string Province { get; set; }
+
+        public string City { get; set; }
+
+        public string District { get; set; }
     }
 
     [NotMapped]
