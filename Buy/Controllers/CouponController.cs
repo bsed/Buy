@@ -677,9 +677,13 @@ namespace Buy.Controllers
             }
             else
             {
+                var stwatch = new System.Diagnostics.Stopwatch();
+                stwatch.Start();
                 var paged = QueryCoupon(model).ToPagedList(page, 50);
                 var models = paged.Distinct(new CouponUserViewModelComparer());
                 ViewBag.Paged = paged;
+                stwatch.Stop();
+                Comm.WriteLog("QueryCoupon", $"查券时间{stwatch.Elapsed.TotalSeconds}秒", Enums.DebugLogLevel.Normal);
                 return View(models);
             }
         }
