@@ -64,6 +64,7 @@ namespace Buy.Controllers
                             UserID = u.UserID,
                             IsFavorite = false,
                             FavoriteID = 0,
+                            HotSort = s.Price > 19.99m && s.Price < 150.01m ? 0 : 1
                         };
             }
             else
@@ -101,6 +102,7 @@ namespace Buy.Controllers
                             UserID = null,
                             IsFavorite = sf.Any(),
                             FavoriteID = sf.Any() ? sf.FirstOrDefault().ID : 0,
+                            HotSort = s.Price > 19.99m && s.Price < 150.01m ? 0 : 1
                         };
             }
             query = query.Where(s => s.EndDateTime > DateTime.Now);
@@ -188,7 +190,6 @@ namespace Buy.Controllers
                     break;
                 case Enums.CouponSort.TodayTop:
                     {
-
                         query = query.Where(s => s.Price > 19.99m
                               && s.Price < 150.01m
                               && s.CommissionRate > 0.3m)
@@ -198,15 +199,17 @@ namespace Buy.Controllers
                 case Enums.CouponSort.Default:
                 default:
                     {
-
-                        query = query.Select(s => new
-                        {
-                            result = s.Price > 19.99m && s.Price < 150.01m ? 0 : 1,
-                            CouponQuery = s
-                        }).OrderBy(s => s.result)
-                        .ThenByDescending(s => s.CouponQuery.CommissionRate)
-                        .ThenByDescending(s => s.CouponQuery.Sales)
-                        .Select(s => s.CouponQuery);
+                        query = query.OrderByDescending(s => s.HotSort)
+                            .ThenByDescending(s => s.CommissionRate)
+                            .ThenByDescending(s => s.Sales);
+                        //query = query.Select(s => new
+                        //{
+                        //    result = s.Price > 19.99m && s.Price < 150.01m ? 0 : 1,
+                        //    CouponQuery = s
+                        //}).OrderBy(s => s.result)
+                        //.ThenByDescending(s => s.CouponQuery.CommissionRate)
+                        //.ThenByDescending(s => s.CouponQuery.Sales)
+                        //.Select(s => s.CouponQuery);
 
                     }
                     break;
