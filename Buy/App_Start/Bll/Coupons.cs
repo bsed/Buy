@@ -104,7 +104,7 @@ namespace Buy.Bll
                     afterFilter.AddRange(addTemp);
                 }
                 stwatch.Stop();
-                tsFilter = new TimeSpan(stwatch.ElapsedMilliseconds);
+                tsFilter = stwatch.Elapsed;
                 stwatch.Reset();
                 stwatch.Start();
                 //伪造添加时间
@@ -149,7 +149,7 @@ namespace Buy.Bll
                     }
                 }
                 stwatch.Stop();
-                tsAddCoupon = new TimeSpan(stwatch.ElapsedMilliseconds);
+                tsAddCoupon = stwatch.Elapsed;
                 stwatch.Reset();
                 stwatch.Restart();
                 //导入用户用户券
@@ -252,7 +252,7 @@ namespace Buy.Bll
                 del();
 
                 stwatch.Stop();
-                tsAddTempCouponUser = new TimeSpan(stwatch.ElapsedMilliseconds);
+                tsAddTempCouponUser = stwatch.Elapsed;
                 stwatch.Reset();
                 stwatch.Restart();
                 //保存到正式表
@@ -319,7 +319,7 @@ namespace Buy.Bll
                 moveData();
                 removeData();
                 stwatch.Stop();
-                tsAddCouponUser = new TimeSpan(stwatch.ElapsedMilliseconds);
+                tsAddCouponUser = stwatch.Elapsed;
                 Comm.WriteLog("testTime", $"重复时间：{tsFilter.TotalSeconds}，"
                     + $"添加券用时：{tsAddCoupon.TotalSeconds}，"
                     + $"添加临时表用时：{tsAddTempCouponUser.TotalSeconds}，"
