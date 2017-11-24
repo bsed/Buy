@@ -453,6 +453,10 @@
     <Compile Include="Migrations\201711231143496_AddLocalCouponKink.Designer.cs">
       <DependentUpon>201711231143496_AddLocalCouponKink.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711240126022_ShopAddTradingArea.cs" />
+    <Compile Include="Migrations\201711240126022_ShopAddTradingArea.Designer.cs">
+      <DependentUpon>201711240126022_ShopAddTradingArea.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1314,6 +1318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711231143496_AddLocalCouponKink.resx">
       <DependentUpon>201711231143496_AddLocalCouponKink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711240126022_ShopAddTradingArea.resx">
+      <DependentUpon>201711240126022_ShopAddTradingArea.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
