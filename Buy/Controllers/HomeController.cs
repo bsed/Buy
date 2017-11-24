@@ -11,10 +11,10 @@ namespace Buy.Controllers
     {
         public ActionResult Index()
         {
-            if (Comm.IsMobileDrive)
-            {
-                return RedirectToAction("Index", "Coupon");
-            }
+            //if (Comm.IsMobileDrive)
+            //{
+            //    return RedirectToAction("Index", "Coupon");
+            //}
             return View();
         }
 
@@ -54,8 +54,8 @@ namespace Buy.Controllers
             string agent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
             var type = agent.Contains("iphone") ? Enums.UpdateLogType.IOS : Enums.UpdateLogType.Android;
             ViewBag.Type = type;
-            return View();
-            //return RedirectToAction("Index", "Home");
+           // return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Contact()

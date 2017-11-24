@@ -40,7 +40,8 @@
                                     </div>
                                 </div>
                                 <div class="slide-item-app-qr fr">
-                                    <img src="~/Content/images/home/download_qr.png" />
+                                    <img src="@Url.Action("Index","QrCode",new { data=Url.ContentFull(Url.Action("Index","Home"))})" />
+                                    @*<img src="~/Content/images/home/download_qr.png" />*@
                                     <div>扫一扫立即下载</div>
                                 </div>
                             </div>

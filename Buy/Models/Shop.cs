@@ -66,5 +66,7 @@ namespace Buy.Models
     public class ShopManageViewModel : Shop
     {
         public FileUpload FileUpload { get; set; }
+
+        public FileUpload ImagesFileUpload { get; set; }
     }
 }
