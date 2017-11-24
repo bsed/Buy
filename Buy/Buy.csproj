@@ -686,7 +686,6 @@
     <Content Include="Content\less\urlMatch.less" />
     <Content Include="Content\less\imageResizeUploader.less" />
     <Content Include="Content\less\views\download.less" />
-    <Content Include="Download\malieme.apk" />
     <None Include="Properties\PublishProfiles\BuyPublish.pubxml" />
     <Content Include="Resources\char_state_tab.json" />
     <Content Include="Resources\pos_prob_emit.json" />
