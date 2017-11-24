@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="slide-item-app-qr fr">
                                     <img src="@Url.Action("Index","QrCode",new { data=Url.ContentFull(Url.Action("Index","Home"))})" />
-                                    @*<img src="~/Content/images/home/download_qr.png" />*@
+                                    <div class="qrcode-logo"></div>
                                     <div>扫一扫立即下载</div>
                                 </div>
                             </div>
@@ -186,6 +186,13 @@
 else
 {
     @Styles.Render("~/bundles/swiper/css")
+    <div id="download-tips" class="download-tips" style="display:none">
+        <img class="download-tips-arrow" src="~/Content/images/home/arrowR_white.png" />
+        <div class="download-tips-text">
+            <div>请点击右上角，选择 “在浏览器打开” 进行Android下载</div>
+        </div>
+        <a id="android_apk" hidden src="~/Download/maileme.apk"></a>
+    </div>
     <div class="homeIndexM">
         <div class="homeIndexM-swiper">
             <div class="swiper-container">
@@ -195,7 +202,7 @@ else
                         <div class="slideApp-text">吃喝玩乐享优惠</div>
                         <div class="slideApp-detail">买了么优惠券软件内可领取天猫淘宝以及蘑菇街京东内部优惠券，1-5折品牌优惠券。领券购买天猫、淘宝、京东等商品，省50-90%以上</div>
                         <div class="slideApp-btns">
-                            <div class="slideApp-btns-li android" onclick="javascript:alert('敬请期待')"><img src="~/Content/images/home/slide_bg_android.png" />Android 下载</div>
+                            <div id="android_download" class="slideApp-btns-li android"><img src="~/Content/images/home/slide_bg_android.png" />Android 下载</div>
                             <div class="slideApp-btns-li ios"><a href="https://itunes.apple.com/cn/app/id1294184032?mt=8"><img src="~/Content/images/home/slide_bg_ios.png" />App Store 下载</a></div>
                         </div>
                         <div class="slideApp-view">

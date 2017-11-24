@@ -198,6 +198,7 @@
                         }
 
                         .slide-item-app-qr {
+                            position: relative;
                             background-color: @bg-color-white;
                             padding: 6px;
                             text-align: center;
@@ -205,6 +206,15 @@
                             margin-top: 389px;
                             margin-left: 30px;
                             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+                            .qrcode-logo {
+                                background: url("../../images/home/code_logo.png") no-repeat center;
+                                .square(37px);
+                                .block-mid(50%);
+                                background-size: 37px 37px;
+                                z-index: @z-index-bottom;
+                                background-color: @bg-color-white;
+                            }
 
                             img {
                                 .square(175px);
@@ -1646,5 +1656,29 @@
             margin-left: 95rem*@resize;
             opacity: 1;
         }
+    }
+}
+
+.download-tips {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    bottom: 0;
+    z-index: @z-index-top+1000;
+
+    .download-tips-arrow {
+        position: absolute;
+        top: 0;
+        right: 20rem*@resize;
+        .rectangle(139rem*@resize,100rem*@resize);
+        z-index: @z-index-bottom;
+    }
+
+    .download-tips-text{
+        width:70%;
+        color:@font-col-white;
+        font-size:@font-size-24;
+        .block-mid(50%);
+        top:150rem*@resize;
     }
 }
