@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Buy.Models
 {
-    public class Shop
+    public class Shop : IDistrict, IGprs
     {
         public virtual int ID { get; set; }
 
@@ -57,6 +57,9 @@ namespace Buy.Models
 
         [Display(Name = "商圈")]
         public string TradingArea { get; set; }
+
+        [Display(Name = "店主")]
+        public string OwnerID { get; set; }
     }
 
     [NotMapped]

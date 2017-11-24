@@ -457,6 +457,10 @@
     <Compile Include="Migrations\201711240126022_ShopAddTradingArea.Designer.cs">
       <DependentUpon>201711240126022_ShopAddTradingArea.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711240135305_ShopAddOwnerID.cs" />
+    <Compile Include="Migrations\201711240135305_ShopAddOwnerID.Designer.cs">
+      <DependentUpon>201711240135305_ShopAddOwnerID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1321,6 +1325,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711240126022_ShopAddTradingArea.resx">
       <DependentUpon>201711240126022_ShopAddTradingArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711240135305_ShopAddOwnerID.resx">
+      <DependentUpon>201711240135305_ShopAddOwnerID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
