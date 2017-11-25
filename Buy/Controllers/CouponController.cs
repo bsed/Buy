@@ -64,6 +64,7 @@ namespace Buy.Controllers
                             UserID = u.UserID,
                             IsFavorite = false,
                             FavoriteID = 0,
+                            HotSort = s.Price > 19.99m && s.Price < 150.01m ? 0 : 1
                         };
             }
             else
@@ -101,6 +102,7 @@ namespace Buy.Controllers
                             UserID = null,
                             IsFavorite = sf.Any(),
                             FavoriteID = sf.Any() ? sf.FirstOrDefault().ID : 0,
+                            HotSort = s.Price > 19.99m && s.Price < 150.01m ? 0 : 1
                         };
             }
             query = query.Where(s => s.EndDateTime > DateTime.Now);
@@ -188,7 +190,6 @@ namespace Buy.Controllers
                     break;
                 case Enums.CouponSort.TodayTop:
                     {
-
                         query = query.Where(s => s.Price > 19.99m
                               && s.Price < 150.01m
                               && s.CommissionRate > 0.3m)
@@ -198,15 +199,17 @@ namespace Buy.Controllers
                 case Enums.CouponSort.Default:
                 default:
                     {
-
-                        query = query.Select(s => new
-                        {
-                            result = s.Price > 19.99m && s.Price < 150.01m ? 0 : 1,
-                            CouponQuery = s
-                        }).OrderBy(s => s.result)
-                        .ThenByDescending(s => s.CouponQuery.CommissionRate)
-                        .ThenByDescending(s => s.CouponQuery.Sales)
-                        .Select(s => s.CouponQuery);
+                        query = query.OrderByDescending(s => s.HotSort)
+                            .ThenByDescending(s => s.CommissionRate)
+                            .ThenByDescending(s => s.Sales);
+                        //query = query.Select(s => new
+                        //{
+                        //    result = s.Price > 19.99m && s.Price < 150.01m ? 0 : 1,
+                        //    CouponQuery = s
+                        //}).OrderBy(s => s.result)
+                        //.ThenByDescending(s => s.CouponQuery.CommissionRate)
+                        //.ThenByDescending(s => s.CouponQuery.Sales)
+                        //.Select(s => s.CouponQuery);
 
                     }
                     break;
@@ -439,6 +442,29 @@ namespace Buy.Controllers
                                 {
                                     img = dom.Select(".itemPhotoDetail #s-desc").Select(s => s.Attributes["data-ks-lazyload"]).ToList();
                                 }
+                                if (img.Count == 0)
+                                {
+                                    using (var driver = new PhantomJSDriver())
+                                    {
+                                        driver.Url = $"https://detail.m.tmall.com/item.htm?id={tt.ProductID}";
+                                        driver.Navigate();
+                                        driver.FindElement(OpenQA.Selenium.By.ClassName("desc")).Click();
+                                        var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                                        try
+                                        {
+                                            wait.Until(s => s.FindElement(OpenQA.Selenium.By.Id("s-desc")));
+                                        }
+                                        catch (Exception)
+                                        {
+                                            driver.Quit();
+                                            return Json(Comm.ToJsonResult("Error", "超时"), JsonRequestBehavior.AllowGet);
+                                        }
+                                        var source = driver.PageSource;
+                                        dom = CQ.CreateDocument(source);
+                                        img = dom.Select("#s-desc img").Select(s => s.Attributes["data-ks-lazyload"]).ToList();
+                                        driver.Quit();
+                                    }
+                                }
                             }
                             break;
                         case Enums.CouponPlatform.Jd:
@@ -654,9 +680,13 @@ namespace Buy.Controllers
             }
             else
             {
+                var stwatch = new System.Diagnostics.Stopwatch();
+                stwatch.Start();
                 var paged = QueryCoupon(model).ToPagedList(page, 50);
                 var models = paged.Distinct(new CouponUserViewModelComparer());
                 ViewBag.Paged = paged;
+                stwatch.Stop();
+                Comm.WriteLog("QueryCoupon", $"查券时间{stwatch.Elapsed.TotalSeconds}秒", Enums.DebugLogLevel.Normal);
                 return View(models);
             }
         }
@@ -709,6 +739,8 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", "成功"));
         }
 
+
+
         public ActionResult SearchConfirm(string filter, int page = 1, Enums.CouponPlatform platform = Enums.CouponPlatform.TaoBao,
             Enums.CouponSort sort = Enums.CouponSort.Default)
         {
@@ -719,6 +751,23 @@ namespace Buy.Controllers
                 Sort = sort,
             };
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowCrossSiteJson]
+        public ActionResult GetCouponUserTempsCount(string userID, string platforms, DateTime date)
+        {
+            if (string.IsNullOrWhiteSpace(userID))
+            {
+                return Json(Comm.ToJsonResult("Error", "UserID不能为空"));
+            }
+            var p = platforms.SplitToArray<Enums.CouponPlatform>();
+            if (p == null || p.Count == 0)
+            {
+                return Json(Comm.ToJsonResult("Error", "Platforms不能为空"));
+            }
+            var count = Bll.Coupons.DbAddCheck(userID, p, date);
+            return Json(Comm.ToJsonResult("Success", "成功", count), JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

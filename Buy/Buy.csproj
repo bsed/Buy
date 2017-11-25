@@ -340,6 +340,7 @@
     <Compile Include="Controllers\SystemSettingController.cs" />
     <Compile Include="Controllers\TaobaoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\UpdateLogController.cs" />
     <Compile Include="Controllers\UploaderController.cs" />
     <Compile Include="Controllers\UrlMatchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -448,6 +449,18 @@
     <Compile Include="Migrations\201711070305156_AddCouponUserTemp.Designer.cs">
       <DependentUpon>201711070305156_AddCouponUserTemp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711231143496_AddLocalCouponKink.cs" />
+    <Compile Include="Migrations\201711231143496_AddLocalCouponKink.Designer.cs">
+      <DependentUpon>201711231143496_AddLocalCouponKink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711240126022_ShopAddTradingArea.cs" />
+    <Compile Include="Migrations\201711240126022_ShopAddTradingArea.Designer.cs">
+      <DependentUpon>201711240126022_ShopAddTradingArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711240135305_ShopAddOwnerID.cs" />
+    <Compile Include="Migrations\201711240135305_ShopAddOwnerID.Designer.cs">
+      <DependentUpon>201711240135305_ShopAddOwnerID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessLog.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -466,6 +479,7 @@
     <Compile Include="Models\ImageResizer.cs" />
     <Compile Include="Models\Keyword.cs" />
     <Compile Include="Models\LocalCoupon.cs" />
+    <Compile Include="Models\LocalCouponKind.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RegistrationCode.cs" />
     <Compile Include="Models\RegistrationCodeLog.cs" />
@@ -500,8 +514,18 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\404\default.jpg" />
     <Content Include="Content\images\404\placeholder_image.png" />
+    <Content Include="Content\images\filetype\doc.png" />
+    <Content Include="Content\images\filetype\file.png" />
+    <Content Include="Content\images\filetype\mp3.png" />
+    <Content Include="Content\images\filetype\mp4.png" />
+    <Content Include="Content\images\filetype\ppt.png" />
+    <Content Include="Content\images\filetype\xls.png" />
+    <Content Include="Content\images\filetype\zip.png" />
     <Content Include="Content\images\home\arrow-right.png" />
+    <Content Include="Content\images\home\arrowR_white.png" />
     <Content Include="Content\images\home\arrow_up.png" />
+    <Content Include="Content\images\home\code_logo.png" />
+    <Content Include="Content\images\home\download_qr.png" />
     <Content Include="Content\images\home\logo_color.png" />
     <Content Include="Content\images\home\logo_white.png" />
     <Content Include="Content\images\home\slide_android_qr.png" />
@@ -589,7 +613,9 @@
     <Content Include="Content\images\view\img_mcdonalds_b%402x.png" />
     <Content Include="Content\images\view\img_mogoodsx%402x.png" />
     <Content Include="Content\images\view\img_search_nodata%402x.png" />
+    <Content Include="Content\images\view\img_share_blue_toolbar.png" />
     <Content Include="Content\images\view\img_tag_qhj%402x.png" />
+    <Content Include="Content\images\view\img_tag_zxj%403x.png" />
     <Content Include="Content\images\view\img_wallet_nodata%403x.png" />
     <Content Include="Content\images\view\img_wallet_nor%403x.png" />
     <Content Include="Content\images\view\img_wallet_pre%403x.png" />
@@ -613,6 +639,7 @@
     <Content Include="Content\images\view\tab_03_pre%403x.png" />
     <Content Include="Content\images\view\tab_04_nor%403x.png" />
     <Content Include="Content\images\view\tab_04_pre%403x.png" />
+    <Content Include="Content\images\view\tag_jd_zhuan%403x.png" />
     <Content Include="Content\images\view\tag_quan%402x.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css">
@@ -658,6 +685,7 @@
     <Content Include="Content\less\views\homeIndex.less" />
     <Content Include="Content\less\urlMatch.less" />
     <Content Include="Content\less\imageResizeUploader.less" />
+    <Content Include="Content\less\views\download.less" />
     <None Include="Properties\PublishProfiles\BuyPublish.pubxml" />
     <Content Include="Resources\char_state_tab.json" />
     <Content Include="Resources\pos_prob_emit.json" />
@@ -1155,8 +1183,6 @@
     <Content Include="Views\MoGuJie\LoginSuccess.cshtml" />
     <Content Include="Views\ShopManage\Index.cshtml" />
     <Content Include="Views\ShopManage\Create.cshtml" />
-    <Content Include="Views\ShopManage\Edit.cshtml" />
-    <Content Include="Views\ShopManage\Delete.cshtml" />
     <Content Include="Views\LocalCouponManage\Index.cshtml" />
     <Content Include="Views\LocalCouponManage\Create.cshtml" />
     <Content Include="Views\LocalCouponManage\Edit.cshtml" />
@@ -1197,6 +1223,11 @@
     <Content Include="Views\User\CouponFavorite.cshtml" />
     <Content Include="Views\User\LocalCouponFavorite.cshtml" />
     <Content Include="Views\Favorite\LocalCoupon.cshtml" />
+    <Content Include="Views\UpdateLog\Index.cshtml" />
+    <Content Include="Views\UpdateLog\Create.cshtml" />
+    <Content Include="Views\ShopManage\Delete.cshtml" />
+    <Content Include="Views\ShopManage\Edit.cshtml" />
+    <Content Include="Views\Home\Download.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Apply\" />
@@ -1290,6 +1321,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711070305156_AddCouponUserTemp.resx">
       <DependentUpon>201711070305156_AddCouponUserTemp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711231143496_AddLocalCouponKink.resx">
+      <DependentUpon>201711231143496_AddLocalCouponKink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711240126022_ShopAddTradingArea.resx">
+      <DependentUpon>201711240126022_ShopAddTradingArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711240135305_ShopAddOwnerID.resx">
+      <DependentUpon>201711240135305_ShopAddOwnerID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

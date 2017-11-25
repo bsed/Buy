@@ -15,6 +15,8 @@ namespace Buy.Models
         public decimal Discount { get; set; }
 
         public decimal DiscountRate { get; set; }
+
+        public int HotSort { get; set; }
     }
 
     public class CouponSearchViewModel

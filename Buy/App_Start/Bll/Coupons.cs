@@ -16,7 +16,7 @@ namespace Buy.Bll
                 .FirstOrDefault(s =>
                 {
                     var keys = s.Keyword.SplitToArray<string>();
-                    return keys.Contains(keyword);
+                    return keys.Contains(keyword.Trim());
                 })?.ID;
         }
 
@@ -104,7 +104,7 @@ namespace Buy.Bll
                     afterFilter.AddRange(addTemp);
                 }
                 stwatch.Stop();
-                tsFilter = new TimeSpan(stwatch.ElapsedMilliseconds);
+                tsFilter = stwatch.Elapsed;
                 stwatch.Reset();
                 stwatch.Start();
                 //伪造添加时间
@@ -149,7 +149,7 @@ namespace Buy.Bll
                     }
                 }
                 stwatch.Stop();
-                tsAddCoupon = new TimeSpan(stwatch.ElapsedMilliseconds);
+                tsAddCoupon = stwatch.Elapsed;
                 stwatch.Reset();
                 stwatch.Restart();
                 //导入用户用户券
@@ -220,14 +220,39 @@ namespace Buy.Bll
                     db.CouponUserTemps.AddRange(userCoupons);
                     db.SaveChanges();
                 }
+                Action del = null;
                 //臨時表重复券删除
-                var del = db.Database.ExecuteSqlCommand($"delete from CouponUserTemps"
-                    + " where Link in (select Link from CouponUserTemps group by Link having count(Link) > 1)"
-                    + " and ID not in (select min(ID) from CouponUserTemps group by Link having count(Link) > 1)"
-                    + " and UserID = @userid"
-                    , new System.Data.SqlClient.SqlParameter("userid", userID));
+                int delTime = 0;
+                del = () =>
+                {
+                    try
+                    {
+                        delTime++;
+                        var result = db.Database.ExecuteSqlCommand($"delete from CouponUserTemps"
+                           + " where UserID = @userid and Link in (select Link from CouponUserTemps group by Link having count(Link) > 1)"
+                           + " and ID not in (select min(ID) from CouponUserTemps group by Link having count(Link) > 1)"
+                           , new System.Data.SqlClient.SqlParameter("userid", userID));
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        if (delTime > 10)
+                        {
+                            Comm.WriteLog("Coupons_DbAdd", $"UserID:{userID},删除重复数据失败{delTime}：{ex.Message}", Enums.DebugLogLevel.Error);
+                            throw ex;
+                        }
+                        System.Threading.Thread.Sleep(1000 * delTime);
+                        del();
+                        Comm.WriteLog("Coupons_DbAdd", $"UserID:{userID},删除重复数据失败{delTime}：{ex.Message}", Enums.DebugLogLevel.Error);
+
+                    }
+
+                };
+                del();
+
                 stwatch.Stop();
-                tsAddTempCouponUser = new TimeSpan(stwatch.ElapsedMilliseconds);
+                tsAddTempCouponUser = stwatch.Elapsed;
                 stwatch.Reset();
                 stwatch.Restart();
                 //保存到正式表
@@ -257,15 +282,18 @@ namespace Buy.Bll
                    }
                    catch (Exception ex)
                    {
-                       Comm.WriteLog("Coupons_DbAdd", $"UserID:{userID},Platform:{string.Join(",", platformss)}移动数据失败{moveTime}：{ex.Message}", Enums.DebugLogLevel.Error);
 
                        if (moveTime > 10)
                        {
+                           Comm.WriteLog("Coupons_DbAdd", $"UserID:{userID},Platform:{string.Join(",", platformss)}移动数据失败{moveTime}：{ex.Message}", Enums.DebugLogLevel.Error);
                            throw ex;
+
                        }
                        //如果超时了再执行
                        System.Threading.Thread.Sleep(1000 * moveTime);
                        moveData();
+                       Comm.WriteLog("Coupons_DbAdd", $"UserID:{userID},Platform:{string.Join(",", platformss)}移动数据失败{moveTime}：{ex.Message}", Enums.DebugLogLevel.Error);
+
                    }
                };
                 removeData = () =>
@@ -278,19 +306,20 @@ namespace Buy.Bll
                     }
                     catch (Exception ex)
                     {
-                        Comm.WriteLog("Coupons_DbAdd", $"UserID:{userID},Platform:{string.Join(",", platformss)}删除数据失败{removeTime}：{ex.Message}", Enums.DebugLogLevel.Error);
                         if (removeTime > 10)
                         {
+                            Comm.WriteLog("Coupons_DbAdd", $"UserID:{userID},Platform:{string.Join(",", platformss)}删除数据失败{removeTime}：{ex.Message}", Enums.DebugLogLevel.Error);
                             throw ex;
                         }
                         System.Threading.Thread.Sleep(1000 * moveTime);
                         removeData();
+                        Comm.WriteLog("Coupons_DbAdd", $"UserID:{userID},Platform:{string.Join(",", platformss)}删除数据失败{removeTime}：{ex.Message}", Enums.DebugLogLevel.Error);
                     }
                 };
                 moveData();
                 removeData();
                 stwatch.Stop();
-                tsAddCouponUser = new TimeSpan(stwatch.ElapsedMilliseconds);
+                tsAddCouponUser = stwatch.Elapsed;
                 Comm.WriteLog("testTime", $"重复时间：{tsFilter.TotalSeconds}，"
                     + $"添加券用时：{tsAddCoupon.TotalSeconds}，"
                     + $"添加临时表用时：{tsAddTempCouponUser.TotalSeconds}，"
@@ -298,6 +327,24 @@ namespace Buy.Bll
                     + $"导入数量{models.Count}，添加数量{addDbCount}，"
                     + $"重复数{models.Count - afterFilter.Count},"
                     + $"添加失败数{afterFilter.Count - addDbCount}", Enums.DebugLogLevel.Normal);
+            }
+        }
+
+        /// <summary>
+        /// 用于如果请求超时时候，调用这个
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="platforms"></param>
+        /// <returns></returns>
+        public static int DbAddCheck(string userID, IEnumerable<Enums.CouponPlatform> platforms, DateTime date)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var count = db.CouponUserTemps
+                    .Where(s => s.UserID == userID
+                        && platforms.Contains(s.Platform)
+                        && s.CreateDateTime <= date).Count();
+                return count;
             }
         }
     }

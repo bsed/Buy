@@ -131,5 +131,7 @@ namespace Buy.Models
 
 
         public virtual DbSet<CouponUserTemp> CouponUserTemps { get; set; }
+
+        public virtual DbSet<LocalCouponKind> LocalCouponKinds { get; set; }
     }
 }

@@ -68,6 +68,35 @@ namespace Buy.Controllers
             return Json(Comm.ToJsonResult("Success", $"{files.Count}个缓存文件已删除"), JsonRequestBehavior.AllowGet);
         }
 
+
+        public ActionResult DeleteRepeatCoupon()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var userCoupons = db.CouponUsers.GroupBy(s => new
+                {
+                    s.CouponID,
+                    s.UserID
+                }).Select(s => new
+                {
+                    s.Key.CouponID,
+                    s.Key.UserID,
+                    Count = s.Count()
+                }).Where(s => s.Count > 1).ToList();
+                int count = 0;
+                foreach (var item in userCoupons)
+                {
+                    var coupons = db.CouponUsers
+                        .Where(s => s.CouponID == item.CouponID && s.UserID == item.UserID)
+                        .OrderBy(s => s.ID).Skip(1).ToList();
+                    db.CouponUsers.RemoveRange(coupons);
+                    count += db.SaveChanges();
+                }
+                return Json(Comm.ToJsonResult("State", "", count), JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
         public ActionResult FixCountType()
         {
             MoGuJie.Method.ReSetCidFile();

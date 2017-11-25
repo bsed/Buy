@@ -22,7 +22,7 @@ namespace Buy.Controllers
         public ActionResult Index(int page = 1)
         {
             Sidebar();
-            var shop = db.Shops.OrderBy(s=>s.Sort).ToPagedList(page);
+            var shop = db.Shops.OrderBy(s => s.Sort).ToPagedList(page);
             return View(shop);
         }
 
@@ -38,7 +38,13 @@ namespace Buy.Controllers
                     Max = 1,
                     Name = "LogoFileUpload",
                     Type = FileType.Image
-                }
+                },
+                ImagesFileUpload = new FileUpload()
+                {
+                    Max = 9,
+                    Name = "ImagesFileUpload",
+                    Type = FileType.Image
+                },
             };
             return View(shop);
         }
@@ -64,6 +70,17 @@ namespace Buy.Controllers
                     Sort = model.Sort,
                     Logo = model.FileUpload.Images.FirstOrDefault(),
                     Name = model.Name,
+                    Address = model.Address,
+                    City = model.City,
+                    District = model.District,
+                    Images = string.Join(",", model.ImagesFileUpload.Images),
+                    Lat = model.Lat,
+                    Lng = model.Lng,
+                    OwnerID = model.OwnerID,
+                    PhoneNumber = model.PhoneNumber,
+                    Province = model.Province,
+                    Remark = model.Remark,
+                    TradingArea = model.TradingArea
                 };
                 db.Shops.Add(shop);
                 db.SaveChanges();
@@ -84,12 +101,31 @@ namespace Buy.Controllers
                 Sort = shop.Sort,
                 Logo = shop.Logo,
                 Name = shop.Name,
+                Lat = shop.Lat,
+                Lng = shop.Lng,
+                OwnerID = shop.OwnerID,
+                PhoneNumber = shop.PhoneNumber,
+                Province = shop.Province,
+                Remark = shop.Remark,
+                TradingArea = shop.TradingArea,
+                Address = shop.Address,
+                City = shop.City,
+                District = shop.District,
+                Images = shop.Images,
+                ID = shop.ID,
                 FileUpload = new FileUpload()
                 {
                     Max = 1,
                     Images = new string[] { shop.Logo },
                     Type = FileType.Image,
                     Name = "LogoFileUpload",
+                },
+                ImagesFileUpload = new FileUpload()
+                {
+                    Max = 9,
+                    Images = shop.Images.SplitToArray<string>().ToArray(),
+                    Type = FileType.Image,
+                    Name = "ImagesFileUpload",
                 },
             };
             return View(model);
@@ -115,6 +151,17 @@ namespace Buy.Controllers
                 shop.Sort = model.Sort;
                 shop.Logo = model.FileUpload.Images.FirstOrDefault();
                 shop.Code = model.Code;
+                shop.Lat = model.Lat;
+                shop.Lng = model.Lng;
+                shop.OwnerID = model.OwnerID;
+                shop.PhoneNumber = model.PhoneNumber;
+                shop.Province = model.Province;
+                shop.Remark = model.Remark;
+                shop.TradingArea = model.TradingArea;
+                shop.Address = model.Address;
+                shop.City = model.City;
+                shop.District = model.District;
+                shop.Images = string.Join(",", model.ImagesFileUpload.Images);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -133,12 +180,31 @@ namespace Buy.Controllers
                 Sort = shop.Sort,
                 Logo = shop.Logo,
                 Name = shop.Name,
+                Lat = shop.Lat,
+                Lng = shop.Lng,
+                OwnerID = shop.OwnerID,
+                PhoneNumber = shop.PhoneNumber,
+                Province = shop.Province,
+                Remark = shop.Remark,
+                TradingArea = shop.TradingArea,
+                Address = shop.Address,
+                City = shop.City,
+                District = shop.District,
+                Images = shop.Images,
+                ID = shop.ID,
                 FileUpload = new FileUpload()
                 {
                     Max = 1,
                     Images = new string[] { shop.Logo },
                     Type = FileType.Image,
                     Name = "LogoFileUpload",
+                },
+                ImagesFileUpload = new FileUpload()
+                {
+                    Max = 9,
+                    Images = shop.Images.SplitToArray<string>().ToArray(),
+                    Type = FileType.Image,
+                    Name = "ImagesFileUpload",
                 },
             };
             return View(model);
