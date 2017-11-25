@@ -33,7 +33,7 @@
         <ul class="platform">
             <li class="platformLi @((Request["platform"]=="TaoBao" || string.IsNullOrWhiteSpace(Request["platform"]))?"active":"")" data-platform="TaoBao"><div>淘宝<i></i></div></li>
             <li class="platformLi @(Request["platform"]=="MoGuJie" ?"active":"")" data-platform="MoGuJie"><div>蘑菇街<i></i></div></li>
-            @*<li class="platformLi @(Request["platform"]=="Jd" ?"active":"")" dat data-platform="Jd"><div>京东<i></i></div></li>*@
+            <li class="platformLi @(Request["platform"]=="Jd" ?"active":"")" dat data-platform="Jd"><div>京东<i></i></div></li>
         </ul>
         <ul>
             <li id="complex" class="@((Request["sort"]=="0" || string.IsNullOrWhiteSpace(Request["sort"]))?"active":"")" data-sort="0"><t>综合排序</t><span></span></li>

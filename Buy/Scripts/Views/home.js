@@ -176,3 +176,21 @@ setInterval('autoScrolls("#slideBox")', 3000);
 var swiper = new Swiper('.homeIndexM-swiper .swiper-container', {
     direction: 'vertical'
 });
+
+//安卓包
+$("#android_download").click(function () {
+    var android_apk = $("#android_apk").attr("src");
+    if (new check().isWeiXin()) {
+        comm.mask();
+        $("#download-tips").show();
+        $(".linkToCoupon").hide();
+    } else {
+        location.href = comm.webPath + android_apk;
+    }
+});
+
+$("#download-tips").click(function () {
+    comm.mask();
+    $("#download-tips").hide();
+    $(".linkToCoupon").show();
+});

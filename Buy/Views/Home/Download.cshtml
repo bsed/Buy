@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "下載";
+}
+<div class="downloaad">
+    <input hidden value="@ViewBag.Type" id="type" />
+    <img src="~/Content/images/home/logo_white.png" />
+    <div class="text">吃喝玩乐<br />享优惠</div>
+    <div class="detail">买了么优惠券软件内可领取天猫淘宝以及蘑菇街京东内部优惠券，1-5折品牌优惠券。领券购买天猫、淘宝、京东等商品，省50-90%以上</div>
+    <div class="download">
+        <div class="download-btns">
+            <a id="Android" href="~/download/malieme.apk">
+                <img src="~/Content/images/home/slide_bg_android.png" />Android 下载
+            </a>
+        </div>
+        <div class="download-btns">
+            <a id="IOS" href="https://itunes.apple.com/cn/app/id1294184032?mt=8">
+                <img src="~/Content/images/home/slide_bg_ios.png" />App Store 下载
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            var type = $("#type").val();
+            $("#" + type).children().click();
+        });
+    </script>
+}
