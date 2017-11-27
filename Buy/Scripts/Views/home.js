@@ -178,6 +178,7 @@ var swiper = new Swiper('.homeIndexM-swiper .swiper-container', {
 });
 
 var android_apk = $("#android_apk").attr("href");
+var ios_link = $("#ios_link").attr("href");
 //安卓包
 $("#android_download").click(function () {
     if (new check().isWeiXin()) {
@@ -195,12 +196,17 @@ $("#download-tips").click(function () {
     $(".linkToCoupon").show();
 });
 
+var uat = navigator.userAgent;
+var isiOS = !!uat.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
 if (new check().isMoblieDevice()) {
-    if (new check().isWeiXin()) {
+     if (new check().isWeiXin() && !isiOS) {
         comm.mask();
         $("#download-tips").show();
         $(".linkToCoupon").hide();
-    } else {
+     } else if (isiOS) {
+         location.href = ios_link;
+     } else {
         location.href = comm.webPath + android_apk;
     }
 }
