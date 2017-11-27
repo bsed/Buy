@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                                 <div class="slide-item-app-qr fr">
-                                    <img src="@Url.Action("Index","QrCode",new { data=Url.ContentFull(Url.Action("Index","Home"))})" />
+                                    <img src="@Url.Action("Index","QrCode",new { data=Url.ContentFull(Url.Action("Download","Home"))})" />
                                     <div class="qrcode-logo"></div>
                                     <div>扫一扫立即下载</div>
                                 </div>
@@ -191,7 +191,7 @@ else
         <div class="download-tips-text">
             <div>请点击右上角，选择 “在浏览器打开” 进行Android下载</div>
         </div>
-        <a id="android_apk" hidden src="~/Download/maileme.apk"></a>
+        <a id="android_apk" hidden href="~/Download/malieme.apk"></a>
     </div>
     <div class="homeIndexM">
         <div class="homeIndexM-swiper">
