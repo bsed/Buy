@@ -101,29 +101,54 @@
             <td>
                 @if (User.IsInRole(SysRole.RegistrationCodeManageCreate))
                 {
-                    @Html.ActionLink("添加", "Create", "RegistrationCode", new { userId = item.Id }, null)
-                    @Html.Raw("|")
+                    if (item.UserType == Buy.Enums.UserType.Proxy || item.UserType == Buy.Enums.UserType.ProxySec)
+                    {
+                        @Html.ActionLink("添加", "Create", "RegistrationCode", new { userId = item.Id }, null)
+                        @Html.Raw(" | ")
+                    }
                 }
                 @if (User.IsInRole(SysRole.RegistrationCodeManageRead))
                 {
                     @Html.ActionLink("查看", "Index", "RegistrationCode", new { userId = item.Id }, null)
                 }
+                @if (item.UserType == Buy.Enums.UserType.ProxySec)
+                {
+                    if (User.IsInRole(SysRole.RegistrationCodeManageCreate))
+                    {
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("转让", "Transfer", "RegistrationCode", new { userId = item.Id }, null)
+                    }
+                }
             </td>
             <td>
-               
+
                 @if (User.IsInRole(SysRole.UserManageEdit))
                 {
                     @Html.ActionLink("编辑", "Edit", new { id = item.Id, ReturnUrl = Url.Action() }, null)
-                    @Html.Raw("|")
-                }
 
-                @Html.ActionLink("子用户", "Child", new { id = item.Id })
+                }
+                @if (item.UserType == Buy.Enums.UserType.Proxy)
+                {
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("子用户", "Child", new { id = item.Id })
+                }
+                else if (item.UserType == Buy.Enums.UserType.ProxySec)
+                {
+                    if (User.IsInRole(SysRole.UserManageEdit))
+                    {
+                        @Html.Raw(" | ")
+                        <a name="btnUpdate" href="#" data-name="@item.NickName" data-id="@item.Id">升级代理</a>
+                    }
+
+                }
             </td>
 
         </tr>
     }
 
 </table>
-
-
 @Html.PageList(paged, Url.PageUrl())
+
+@section Scripts{
+    @Scripts.Render("~/bundles/userManageIndex")
+}

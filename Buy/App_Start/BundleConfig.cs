@@ -124,6 +124,7 @@ namespace Buy
             addViewScripts("registrationCodeCreate", new string[] { "registrationCodeCreate.js" });
             addViewScripts("userMange", new string[] { "userMange.js" });
             addViewScripts("favorite", new string[] { "favorite.js" });
+            addViewScripts("userManageIndex", new string[] { "userManageIndex.js" });
         }
     }
 }

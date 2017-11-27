@@ -18,8 +18,8 @@ namespace Buy
 
         public Taobao()
         {
-            var key = "24469004";
-            var secret = "480fd9930a4563e4979341cbc8566224";
+            var key = "24705615";
+            var secret = "bdf00ca01f682d979a6f4aa8cc1119d6";
             _client = new DefaultTopClient(_server, key, secret);
         }
 
